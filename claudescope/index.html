@@ -395,7 +395,6 @@
     var q=$("q"), hits=$("hits"), res=$("res"), mSes=$("m-ses"), mMsg=$("m-msg"), mCache=$("m-cache");
     var sleep=function(ms){ return new Promise(function(r){ setTimeout(r,ms); }); };
     function ramp(set,from,to,dur,fmt){ var start=performance.now(); return new Promise(function(res){ function frame(now){ var pr=Math.min(1,(now-start)/dur); var e=1-Math.pow(1-pr,3); set(fmt(from+(to-from)*e)); if(pr<1)requestAnimationFrame(frame); else res(); } requestAnimationFrame(frame); }); }
-    function setText(node,s){ if(node) node.firstChild ? (node.childNodes[0].nodeType===3 ? node.childNodes[0].nodeValue=s : node.insertBefore(document.createTextNode(s),node.firstChild)) : node.appendChild(document.createTextNode(s)); }
     var QUERY = "driver de postgres";
     async function typeQuery(){
       if(!q) return;

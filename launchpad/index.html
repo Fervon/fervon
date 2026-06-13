@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>launchpad · Una carpeta, doce repos, una pantalla — sin choques de puerto | Fervon</title>
+  <meta name="description" content="Mission Control (launchpad) descubre todos tus proyectos de una carpeta y los arranca a la vez en puertos sin colisión, con logs en vivo, git y salud en una sola pantalla. Local-only en 127.0.0.1. Gratis y open source. Un proyecto de Fervon." />
+  <link rel="canonical" href="https://fervon.dev/launchpad/" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#0E0B0A" />
+  <link rel="icon" href="/assets/logo.svg" type="image/svg+xml" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Fervon" />
+  <meta property="og:title" content="launchpad · Una carpeta, doce repos, una pantalla — sin choques de puerto" />
+  <meta property="og:description" content="Descubre y arranca todos tus proyectos a la vez en puertos sin colisión, con logs en vivo, git y salud. Local-only. Gratis y open source." />
+  <meta property="og:url" content="https://fervon.dev/launchpad/" />
+  <meta property="og:image" content="https://raw.githubusercontent.com/JoniMartin27/launchpad/main/docs/demo.gif" />
+  <meta property="og:locale" content="es_ES" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "launchpad (Mission Control)",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Windows, macOS, Linux",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "description": "Dashboard local-first que descubre todos tus proyectos de una carpeta y los arranca a la vez en puertos sin colisión, con logs en vivo, git y salud en una sola pantalla. Binds 127.0.0.1, sin cuentas ni telemetría.",
+    "license": "https://opensource.org/licenses/MIT",
+    "publisher": { "@type": "Organization", "name": "Fervon", "url": "https://fervon.dev/" },
+    "url": "https://fervon.dev/launchpad/"
+  }
+  </script>
+
+  <style>
+    :root{--bg:#0E0B0A;--bg2:#16110E;--panel:#1A1310;--line:#2C211B;--line2:#3A2C22;--ember:#FF6A00;--brasa:#E0480F;--amber:#FFB02E;--spark:#FFD37A;--bone:#EFE7DC;--ash:#A89A8E;--dim:#7A6C60}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--bone);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+    .grad{background:linear-gradient(90deg,var(--ember),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .glass{background:rgba(26,19,16,.55);border:1px solid var(--line);border-radius:16px;backdrop-filter:blur(8px)}
+    .bggrid{background-image:linear-gradient(rgba(255,106,0,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,106,0,.045) 1px,transparent 1px);background-size:46px 46px}
+    .eye{font-size:13px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--amber)}
+    .mono{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace}
+    /* nav */
+    .nav{position:fixed;top:0;inset-inline:0;z-index:50}
+    .nav .bar{margin:12px auto 0;max-width:1120px;display:flex;align-items:center;justify-content:space-between;padding:10px 18px}
+    .crumb{display:flex;align-items:center;gap:8px;font-weight:700}
+    .crumb .fv{color:var(--ember)}
+    .crumb .sep{color:var(--dim);font-weight:400}
+    .nav .menu{display:flex;gap:26px;font-size:14px;color:var(--ash)}
+    .nav .menu a:hover{color:var(--bone)}
+    .nav .act{display:flex;gap:10px;align-items:center}
+    @media(max-width:880px){.nav .menu{display:none}}
+    /* buttons */
+    .btn{display:inline-flex;align-items:center;gap:8px;border-radius:11px;padding:12px 20px;font-size:15px;font-weight:600;cursor:pointer;transition:.16s;border:0}
+    .btn-fire{background:linear-gradient(180deg,var(--ember),var(--brasa));color:#1A0E06;box-shadow:0 8px 26px rgba(255,106,0,.32)}
+    .btn-fire:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(255,106,0,.45)}
+    .btn-ghost{border:1px solid var(--line2);color:var(--bone)}
+    .btn-ghost:hover{border-color:var(--ember);color:var(--amber)}
+    .btn-sm{padding:8px 14px;font-size:14px}
+    /* hero */
+    .hero{position:relative;padding:128px 0 72px}
+    .hero .cols{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center}
+    .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line2);background:rgba(26,19,16,.6);border-radius:20px;padding:5px 12px;font-size:12px;color:var(--ash)}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber)}
+    .hero h1{font-size:clamp(34px,5vw,58px);line-height:1.04;letter-spacing:-1.5px;font-weight:800;margin-top:20px}
+    .hero .sub{font-size:18px;color:var(--ash);max-width:540px;margin-top:20px}
+    .hero .sub b{color:var(--bone)}
+    .hero .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .trust{display:flex;gap:18px;flex-wrap:wrap;margin-top:22px;font-size:12px;color:var(--dim)}
+    @media(max-width:900px){.hero .cols{grid-template-columns:1fr}.demo{order:-1}}
+    /* demo card */
+    .demo .top{display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line);padding:12px 16px;font-size:12px;color:var(--dim)}
+    .demo .top i{width:11px;height:11px;border-radius:50%;display:inline-block}
+    .demo .body{padding:18px}
+    /* project grid (demo) */
+    .pgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+    .pcard{border:1px solid var(--line);background:rgba(14,11,10,.5);border-radius:12px;padding:11px 12px;position:relative;overflow:hidden}
+    .pcard .nm{font-size:13px;font-weight:600;display:flex;align-items:center;gap:7px}
+    .pcard .meta{font-size:10.5px;color:var(--dim);margin-top:5px;display:flex;justify-content:space-between;align-items:center}
+    .sdot{width:8px;height:8px;border-radius:50%;flex:none}
+    .s-run{background:#9FC979;box-shadow:0 0 8px rgba(159,201,121,.7)}
+    .s-idle{background:var(--dim)}
+    .s-start{background:var(--amber);box-shadow:0 0 8px var(--amber)}
+    .portchip{font-size:10px;color:var(--ash);background:var(--line);border-radius:6px;padding:1px 6px}
+    .term{height:118px;overflow:hidden;border:1px solid var(--line);background:#070504;border-radius:12px;padding:12px;font-size:12px;line-height:1.55;margin-top:16px}
+    /* sections */
+    .sec{padding:72px 0}
+    .sec.alt{background:var(--bg2);border-block:1px solid var(--line)}
+    .center{text-align:center;max-width:680px;margin:0 auto}
+    .sec h2{font-size:clamp(26px,3.4vw,38px);letter-spacing:-.8px;font-weight:800;margin-top:10px}
+    .sec .desc{color:var(--ash);margin-top:14px}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+    .stats .v{font-size:clamp(30px,4vw,42px);font-weight:800}
+    .stats .l{font-size:14px;color:var(--dim);margin-top:4px}
+    @media(max-width:620px){.stats{grid-template-columns:repeat(2,1fr)}.pgrid{grid-template-columns:1fr}}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:44px}
+    .feat{padding:24px}
+    .feat .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(255,106,0,.1);color:var(--ember);font-size:22px}
+    .feat h3{font-size:16px;font-weight:700;margin:14px 0 6px}
+    .feat p{font-size:14px;color:var(--ash)}
+    .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:44px}
+    .step{padding:20px}
+    .step .n{font-size:13px;color:var(--amber)}
+    .step h4{margin-top:8px;font-weight:700}
+    .step p{font-size:13.5px;color:var(--ash);margin-top:6px}
+    @media(max-width:820px){.steps{grid-template-columns:1fr 1fr}}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+    @media(max-width:820px){.two{grid-template-columns:1fr}}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+    .chip{border:1px solid var(--line2);background:rgba(26,19,16,.6);border-radius:20px;padding:5px 12px;font-size:12px;color:var(--ash)}
+    table{width:100%;border-collapse:collapse;font-size:14px}
+    thead{font-size:12px;color:var(--dim)}
+    th,td{padding:10px 14px;text-align:center}
+    th:first-child,td:first-child{text-align:left}
+    tbody tr:nth-child(odd){background:rgba(14,11,10,.4)}
+    /* command box (CTA principal) */
+    .cmdwrap{max-width:680px;margin:36px auto 0}
+    .cmdbox{position:relative;border:1px solid var(--line2);background:#070504;border-radius:14px;padding:20px 22px;text-align:left;box-shadow:0 8px 26px rgba(0,0,0,.4)}
+    .cmdbox .glow{position:absolute;inset:0;border-radius:14px;pointer-events:none;box-shadow:inset 0 0 0 1px rgba(255,106,0,.12)}
+    .cmdline{font-size:14.5px;line-height:1.9;white-space:nowrap;overflow-x:auto}
+    .cmdline .pr{color:var(--brasa);user-select:none}
+    .cmdline .cm{color:var(--spark)}
+    .cmdline .ct{color:var(--dim)}
+    .copybtn{position:absolute;top:14px;right:14px;border:1px solid var(--line2);background:rgba(26,19,16,.8);color:var(--ash);border-radius:9px;padding:6px 12px;font-size:12.5px;cursor:pointer;transition:.16s;display:inline-flex;align-items:center;gap:6px}
+    .copybtn:hover{border-color:var(--ember);color:var(--amber)}
+    .dlhero{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:8px}
+    .dlothers{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+    .dlchip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line2);border-radius:10px;padding:9px 14px;font-size:13.5px;color:var(--ash)}
+    .dlchip:hover{border-color:var(--ember);color:var(--bone)}
+    .dlchip b{color:var(--bone)}
+    /* cta */
+    .ctaband{position:relative;overflow:hidden;border-radius:24px;padding:60px 24px;text-align:center}
+    /* footer */
+    .foot{border-top:1px solid var(--line);padding:30px 0;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--dim)}
+    .foot a{color:var(--brasa)}
+    .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.in{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+
+  <header class="nav"><div class="glass bar">
+    <a class="crumb" href="/"><span class="fv">🔥 fervon</span><span class="sep">›</span><span>launchpad</span></a>
+    <nav class="menu">
+      <a href="#features">Características</a>
+      <a href="#demo">Demo</a>
+      <a href="#how">Cómo funciona</a>
+      <a href="#detect">Detección</a>
+      <a href="#start">Empezar</a>
+    </nav>
+    <div class="act">
+      <a class="btn btn-ghost btn-sm" href="https://github.com/JoniMartin27/launchpad">GitHub</a>
+      <a class="btn btn-fire btn-sm" href="#start">Instalar</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="bggrid" style="position:absolute;inset:0;z-index:-1;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000,transparent)"></div>
+      <div class="wrap cols">
+        <div>
+          <span class="pill reveal"><span class="dot"></span> Open source · MIT · Local-only en 127.0.0.1</span>
+          <h1 class="reveal">Una carpeta, doce repos, <span class="grad">una sola pantalla</span>.</h1>
+          <p class="sub reveal"><strong>Mission Control</strong> apunta a la carpeta donde guardas tus proyectos y pulsa arrancar. <b>Los detecta todos, deduce cómo lanzar cada uno desde sus propios archivos y los corre a la vez en puertos sin colisión</b> — con logs en vivo, git y salud en una vista. Sin rituales de <span class="mono">cd</span>, sin detectives de puertos.</p>
+          <div class="row reveal">
+            <a class="btn btn-fire" href="#start">Cómo instalarlo</a>
+            <a class="btn btn-ghost" href="https://github.com/JoniMartin27/launchpad">Ver en GitHub</a>
+          </div>
+          <div class="trust reveal"><span>✓ Sin cuentas, sin telemetría</span><span>✓ Node 18+</span><span>✓ Nada sale de tu máquina</span></div>
+        </div>
+
+        <div class="demo reveal">
+          <div class="glass">
+            <div class="top">
+              <i style="background:#E0480F"></i><i style="background:#FFB02E"></i><i style="background:#9FC979"></i>
+              <span style="margin-left:6px">Mission Control · 127.0.0.1:7777</span>
+              <span style="margin-left:auto;color:var(--amber);display:inline-flex;align-items:center;gap:6px"><span class="dot"></span> LIVE</span>
+            </div>
+            <div class="body">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+                <div style="font-weight:600;font-size:13px">Proyectos descubiertos</div>
+                <div class="mono" style="font-size:11px;color:var(--dim)"><span id="run-count">0</span>/4 en marcha</div>
+              </div>
+              <div class="pgrid">
+                <div class="pcard"><div class="nm"><span class="sdot s-run" id="d0"></span> api-server</div><div class="meta"><span>express · node</span><span class="portchip">:4000</span></div></div>
+                <div class="pcard"><div class="nm"><span class="sdot s-run" id="d1"></span> web-app</div><div class="meta"><span>vite · react</span><span class="portchip">:4001</span></div></div>
+                <div class="pcard"><div class="nm"><span class="sdot s-start" id="d2"></span> docs-site</div><div class="meta"><span>astro</span><span class="portchip">:4002</span></div></div>
+                <div class="pcard"><div class="nm"><span class="sdot s-idle" id="d3"></span> worker-bot</div><div class="meta"><span>telegram · cli</span><span class="portchip">:4003</span></div></div>
+              </div>
+              <div class="term mono" id="log"><div style="color:var(--dim)">$ mission-control · escaneando ~/code …</div></div>
+            </div>
+          </div>
+          <p style="text-align:center;font-size:11px;color:var(--dim);margin-top:8px">Demo ilustrativa de la rejilla de proyectos.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEMO REAL -->
+    <section class="sec alt" id="demo">
+      <div class="wrap center reveal">
+        <span class="eye">Demo</span>
+        <h2>Míralo en acción</h2>
+        <p class="desc">Lanza dos proyectos en puertos sin colisión y mira los logs en vivo en el cajón de detalle — branch de git, versión publicada y estado de CI, todo en la misma pantalla y todo en tu equipo.</p>
+      </div>
+      <div class="wrap reveal" style="max-width:940px;margin-top:32px">
+        <figure class="glass" style="overflow:hidden;padding:0">
+          <img src="https://raw.githubusercontent.com/JoniMartin27/launchpad/main/docs/demo.gif" alt="Mission Control en acción: lanza dos proyectos en puertos sin colisión y observa los logs en vivo en el cajón de detalle" loading="lazy" decoding="async" style="width:100%;display:block" />
+        </figure>
+        <p style="text-align:center;font-size:11px;color:var(--dim);margin-top:10px">Recorrido real del producto, sin edición.</p>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="sec"><div class="wrap stats">
+      <div class="reveal"><div class="v grad">100</div><div class="l">puertos del rango (4000–4099)</div></div>
+      <div class="reveal"><div class="v grad">1</div><div class="l">pantalla para todo</div></div>
+      <div class="reveal"><div class="v grad">127.0.0.1</div><div class="l">único host de escucha</div></div>
+      <div class="reveal"><div class="v grad">0</div><div class="l">datos enviados a la nube</div></div>
+    </div></section>
+
+    <!-- HOW -->
+    <section class="sec alt" id="how"><div class="wrap">
+      <div class="center reveal"><span class="eye">El flujo</span><h2>De doce <span class="mono" style="font-size:.8em">cd</span> al día a una sola pantalla</h2><p class="desc">Apunta a tu carpeta de proyectos y pulsa arrancar. Mission Control hace el resto, sin nombres hardcodeados.</p></div>
+      <div class="steps">
+        <div class="glass step reveal"><div class="n mono">01</div><h4>Apunta a la carpeta</h4><p>Vive dentro de tu raíz de proyectos. En el primer arranque la escanea y siembra un <span class="mono">config.json</span> local.</p></div>
+        <div class="glass step reveal"><div class="n mono">02</div><h4>Auto-detecta cada uno</h4><p>Deduce tipo y comando de dev desde los propios archivos del proyecto. Cero configuración para empezar.</p></div>
+        <div class="glass step reveal"><div class="n mono">03</div><h4>Arranca sin chocar</h4><p>Cada proyecto recibe un puerto único del rango, inyectado al lanzar (env <span class="mono">PORT</span> + el flag correcto por framework).</p></div>
+        <div class="glass step reveal"><div class="n mono">04</div><h4>Vigila en vivo</h4><p>Logs por WebSocket, git, versión publicada y CI en una vista. Para con árbol de procesos completo: nada queda colgando un puerto.</p></div>
+      </div>
+    </div></section>
+
+    <!-- FEATURES -->
+    <section class="sec" id="features"><div class="wrap">
+      <div class="center reveal"><span class="eye">Características</span><h2>Reemplaza todo el baile por una pantalla</h2></div>
+      <div class="cards">
+        <div class="glass feat reveal"><div class="ic">🔍</div><h3>Auto-detección sin config</h3><p>Escanea tu carpeta y deduce tipo y comando de dev de los propios archivos: scripts de <span class="mono">package.json</span>, Vite, Next, Astro, Electron, Express/Fastify, sitios estáticos, Python/FastAPI, bots de Telegram y monorepos de workspaces.</p></div>
+        <div class="glass feat reveal"><div class="ic">🛰️</div><h3>Lanza muchos, cero choques</h3><p>Cada proyecto obtiene un puerto único en un rango configurable (por defecto 4000–4099), inyectado al lanzar. Corre cinco a la vez, todos aislados.</p></div>
+        <div class="glass feat reveal"><div class="ic">📡</div><h3>Logs en vivo</h3><p>Streaming por WebSocket, limpios de ANSI, con filtrar / seguir / limpiar. El cajón de detalle muestra la salida de cada proceso en tiempo real.</p></div>
+        <div class="glass feat reveal"><div class="ic">🌿</div><h3>Git de un vistazo</h3><p>Branch, recuento de cambios sin commitear, ahead/behind y último commit — por proyecto, sin abrir la terminal.</p></div>
+        <div class="glass feat reveal"><div class="ic">📈</div><h3>Salud publicada</h3><p>Versión publicada en npm/PyPI y estado de CI de GitHub (vía <span class="mono">gh</span>), cacheado para que la rejilla siga rápida.</p></div>
+        <div class="glass feat reveal"><div class="ic">🩹</div><h3>Fallos amables</h3><p>¿Faltan <span class="mono">node_modules</span>? Un botón <b>Instalar</b> de un click. ¿Falta un env o un token? Una pista clara, no un muro rojo.</p></div>
+        <div class="glass feat reveal"><div class="ic">✨</div><h3>Re-escaneo en vivo</h3><p>Suelta una carpeta nueva de proyecto y se anima dentro de la rejilla (watcher de sistema de archivos), sin reiniciar nada.</p></div>
+        <div class="glass feat reveal"><div class="ic">🛑</div><h3>Control de procesos limpio</h3><p>Start/stop con kill del árbol de procesos completo en Windows (<span class="mono">taskkill /T /F</span>): nada se queda agarrando un puerto de ayer.</p></div>
+        <div class="glass feat reveal"><div class="ic">🔒</div><h3>Local-only por diseño</h3><p>Escucha en <span class="mono">127.0.0.1</span> (HTTP + WebSocket), nunca <span class="mono">0.0.0.0</span>. Sin cuentas, sin telemetría, sin llamar a casa.</p></div>
+      </div>
+    </div></section>
+
+    <!-- DETECT -->
+    <section class="sec alt" id="detect"><div class="wrap two">
+      <div class="reveal">
+        <span class="eye">Detección</span>
+        <h2>Genérica, sin nombres hardcodeados</h2>
+        <p class="desc">La detección es <b>híbrida</b>: un escaneo automático del sistema de archivos, unido a tus sobrescrituras por proyecto en <span class="mono" style="background:var(--line);border-radius:4px;padding:1px 5px;color:var(--amber)">config.json</span> (local de tu máquina, fuera de git). Edítalo a mano o desde el propio dashboard.</p>
+        <div class="chips">
+          <span class="chip">Vite · React</span><span class="chip">Next.js</span><span class="chip">Astro</span><span class="chip">Electron</span><span class="chip">Express · Fastify</span><span class="chip">Python · FastAPI</span><span class="chip">Sitios estáticos</span><span class="chip">Bots de Telegram</span><span class="chip">Monorepos (workspaces)</span><span class="chip">backend/ + frontend/</span>
+        </div>
+        <p style="font-size:14px;color:var(--dim);margin-top:18px">Por proyecto puedes fijar el puerto, cambiar el nombre o el comando, ajustar cómo se inyecta el puerto, añadir variables de entorno, ocultar una tarjeta o marcarla como no lanzable.</p>
+      </div>
+      <div class="glass reveal" style="overflow:hidden">
+        <div style="border-bottom:1px solid var(--line);padding:12px 16px;font-weight:600;font-size:14px">Sobrescrituras por proyecto</div>
+        <div style="overflow-x:auto"><table>
+          <thead><tr><th>Campo</th><th>Qué hace</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">port</td><td style="color:var(--ash)">Fija el puerto asignado</td></tr>
+            <tr><td class="mono">name</td><td style="color:var(--ash)">Nombre que se muestra</td></tr>
+            <tr><td class="mono">command</td><td style="color:var(--ash)">Sobrescribe el comando de dev</td></tr>
+            <tr><td class="mono">portFlag / portEnv</td><td style="color:var(--ash)">Cómo se pasa el puerto</td></tr>
+            <tr><td class="mono">env</td><td style="color:var(--ash)">Variables extra (<span class="mono">${PORT}</span> se sustituye)</td></tr>
+            <tr><td class="mono">hidden / runnable</td><td style="color:var(--ash)">Oculta tarjeta / marca no lanzable</td></tr>
+            <tr><td class="mono">cwd</td><td style="color:var(--ash)">Directorio de trabajo</td></tr>
+          </tbody>
+        </table></div>
+        <div style="border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--dim)">Ajustes globales bajo <span class="mono">settings</span>: raíz de proyectos, puerto del dashboard, rango de puertos, TTL de métricas y auto-escaneo.</div>
+      </div>
+    </div></section>
+
+    <!-- WHY / PRIVACY -->
+    <section class="sec"><div class="wrap">
+      <div class="center reveal"><span class="eye">Postura</span><h2>Un solo usuario, solo loopback</h2><p class="desc">Cada petición se comprueba contra una dirección remota de loopback; el socket escucha en <span class="mono">127.0.0.1</span> en exclusiva. Lanza procesos que ya tienes en disco con comandos derivados de esos proyectos — trátalo como ejecutar <span class="mono">npm run dev</span> tú mismo.</p></div>
+      <div class="cards" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+        <div class="glass feat reveal"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">Sin nube</h3><span class="chip" style="color:var(--amber)">Siempre</span></div><p style="margin-top:10px">Nada sale de tu máquina. Sin cuentas, sin telemetría, sin llamadas a casa. El binding a <span class="mono">127.0.0.1</span> es el control principal.</p></div>
+        <div class="glass feat reveal"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">Degrada con gracia</h3><span class="chip" style="color:var(--ember)">Opcional</span></div><p style="margin-top:10px"><span class="mono">git</span> y la <span class="mono">gh</span> CLI alimentan los paneles de git y CI; <span class="mono">uv</span> los proyectos Python. Si faltan, el resto sigue funcionando.</p></div>
+        <div class="glass feat reveal"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">Windows-aware</h3><span class="chip" style="color:var(--spark)">Probado</span></div><p style="margin-top:10px">La lógica de lanzar y de puertos es consciente de Windows: kill del árbol de procesos y sonda de readiness dual-stack. Node 18+.</p></div>
+      </div>
+    </div></section>
+
+    <!-- START (CTA principal: command box) -->
+    <section class="sec alt" id="start"><div class="wrap">
+      <div class="center reveal"><span class="eye">Empezar</span><h2>Clónalo dentro de tu carpeta y arranca</h2><p class="desc">Mission Control está pensado para vivir <b>dentro</b> de la carpeta que gestiona. Clónalo junto a tus proyectos, compila la UI una vez y sirve todo en un puerto.</p></div>
+      <div class="cmdwrap reveal">
+        <div class="cmdbox">
+          <span class="glow"></span>
+          <button class="copybtn" id="copyBtn" aria-label="Copiar comandos">⧉ Copiar</button>
+          <div class="cmdline mono"><span class="pr">$</span> git clone https://github.com/JoniMartin27/launchpad</div>
+          <div class="cmdline mono"><span class="pr">$</span> cd launchpad</div>
+          <div class="cmdline mono"><span class="pr">$</span> npm install</div>
+          <div class="cmdline mono"><span class="pr">$</span> npm run build      <span class="ct"># compila la UI web</span></div>
+          <div class="cmdline mono"><span class="pr">$</span> <span class="cm">npm start</span>          <span class="ct"># UI + API + WS en http://127.0.0.1:7777</span></div>
+        </div>
+      </div>
+      <div class="dlhero reveal">
+        <p style="font-size:14px;color:var(--ash);max-width:560px;text-align:center;margin-top:18px">Abre <a class="mono" style="color:var(--amber)" href="http://127.0.0.1:7777">http://127.0.0.1:7777</a>. En el primer arranque escanea la carpeta padre, siembra un <span class="mono">config.json</span> local y muestra tus proyectos. Ya está.</p>
+        <div class="dlothers" id="dlOthers">
+          <a class="dlchip" href="https://github.com/JoniMartin27/launchpad">🐙 <b>Repositorio</b> · GitHub</a>
+          <a class="dlchip" href="https://github.com/JoniMartin27/launchpad/blob/main/SPEC.md">📄 <b>SPEC.md</b> · contrato REST + WS</a>
+          <a class="dlchip" href="https://github.com/JoniMartin27/launchpad/blob/main/DESIGN.md">🎨 <b>DESIGN.md</b> · sistema de diseño</a>
+        </div>
+        <p style="font-size:13px;color:var(--dim);margin-top:12px">¿Otra carpeta de proyectos? Pon <span class="mono">MISSION_CONTROL_PROJECTS_ROOT=/ruta/a/code</span> o edita <span class="mono">settings.projectsRoot</span>. · Modo dev (HMR): <span class="mono">npm run dev</span></p>
+      </div>
+    </div></section>
+
+    <!-- CTA -->
+    <section class="sec"><div class="wrap">
+      <div class="glass ctaband reveal">
+        <div class="bggrid" style="position:absolute;inset:0;z-index:-1;opacity:.6"></div>
+        <h2>Deja de hacer de detective de puertos. <span class="grad">Pulsa arrancar.</span></h2>
+        <p class="desc" style="max-width:560px;margin:14px auto 0">Una carpeta, todos tus repos, una pantalla — detectados solos, sin choques de puerto, con logs, git y salud en vivo. Y todo en tu equipo.</p>
+        <div class="row" style="justify-content:center;margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn btn-fire" href="#start">Cómo instalarlo</a>
+          <a class="btn btn-ghost" href="https://github.com/JoniMartin27/launchpad">⭐ Estrella en GitHub</a>
+        </div>
+      </div>
+    </div></section>
+  </main>
+
+  <footer><div class="wrap foot">
+    <span>launchpad es un proyecto de <a href="https://fervon.dev">🔥 Fervon</a> · Forjado al rojo vivo</span>
+    <span>MIT © 2026 Jonathan Martín · <a href="https://github.com/JoniMartin27/launchpad">GitHub ↗</a></span>
+  </div></footer>
+
+  <script>
+    // ---- Copiar comandos de arranque ----
+    (function(){
+      var btn = document.getElementById("copyBtn");
+      if(!btn) return;
+      var cmds = [
+        "git clone https://github.com/JoniMartin27/launchpad",
+        "cd launchpad",
+        "npm install",
+        "npm run build",
+        "npm start"
+      ].join("\n");
+      btn.addEventListener("click", function(){
+        var done = function(){ var t=btn.textContent; btn.textContent="✓ Copiado"; btn.style.color="var(--amber)"; setTimeout(function(){ btn.innerHTML="⧉ Copiar"; btn.style.color=""; },1600); };
+        if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(cmds).then(done).catch(function(){ fallback(); }); }
+        else { fallback(); }
+        function fallback(){ var ta=document.createElement("textarea"); ta.value=cmds; ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.select(); try{ document.execCommand("copy"); done(); }catch(e){} document.body.removeChild(ta); }
+      });
+    })();
+
+    // ---- Demo de la rejilla animada ----
+    var $ = function(id){ return document.getElementById(id); };
+    var log=$("log"), runCount=$("run-count");
+    var sleep=function(ms){ return new Promise(function(r){ setTimeout(r,ms); }); };
+    function addLog(text,color){ if(!log)return; var l=document.createElement("div"); l.style.color=color||"var(--ash)"; l.textContent=text; log.appendChild(l); while(log.childNodes.length>6) log.removeChild(log.firstChild); log.scrollTop=log.scrollHeight; }
+    function setDot(id,cls){ var el=$(id); if(el) el.className="sdot "+cls; }
+    function setCount(n){ if(runCount) runCount.textContent=n; }
+    async function loop(){
+      // reset
+      setDot("d0","s-idle"); setDot("d1","s-idle"); setDot("d2","s-idle"); setDot("d3","s-idle"); setCount(0);
+      if(log) log.innerHTML='<div style="color:var(--dim)">$ mission-control · escaneando ~/code …</div>';
+      await sleep(650);
+      addLog("✓ 4 proyectos detectados · puertos 4000–4003 asignados","#9FC979");
+      await sleep(700);
+      addLog("→ api-server  · express  · npm run dev · :4000","var(--ember)"); setDot("d0","s-start");
+      await sleep(700); setDot("d0","s-run"); setCount(1); addLog("✓ api-server listening on http://127.0.0.1:4000","#9FC979");
+      await sleep(650);
+      addLog("→ web-app     · vite     · npm run dev · :4001","var(--ember)"); setDot("d1","s-start");
+      await sleep(750); setDot("d1","s-run"); setCount(2); addLog("✓ web-app ready in 612 ms · Local: :4001","#9FC979");
+      await sleep(650);
+      addLog("→ docs-site   · astro    · npm run dev · :4002","var(--ember)"); setDot("d2","s-start");
+      await sleep(800); setDot("d2","s-run"); setCount(3); addLog("✓ docs-site running at :4002","#9FC979");
+      await sleep(700);
+      addLog("· worker-bot  · telegram · en reposo (no lanzado)","var(--dim)");
+      await sleep(900);
+      addLog("✓ 3 en marcha · sin choques de puerto","#9FC979");
+      await sleep(3400); loop();
+    }
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if(!reduce){ var obs=new IntersectionObserver(function(e){ if(e[0].isIntersecting){ obs.disconnect(); loop(); } }); if(log) obs.observe(log); }
+    else { setDot("d0","s-run"); setDot("d1","s-run"); setDot("d2","s-run"); setDot("d3","s-idle"); setCount(3); if(log){ log.innerHTML=''; addLog("✓ 3 en marcha · sin choques de puerto","#9FC979"); } }
+
+    // ---- Reveal on scroll ----
+    var rev=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("in"); rev.unobserve(en.target); } }); },{threshold:.12});
+    document.querySelectorAll(".reveal").forEach(function(el){ rev.observe(el); });
+  </script>
+</body>
+</html>

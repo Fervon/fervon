@@ -46,20 +46,39 @@
     a{color:inherit;text-decoration:none}
     .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
 
-    /* Nav */
-    nav{position:sticky;top:0;z-index:50;background:rgba(14,11,10,.82);backdrop-filter:saturate(150%) blur(10px);border-bottom:1px solid var(--line)}
-    nav .bar{max-width:1080px;margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between}
+    /* Nav + mega menu */
+    nav{position:sticky;top:0;z-index:60;background:rgba(14,11,10,.86);backdrop-filter:saturate(150%) blur(10px);border-bottom:1px solid var(--line)}
+    nav .bar{max-width:1080px;margin:0 auto;padding:12px 24px;display:flex;align-items:center;justify-content:space-between}
     nav .brand{font-size:19px;font-weight:800;letter-spacing:-.5px}
     nav .brand span{color:var(--ember)}
-    nav .links{display:flex;gap:24px;align-items:center}
-    nav .links a{font-size:14px;color:var(--ash)}
-    nav .links a:hover{color:var(--bone)}
-    nav .links .cta{color:var(--bone);border:1px solid var(--line2);padding:8px 15px;border-radius:9px}
+    nav .links{display:flex;gap:4px;align-items:center}
+    nav .links>a,nav .navbtn{font-size:14px;color:var(--ash);padding:9px 13px;border-radius:9px;font-family:inherit}
+    nav .links>a:hover,nav .navbtn:hover{color:var(--bone)}
+    nav .links .cta{color:var(--bone);border:1px solid var(--line2);margin-left:6px}
     nav .links .cta:hover{border-color:var(--ember);color:var(--amber)}
-    @media(max-width:720px){nav .links a:not(.cta){display:none}}
+    .hasmega{position:relative}
+    .navbtn{cursor:pointer;display:inline-flex;align-items:center;gap:5px}
+    .mega{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(6px);width:min(700px,94vw);background:#15100E;border:1px solid var(--line2);border-radius:16px;padding:16px;box-shadow:0 24px 60px rgba(0,0,0,.55);display:grid;grid-template-columns:1fr 1fr;gap:6px 20px;opacity:0;visibility:hidden;transition:opacity .16s ease,transform .16s ease;z-index:70}
+    .hasmega:hover .mega{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+    .megagroup.full{grid-column:1 / -1}
+    .megalabel{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);padding:8px 10px 3px}
+    .megaitem{display:flex;gap:11px;align-items:flex-start;padding:9px 10px;border-radius:10px;transition:background .14s}
+    .megaitem:hover{background:rgba(255,106,0,.08)}
+    .mi-ic{font-size:20px;line-height:1.25;flex:none}
+    .mi-n{font-weight:600;color:var(--bone);font-size:14.5px}
+    .mi-n b{font-size:10px;color:var(--amber);font-weight:700;margin-left:6px;vertical-align:middle}
+    .mi-d{display:block;font-size:12.5px;color:var(--ash)}
+    @media(max-width:760px){nav .links>a:not(.cta),nav .navbtn{display:none}.mega{display:none}}
+
+    /* Buttons */
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:11px;font-size:15px;font-weight:600;cursor:pointer;border:0;transition:.16s}
+    .btn-fire{background:linear-gradient(180deg,var(--ember),var(--brasa));color:#1A0E06;box-shadow:0 8px 26px rgba(255,106,0,.3)}
+    .btn-fire:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(255,106,0,.42)}
+    .btn-ghost{border:1px solid var(--line2);color:var(--bone);background:transparent}
+    .btn-ghost:hover{border-color:var(--ember);color:var(--amber)}
 
     /* Hero */
-    .hero{position:relative;text-align:center;padding:88px 24px 56px;overflow:hidden}
+    .hero{position:relative;text-align:center;padding:84px 24px 52px;overflow:hidden}
     .hero::before{content:"";position:absolute;top:-120px;left:50%;width:760px;height:520px;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(255,106,0,.2),rgba(224,72,15,.08) 38%,transparent 70%);pointer-events:none;animation:breathe 6s ease-in-out infinite}
     @keyframes breathe{0%,100%{opacity:.8}50%{opacity:1}}
     .hero .logo{position:relative;width:100%;max-width:440px;margin:0 auto 6px}
@@ -68,17 +87,11 @@
     .lead strong{color:var(--bone);font-weight:600}
     .root{position:relative;margin-top:14px;font-size:14px;font-style:italic;color:var(--dim)}
     .cta-row{position:relative;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:32px}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:11px;font-size:15px;font-weight:600;cursor:pointer;border:0;transition:.16s}
-    .btn-fire{background:linear-gradient(180deg,var(--ember),var(--brasa));color:#1A0E06;box-shadow:0 8px 26px rgba(255,106,0,.3)}
-    .btn-fire:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(255,106,0,.42)}
-    .btn-ghost{border:1px solid var(--line2);color:var(--bone);background:transparent}
-    .btn-ghost:hover{border-color:var(--ember);color:var(--amber)}
-    .btn-sm{padding:8px 15px;font-size:14px}
 
     /* Sections */
-    .sec{padding:58px 0 12px}
+    .sec{padding:56px 0 12px}
     .sec h2{font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--ash);font-weight:500;text-align:center;margin-bottom:6px}
-    .sec .sub{text-align:center;color:var(--dim);font-size:15px;margin-bottom:34px}
+    .sec .sub{text-align:center;color:var(--dim);font-size:15px;margin-bottom:32px}
 
     /* Trace destacado */
     .star{position:relative;border-radius:20px;padding:32px;display:grid;grid-template-columns:1fr auto;gap:26px;align-items:center;background:linear-gradient(140deg,#211425,#15100E);border:1px solid var(--line2);overflow:hidden}
@@ -91,8 +104,14 @@
     .star .acts{margin-top:20px;display:flex;gap:12px;flex-wrap:wrap}
     @media(max-width:640px){.star{grid-template-columns:1fr}.star .picon{display:none}}
 
-    /* Grid de productos con personalidad */
-    .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;margin-top:16px}
+    /* Categorías */
+    .catrow{display:flex;align-items:center;gap:14px;margin:36px 0 14px}
+    .catrow .cattag{font-size:14px;font-weight:700;letter-spacing:.2px;color:var(--bone)}
+    .catrow .catnote{font-size:13px;color:var(--dim)}
+    .catrow::after{content:"";flex:1;height:1px;background:var(--line)}
+
+    /* Grid de productos */
+    .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px}
     .pcard{position:relative;display:block;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease}
     .pcard:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--ac) 60%,var(--line));box-shadow:0 14px 34px rgba(0,0,0,.42)}
     .pcard .picon{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:24px;background:color-mix(in srgb,var(--ac) 15%,transparent);border:1px solid color-mix(in srgb,var(--ac) 32%,transparent)}
@@ -140,7 +159,7 @@
     footer .flinks a:hover{color:var(--amber)}
     footer .copy{color:#5A4F46;font-size:13px}
 
-    @media(max-width:560px){.hero{padding:64px 20px 44px}.lead{font-size:17px}.hero .logo{max-width:300px}.star,.services,.about{padding:26px 22px}}
+    @media(max-width:560px){.hero{padding:60px 20px 44px}.lead{font-size:17px}.hero .logo{max-width:300px}.star,.services,.about{padding:26px 22px}}
   </style>
 </head>
 <body>
@@ -148,7 +167,26 @@
   <nav><div class="bar">
     <a class="brand" href="#top"><span>🔥</span> fervon</a>
     <div class="links">
-      <a href="#productos">Productos</a>
+      <div class="hasmega">
+        <a class="navbtn" href="#productos">Productos <span style="font-size:10px">▾</span></a>
+        <div class="mega">
+          <div class="megagroup full">
+            <div class="megalabel">De pago</div>
+            <a class="megaitem" href="/trace/"><span class="mi-ic">🧠</span><span><span class="mi-n">Trace <b>DE PAGO</b></span><span class="mi-d">Tu memoria personal, en tu máquina. Sin grabar la pantalla.</span></span></a>
+          </div>
+          <div class="megagroup">
+            <div class="megalabel">IA local &amp; agentes</div>
+            <a class="megaitem" href="/inferbench/"><span class="mi-ic">🔬</span><span><span class="mi-n">inferbench</span><span class="mi-d">Benchmark de LLMs en tu GPU.</span></span></a>
+            <a class="megaitem" href="/lookspan/"><span class="mi-ic">📡</span><span><span class="mi-n">Lookspan</span><span class="mi-d">Observabilidad de agentes de IA.</span></span></a>
+            <a class="megaitem" href="/claudescope/"><span class="mi-ic">🔭</span><span><span class="mi-n">ClaudeScope</span><span class="mi-d">Busca tus sesiones de Claude Code.</span></span></a>
+          </div>
+          <div class="megagroup">
+            <div class="megalabel">Utilidades</div>
+            <a class="megaitem" href="/launchpad/"><span class="mi-ic">🚀</span><span><span class="mi-n">launchpad</span><span class="mi-d">Levanta todos tus proyectos.</span></span></a>
+            <a class="megaitem" href="/pregon/"><span class="mi-ic">📣</span><span><span class="mi-n">Pregón</span><span class="mi-d">Publica en 8+ canales.</span></span></a>
+          </div>
+        </div>
+      </div>
       <a href="#servicios">Servicios</a>
       <a href="#sobre-mi">Sobre mí</a>
       <a class="cta" href="#contacto">Hablemos</a>
@@ -195,11 +233,11 @@
     <!-- PRODUCTOS -->
     <section class="sec" id="productos">
       <h2>Productos</h2>
-      <p class="sub">Lo que puedes usar hoy. Cada uno con su propia página.</p>
+      <p class="sub">Cada producto tiene su propia página. Divididos por para qué sirven.</p>
 
       <a class="star" href="/trace/" style="--ac:#B98BFF">
         <div>
-          <span class="badge paid">⭐ Producto · de pago</span>
+          <span class="badge paid">⭐ Producto estrella · de pago</span>
           <div class="pname">Trace <small>by Fervon</small></div>
           <p class="pdesc">Tu memoria personal, en tu máquina. Todo lo que ves, lees y escribes — buscable al instante, cross-platform y <strong>sin grabar tu pantalla</strong>. El "Rewind" que Meta mató, pero local y privado.</p>
           <div class="acts">
@@ -210,18 +248,19 @@
         <div class="picon">🧠</div>
       </a>
 
+      <div class="catrow"><span class="cattag">IA local &amp; agentes</span><span class="catnote">Para construir y medir con LLMs en tu equipo</span></div>
       <div class="products">
-        <a class="pcard" href="/lookspan/" style="--ac:#5BC8D8">
-          <div class="picon">📡</div>
-          <div class="pname">Lookspan <span class="badge free">Gratis</span></div>
-          <div class="pdesc">Observabilidad local-first para agentes de IA. Cada llamada LLM, herramienta MCP y coste, en tu máquina.</div>
-          <div class="pgo">Ver Lookspan →</div>
-        </a>
         <a class="pcard" href="/inferbench/" style="--ac:#FFB02E">
           <div class="picon">🔬</div>
           <div class="pname">inferbench <span class="badge free">Gratis</span></div>
           <div class="pdesc">Sabe qué LLM corre en tu GPU y a cuántos tok/s. Benchmark real con un click. Serve + MCP.</div>
           <div class="pgo">Ver inferbench →</div>
+        </a>
+        <a class="pcard" href="/lookspan/" style="--ac:#5BC8D8">
+          <div class="picon">📡</div>
+          <div class="pname">Lookspan <span class="badge free">Gratis</span></div>
+          <div class="pdesc">Observabilidad local-first para agentes de IA. Cada llamada LLM, herramienta MCP y coste.</div>
+          <div class="pgo">Ver Lookspan →</div>
         </a>
         <a class="pcard" href="/claudescope/" style="--ac:#A78BFF">
           <div class="picon">🔭</div>
@@ -229,6 +268,10 @@
           <div class="pdesc">Busca en todas tus sesiones de Claude Code. Dashboard local-first, 0 deps, 0 red.</div>
           <div class="pgo">Ver ClaudeScope →</div>
         </a>
+      </div>
+
+      <div class="catrow"><span class="cattag">Tus utilidades</span><span class="catnote">Para tu día a día como dev</span></div>
+      <div class="products">
         <a class="pcard" href="/launchpad/" style="--ac:#8FD06B">
           <div class="picon">🚀</div>
           <div class="pname">launchpad <span class="badge free">Gratis</span></div>

@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Lookspan · Mira cada span que emiten tus agentes de IA | Fervon</title>
+  <meta name="description" content="Lookspan captura cada llamada LLM, cada herramienta MCP y cada token de coste de tus agentes LangGraph, CrewAI y MCP. Dashboard local-first en 127.0.0.1:3100 con un solo comando. Sin nube, sin API keys, tus datos nunca salen de tu máquina. Gratis y open source. Un proyecto de Fervon." />
+  <link rel="canonical" href="https://fervon.dev/lookspan/" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#0E0B0A" />
+  <link rel="icon" href="/assets/logo.svg" type="image/svg+xml" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Fervon" />
+  <meta property="og:title" content="Lookspan · Mira cada span que emiten tus agentes de IA" />
+  <meta property="og:description" content="Observabilidad local-first para agentes de IA. Captura cada llamada LLM, herramienta MCP y coste. Un comando: npx lookspan. Gratis y open source." />
+  <meta property="og:url" content="https://fervon.dev/lookspan/" />
+  <meta property="og:image" content="https://fervon.dev/assets/logo.svg" />
+  <meta property="og:locale" content="es_ES" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Lookspan",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Windows, macOS, Linux",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "description": "Dashboard de observabilidad local-first para agentes de IA, nativo para MCP. Captura cada llamada LLM, cada herramienta MCP y cada token de coste de agentes LangGraph, CrewAI y MCP. Todo corre en tu máquina con un solo comando: npx lookspan.",
+    "publisher": { "@type": "Organization", "name": "Fervon", "url": "https://fervon.dev/" },
+    "url": "https://fervon.dev/lookspan/"
+  }
+  </script>
+
+  <style>
+    :root{--bg:#0E0B0A;--bg2:#16110E;--panel:#1A1310;--line:#2C211B;--line2:#3A2C22;--ember:#FF6A00;--brasa:#E0480F;--amber:#FFB02E;--spark:#FFD37A;--bone:#EFE7DC;--ash:#A89A8E;--dim:#7A6C60;
+      /* acento propio de Lookspan dentro de la familia forja: los spans (LLM, tool, retrieval, agent) */
+      --s-llm:#FFB02E;--s-tool:#FF6A00;--s-ret:#E0480F;--s-agent:#FFD37A;--ok:#9FC979;--err:#E0480F}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--bone);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+    .grad{background:linear-gradient(90deg,var(--ember),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .glass{background:rgba(26,19,16,.55);border:1px solid var(--line);border-radius:16px;backdrop-filter:blur(8px)}
+    .bggrid{background-image:linear-gradient(rgba(255,106,0,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,106,0,.045) 1px,transparent 1px);background-size:46px 46px}
+    .eye{font-size:13px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--amber)}
+    .mono{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace}
+    code{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;font-size:.92em}
+    /* nav */
+    .nav{position:fixed;top:0;inset-inline:0;z-index:50}
+    .nav .bar{margin:12px auto 0;max-width:1120px;display:flex;align-items:center;justify-content:space-between;padding:10px 18px}
+    .crumb{display:flex;align-items:center;gap:8px;font-weight:700}
+    .crumb .fv{color:var(--ember)}
+    .crumb .sep{color:var(--dim);font-weight:400}
+    .nav .menu{display:flex;gap:26px;font-size:14px;color:var(--ash)}
+    .nav .menu a:hover{color:var(--bone)}
+    .nav .act{display:flex;gap:10px;align-items:center}
+    @media(max-width:880px){.nav .menu{display:none}}
+    /* buttons */
+    .btn{display:inline-flex;align-items:center;gap:8px;border-radius:11px;padding:12px 20px;font-size:15px;font-weight:600;cursor:pointer;transition:.16s;border:0}
+    .btn-fire{background:linear-gradient(180deg,var(--ember),var(--brasa));color:#1A0E06;box-shadow:0 8px 26px rgba(255,106,0,.32)}
+    .btn-fire:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(255,106,0,.45)}
+    .btn-ghost{border:1px solid var(--line2);color:var(--bone)}
+    .btn-ghost:hover{border-color:var(--ember);color:var(--amber)}
+    .btn-sm{padding:8px 14px;font-size:14px}
+    /* hero */
+    .hero{position:relative;padding:128px 0 72px}
+    .hero .cols{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center}
+    .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line2);background:rgba(26,19,16,.6);border-radius:20px;padding:5px 12px;font-size:12px;color:var(--ash)}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber)}
+    .hero h1{font-size:clamp(34px,5vw,58px);line-height:1.04;letter-spacing:-1.5px;font-weight:800;margin-top:20px}
+    .hero .sub{font-size:18px;color:var(--ash);max-width:560px;margin-top:20px}
+    .hero .sub b{color:var(--bone)}
+    .hero .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+    .trust{display:flex;gap:18px;flex-wrap:wrap;margin-top:22px;font-size:12px;color:var(--dim)}
+    @media(max-width:900px){.hero .cols{grid-template-columns:1fr}.demo{order:-1}}
+    /* command box */
+    .cmd{display:flex;align-items:center;gap:12px;margin-top:26px;border:1px solid var(--line2);background:#070504;border-radius:12px;padding:14px 16px;max-width:420px}
+    .cmd code{font-size:16px;color:var(--bone);flex:1}
+    .cmd .pr{color:var(--ember);margin-right:8px;font-weight:700}
+    .cmd .copy{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line2);background:rgba(26,19,16,.7);color:var(--ash);border-radius:9px;padding:7px 12px;font-size:13px;font-weight:600;cursor:pointer;transition:.15s}
+    .cmd .copy:hover{border-color:var(--ember);color:var(--amber)}
+    .cmd .copy.ok{border-color:var(--ok);color:var(--ok)}
+    .cmd-hint{font-size:13px;color:var(--dim);margin-top:10px;max-width:420px}
+    .cmd-hint code{background:var(--line);border-radius:4px;padding:1px 6px;color:var(--amber)}
+    /* demo card (trace waterfall) */
+    .demo .top{display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line);padding:12px 16px;font-size:12px;color:var(--dim)}
+    .demo .top i{width:11px;height:11px;border-radius:50%;display:inline-block}
+    .demo .body{padding:18px}
+    .meta-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12px;color:var(--ash);margin-bottom:14px}
+    .tg{border-radius:6px;padding:2px 9px;font-size:11px;font-weight:600}
+    .tg-fw{background:rgba(255,176,46,.12);color:var(--amber);border:1px solid rgba(255,176,46,.25)}
+    .tg-ok{background:rgba(159,201,121,.12);color:var(--ok);border:1px solid rgba(159,201,121,.25)}
+    .meta-k{color:var(--dim)}
+    .wf{list-style:none;display:flex;flex-direction:column;gap:9px}
+    .wf li{display:grid;grid-template-columns:96px 70px 1fr 42px;align-items:center;gap:10px;font-size:11.5px}
+    .wf .nm{color:var(--bone);font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .wf .ty{font-size:10px;letter-spacing:.3px;text-transform:lowercase;color:var(--dim);white-space:nowrap}
+    .wf .tr{height:9px;border-radius:6px;background:var(--line);position:relative;overflow:hidden}
+    .wf .tr>span{position:absolute;top:0;height:100%;border-radius:6px;left:var(--l);width:0;transition:width .7s ease}
+    .wf .ms{text-align:right;color:var(--ash)}
+    .c-llm{background:linear-gradient(90deg,var(--brasa),var(--s-llm))}
+    .c-tool{background:linear-gradient(90deg,var(--brasa),var(--ember))}
+    .c-ret{background:linear-gradient(90deg,#8a2c08,var(--s-ret))}
+    .c-agent{background:linear-gradient(90deg,var(--ember),var(--spark))}
+    /* sections */
+    .sec{padding:72px 0}
+    .sec.alt{background:var(--bg2);border-block:1px solid var(--line)}
+    .center{text-align:center;max-width:680px;margin:0 auto}
+    .sec h2{font-size:clamp(26px,3.4vw,38px);letter-spacing:-.8px;font-weight:800;margin-top:10px}
+    .sec .desc{color:var(--ash);margin-top:14px}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+    .stats .v{font-size:clamp(30px,4vw,42px);font-weight:800}
+    .stats .l{font-size:14px;color:var(--dim);margin-top:4px}
+    @media(max-width:620px){.stats{grid-template-columns:repeat(2,1fr)}}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:44px}
+    .feat{padding:24px}
+    .feat .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(255,106,0,.1);color:var(--ember)}
+    .feat .ic svg{width:22px;height:22px}
+    .feat h3{font-size:16px;font-weight:700;margin:14px 0 6px}
+    .feat p{font-size:14px;color:var(--ash)}
+    .feat p code{background:var(--line);border-radius:4px;padding:1px 5px;color:var(--amber)}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+    .step{padding:24px}
+    .step .n{font-size:13px;color:var(--amber)}
+    .step h4{margin-top:8px;font-weight:700;font-size:17px}
+    .step p{font-size:14px;color:var(--ash);margin-top:8px}
+    .step p code{background:var(--line);border-radius:4px;padding:1px 5px;color:var(--amber)}
+    @media(max-width:820px){.steps{grid-template-columns:1fr}}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+    @media(max-width:820px){.two{grid-template-columns:1fr}}
+    .two h2{margin-top:10px}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+    .chip{border:1px solid var(--line2);background:rgba(26,19,16,.6);border-radius:20px;padding:5px 12px;font-size:12px;color:var(--ash)}
+    .checks{list-style:none;margin-top:22px;display:flex;flex-direction:column;gap:12px}
+    .checks li{display:flex;align-items:flex-start;gap:10px;font-size:14.5px;color:var(--bone)}
+    .checks li svg{flex:none;margin-top:3px;color:var(--ember)}
+    .checks li code{background:var(--line);border-radius:4px;padding:1px 5px;color:var(--amber)}
+    /* flow */
+    .flow{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:44px}
+    .fnode{flex:1;min-width:150px;text-align:center;padding:18px 14px}
+    .fnode .fi{font-size:26px}
+    .fnode strong{display:block;margin-top:8px;font-size:15px}
+    .fnode small{display:block;color:var(--dim);font-size:12px;margin-top:3px}
+    .fnode.acc{border-color:rgba(255,106,0,.45);box-shadow:0 0 0 1px rgba(255,106,0,.12)}
+    .farr{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:var(--dim);min-width:120px}
+    .farr code{background:var(--line);border-radius:5px;padding:2px 7px;font-size:11px;color:var(--amber)}
+    .farr svg{color:var(--brasa)}
+    @media(max-width:820px){.farr{transform:rotate(90deg);min-width:0;padding:6px 0}.farr code{transform:rotate(-90deg)}}
+    /* code card */
+    .codecard{margin-top:40px;overflow:hidden}
+    .tabs{display:flex;flex-wrap:wrap;gap:2px;border-bottom:1px solid var(--line);background:rgba(14,11,10,.4);padding:8px 8px 0}
+    .tab{border:0;background:transparent;color:var(--ash);font-size:13px;font-weight:600;padding:9px 14px;border-radius:9px 9px 0 0;cursor:pointer;font-family:inherit;transition:.14s}
+    .tab:hover{color:var(--bone)}
+    .tab.on{background:#070504;color:var(--amber);border:1px solid var(--line);border-bottom-color:#070504}
+    .cbody{position:relative;background:#070504}
+    .cbody .copy{position:absolute;top:12px;right:12px;border:1px solid var(--line2);background:rgba(26,19,16,.8);color:var(--ash);border-radius:8px;padding:6px 11px;font-size:12px;font-weight:600;cursor:pointer;transition:.15s;z-index:2}
+    .cbody .copy:hover{border-color:var(--ember);color:var(--amber)}
+    .cbody .copy.ok{border-color:var(--ok);color:var(--ok)}
+    pre{display:none;margin:0;padding:22px 18px;overflow-x:auto;font-size:12.5px;line-height:1.65}
+    pre.on{display:block}
+    pre code{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;color:var(--bone)}
+    .k{color:var(--ember)}.s{color:var(--ok)}.f{color:var(--amber)}.c{color:var(--dim);font-style:italic}
+    /* cost panel */
+    .cpanel{padding:0;overflow:hidden}
+    .chead{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);padding:14px 18px;font-size:13px;font-weight:600}
+    .ctot{color:var(--amber);font-weight:700}
+    .ctot small{color:var(--dim);font-weight:400}
+    .cbars{list-style:none;padding:18px;display:flex;flex-direction:column;gap:14px}
+    .cbars li{display:grid;grid-template-columns:1fr 2fr auto;align-items:center;gap:12px;font-size:12.5px}
+    .cbl{color:var(--ash);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .cbt{height:8px;border-radius:6px;background:var(--line);overflow:hidden}
+    .cbf{height:100%;width:0;border-radius:6px;background:linear-gradient(90deg,var(--brasa),var(--amber));transition:width 1s ease}
+    .cbv{text-align:right;color:var(--bone);font-weight:600}
+    .cstats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+    .cstats div{text-align:center;padding:14px 8px;border-left:1px solid var(--line)}
+    .cstats div:first-child{border-left:0}
+    .cstats .sv{font-size:20px;font-weight:800;color:var(--bone)}
+    .cstats .sk{font-size:11px;color:var(--dim);margin-top:2px}
+    /* cta */
+    .ctaband{position:relative;overflow:hidden;border-radius:24px;padding:60px 24px;text-align:center}
+    .ctaband .cmd{margin:28px auto 0}
+    /* footer */
+    .foot{border-top:1px solid var(--line);padding:30px 0;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--dim)}
+    .foot a{color:var(--brasa)}
+    .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.in{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+
+  <header class="nav"><div class="glass bar">
+    <a class="crumb" href="/"><span class="fv">🔥 fervon</span><span class="sep">›</span><span>lookspan</span></a>
+    <nav class="menu">
+      <a href="#features">Características</a>
+      <a href="#how">Cómo funciona</a>
+      <a href="#integraciones">Integraciones</a>
+      <a href="#costes">Costes</a>
+      <a href="#empezar">Empezar</a>
+    </nav>
+    <div class="act">
+      <a class="btn btn-ghost btn-sm" href="https://github.com/JoniMartin27/lookspan">GitHub</a>
+      <a class="btn btn-fire btn-sm" href="#empezar">Empezar</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="bggrid" style="position:absolute;inset:0;z-index:-1;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000,transparent)"></div>
+      <div class="wrap cols">
+        <div>
+          <span class="pill reveal"><span class="dot"></span> Observabilidad local-first · Nativo para MCP</span>
+          <h1 class="reveal">Mira cada <span class="grad">span</span> que emiten tus agentes de IA.</h1>
+          <p class="sub reveal"><strong>Lookspan</strong> captura cada llamada LLM, cada herramienta MCP y cada token de coste de tus agentes <b>LangGraph</b>, <b>CrewAI</b> y <b>MCP</b>. Todo corre en tu máquina: sin nube, sin API keys, sin que tus datos salgan de tu equipo.</p>
+
+          <div class="cmd reveal" id="empezar">
+            <code><span class="pr">$</span>npx lookspan</code>
+            <button class="copy" data-copy="npx lookspan" aria-label="Copiar comando">
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span class="lbl">Copiar</span>
+            </button>
+          </div>
+          <p class="cmd-hint reveal">Arranca el servidor y el dashboard en <code>http://127.0.0.1:3100</code> — sin instalación global.</p>
+
+          <div class="row reveal">
+            <a class="btn btn-fire" href="#integraciones">Instrumentar mi agente</a>
+            <a class="btn btn-ghost" href="https://github.com/JoniMartin27/lookspan">Ver en GitHub</a>
+          </div>
+          <div class="trust reveal"><span>✓ Datos 100% en local</span><span>✓ Coste de infra cero</span><span>✓ Open source · MIT</span></div>
+        </div>
+
+        <div class="demo reveal">
+          <div class="glass">
+            <div class="top">
+              <i style="background:#E0480F"></i><i style="background:#FFB02E"></i><i style="background:#9FC979"></i>
+              <span style="margin-left:6px">lookspan · trace tr_a9f2c1</span>
+              <span style="margin-left:auto;color:var(--amber);display:inline-flex;align-items:center;gap:6px"><span class="dot"></span> LIVE</span>
+            </div>
+            <div class="body">
+              <div class="meta-row">
+                <span class="tg tg-fw">langgraph</span>
+                <span class="tg tg-ok">● ok</span>
+                <span><span class="meta-k">duración</span> <span class="mono" id="d-dur">0</span>&nbsp;ms</span>
+                <span><span class="meta-k">coste</span> <span class="mono" id="d-cost">$0.0000</span></span>
+              </div>
+              <ul class="wf">
+                <li><span class="nm">planner</span><span class="ty">agent_step</span><span class="tr"><span class="c-agent" data-w="100" style="--l:0%"></span></span><span class="ms">1284</span></li>
+                <li><span class="nm">plan.completion</span><span class="ty">llm_call</span><span class="tr"><span class="c-llm" data-w="33" style="--l:2%"></span></span><span class="ms">421</span></li>
+                <li><span class="nm">search_web</span><span class="ty">tool_call</span><span class="tr"><span class="c-tool" data-w="21" style="--l:37%"></span></span><span class="ms">268</span></li>
+                <li><span class="nm">vector.lookup</span><span class="ty">retrieval</span><span class="tr"><span class="c-ret" data-w="13" style="--l:40%"></span></span><span class="ms">154</span></li>
+                <li><span class="nm">synth.completion</span><span class="ty">llm_call</span><span class="tr"><span class="c-llm" data-w="36" style="--l:61%"></span></span><span class="ms">462</span></li>
+              </ul>
+            </div>
+          </div>
+          <p style="text-align:center;font-size:11px;color:var(--dim);margin-top:8px">Demo ilustrativa de la vista de traza (waterfall de spans).</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FRAMEWORKS STRIP -->
+    <section class="sec" style="padding:40px 0"><div class="wrap center reveal">
+      <p style="font-size:13px;letter-spacing:1px;color:var(--dim);margin-bottom:18px">Funciona con tu stack de agentes</p>
+      <div class="chips" style="justify-content:center">
+        <span class="chip">MCP</span><span class="chip">LangGraph</span><span class="chip">LangChain</span><span class="chip">CrewAI</span><span class="chip">OpenAI Agents</span><span class="chip">OpenTelemetry</span><span class="chip">AGENT-OS</span>
+      </div>
+    </div></section>
+
+    <!-- PROBLEM / SOLUTION -->
+    <section class="sec alt"><div class="wrap two">
+      <div class="reveal">
+        <span class="eye">El problema</span>
+        <h2>Cuando un agente falla, te quedas a ciegas.</h2>
+        <p class="desc">Cuando un agente tarda demasiado, gasta más tokens de lo esperado o simplemente se rompe, no hay forma nativa de ver qué ocurrió paso a paso. Las herramientas de observabilidad clásicas te piden cuenta en la nube, claves de API y enviar datos de producción a servidores ajenos.</p>
+        <ul class="chips" style="margin-top:22px">
+          <span class="chip">Cuenta + facturación + API keys</span>
+          <span class="chip">Tus prompts salen a servidores externos</span>
+          <span class="chip">Coste por evento o por GB ingerido</span>
+          <span class="chip">Latencia de red y retención limitada</span>
+        </ul>
+      </div>
+      <div class="glass feat reveal" style="padding:28px">
+        <span class="tg tg-fw" style="background:rgba(255,176,46,.12)">Lookspan</span>
+        <h3 style="font-size:20px;margin:14px 0 4px">Observabilidad local-first</h3>
+        <ul class="checks" style="margin-top:16px">
+          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span><strong>Todo corre en tu máquina</strong>, los datos nunca salen de ella</span></li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span>SQLite en <code>~/.lookspan/lookspan.db</code> — tú eres el dueño</span></li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span>Coste de infraestructura <strong>cero</strong></span></li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span>Un comando: <code>npx lookspan</code> y a observar</span></li>
+        </ul>
+      </div>
+    </div></section>
+
+    <!-- STATS -->
+    <section class="sec"><div class="wrap stats">
+      <div class="reveal"><div class="v grad">1</div><div class="l">comando para arrancar</div></div>
+      <div class="reveal"><div class="v grad">3100</div><div class="l">dashboard en 127.0.0.1</div></div>
+      <div class="reveal"><div class="v grad">5+</div><div class="l">frameworks instrumentables</div></div>
+      <div class="reveal"><div class="v grad">0</div><div class="l">datos enviados a la nube</div></div>
+    </div></section>
+
+    <!-- FEATURES -->
+    <section class="sec alt" id="features"><div class="wrap">
+      <div class="center reveal"><span class="eye">Características</span><h2>Todo lo que necesitas para depurar agentes, en local</h2><p class="desc">Ingesta, trazas, grafo de spans, costes y alertas. Sin montar infraestructura y sin renunciar a la privacidad de tus datos.</p></div>
+      <div class="cards">
+        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg></div><h3>Nativo para MCP</h3><p>El SDK <code>@lookspan/mcp</code> envuelve cualquier <code>McpClient</code> y emite un span por cada llamada a herramienta, sin tocar el código de tu agente.</p></div>
+        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div><h3>Streaming en tiempo real</h3><p>El endpoint SSE <code>/api/stream</code> empuja cada <code>span.ingested</code> al dashboard al instante. Ves las trazas mientras tu agente las ejecuta, sin polling.</p></div>
+        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8 7.5 16 7.5M7.5 8l3.5 7.8M16.5 8 13 15.8"/></svg></div><h3>Grafo de spans interactivo</h3><p>Vista de detalle de cada traza con un grafo navegable (React Flow): jerarquía, duraciones, estados y atributos de cada paso del agente.</p></div>
+        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5h4a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3h4"/></svg></div><h3>Seguimiento de costes</h3><p>Agrega tokens de entrada, salida, caché y razonamiento; calcula el <code>cost_usd</code> por span y por traza, con desglose por modelo y por proveedor.</p></div>
+        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></div><h3>SQLite local</h3><p>Esquema con migraciones versionadas y base de datos en <code>~/.lookspan/lookspan.db</code>. Configurable por flag o variable de entorno. Tus datos, tu disco.</p></div>
+        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="m6 9 3 3-3 3M12.5 15h4"/></svg></div><h3>CLI en una línea</h3><p><code>npx lookspan</code> arranca servidor y dashboard sin instalación global. Puertos, host y ruta de la BD configurables por flag o entorno.</p></div>
+        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div><h3>Alertas configurables</h3><p>Avísate cuando una traza falla, supera un coste, gasta demasiados tokens o tarda de más. Toast en el dashboard, notificación de escritorio y consola.</p></div>
+        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.5 8 11 4.6-2.5 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Privado por defecto</h3><p>Escucha en <code>127.0.0.1</code> y redacta credenciales (<code>api_key</code>, <code>token</code>, <code>password</code>…) antes de persistir. Token opcional si lo expones.</p></div>
+        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 7.5h18M5.5 7.5 8 12M18.5 7.5 16 12M9.5 7.5 12 12l2.5-4.5"/></svg></div><h3>OpenTelemetry (OTLP)</h3><p>Receptor OTLP/HTTP en <code>/v1/traces</code>. Apunta cualquier app instrumentada con OTel a Lookspan: los atributos <code>gen_ai.*</code> se mapean a modelo, proveedor y tokens.</p></div>
+      </div>
+    </div></section>
+
+    <!-- HOW IT WORKS -->
+    <section class="sec" id="how"><div class="wrap">
+      <div class="center reveal"><span class="eye">Cómo funciona</span><h2>De tu agente al dashboard en tres pasos</h2><p class="desc">Instrumenta una vez con un adaptador, arranca el CLI y observa. Los spans viajan por HTTP, se validan y normalizan, y aparecen en tiempo real.</p></div>
+
+      <div class="flow reveal">
+        <div class="glass fnode"><span class="fi">🤖</span><strong>Agente</strong><small>MCP · LangGraph · CrewAI · HTTP</small></div>
+        <span class="farr"><code>POST /api/ingest</code><svg viewBox="0 0 40 12" width="40" height="12"><path d="M0 6h34M30 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div class="glass fnode"><span class="fi">⚙️</span><strong>Collector</strong><small>valida · normaliza · redacta</small></div>
+        <span class="farr"><svg viewBox="0 0 40 12" width="40" height="12"><path d="M0 6h34M30 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div class="glass fnode"><span class="fi">🗄️</span><strong>SQLite</strong><small>~/.lookspan/lookspan.db</small></div>
+        <span class="farr"><code>SSE /api/stream</code><svg viewBox="0 0 40 12" width="40" height="12"><path d="M0 6h34M30 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <div class="glass fnode acc"><span class="fi">📊</span><strong>Dashboard</strong><small>trazas · grafo · costes</small></div>
+      </div>
+
+      <div class="steps">
+        <div class="glass step reveal"><div class="n mono">01</div><h4>Instrumenta</h4><p>Envuelve tu cliente MCP o añade el callback de LangGraph/CrewAI. Una línea, sin reescribir tu agente.</p></div>
+        <div class="glass step reveal"><div class="n mono">02</div><h4>Arranca</h4><p>Ejecuta <code>npx lookspan</code>. El servidor escucha en <code>:3100</code> y sirve el dashboard.</p></div>
+        <div class="glass step reveal"><div class="n mono">03</div><h4>Observa</h4><p>Cada span aparece en vivo: jerarquía, duraciones, estados, tokens y coste en USD.</p></div>
+      </div>
+    </div></section>
+
+    <!-- INTEGRATIONS / CODE -->
+    <section class="sec alt" id="integraciones"><div class="wrap">
+      <div class="center reveal"><span class="eye">Integraciones</span><h2>Instrumentar tu agente es una línea de código</h2><p class="desc">Elige tu framework. Compatible con cualquier agente capaz de hacer una petición HTTP.</p></div>
+
+      <div class="glass codecard reveal">
+        <div class="tabs" role="tablist">
+          <button class="tab on" data-tab="mcp">MCP · TypeScript</button>
+          <button class="tab" data-tab="langgraph">LangGraph</button>
+          <button class="tab" data-tab="crewai">CrewAI</button>
+          <button class="tab" data-tab="http">HTTP · curl</button>
+          <button class="tab" data-tab="otel">OpenTelemetry</button>
+        </div>
+        <div class="cbody">
+          <button class="copy copy-code" aria-label="Copiar código"><span class="lbl">Copiar</span></button>
+
+<pre class="on" data-panel="mcp"><code><span class="c">// Instrumenta cualquier cliente MCP — cada callTool emite un span</span>
+<span class="k">import</span> { wrapMcpClient, HttpSpanExporter } <span class="k">from</span> <span class="s">'@lookspan/mcp'</span>;
+
+<span class="k">const</span> exporter = <span class="k">new</span> <span class="f">HttpSpanExporter</span>({
+  endpoint: <span class="s">'http://127.0.0.1:3100/api/ingest'</span>,
+});
+
+<span class="k">const</span> { client } = <span class="f">wrapMcpClient</span>(mcpClient, {
+  exporter,
+  agentId: <span class="s">'mi-agente'</span>,
+});
+
+<span class="c">// Úsalo exactamente igual que antes</span>
+<span class="k">await</span> client.<span class="f">callTool</span>({ name: <span class="s">'read_file'</span>, arguments: { path: <span class="s">'/tmp/foo.txt'</span> } });</code></pre>
+
+<pre data-panel="langgraph"><code><span class="k">from</span> lookspan <span class="k">import</span> LookspanClient
+<span class="k">from</span> lookspan_langgraph <span class="k">import</span> LookspanCallbackHandler
+
+client = <span class="f">LookspanClient</span>(endpoint=<span class="s">"http://127.0.0.1:3100/api/ingest"</span>)
+handler = <span class="f">LookspanCallbackHandler</span>(client=client, agent_id=<span class="s">"mi-agente"</span>)
+
+<span class="c"># Pasa el handler como callback — LangGraph hace el resto</span>
+result = graph.<span class="f">invoke</span>({<span class="s">"messages"</span>: []}, config={<span class="s">"callbacks"</span>: [handler]})
+client.<span class="f">flush</span>()</code></pre>
+
+<pre data-panel="crewai"><code><span class="k">from</span> crewai <span class="k">import</span> Crew
+<span class="k">from</span> lookspan <span class="k">import</span> LookspanClient
+<span class="k">from</span> lookspan_crewai <span class="k">import</span> attach_lookspan
+
+client = <span class="f">LookspanClient</span>(endpoint=<span class="s">"http://127.0.0.1:3100/api/ingest"</span>)
+<span class="f">attach_lookspan</span>(client, agent_id=<span class="s">"research-crew"</span>)
+
+<span class="c"># Una llamada y toda la crew queda instrumentada</span>
+crew = <span class="f">Crew</span>(agents=[...], tasks=[...])
+crew.<span class="f">kickoff</span>()
+client.<span class="f">flush</span>()</code></pre>
+
+<pre data-panel="http"><code><span class="c"># Cualquier lenguaje que pueda hacer un POST</span>
+curl -X POST http://127.0.0.1:3100/api/ingest \
+  -H <span class="s">"Content-Type: application/json"</span> \
+  -d <span class="s">'{
+    "source": "mi-agente",
+    "spans": [{
+      "traceId": "tr_abc123",
+      "spanId": "sp_def456",
+      "type": "llm_call",
+      "name": "completion",
+      "status": "ok",
+      "framework": "custom",
+      "model": "gpt-4o",
+      "provider": "openai"
+    }]
+  }'</span></code></pre>
+
+<pre data-panel="otel"><code><span class="c"># Reutiliza tu instrumentación OpenTelemetry existente</span>
+<span class="k">export</span> OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://127.0.0.1:3100/v1/traces
+<span class="k">export</span> OTEL_EXPORTER_OTLP_PROTOCOL=http/json
+
+<span class="c"># Los atributos gen_ai.* se mapean a modelo, proveedor y tokens,</span>
+<span class="c"># y el coste se calcula con la tabla de precios.</span></code></pre>
+        </div>
+      </div>
+    </div></section>
+
+    <!-- COSTS -->
+    <section class="sec" id="costes"><div class="wrap two">
+      <div class="reveal">
+        <span class="eye">Costes</span>
+        <h2>Sabe exactamente cuánto cuesta cada agente</h2>
+        <p class="desc">Lookspan agrega tokens de entrada, salida, caché y razonamiento, y calcula el coste en USD por span y por traza. Desglosa el gasto por modelo y por proveedor para que ninguna factura te pille por sorpresa.</p>
+        <ul class="checks">
+          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span><code>cost_usd</code> por span y por traza</span></li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span>Desglose por modelo y por proveedor</span></li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span>Latencia p50 / p95 / p99 y tasa de error</span></li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span>Alerta automática al superar tu umbral</span></li>
+        </ul>
+      </div>
+
+      <div class="glass cpanel reveal">
+        <div class="chead"><span>Coste por modelo</span><span class="ctot">$2.84 <small>/ 7d</small></span></div>
+        <ul class="cbars">
+          <li><span class="cbl">claude-sonnet-4-6</span><span class="cbt"><span class="cbf" data-w="82"></span></span><span class="cbv">$1.42</span></li>
+          <li><span class="cbl">gpt-4o</span><span class="cbt"><span class="cbf" data-w="54"></span></span><span class="cbv">$0.93</span></li>
+          <li><span class="cbl">text-embedding-3</span><span class="cbt"><span class="cbf" data-w="26"></span></span><span class="cbv">$0.31</span></li>
+          <li><span class="cbl">claude-haiku-4-5</span><span class="cbt"><span class="cbf" data-w="11"></span></span><span class="cbv">$0.18</span></li>
+        </ul>
+        <div class="cstats">
+          <div><div class="sv">12.4k</div><div class="sk">trazas</div></div>
+          <div><div class="sv">1.8%</div><div class="sk">errores</div></div>
+          <div><div class="sv">840ms</div><div class="sk">p95</div></div>
+        </div>
+      </div>
+    </div></section>
+
+    <!-- CTA -->
+    <section class="sec"><div class="wrap">
+      <div class="glass ctaband reveal">
+        <div class="bggrid" style="position:absolute;inset:0;z-index:-1;opacity:.6"></div>
+        <h2>Empieza a ver tus agentes <span class="grad">en 30 segundos.</span></h2>
+        <p class="desc" style="max-width:560px;margin:14px auto 0">Sin cuenta, sin claves, sin que tus datos salgan de tu máquina. Un comando arranca el servidor y el dashboard en local.</p>
+        <div class="cmd">
+          <code><span class="pr">$</span>npx lookspan</code>
+          <button class="copy" data-copy="npx lookspan" aria-label="Copiar comando">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <span class="lbl">Copiar</span>
+          </button>
+        </div>
+        <div class="row" style="justify-content:center;margin-top:24px;display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn btn-ghost" href="https://github.com/JoniMartin27/lookspan">⭐ Ver en GitHub</a>
+          <a class="btn btn-ghost" href="https://github.com/JoniMartin27/lookspan#readme">Leer la documentación</a>
+        </div>
+      </div>
+    </div></section>
+  </main>
+
+  <footer><div class="wrap foot">
+    <span>Lookspan es un proyecto de <a href="https://fervon.dev">🔥 Fervon</a> · Forjado al rojo vivo</span>
+    <span>MIT © 2026 Jonathan Martín · <a href="https://github.com/JoniMartin27/lookspan">GitHub ↗</a></span>
+  </div></footer>
+
+  <script>
+    // ---- Copiar comando / código ----
+    function flash(btn){ var lbl=btn.querySelector(".lbl"); var prev=lbl?lbl.textContent:""; btn.classList.add("ok"); if(lbl)lbl.textContent="¡Copiado!"; setTimeout(function(){ btn.classList.remove("ok"); if(lbl)lbl.textContent=prev; },1400); }
+    document.querySelectorAll(".copy[data-copy]").forEach(function(btn){
+      btn.addEventListener("click",function(){ navigator.clipboard && navigator.clipboard.writeText(btn.getAttribute("data-copy")).then(function(){ flash(btn); }); });
+    });
+    document.querySelectorAll(".copy-code").forEach(function(btn){
+      btn.addEventListener("click",function(){ var pre=document.querySelector("pre.on code"); if(pre&&navigator.clipboard){ navigator.clipboard.writeText(pre.innerText).then(function(){ flash(btn); }); } });
+    });
+
+    // ---- Tabs de código ----
+    document.querySelectorAll(".tab").forEach(function(tab){
+      tab.addEventListener("click",function(){
+        var name=tab.getAttribute("data-tab");
+        document.querySelectorAll(".tab").forEach(function(t){ t.classList.toggle("on", t===tab); });
+        document.querySelectorAll("pre").forEach(function(p){ p.classList.toggle("on", p.getAttribute("data-panel")===name); });
+      });
+    });
+
+    // ---- Animaciones al entrar en viewport (waterfall + costes) ----
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function fillBars(root){ root.querySelectorAll("[data-w]").forEach(function(el){ el.style.width=el.getAttribute("data-w")+"%"; }); }
+    // demo trace: cuenta duración + coste y rellena las barras
+    var demo=document.querySelector(".demo");
+    function runDemo(){
+      if(!demo)return; fillBars(demo);
+      var dur=document.getElementById("d-dur"), cost=document.getElementById("d-cost");
+      if(reduce){ if(dur)dur.textContent="1,284"; if(cost)cost.textContent="$0.0241"; return; }
+      var start=performance.now();
+      (function frame(now){ var pr=Math.min(1,(now-start)/1100); var e=1-Math.pow(1-pr,3);
+        if(dur)dur.textContent=Math.round(1284*e).toLocaleString("en-US");
+        if(cost)cost.textContent="$"+(0.0241*e).toFixed(4);
+        if(pr<1)requestAnimationFrame(frame); })(start);
+    }
+    var costPanel=document.querySelector(".cpanel");
+    var io=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ if(en.target===demo)runDemo(); else fillBars(en.target); io.unobserve(en.target); } }); },{threshold:.3});
+    if(demo)io.observe(demo); if(costPanel)io.observe(costPanel);
+
+    // ---- Reveal on scroll ----
+    var rev=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("in"); rev.unobserve(en.target); } }); },{threshold:.12});
+    document.querySelectorAll(".reveal").forEach(function(el){ rev.observe(el); });
+  </script>
+</body>
+</html>
