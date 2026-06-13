@@ -10,7 +10,6 @@
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta name="author" content="Fervon" />
   <meta name="theme-color" content="#0E0B0A" />
-
   <link rel="icon" href="/assets/logo.svg" type="image/svg+xml" />
   <link rel="apple-touch-icon" href="/assets/logo.svg" />
 
@@ -21,11 +20,7 @@
   <meta property="og:url" content="https://fervon.dev/" />
   <meta property="og:image" content="https://fervon.dev/assets/logo.svg" />
   <meta property="og:locale" content="es_ES" />
-
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Fervon · Estudio de software autónomo" />
-  <meta name="twitter:description" content="Productos, herramientas open source y desarrollo a medida con flotas de agentes de IA. Forjado al rojo vivo." />
-  <meta name="twitter:image" content="https://fervon.dev/assets/logo.svg" />
 
   <script type="application/ld+json">
   {
@@ -39,162 +34,126 @@
     "slogan": "Forjado al rojo vivo",
     "foundingDate": "2026",
     "founder": { "@type": "Person", "name": "Jonathan Martín" },
-    "sameAs": [
-      "https://github.com/fervon",
-      "https://www.npmjs.com/package/fervon"
-    ]
+    "sameAs": ["https://github.com/fervon", "https://www.npmjs.com/package/fervon"]
   }
   </script>
+
   <style>
-    :root {
-      --carbon: #0E0B0A;
-      --carbon-2: #16110E;
-      --card: #1A1310;
-      --line: #2C211B;
-      --ember: #FF6A00;
-      --brasa: #E0480F;
-      --amber: #FFB02E;
-      --bone: #EFE7DC;
-      --ash: #A89A8E;
-      --dim: #6E6055;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      background: var(--carbon);
-      color: var(--bone);
-      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-    a { color: inherit; text-decoration: none; }
-    .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+    :root{--carbon:#0E0B0A;--carbon-2:#16110E;--card:#1A1310;--line:#2C211B;--line2:#3A2C22;--ember:#FF6A00;--brasa:#E0480F;--amber:#FFB02E;--bone:#EFE7DC;--ash:#A89A8E;--dim:#7A6C60}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--carbon);color:var(--bone);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
 
     /* Nav */
-    nav {
-      position: sticky; top: 0; z-index: 50;
-      background: rgba(14,11,10,0.82);
-      backdrop-filter: saturate(150%) blur(10px);
-      border-bottom: 1px solid var(--line);
-    }
-    nav .bar { max-width: 1040px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; }
-    nav .brand { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; }
-    nav .brand span { color: var(--ember); }
-    nav .links { display: flex; gap: 22px; align-items: center; }
-    nav .links a { font-size: 14px; color: var(--ash); }
-    nav .links a:hover { color: var(--amber); }
-    nav .links .cta-nav { color: var(--bone); border: 1px solid var(--line); padding: 7px 14px; border-radius: 8px; }
-    nav .links .cta-nav:hover { border-color: var(--ember); color: var(--amber); }
-    @media (max-width: 680px) { nav .links a:not(.cta-nav) { display: none; } }
+    nav{position:sticky;top:0;z-index:50;background:rgba(14,11,10,.82);backdrop-filter:saturate(150%) blur(10px);border-bottom:1px solid var(--line)}
+    nav .bar{max-width:1080px;margin:0 auto;padding:13px 24px;display:flex;align-items:center;justify-content:space-between}
+    nav .brand{font-size:19px;font-weight:800;letter-spacing:-.5px}
+    nav .brand span{color:var(--ember)}
+    nav .links{display:flex;gap:24px;align-items:center}
+    nav .links a{font-size:14px;color:var(--ash)}
+    nav .links a:hover{color:var(--bone)}
+    nav .links .cta{color:var(--bone);border:1px solid var(--line2);padding:8px 15px;border-radius:9px}
+    nav .links .cta:hover{border-color:var(--ember);color:var(--amber)}
+    @media(max-width:720px){nav .links a:not(.cta){display:none}}
 
     /* Hero */
-    .hero { position: relative; text-align: center; padding: 84px 24px 64px; overflow: hidden; }
-    .hero::before {
-      content: ""; position: absolute; top: -120px; left: 50%;
-      width: 760px; height: 520px; transform: translateX(-50%);
-      background: radial-gradient(ellipse at center, rgba(255,106,0,0.20) 0%, rgba(224,72,15,0.08) 38%, rgba(14,11,10,0) 70%);
-      pointer-events: none; animation: breathe 6s ease-in-out infinite;
-    }
-    @keyframes breathe { 0%,100% { opacity: 0.8; } 50% { opacity: 1; } }
-    .hero .logo { position: relative; width: 100%; max-width: 440px; margin: 0 auto 8px; }
-    .hero .logo svg { width: 100%; height: auto; display: block; }
-    .lead { position: relative; max-width: 620px; margin: 24px auto 0; font-size: 19px; color: var(--ash); }
-    .lead strong { color: var(--bone); font-weight: 600; }
-    .root { position: relative; margin-top: 14px; font-size: 14px; font-style: italic; color: var(--dim); }
-    .cta { position: relative; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px; }
-    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 10px; font-size: 15px; font-weight: 500; cursor: pointer; transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease, color .15s ease; }
-    .btn-primary { background: linear-gradient(180deg, var(--ember), var(--brasa)); color: #1A0E06; box-shadow: 0 6px 24px rgba(255,106,0,0.28); border: 0; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255,106,0,0.40); }
-    .btn-ghost { border: 1px solid var(--line); color: var(--bone); background: transparent; }
-    .btn-ghost:hover { border-color: var(--ember); color: var(--amber); }
+    .hero{position:relative;text-align:center;padding:88px 24px 56px;overflow:hidden}
+    .hero::before{content:"";position:absolute;top:-120px;left:50%;width:760px;height:520px;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(255,106,0,.2),rgba(224,72,15,.08) 38%,transparent 70%);pointer-events:none;animation:breathe 6s ease-in-out infinite}
+    @keyframes breathe{0%,100%{opacity:.8}50%{opacity:1}}
+    .hero .logo{position:relative;width:100%;max-width:440px;margin:0 auto 6px}
+    .hero .logo svg{width:100%;height:auto;display:block}
+    .lead{position:relative;max-width:640px;margin:22px auto 0;font-size:19px;color:var(--ash)}
+    .lead strong{color:var(--bone);font-weight:600}
+    .root{position:relative;margin-top:14px;font-size:14px;font-style:italic;color:var(--dim)}
+    .cta-row{position:relative;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:32px}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:11px;font-size:15px;font-weight:600;cursor:pointer;border:0;transition:.16s}
+    .btn-fire{background:linear-gradient(180deg,var(--ember),var(--brasa));color:#1A0E06;box-shadow:0 8px 26px rgba(255,106,0,.3)}
+    .btn-fire:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(255,106,0,.42)}
+    .btn-ghost{border:1px solid var(--line2);color:var(--bone);background:transparent}
+    .btn-ghost:hover{border-color:var(--ember);color:var(--amber)}
+    .btn-sm{padding:8px 15px;font-size:14px}
 
     /* Sections */
-    .section { padding: 60px 0 16px; }
-    .section h2 { font-size: 14px; letter-spacing: 4px; text-transform: uppercase; color: var(--ash); font-weight: 500; text-align: center; margin-bottom: 6px; }
-    .section .sub { text-align: center; color: var(--dim); font-size: 15px; margin-bottom: 36px; }
+    .sec{padding:58px 0 12px}
+    .sec h2{font-size:13px;letter-spacing:4px;text-transform:uppercase;color:var(--ash);font-weight:500;text-align:center;margin-bottom:6px}
+    .sec .sub{text-align:center;color:var(--dim);font-size:15px;margin-bottom:34px}
 
-    /* Trace — producto estrella */
-    .product-hero { background: linear-gradient(150deg, #1E1410, #160F0C); border: 1px solid var(--line); border-radius: 18px; padding: 34px 32px; display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; box-shadow: 0 0 0 1px rgba(255,106,0,0.08), 0 20px 50px rgba(0,0,0,0.35); }
-    .product-hero .pname { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
-    .product-hero .ptag { color: var(--ash); margin-top: 8px; font-size: 16px; max-width: 520px; }
-    .product-hero .pacts { margin-top: 20px; display: flex; gap: 12px; flex-wrap: wrap; }
-    .product-hero .picon { font-size: 60px; line-height: 1; }
-    .badge { display: inline-block; font-size: 12px; font-weight: 600; padding: 4px 11px; border-radius: 20px; letter-spacing: 0.3px; }
-    .badge-paid { background: rgba(255,176,46,0.14); color: var(--amber); border: 1px solid rgba(255,176,46,0.3); }
-    .badge-free { background: rgba(120,200,120,0.12); color: #8FD08F; border: 1px solid rgba(120,200,120,0.28); }
-    @media (max-width: 620px) { .product-hero { grid-template-columns: 1fr; text-align: left; } .product-hero .picon { display: none; } }
+    /* Trace destacado */
+    .star{position:relative;border-radius:20px;padding:32px;display:grid;grid-template-columns:1fr auto;gap:26px;align-items:center;background:linear-gradient(140deg,#211425,#15100E);border:1px solid var(--line2);overflow:hidden}
+    .star::after{content:"";position:absolute;right:-60px;top:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(185,139,255,.18),transparent 70%);pointer-events:none}
+    .star .picon{font-size:54px;position:relative}
+    .star .pname{font-size:26px;font-weight:800;letter-spacing:-.4px;margin-top:12px}
+    .star .pname small{color:var(--dim);font-weight:400;font-size:15px}
+    .star .pdesc{color:var(--ash);margin-top:10px;max-width:520px}
+    .star .pdesc strong{color:var(--bone)}
+    .star .acts{margin-top:20px;display:flex;gap:12px;flex-wrap:wrap}
+    @media(max-width:640px){.star{grid-template-columns:1fr}.star .picon{display:none}}
 
-    /* Grid de tarjetas */
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
-    .grid.tight { margin-top: 18px; }
-    .card { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px; transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease; }
-    .card:hover { transform: translateY(-3px); border-color: rgba(255,106,0,0.5); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
-    .card .name { font-size: 17px; font-weight: 600; color: var(--bone); display: flex; align-items: center; gap: 8px; }
-    .card .name .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ember); box-shadow: 0 0 8px var(--ember); flex: none; }
-    .card .desc { margin-top: 10px; font-size: 14.5px; color: var(--ash); }
-    .card .meta { margin-top: 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-    .card .go { font-size: 13px; color: var(--brasa); font-weight: 500; }
-    .card.muted .name .dot { background: #5A4034; box-shadow: none; }
+    /* Grid de productos con personalidad */
+    .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px;margin-top:16px}
+    .pcard{position:relative;display:block;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease}
+    .pcard:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--ac) 60%,var(--line));box-shadow:0 14px 34px rgba(0,0,0,.42)}
+    .pcard .picon{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:24px;background:color-mix(in srgb,var(--ac) 15%,transparent);border:1px solid color-mix(in srgb,var(--ac) 32%,transparent)}
+    .pcard .pname{display:flex;align-items:center;gap:9px;font-size:18px;font-weight:700;margin-top:14px}
+    .pcard .pdesc{color:var(--ash);font-size:14.5px;margin-top:8px;min-height:42px}
+    .pcard .pgo{margin-top:16px;font-size:13.5px;font-weight:600;color:var(--ac)}
+    .badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:14px;white-space:nowrap}
+    .badge.free{background:rgba(143,200,107,.14);color:#A6D585;border:1px solid rgba(143,200,107,.3)}
+    .badge.paid{background:rgba(255,176,46,.14);color:var(--amber);border:1px solid rgba(255,176,46,.32)}
 
     /* Sobre mí */
-    .about { background: var(--carbon-2); border: 1px solid var(--line); border-radius: 18px; padding: 32px; display: grid; grid-template-columns: auto 1fr; gap: 26px; align-items: center; }
-    .about .avatar { width: 92px; height: 92px; border-radius: 50%; background: linear-gradient(150deg, var(--brasa), var(--carbon)); display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 700; color: var(--bone); border: 1px solid rgba(255,106,0,0.4); flex: none; }
-    .about h3 { font-size: 20px; font-weight: 600; }
-    .about p { color: var(--ash); margin-top: 10px; font-size: 15.5px; }
-    .about .me-links { margin-top: 14px; display: flex; gap: 18px; flex-wrap: wrap; }
-    .about .me-links a { font-size: 14px; color: var(--brasa); }
-    @media (max-width: 560px) { .about { grid-template-columns: 1fr; text-align: center; } .about .avatar { margin: 0 auto; } .about .me-links { justify-content: center; } }
+    .about{background:var(--carbon-2);border:1px solid var(--line);border-radius:18px;padding:32px;display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:center}
+    .about .avatar{width:92px;height:92px;border-radius:50%;background:linear-gradient(150deg,var(--brasa),var(--carbon));display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:800;color:var(--bone);border:1px solid rgba(255,106,0,.4);flex:none}
+    .about h3{font-size:20px;font-weight:700}
+    .about p{color:var(--ash);margin-top:10px;font-size:15.5px}
+    .about .me-links{margin-top:14px;display:flex;gap:18px;flex-wrap:wrap}
+    .about .me-links a{font-size:14px;color:var(--brasa)}
+    @media(max-width:560px){.about{grid-template-columns:1fr;text-align:center}.about .avatar{margin:0 auto}.about .me-links{justify-content:center}}
 
     /* Servicios */
-    .services { background: linear-gradient(150deg, #1A1310, #140E0B); border: 1px solid var(--line); border-radius: 18px; padding: 34px 32px; }
-    .services h3 { font-size: 22px; font-weight: 700; }
-    .services .intro { color: var(--ash); margin-top: 10px; max-width: 640px; }
-    .services ul { list-style: none; margin-top: 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px 26px; }
-    .services li { padding-left: 22px; position: relative; color: var(--bone); font-size: 15px; }
-    .services li::before { content: "🔥"; position: absolute; left: 0; font-size: 13px; }
-    .services li span { display: block; color: var(--ash); font-size: 13.5px; }
-    .services .sact { margin-top: 26px; }
+    .services{background:linear-gradient(150deg,#1A1310,#140E0B);border:1px solid var(--line);border-radius:18px;padding:34px 32px}
+    .services h3{font-size:22px;font-weight:800}
+    .services .intro{color:var(--ash);margin-top:10px;max-width:640px}
+    .services ul{list-style:none;margin-top:22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px 26px}
+    .services li{padding-left:24px;position:relative;color:var(--bone);font-size:15px;font-weight:600}
+    .services li::before{content:"🔥";position:absolute;left:0;font-size:13px}
+    .services li span{display:block;color:var(--ash);font-size:13.5px;font-weight:400}
+    .services .sact{margin-top:26px}
 
     /* Contacto */
-    .contact { max-width: 580px; margin: 0 auto; }
-    .contact form { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
-    .contact input, .contact textarea { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 13px 15px; color: var(--bone); font-family: inherit; font-size: 15px; transition: border-color .15s ease; resize: vertical; }
-    .contact input::placeholder, .contact textarea::placeholder { color: var(--dim); }
-    .contact input:focus, .contact textarea:focus { outline: none; border-color: var(--ember); }
-    .contact button { align-self: flex-start; }
-    .contact .note { text-align: center; color: var(--dim); font-size: 13px; margin-top: 14px; }
+    .contact{max-width:580px;margin:0 auto}
+    .contact form{display:flex;flex-direction:column;gap:14px;margin-top:8px}
+    .contact input,.contact textarea{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:13px 15px;color:var(--bone);font-family:inherit;font-size:15px;transition:border-color .15s ease;resize:vertical}
+    .contact input::placeholder,.contact textarea::placeholder{color:var(--dim)}
+    .contact input:focus,.contact textarea:focus{outline:none;border-color:var(--ember)}
+    .contact button{align-self:flex-start}
+    .contact .note{text-align:center;color:var(--dim);font-size:13px;margin-top:14px}
 
     /* Footer */
-    footer { border-top: 1px solid var(--line); margin-top: 72px; padding: 40px 0 56px; text-align: center; }
-    footer .mark { font-size: 20px; font-weight: 700; letter-spacing: -1px; }
-    footer .mark span { color: var(--ember); }
-    footer .links { margin: 16px 0 10px; display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; }
-    footer .links a { color: var(--ash); font-size: 14px; }
-    footer .links a:hover { color: var(--amber); }
-    footer .copy { color: #5A4F46; font-size: 13px; }
+    footer{border-top:1px solid var(--line);margin-top:70px;padding:40px 0 56px;text-align:center}
+    footer .mark{font-size:20px;font-weight:800}
+    footer .mark span{color:var(--ember)}
+    footer .flinks{margin:16px 0 10px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
+    footer .flinks a{color:var(--ash);font-size:14px}
+    footer .flinks a:hover{color:var(--amber)}
+    footer .copy{color:#5A4F46;font-size:13px}
 
-    @media (max-width: 560px) {
-      .hero { padding: 64px 20px 48px; }
-      .lead { font-size: 17px; }
-      .hero .logo { max-width: 300px; }
-      .product-hero, .services, .about { padding: 26px 22px; }
-    }
+    @media(max-width:560px){.hero{padding:64px 20px 44px}.lead{font-size:17px}.hero .logo{max-width:300px}.star,.services,.about{padding:26px 22px}}
   </style>
 </head>
 <body>
 
-  <nav>
-    <div class="bar">
-      <a class="brand" href="#top"><span>🔥</span> fervon</a>
-      <div class="links">
-        <a href="#productos">Productos</a>
-        <a href="#sobre-mi">Sobre mí</a>
-        <a href="#servicios">Servicios</a>
-        <a class="cta-nav" href="#contacto">Hablemos</a>
-      </div>
+  <nav><div class="bar">
+    <a class="brand" href="#top"><span>🔥</span> fervon</a>
+    <div class="links">
+      <a href="#productos">Productos</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#sobre-mi">Sobre mí</a>
+      <a class="cta" href="#contacto">Hablemos</a>
     </div>
-  </nav>
+  </div></nav>
 
   <header class="hero" id="top">
     <h1 style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Fervon — estudio de software autónomo. Forjado al rojo vivo.</h1>
@@ -223,12 +182,10 @@
         </g>
       </svg>
     </div>
-
     <p class="lead"><strong>Estudio de software autónomo.</strong> Forjo productos, herramientas open source y software a medida dirigiendo flotas de agentes de IA — local-first, sin pausa.</p>
     <p class="root">del latín <em>fervere</em> — arder, hervir, bullir con fervor</p>
-
-    <div class="cta">
-      <a class="btn btn-primary" href="#productos">Ver productos</a>
+    <div class="cta-row">
+      <a class="btn btn-fire" href="#productos">Ver productos</a>
       <a class="btn btn-ghost" href="#contacto">Hablemos</a>
     </div>
   </header>
@@ -236,54 +193,76 @@
   <main class="wrap">
 
     <!-- PRODUCTOS -->
-    <section class="section" id="productos">
+    <section class="sec" id="productos">
       <h2>Productos</h2>
-      <p class="sub">Lo que puedes usar hoy. Unos de pago, la mayoría gratis y open source.</p>
+      <p class="sub">Lo que puedes usar hoy. Cada uno con su propia página.</p>
 
-      <div class="product-hero">
+      <a class="star" href="/trace/" style="--ac:#B98BFF">
         <div>
-          <span class="badge badge-paid">Producto · de pago</span>
-          <div class="pname" style="margin-top:12px">Trace <span style="color:var(--dim);font-weight:400;font-size:16px">by Fervon</span></div>
-          <p class="ptag">Tu memoria personal, en tu máquina. Todo lo que ves, lees y escribes — buscable al instante, cross-platform y <strong>sin grabar tu pantalla</strong>. El "Rewind" que Meta mató, pero local y privado.</p>
-          <div class="pacts">
-            <a class="btn btn-primary" href="https://trace-fervon.pages.dev">Únete a la lista</a>
-            <a class="btn btn-ghost" href="https://trace-fervon.pages.dev">Saber más</a>
+          <span class="badge paid">⭐ Producto · de pago</span>
+          <div class="pname">Trace <small>by Fervon</small></div>
+          <p class="pdesc">Tu memoria personal, en tu máquina. Todo lo que ves, lees y escribes — buscable al instante, cross-platform y <strong>sin grabar tu pantalla</strong>. El "Rewind" que Meta mató, pero local y privado.</p>
+          <div class="acts">
+            <span class="btn btn-fire">Ver Trace →</span>
+            <span class="btn btn-ghost">Únete a la lista</span>
           </div>
         </div>
         <div class="picon">🧠</div>
-      </div>
+      </a>
 
-      <div class="grid tight">
-        <a class="card" href="https://www.npmjs.com/package/lookspan">
-          <div class="name"><span class="dot"></span>Lookspan</div>
-          <div class="desc">Observabilidad local-first para agentes de IA. Ingiere trazas y spans, dashboard incluido. npm + PyPI.</div>
-          <div class="meta"><span class="badge badge-free">Gratis</span><span class="go">npm →</span></div>
+      <div class="products">
+        <a class="pcard" href="/lookspan/" style="--ac:#5BC8D8">
+          <div class="picon">📡</div>
+          <div class="pname">Lookspan <span class="badge free">Gratis</span></div>
+          <div class="pdesc">Observabilidad local-first para agentes de IA. Cada llamada LLM, herramienta MCP y coste, en tu máquina.</div>
+          <div class="pgo">Ver Lookspan →</div>
         </a>
-        <a class="card" href="https://jonimartin27.github.io/inferbench">
-          <div class="name"><span class="dot"></span>inferbench</div>
-          <div class="desc">Benchmark de LLMs locales en tu propia GPU (tokens/s), con modo Serve + servidor MCP.</div>
-          <div class="meta"><span class="badge badge-free">Gratis</span><span class="go">web →</span></div>
+        <a class="pcard" href="/inferbench/" style="--ac:#FFB02E">
+          <div class="picon">🔬</div>
+          <div class="pname">inferbench <span class="badge free">Gratis</span></div>
+          <div class="pdesc">Sabe qué LLM corre en tu GPU y a cuántos tok/s. Benchmark real con un click. Serve + MCP.</div>
+          <div class="pgo">Ver inferbench →</div>
         </a>
-        <a class="card" href="https://github.com/JoniMartin27/claudescope">
-          <div class="name"><span class="dot"></span>ClaudeScope</div>
-          <div class="desc">Dashboard + búsqueda full-text de tus sesiones de Claude Code. Local-first, 0 deps, 0 red.</div>
-          <div class="meta"><span class="badge badge-free">Gratis</span><span class="go">GitHub →</span></div>
+        <a class="pcard" href="/claudescope/" style="--ac:#A78BFF">
+          <div class="picon">🔭</div>
+          <div class="pname">ClaudeScope <span class="badge free">Gratis</span></div>
+          <div class="pdesc">Busca en todas tus sesiones de Claude Code. Dashboard local-first, 0 deps, 0 red.</div>
+          <div class="pgo">Ver ClaudeScope →</div>
         </a>
-        <a class="card" href="https://github.com/JoniMartin27/launchpad">
-          <div class="name"><span class="dot"></span>launchpad</div>
-          <div class="desc">Launcher local que descubre y levanta todos tus proyectos sin colisión de puertos.</div>
-          <div class="meta"><span class="badge badge-free">Gratis</span><span class="go">GitHub →</span></div>
+        <a class="pcard" href="/launchpad/" style="--ac:#8FD06B">
+          <div class="picon">🚀</div>
+          <div class="pname">launchpad <span class="badge free">Gratis</span></div>
+          <div class="pdesc">Launcher local que descubre y levanta todos tus proyectos sin colisión de puertos.</div>
+          <div class="pgo">Ver launchpad →</div>
         </a>
-        <a class="card" href="https://github.com/JoniMartin27/pregon">
-          <div class="name"><span class="dot"></span>Pregón</div>
-          <div class="desc">Cross-poster centralizado (8+ canales) + tracking de tracción de tus lanzamientos.</div>
-          <div class="meta"><span class="badge badge-free">Gratis</span><span class="go">GitHub →</span></div>
+        <a class="pcard" href="/pregon/" style="--ac:#FF8A66">
+          <div class="picon">📣</div>
+          <div class="pname">Pregón <span class="badge free">Gratis</span></div>
+          <div class="pdesc">Compón una vez, publica en 8+ canales y mide la tracción de tus lanzamientos.</div>
+          <div class="pgo">Ver Pregón →</div>
         </a>
       </div>
     </section>
 
+    <!-- SERVICIOS -->
+    <section class="sec" id="servicios">
+      <h2>Servicios</h2>
+      <p class="sub">¿Necesitas que forje algo para ti?</p>
+      <div class="services">
+        <h3>Software a medida, con agentes de IA</h3>
+        <p class="intro">Aplico el mismo motor con el que construyo mis productos —flotas de agentes autónomos y un enfoque local-first— a los retos de tu empresa. De la idea al producto, rápido.</p>
+        <ul>
+          <li>Desarrollo a medida<span>Productos y MVPs de principio a fin.</span></li>
+          <li>Automatización con agentes<span>Flotas de IA para procesos y código.</span></li>
+          <li>Herramientas internas<span>Dashboards, CLIs y observabilidad local-first.</span></li>
+          <li>Consultoría<span>Cómo montar tu propia fábrica de software con IA.</span></li>
+        </ul>
+        <div class="sact"><a class="btn btn-fire" href="#contacto">Cuéntame tu proyecto</a></div>
+      </div>
+    </section>
+
     <!-- SOBRE MÍ -->
-    <section class="section" id="sobre-mi">
+    <section class="sec" id="sobre-mi">
       <h2>Quién hay detrás</h2>
       <p class="sub">Fervon es un estudio. Detrás del estudio estoy yo.</p>
       <div class="about">
@@ -299,53 +278,8 @@
       </div>
     </section>
 
-    <!-- SERVICIOS -->
-    <section class="section" id="servicios">
-      <h2>Servicios</h2>
-      <p class="sub">¿Necesitas que forje algo para ti?</p>
-      <div class="services">
-        <h3>Software a medida, con agentes de IA</h3>
-        <p class="intro">Aplico el mismo motor con el que construyo mis productos —flotas de agentes autónomos y un enfoque local-first— a los retos de tu empresa. De la idea al producto, rápido.</p>
-        <ul>
-          <li>Desarrollo a medida<span>Productos y MVPs de principio a fin.</span></li>
-          <li>Automatización con agentes<span>Flotas de IA para procesos y código.</span></li>
-          <li>Herramientas internas<span>Dashboards, CLIs y observabilidad local-first.</span></li>
-          <li>Consultoría<span>Cómo montar tu propia fábrica de software con IA.</span></li>
-        </ul>
-        <div class="sact"><a class="btn btn-primary" href="#contacto">Cuéntame tu proyecto</a></div>
-      </div>
-    </section>
-
-    <!-- PROYECTOS / LAB -->
-    <section class="section" id="lab">
-      <h2>La forja · en curso</h2>
-      <p class="sub">Lo que se está cociendo ahora mismo.</p>
-      <div class="grid">
-        <div class="card muted">
-          <div class="name"><span class="dot"></span>Regenta</div>
-          <div class="desc">Plataforma que orquesta una flota de agentes de IA jerárquicos (CEO → directores → especialistas).</div>
-          <div class="meta"><span class="go" style="color:var(--dim)">en privado</span></div>
-        </div>
-        <div class="card muted">
-          <div class="name"><span class="dot"></span>Veredicto</div>
-          <div class="desc">Detector de <em>test-gaming</em> (trampas en los tests) en PRs hechos por agentes de IA.</div>
-          <div class="meta"><span class="go" style="color:var(--dim)">próximamente</span></div>
-        </div>
-        <div class="card muted">
-          <div class="name"><span class="dot"></span>Trading bot</div>
-          <div class="desc">Bot de trading autónomo (cripto + acciones) con veto de Claude — la IA solo resta riesgo.</div>
-          <div class="meta"><span class="go" style="color:var(--dim)">en paper</span></div>
-        </div>
-        <div class="card muted">
-          <div class="name"><span class="dot"></span>Game factory</div>
-          <div class="desc">Juegos casuales en cadena: Prompt Tycoon · Pato Patrick.</div>
-          <div class="meta"><span class="go" style="color:var(--dim)">en desarrollo</span></div>
-        </div>
-      </div>
-    </section>
-
     <!-- CONTACTO -->
-    <section class="section" id="contacto">
+    <section class="sec" id="contacto">
       <h2>Hablemos</h2>
       <p class="sub">¿Un producto, un servicio o solo saludar? Escríbeme.</p>
       <div class="contact">
@@ -353,7 +287,7 @@
           <input type="text" name="nombre" placeholder="Tu nombre" required />
           <input type="email" name="email" placeholder="Tu email" required />
           <textarea name="mensaje" rows="4" placeholder="Cuéntame en qué andas…" required></textarea>
-          <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+          <button type="submit" class="btn btn-fire">Enviar mensaje</button>
         </form>
         <p class="note">Te respondo yo, sin intermediarios.</p>
       </div>
@@ -361,19 +295,16 @@
 
   </main>
 
-  <footer>
-    <div class="wrap">
-      <div class="mark"><span>🔥</span> fervon</div>
-      <div class="links">
-        <a href="#productos">Productos</a>
-        <a href="#servicios">Servicios</a>
-        <a href="#contacto">Contacto</a>
-        <a href="https://github.com/fervon">GitHub</a>
-        <a href="https://www.npmjs.com/package/fervon">npm</a>
-      </div>
-      <div class="copy">Forjado al rojo vivo · © 2026 Fervon</div>
+  <footer><div class="wrap">
+    <div class="mark"><span>🔥</span> fervon</div>
+    <div class="flinks">
+      <a href="#productos">Productos</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#contacto">Contacto</a>
+      <a href="https://github.com/fervon">GitHub</a>
     </div>
-  </footer>
+    <div class="copy">Forjado al rojo vivo · © 2026 Fervon</div>
+  </div></footer>
 
 </body>
 </html>
