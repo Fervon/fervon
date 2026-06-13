@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Fervon · Estudio de software autónomo</title>
-  <meta name="description" content="Fervon es un estudio de software autónomo: herramientas para desarrolladores, infraestructura de IA y juegos, forjados con flotas de agentes. Local-first, sin pausa. Forjado al rojo vivo." />
+  <meta name="description" content="Fervon es el estudio de software autónomo de Jonathan Martín: productos como Trace, herramientas open source (Lookspan, inferbench, ClaudeScope) y desarrollo a medida con flotas de agentes de IA. Forjado al rojo vivo." />
   <link rel="canonical" href="https://fervon.dev/" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta name="author" content="Fervon" />
@@ -17,14 +17,14 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Fervon" />
   <meta property="og:title" content="Fervon · Estudio de software autónomo" />
-  <meta property="og:description" content="Herramientas para desarrolladores, infraestructura de IA y juegos, forjados con flotas de agentes de IA. Forjado al rojo vivo." />
+  <meta property="og:description" content="Productos, herramientas open source y desarrollo a medida con flotas de agentes de IA. Forjado al rojo vivo." />
   <meta property="og:url" content="https://fervon.dev/" />
   <meta property="og:image" content="https://fervon.dev/assets/logo.svg" />
   <meta property="og:locale" content="es_ES" />
 
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Fervon · Estudio de software autónomo" />
-  <meta name="twitter:description" content="Herramientas para desarrolladores, infraestructura de IA y juegos, forjados con flotas de agentes de IA. Forjado al rojo vivo." />
+  <meta name="twitter:description" content="Productos, herramientas open source y desarrollo a medida con flotas de agentes de IA. Forjado al rojo vivo." />
   <meta name="twitter:image" content="https://fervon.dev/assets/logo.svg" />
 
   <script type="application/ld+json">
@@ -35,9 +35,10 @@
     "alternateName": "Fervon Studio",
     "url": "https://fervon.dev/",
     "logo": "https://fervon.dev/assets/logo.svg",
-    "description": "Estudio de software autónomo: herramientas para desarrolladores, infraestructura de IA y juegos, forjados con flotas de agentes de IA. Local-first.",
+    "description": "Estudio de software autónomo: productos, herramientas open source y desarrollo a medida con flotas de agentes de IA. Local-first.",
     "slogan": "Forjado al rojo vivo",
     "foundingDate": "2026",
+    "founder": { "@type": "Person", "name": "Jonathan Martín" },
     "sameAs": [
       "https://github.com/fervon",
       "https://www.npmjs.com/package/fervon"
@@ -55,6 +56,7 @@
       --amber: #FFB02E;
       --bone: #EFE7DC;
       --ash: #A89A8E;
+      --dim: #6E6055;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -69,106 +71,102 @@
     a { color: inherit; text-decoration: none; }
     .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
 
+    /* Nav */
+    nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(14,11,10,0.82);
+      backdrop-filter: saturate(150%) blur(10px);
+      border-bottom: 1px solid var(--line);
+    }
+    nav .bar { max-width: 1040px; margin: 0 auto; padding: 12px 24px; display: flex; align-items: center; justify-content: space-between; }
+    nav .brand { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; }
+    nav .brand span { color: var(--ember); }
+    nav .links { display: flex; gap: 22px; align-items: center; }
+    nav .links a { font-size: 14px; color: var(--ash); }
+    nav .links a:hover { color: var(--amber); }
+    nav .links .cta-nav { color: var(--bone); border: 1px solid var(--line); padding: 7px 14px; border-radius: 8px; }
+    nav .links .cta-nav:hover { border-color: var(--ember); color: var(--amber); }
+    @media (max-width: 680px) { nav .links a:not(.cta-nav) { display: none; } }
+
     /* Hero */
-    .hero {
-      position: relative;
-      text-align: center;
-      padding: 96px 24px 72px;
-      overflow: hidden;
-    }
+    .hero { position: relative; text-align: center; padding: 84px 24px 64px; overflow: hidden; }
     .hero::before {
-      content: "";
-      position: absolute;
-      top: -120px; left: 50%;
-      width: 760px; height: 520px;
-      transform: translateX(-50%);
+      content: ""; position: absolute; top: -120px; left: 50%;
+      width: 760px; height: 520px; transform: translateX(-50%);
       background: radial-gradient(ellipse at center, rgba(255,106,0,0.20) 0%, rgba(224,72,15,0.08) 38%, rgba(14,11,10,0) 70%);
-      pointer-events: none;
-      animation: breathe 6s ease-in-out infinite;
+      pointer-events: none; animation: breathe 6s ease-in-out infinite;
     }
-    @keyframes breathe {
-      0%, 100% { opacity: 0.8; }
-      50% { opacity: 1; }
-    }
-    .hero .logo { position: relative; width: 100%; max-width: 460px; margin: 0 auto 8px; }
+    @keyframes breathe { 0%,100% { opacity: 0.8; } 50% { opacity: 1; } }
+    .hero .logo { position: relative; width: 100%; max-width: 440px; margin: 0 auto 8px; }
     .hero .logo svg { width: 100%; height: auto; display: block; }
-    .tagline {
-      position: relative;
-      font-size: 14px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      color: var(--amber);
-      margin-top: 6px;
-    }
-    .lead {
-      position: relative;
-      max-width: 600px;
-      margin: 26px auto 0;
-      font-size: 19px;
-      color: var(--ash);
-    }
+    .lead { position: relative; max-width: 620px; margin: 24px auto 0; font-size: 19px; color: var(--ash); }
     .lead strong { color: var(--bone); font-weight: 600; }
-    .root {
-      position: relative;
-      margin-top: 16px;
-      font-size: 14px;
-      font-style: italic;
-      color: #6E6055;
-    }
-    .cta {
-      position: relative;
-      display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;
-      margin-top: 36px;
-    }
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 12px 22px;
-      border-radius: 10px;
-      font-size: 15px; font-weight: 500;
-      transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
-    }
-    .btn-primary {
-      background: linear-gradient(180deg, var(--ember), var(--brasa));
-      color: #1A0E06;
-      box-shadow: 0 6px 24px rgba(255,106,0,0.28);
-    }
+    .root { position: relative; margin-top: 14px; font-size: 14px; font-style: italic; color: var(--dim); }
+    .cta { position: relative; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 10px; font-size: 15px; font-weight: 500; cursor: pointer; transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease, color .15s ease; }
+    .btn-primary { background: linear-gradient(180deg, var(--ember), var(--brasa)); color: #1A0E06; box-shadow: 0 6px 24px rgba(255,106,0,0.28); border: 0; }
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255,106,0,0.40); }
-    .btn-ghost { border: 1px solid var(--line); color: var(--bone); }
+    .btn-ghost { border: 1px solid var(--line); color: var(--bone); background: transparent; }
     .btn-ghost:hover { border-color: var(--ember); color: var(--amber); }
 
-    /* Portfolio */
-    .section { padding: 56px 0 24px; }
-    .section h2 {
-      font-size: 14px; letter-spacing: 4px; text-transform: uppercase;
-      color: var(--ash); font-weight: 500; text-align: center; margin-bottom: 6px;
-    }
-    .section .sub { text-align: center; color: #6E6055; font-size: 15px; margin-bottom: 36px; }
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 16px;
-    }
-    .card {
-      position: relative;
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      padding: 22px 22px 20px;
-      transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease;
-    }
-    .card:hover {
-      transform: translateY(-3px);
-      border-color: rgba(255,106,0,0.5);
-      box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,106,0,0.15);
-    }
+    /* Sections */
+    .section { padding: 60px 0 16px; }
+    .section h2 { font-size: 14px; letter-spacing: 4px; text-transform: uppercase; color: var(--ash); font-weight: 500; text-align: center; margin-bottom: 6px; }
+    .section .sub { text-align: center; color: var(--dim); font-size: 15px; margin-bottom: 36px; }
+
+    /* Trace — producto estrella */
+    .product-hero { background: linear-gradient(150deg, #1E1410, #160F0C); border: 1px solid var(--line); border-radius: 18px; padding: 34px 32px; display: grid; grid-template-columns: 1fr auto; gap: 28px; align-items: center; box-shadow: 0 0 0 1px rgba(255,106,0,0.08), 0 20px 50px rgba(0,0,0,0.35); }
+    .product-hero .pname { font-size: 26px; font-weight: 700; letter-spacing: -0.5px; }
+    .product-hero .ptag { color: var(--ash); margin-top: 8px; font-size: 16px; max-width: 520px; }
+    .product-hero .pacts { margin-top: 20px; display: flex; gap: 12px; flex-wrap: wrap; }
+    .product-hero .picon { font-size: 60px; line-height: 1; }
+    .badge { display: inline-block; font-size: 12px; font-weight: 600; padding: 4px 11px; border-radius: 20px; letter-spacing: 0.3px; }
+    .badge-paid { background: rgba(255,176,46,0.14); color: var(--amber); border: 1px solid rgba(255,176,46,0.3); }
+    .badge-free { background: rgba(120,200,120,0.12); color: #8FD08F; border: 1px solid rgba(120,200,120,0.28); }
+    @media (max-width: 620px) { .product-hero { grid-template-columns: 1fr; text-align: left; } .product-hero .picon { display: none; } }
+
+    /* Grid de tarjetas */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .grid.tight { margin-top: 18px; }
+    .card { position: relative; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 22px; transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease; }
+    .card:hover { transform: translateY(-3px); border-color: rgba(255,106,0,0.5); box-shadow: 0 10px 30px rgba(0,0,0,0.4); }
     .card .name { font-size: 17px; font-weight: 600; color: var(--bone); display: flex; align-items: center; gap: 8px; }
-    .card .name .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ember); box-shadow: 0 0 8px var(--ember); }
+    .card .name .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--ember); box-shadow: 0 0 8px var(--ember); flex: none; }
     .card .desc { margin-top: 10px; font-size: 14.5px; color: var(--ash); }
-    .card .go { margin-top: 14px; font-size: 13px; color: var(--brasa); font-weight: 500; }
+    .card .meta { margin-top: 14px; display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .card .go { font-size: 13px; color: var(--brasa); font-weight: 500; }
     .card.muted .name .dot { background: #5A4034; box-shadow: none; }
 
+    /* Sobre mí */
+    .about { background: var(--carbon-2); border: 1px solid var(--line); border-radius: 18px; padding: 32px; display: grid; grid-template-columns: auto 1fr; gap: 26px; align-items: center; }
+    .about .avatar { width: 92px; height: 92px; border-radius: 50%; background: linear-gradient(150deg, var(--brasa), var(--carbon)); display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 700; color: var(--bone); border: 1px solid rgba(255,106,0,0.4); flex: none; }
+    .about h3 { font-size: 20px; font-weight: 600; }
+    .about p { color: var(--ash); margin-top: 10px; font-size: 15.5px; }
+    .about .me-links { margin-top: 14px; display: flex; gap: 18px; flex-wrap: wrap; }
+    .about .me-links a { font-size: 14px; color: var(--brasa); }
+    @media (max-width: 560px) { .about { grid-template-columns: 1fr; text-align: center; } .about .avatar { margin: 0 auto; } .about .me-links { justify-content: center; } }
+
+    /* Servicios */
+    .services { background: linear-gradient(150deg, #1A1310, #140E0B); border: 1px solid var(--line); border-radius: 18px; padding: 34px 32px; }
+    .services h3 { font-size: 22px; font-weight: 700; }
+    .services .intro { color: var(--ash); margin-top: 10px; max-width: 640px; }
+    .services ul { list-style: none; margin-top: 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px 26px; }
+    .services li { padding-left: 22px; position: relative; color: var(--bone); font-size: 15px; }
+    .services li::before { content: "🔥"; position: absolute; left: 0; font-size: 13px; }
+    .services li span { display: block; color: var(--ash); font-size: 13.5px; }
+    .services .sact { margin-top: 26px; }
+
+    /* Contacto */
+    .contact { max-width: 580px; margin: 0 auto; }
+    .contact form { display: flex; flex-direction: column; gap: 14px; margin-top: 8px; }
+    .contact input, .contact textarea { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 13px 15px; color: var(--bone); font-family: inherit; font-size: 15px; transition: border-color .15s ease; resize: vertical; }
+    .contact input::placeholder, .contact textarea::placeholder { color: var(--dim); }
+    .contact input:focus, .contact textarea:focus { outline: none; border-color: var(--ember); }
+    .contact button { align-self: flex-start; }
+    .contact .note { text-align: center; color: var(--dim); font-size: 13px; margin-top: 14px; }
+
     /* Footer */
-    footer { border-top: 1px solid var(--line); margin-top: 64px; padding: 40px 0 56px; text-align: center; }
+    footer { border-top: 1px solid var(--line); margin-top: 72px; padding: 40px 0 56px; text-align: center; }
     footer .mark { font-size: 20px; font-weight: 700; letter-spacing: -1px; }
     footer .mark span { color: var(--ember); }
     footer .links { margin: 16px 0 10px; display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; }
@@ -177,15 +175,28 @@
     footer .copy { color: #5A4F46; font-size: 13px; }
 
     @media (max-width: 560px) {
-      .hero { padding: 72px 20px 56px; }
+      .hero { padding: 64px 20px 48px; }
       .lead { font-size: 17px; }
-      .hero .logo { max-width: 320px; }
+      .hero .logo { max-width: 300px; }
+      .product-hero, .services, .about { padding: 26px 22px; }
     }
   </style>
 </head>
 <body>
 
-  <header class="hero">
+  <nav>
+    <div class="bar">
+      <a class="brand" href="#top"><span>🔥</span> fervon</a>
+      <div class="links">
+        <a href="#productos">Productos</a>
+        <a href="#sobre-mi">Sobre mí</a>
+        <a href="#servicios">Servicios</a>
+        <a class="cta-nav" href="#contacto">Hablemos</a>
+      </div>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
     <h1 style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0">Fervon — estudio de software autónomo. Forjado al rojo vivo.</h1>
     <div class="logo">
       <svg width="100%" viewBox="0 0 560 200" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fervon">
@@ -213,86 +224,152 @@
       </svg>
     </div>
 
-    <p class="lead"><strong>Estudio de software autónomo.</strong> Una forja donde flotas de agentes de IA escriben, revisan y mergean su propio código — local-first, sin pausa, producto tras producto.</p>
+    <p class="lead"><strong>Estudio de software autónomo.</strong> Forjo productos, herramientas open source y software a medida dirigiendo flotas de agentes de IA — local-first, sin pausa.</p>
     <p class="root">del latín <em>fervere</em> — arder, hervir, bullir con fervor</p>
 
     <div class="cta">
-      <a class="btn btn-primary" href="https://github.com/fervon">Ver en GitHub</a>
-      <a class="btn btn-ghost" href="#forja">Explorar la forja</a>
+      <a class="btn btn-primary" href="#productos">Ver productos</a>
+      <a class="btn btn-ghost" href="#contacto">Hablemos</a>
     </div>
   </header>
 
   <main class="wrap">
-    <section class="section" id="forja">
-      <h2>Lo que sale de la forja</h2>
-      <p class="sub">Herramientas para desarrolladores, infraestructura de IA y algún que otro juego.</p>
-      <div class="grid">
 
+    <!-- PRODUCTOS -->
+    <section class="section" id="productos">
+      <h2>Productos</h2>
+      <p class="sub">Lo que puedes usar hoy. Unos de pago, la mayoría gratis y open source.</p>
+
+      <div class="product-hero">
+        <div>
+          <span class="badge badge-paid">Producto · de pago</span>
+          <div class="pname" style="margin-top:12px">Trace <span style="color:var(--dim);font-weight:400;font-size:16px">by Fervon</span></div>
+          <p class="ptag">Tu memoria personal, en tu máquina. Todo lo que ves, lees y escribes — buscable al instante, cross-platform y <strong>sin grabar tu pantalla</strong>. El "Rewind" que Meta mató, pero local y privado.</p>
+          <div class="pacts">
+            <a class="btn btn-primary" href="https://trace-fervon.pages.dev">Únete a la lista</a>
+            <a class="btn btn-ghost" href="https://trace-fervon.pages.dev">Saber más</a>
+          </div>
+        </div>
+        <div class="picon">🧠</div>
+      </div>
+
+      <div class="grid tight">
+        <a class="card" href="https://www.npmjs.com/package/lookspan">
+          <div class="name"><span class="dot"></span>Lookspan</div>
+          <div class="desc">Observabilidad local-first para agentes de IA. Ingiere trazas y spans, dashboard incluido. npm + PyPI.</div>
+          <div class="meta"><span class="badge badge-free">Gratis</span><span class="go">npm →</span></div>
+        </a>
         <a class="card" href="https://jonimartin27.github.io/inferbench">
           <div class="name"><span class="dot"></span>inferbench</div>
           <div class="desc">Benchmark de LLMs locales en tu propia GPU (tokens/s), con modo Serve + servidor MCP.</div>
-          <div class="go">jonimartin27.github.io/inferbench →</div>
+          <div class="meta"><span class="badge badge-free">Gratis</span><span class="go">web →</span></div>
         </a>
-
         <a class="card" href="https://github.com/JoniMartin27/claudescope">
           <div class="name"><span class="dot"></span>ClaudeScope</div>
-          <div class="desc">Dashboard local-first + búsqueda full-text de tus sesiones de Claude Code. 0 deps, 0 red.</div>
-          <div class="go">github.com/JoniMartin27/claudescope →</div>
+          <div class="desc">Dashboard + búsqueda full-text de tus sesiones de Claude Code. Local-first, 0 deps, 0 red.</div>
+          <div class="meta"><span class="badge badge-free">Gratis</span><span class="go">GitHub →</span></div>
         </a>
-
         <a class="card" href="https://github.com/JoniMartin27/launchpad">
           <div class="name"><span class="dot"></span>launchpad</div>
           <div class="desc">Launcher local que descubre y levanta todos tus proyectos sin colisión de puertos.</div>
-          <div class="go">github.com/JoniMartin27/launchpad →</div>
+          <div class="meta"><span class="badge badge-free">Gratis</span><span class="go">GitHub →</span></div>
         </a>
-
         <a class="card" href="https://github.com/JoniMartin27/pregon">
           <div class="name"><span class="dot"></span>Pregón</div>
           <div class="desc">Cross-poster centralizado (8+ canales) + tracking de tracción de tus lanzamientos.</div>
-          <div class="go">github.com/JoniMartin27/pregon →</div>
+          <div class="meta"><span class="badge badge-free">Gratis</span><span class="go">GitHub →</span></div>
         </a>
+      </div>
+    </section>
 
-        <a class="card" href="https://www.npmjs.com/package/lookspan">
-          <div class="name"><span class="dot"></span>Lookspan</div>
-          <div class="desc">Librería para desarrolladores publicada en npm + PyPI.</div>
-          <div class="go">npmjs.com/package/lookspan →</div>
-        </a>
+    <!-- SOBRE MÍ -->
+    <section class="section" id="sobre-mi">
+      <h2>Quién hay detrás</h2>
+      <p class="sub">Fervon es un estudio. Detrás del estudio estoy yo.</p>
+      <div class="about">
+        <div class="avatar">JM</div>
+        <div>
+          <h3>Jonathan Martín</h3>
+          <p>Desarrollador indie. Construyo software autónomo dirigiendo <strong>flotas de agentes de IA</strong> que escriben, revisan y mergean su propio código. Mi obsesión: lanzar producto tras producto, local-first y sin pausa. Fervon es la forja donde sale todo eso. <em>(Edítame: pon aquí tu historia en tu voz.)</em></p>
+          <div class="me-links">
+            <a href="https://github.com/JoniMartin27">GitHub →</a>
+            <a href="#contacto">Hablemos →</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        <a class="card" href="https://jonimartin27.github.io/regenta">
+    <!-- SERVICIOS -->
+    <section class="section" id="servicios">
+      <h2>Servicios</h2>
+      <p class="sub">¿Necesitas que forje algo para ti?</p>
+      <div class="services">
+        <h3>Software a medida, con agentes de IA</h3>
+        <p class="intro">Aplico el mismo motor con el que construyo mis productos —flotas de agentes autónomos y un enfoque local-first— a los retos de tu empresa. De la idea al producto, rápido.</p>
+        <ul>
+          <li>Desarrollo a medida<span>Productos y MVPs de principio a fin.</span></li>
+          <li>Automatización con agentes<span>Flotas de IA para procesos y código.</span></li>
+          <li>Herramientas internas<span>Dashboards, CLIs y observabilidad local-first.</span></li>
+          <li>Consultoría<span>Cómo montar tu propia fábrica de software con IA.</span></li>
+        </ul>
+        <div class="sact"><a class="btn btn-primary" href="#contacto">Cuéntame tu proyecto</a></div>
+      </div>
+    </section>
+
+    <!-- PROYECTOS / LAB -->
+    <section class="section" id="lab">
+      <h2>La forja · en curso</h2>
+      <p class="sub">Lo que se está cociendo ahora mismo.</p>
+      <div class="grid">
+        <div class="card muted">
           <div class="name"><span class="dot"></span>Regenta</div>
-          <div class="desc">Plataforma de agentes de IA.</div>
-          <div class="go">jonimartin27.github.io/regenta →</div>
-        </a>
-
+          <div class="desc">Plataforma que orquesta una flota de agentes de IA jerárquicos (CEO → directores → especialistas).</div>
+          <div class="meta"><span class="go" style="color:var(--dim)">en privado</span></div>
+        </div>
         <div class="card muted">
           <div class="name"><span class="dot"></span>Veredicto</div>
           <div class="desc">Detector de <em>test-gaming</em> (trampas en los tests) en PRs hechos por agentes de IA.</div>
-          <div class="go">próximamente</div>
+          <div class="meta"><span class="go" style="color:var(--dim)">próximamente</span></div>
         </div>
-
         <div class="card muted">
           <div class="name"><span class="dot"></span>Trading bot</div>
           <div class="desc">Bot de trading autónomo (cripto + acciones) con veto de Claude — la IA solo resta riesgo.</div>
-          <div class="go">en paper</div>
+          <div class="meta"><span class="go" style="color:var(--dim)">en paper</span></div>
         </div>
-
         <div class="card muted">
           <div class="name"><span class="dot"></span>Game factory</div>
           <div class="desc">Juegos casuales en cadena: Prompt Tycoon · Pato Patrick.</div>
-          <div class="go">en desarrollo</div>
+          <div class="meta"><span class="go" style="color:var(--dim)">en desarrollo</span></div>
         </div>
-
       </div>
     </section>
+
+    <!-- CONTACTO -->
+    <section class="section" id="contacto">
+      <h2>Hablemos</h2>
+      <p class="sub">¿Un producto, un servicio o solo saludar? Escríbeme.</p>
+      <div class="contact">
+        <form action="https://formspree.io/f/TU_FORM_ID" method="POST">
+          <input type="text" name="nombre" placeholder="Tu nombre" required />
+          <input type="email" name="email" placeholder="Tu email" required />
+          <textarea name="mensaje" rows="4" placeholder="Cuéntame en qué andas…" required></textarea>
+          <button type="submit" class="btn btn-primary">Enviar mensaje</button>
+        </form>
+        <p class="note">Te respondo yo, sin intermediarios.</p>
+      </div>
+    </section>
+
   </main>
 
   <footer>
     <div class="wrap">
       <div class="mark"><span>🔥</span> fervon</div>
       <div class="links">
+        <a href="#productos">Productos</a>
+        <a href="#servicios">Servicios</a>
+        <a href="#contacto">Contacto</a>
         <a href="https://github.com/fervon">GitHub</a>
         <a href="https://www.npmjs.com/package/fervon">npm</a>
-        <a href="#forja">Proyectos</a>
       </div>
       <div class="copy">Forjado al rojo vivo · © 2026 Fervon</div>
     </div>
