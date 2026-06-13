@@ -1,0 +1,25 @@
+{
+  "name": "fervon",
+  "version": "0.0.1",
+  "description": "Fervon — estudio de software autónomo. Forjado al rojo vivo.",
+  "license": "MIT",
+  "homepage": "https://fervon.dev",
+  "author": "Jonathan Martín (JoniMartin27)",
+  "keywords": [
+    "fervon",
+    "studio",
+    "indie",
+    "automation",
+    "ai-agents",
+    "local-first"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fervon/fervon.git"
+  },
+  "main": "index.js",
+  "files": [
+    "index.js",
+    "README.md"
+  ]
+}
