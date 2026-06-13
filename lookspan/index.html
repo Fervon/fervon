@@ -214,8 +214,8 @@
       <div class="wrap cols">
         <div>
           <span class="pill reveal"><span class="dot"></span> Observabilidad local-first · Nativo para MCP</span>
-          <h1 class="reveal">Mira cada <span class="grad">span</span> que emiten tus agentes de IA.</h1>
-          <p class="sub reveal"><strong>Lookspan</strong> captura cada llamada LLM, cada herramienta MCP y cada token de coste de tus agentes <b>LangGraph</b>, <b>CrewAI</b> y <b>MCP</b>. Todo corre en tu máquina: sin nube, sin API keys, sin que tus datos salgan de tu equipo.</p>
+          <h1 class="reveal">Mira cada <span class="grad">span</span> de tus agentes.</h1>
+          <p class="sub reveal">Cada llamada LLM, herramienta MCP y token de coste. <b>Sin nube, sin API keys.</b></p>
 
           <div class="cmd reveal" id="empezar">
             <code><span class="pr">$</span>npx lookspan</code>
@@ -224,13 +224,13 @@
               <span class="lbl">Copiar</span>
             </button>
           </div>
-          <p class="cmd-hint reveal">Arranca el servidor y el dashboard en <code>http://127.0.0.1:3100</code> — sin instalación global.</p>
+          <p class="cmd-hint reveal">Dashboard en <code>http://127.0.0.1:3100</code>.</p>
 
           <div class="row reveal">
             <a class="btn btn-fire" href="#integraciones">Instrumentar mi agente</a>
             <a class="btn btn-ghost" href="https://github.com/JoniMartin27/lookspan">Ver en GitHub</a>
           </div>
-          <div class="trust reveal"><span>✓ Datos 100% en local</span><span>✓ Coste de infra cero</span><span>✓ Open source · MIT</span></div>
+          <div class="trust reveal"><span>✓ Datos 100% en local</span><span>✓ Infra cero</span><span>✓ Open source · MIT</span></div>
         </div>
 
         <div class="demo reveal">
@@ -256,14 +256,14 @@
               </ul>
             </div>
           </div>
-          <p style="text-align:center;font-size:11px;color:var(--dim);margin-top:8px">Demo ilustrativa de la vista de traza (waterfall de spans).</p>
+          <p style="text-align:center;font-size:11px;color:var(--dim);margin-top:8px">Vista de traza (waterfall de spans).</p>
         </div>
       </div>
     </section>
 
     <!-- FRAMEWORKS STRIP -->
     <section class="sec" style="padding:40px 0"><div class="wrap center reveal">
-      <p style="font-size:13px;letter-spacing:1px;color:var(--dim);margin-bottom:18px">Funciona con tu stack de agentes</p>
+      <p style="font-size:13px;letter-spacing:1px;color:var(--dim);margin-bottom:18px">Funciona con tu stack</p>
       <div class="chips" style="justify-content:center">
         <span class="chip">MCP</span><span class="chip">LangGraph</span><span class="chip">LangChain</span><span class="chip">CrewAI</span><span class="chip">OpenAI Agents</span><span class="chip">OpenTelemetry</span><span class="chip">AGENT-OS</span>
       </div>
@@ -274,22 +274,22 @@
       <div class="reveal">
         <span class="eye">El problema</span>
         <h2>Cuando un agente falla, te quedas a ciegas.</h2>
-        <p class="desc">Cuando un agente tarda demasiado, gasta más tokens de lo esperado o simplemente se rompe, no hay forma nativa de ver qué ocurrió paso a paso. Las herramientas de observabilidad clásicas te piden cuenta en la nube, claves de API y enviar datos de producción a servidores ajenos.</p>
+        <p class="desc">Las herramientas clásicas exigen cuenta en la nube, claves de API y tus datos en servidores ajenos.</p>
         <ul class="chips" style="margin-top:22px">
           <span class="chip">Cuenta + facturación + API keys</span>
-          <span class="chip">Tus prompts salen a servidores externos</span>
-          <span class="chip">Coste por evento o por GB ingerido</span>
-          <span class="chip">Latencia de red y retención limitada</span>
+          <span class="chip">Tus prompts salen fuera</span>
+          <span class="chip">Coste por evento o GB</span>
+          <span class="chip">Latencia de red</span>
         </ul>
       </div>
       <div class="glass feat reveal" style="padding:28px">
         <span class="tg tg-fw" style="background:rgba(255,176,46,.12)">Lookspan</span>
         <h3 style="font-size:20px;margin:14px 0 4px">Observabilidad local-first</h3>
         <ul class="checks" style="margin-top:16px">
-          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span><strong>Todo corre en tu máquina</strong>, los datos nunca salen de ella</span></li>
-          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span>SQLite en <code>~/.lookspan/lookspan.db</code> — tú eres el dueño</span></li>
-          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span>Coste de infraestructura <strong>cero</strong></span></li>
-          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span>Un comando: <code>npx lookspan</code> y a observar</span></li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span><strong>Todo en tu máquina</strong>, los datos nunca salen</span></li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span>SQLite en <code>~/.lookspan/lookspan.db</code></span></li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span>Infraestructura <strong>cero</strong></span></li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span>Un comando: <code>npx lookspan</code></span></li>
         </ul>
       </div>
     </div></section>
@@ -304,23 +304,23 @@
 
     <!-- FEATURES -->
     <section class="sec alt" id="features"><div class="wrap">
-      <div class="center reveal"><span class="eye">Características</span><h2>Todo lo que necesitas para depurar agentes, en local</h2><p class="desc">Ingesta, trazas, grafo de spans, costes y alertas. Sin montar infraestructura y sin renunciar a la privacidad de tus datos.</p></div>
+      <div class="center reveal"><span class="eye">Características</span><h2>Todo para depurar agentes, en local</h2><p class="desc">Trazas, grafo de spans, costes y alertas.</p></div>
       <div class="cards">
-        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg></div><h3>Nativo para MCP</h3><p>El SDK <code>@lookspan/mcp</code> envuelve cualquier <code>McpClient</code> y emite un span por cada llamada a herramienta, sin tocar el código de tu agente.</p></div>
-        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div><h3>Streaming en tiempo real</h3><p>El endpoint SSE <code>/api/stream</code> empuja cada <code>span.ingested</code> al dashboard al instante. Ves las trazas mientras tu agente las ejecuta, sin polling.</p></div>
-        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8 7.5 16 7.5M7.5 8l3.5 7.8M16.5 8 13 15.8"/></svg></div><h3>Grafo de spans interactivo</h3><p>Vista de detalle de cada traza con un grafo navegable (React Flow): jerarquía, duraciones, estados y atributos de cada paso del agente.</p></div>
-        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5h4a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3h4"/></svg></div><h3>Seguimiento de costes</h3><p>Agrega tokens de entrada, salida, caché y razonamiento; calcula el <code>cost_usd</code> por span y por traza, con desglose por modelo y por proveedor.</p></div>
-        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></div><h3>SQLite local</h3><p>Esquema con migraciones versionadas y base de datos en <code>~/.lookspan/lookspan.db</code>. Configurable por flag o variable de entorno. Tus datos, tu disco.</p></div>
-        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="m6 9 3 3-3 3M12.5 15h4"/></svg></div><h3>CLI en una línea</h3><p><code>npx lookspan</code> arranca servidor y dashboard sin instalación global. Puertos, host y ruta de la BD configurables por flag o entorno.</p></div>
-        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div><h3>Alertas configurables</h3><p>Avísate cuando una traza falla, supera un coste, gasta demasiados tokens o tarda de más. Toast en el dashboard, notificación de escritorio y consola.</p></div>
-        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.5 8 11 4.6-2.5 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Privado por defecto</h3><p>Escucha en <code>127.0.0.1</code> y redacta credenciales (<code>api_key</code>, <code>token</code>, <code>password</code>…) antes de persistir. Token opcional si lo expones.</p></div>
-        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 7.5h18M5.5 7.5 8 12M18.5 7.5 16 12M9.5 7.5 12 12l2.5-4.5"/></svg></div><h3>OpenTelemetry (OTLP)</h3><p>Receptor OTLP/HTTP en <code>/v1/traces</code>. Apunta cualquier app instrumentada con OTel a Lookspan: los atributos <code>gen_ai.*</code> se mapean a modelo, proveedor y tokens.</p></div>
+        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg></div><h3>Nativo para MCP</h3><p><code>@lookspan/mcp</code> emite un span por llamada.</p></div>
+        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div><h3>Streaming en tiempo real</h3><p>SSE en <code>/api/stream</code>: trazas en vivo, sin polling.</p></div>
+        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8 7.5 16 7.5M7.5 8l3.5 7.8M16.5 8 13 15.8"/></svg></div><h3>Grafo de spans interactivo</h3><p>Cada traza como grafo navegable: jerarquía, duraciones, estados.</p></div>
+        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5h4a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3h4"/></svg></div><h3>Seguimiento de costes</h3><p><code>cost_usd</code> por traza, con desglose por modelo.</p></div>
+        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></div><h3>SQLite local</h3><p><code>~/.lookspan/lookspan.db</code>. Tus datos, tu disco.</p></div>
+        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="m6 9 3 3-3 3M12.5 15h4"/></svg></div><h3>CLI en una línea</h3><p><code>npx lookspan</code> arranca servidor y dashboard.</p></div>
+        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div><h3>Alertas configurables</h3><p>Avísate cuando una traza falla, cuesta o tarda de más.</p></div>
+        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.5 8 11 4.6-2.5 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg></div><h3>Privado por defecto</h3><p>Escucha en <code>127.0.0.1</code> y redacta credenciales.</p></div>
+        <div class="glass feat reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 7.5h18M5.5 7.5 8 12M18.5 7.5 16 12M9.5 7.5 12 12l2.5-4.5"/></svg></div><h3>OpenTelemetry (OTLP)</h3><p>Receptor en <code>/v1/traces</code>. Los <code>gen_ai.*</code> se mapean solos.</p></div>
       </div>
     </div></section>
 
     <!-- HOW IT WORKS -->
     <section class="sec" id="how"><div class="wrap">
-      <div class="center reveal"><span class="eye">Cómo funciona</span><h2>De tu agente al dashboard en tres pasos</h2><p class="desc">Instrumenta una vez con un adaptador, arranca el CLI y observa. Los spans viajan por HTTP, se validan y normalizan, y aparecen en tiempo real.</p></div>
+      <div class="center reveal"><span class="eye">Cómo funciona</span><h2>De tu agente al dashboard en tres pasos</h2><p class="desc">Instrumenta, arranca y observa.</p></div>
 
       <div class="flow reveal">
         <div class="glass fnode"><span class="fi">🤖</span><strong>Agente</strong><small>MCP · LangGraph · CrewAI · HTTP</small></div>
@@ -333,15 +333,15 @@
       </div>
 
       <div class="steps">
-        <div class="glass step reveal"><div class="n mono">01</div><h4>Instrumenta</h4><p>Envuelve tu cliente MCP o añade el callback de LangGraph/CrewAI. Una línea, sin reescribir tu agente.</p></div>
-        <div class="glass step reveal"><div class="n mono">02</div><h4>Arranca</h4><p>Ejecuta <code>npx lookspan</code>. El servidor escucha en <code>:3100</code> y sirve el dashboard.</p></div>
-        <div class="glass step reveal"><div class="n mono">03</div><h4>Observa</h4><p>Cada span aparece en vivo: jerarquía, duraciones, estados, tokens y coste en USD.</p></div>
+        <div class="glass step reveal"><div class="n mono">01</div><h4>Instrumenta</h4><p>Envuelve tu cliente MCP o añade el callback. Una línea.</p></div>
+        <div class="glass step reveal"><div class="n mono">02</div><h4>Arranca</h4><p><code>npx lookspan</code> escucha en <code>:3100</code> y sirve el dashboard.</p></div>
+        <div class="glass step reveal"><div class="n mono">03</div><h4>Observa</h4><p>Cada span en vivo: duraciones, estados, tokens y coste.</p></div>
       </div>
     </div></section>
 
     <!-- INTEGRATIONS / CODE -->
     <section class="sec alt" id="integraciones"><div class="wrap">
-      <div class="center reveal"><span class="eye">Integraciones</span><h2>Instrumentar tu agente es una línea de código</h2><p class="desc">Elige tu framework. Compatible con cualquier agente capaz de hacer una petición HTTP.</p></div>
+      <div class="center reveal"><span class="eye">Integraciones</span><h2>Instrumentar tu agente es una línea</h2><p class="desc">Elige tu framework. O cualquier agente que pueda hacer un POST.</p></div>
 
       <div class="glass codecard reveal">
         <div class="tabs" role="tablist">
@@ -354,7 +354,7 @@
         <div class="cbody">
           <button class="copy copy-code" aria-label="Copiar código"><span class="lbl">Copiar</span></button>
 
-<pre class="on" data-panel="mcp"><code><span class="c">// Instrumenta cualquier cliente MCP — cada callTool emite un span</span>
+<pre class="on" data-panel="mcp"><code><span class="c">// Cada callTool emite un span</span>
 <span class="k">import</span> { wrapMcpClient, HttpSpanExporter } <span class="k">from</span> <span class="s">'@lookspan/mcp'</span>;
 
 <span class="k">const</span> exporter = <span class="k">new</span> <span class="f">HttpSpanExporter</span>({
@@ -375,7 +375,7 @@
 client = <span class="f">LookspanClient</span>(endpoint=<span class="s">"http://127.0.0.1:3100/api/ingest"</span>)
 handler = <span class="f">LookspanCallbackHandler</span>(client=client, agent_id=<span class="s">"mi-agente"</span>)
 
-<span class="c"># Pasa el handler como callback — LangGraph hace el resto</span>
+<span class="c"># Pásalo como callback — LangGraph hace el resto</span>
 result = graph.<span class="f">invoke</span>({<span class="s">"messages"</span>: []}, config={<span class="s">"callbacks"</span>: [handler]})
 client.<span class="f">flush</span>()</code></pre>
 
@@ -386,7 +386,7 @@ client.<span class="f">flush</span>()</code></pre>
 client = <span class="f">LookspanClient</span>(endpoint=<span class="s">"http://127.0.0.1:3100/api/ingest"</span>)
 <span class="f">attach_lookspan</span>(client, agent_id=<span class="s">"research-crew"</span>)
 
-<span class="c"># Una llamada y toda la crew queda instrumentada</span>
+<span class="c"># Una llamada instrumenta toda la crew</span>
 crew = <span class="f">Crew</span>(agents=[...], tasks=[...])
 crew.<span class="f">kickoff</span>()
 client.<span class="f">flush</span>()</code></pre>
@@ -408,12 +408,11 @@ curl -X POST http://127.0.0.1:3100/api/ingest \
     }]
   }'</span></code></pre>
 
-<pre data-panel="otel"><code><span class="c"># Reutiliza tu instrumentación OpenTelemetry existente</span>
+<pre data-panel="otel"><code><span class="c"># Reutiliza tu instrumentación OpenTelemetry</span>
 <span class="k">export</span> OTEL_EXPORTER_OTLP_TRACES_ENDPOINT=http://127.0.0.1:3100/v1/traces
 <span class="k">export</span> OTEL_EXPORTER_OTLP_PROTOCOL=http/json
 
-<span class="c"># Los atributos gen_ai.* se mapean a modelo, proveedor y tokens,</span>
-<span class="c"># y el coste se calcula con la tabla de precios.</span></code></pre>
+<span class="c"># Los atributos gen_ai.* se mapean a modelo, proveedor y tokens.</span></code></pre>
         </div>
       </div>
     </div></section>
@@ -422,11 +421,11 @@ curl -X POST http://127.0.0.1:3100/api/ingest \
     <section class="sec" id="costes"><div class="wrap two">
       <div class="reveal">
         <span class="eye">Costes</span>
-        <h2>Sabe exactamente cuánto cuesta cada agente</h2>
-        <p class="desc">Lookspan agrega tokens de entrada, salida, caché y razonamiento, y calcula el coste en USD por span y por traza. Desglosa el gasto por modelo y por proveedor para que ninguna factura te pille por sorpresa.</p>
+        <h2>Sabe cuánto cuesta cada agente</h2>
+        <p class="desc">Coste en USD por traza, por modelo. Ninguna factura te pillará por sorpresa.</p>
         <ul class="checks">
           <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span><code>cost_usd</code> por span y por traza</span></li>
-          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span>Desglose por modelo y por proveedor</span></li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span>Desglose por modelo y proveedor</span></li>
           <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span>Latencia p50 / p95 / p99 y tasa de error</span></li>
           <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span>Alerta automática al superar tu umbral</span></li>
         </ul>
@@ -452,8 +451,8 @@ curl -X POST http://127.0.0.1:3100/api/ingest \
     <section class="sec"><div class="wrap">
       <div class="glass ctaband reveal">
         <div class="bggrid" style="position:absolute;inset:0;z-index:-1;opacity:.6"></div>
-        <h2>Empieza a ver tus agentes <span class="grad">en 30 segundos.</span></h2>
-        <p class="desc" style="max-width:560px;margin:14px auto 0">Sin cuenta, sin claves, sin que tus datos salgan de tu máquina. Un comando arranca el servidor y el dashboard en local.</p>
+        <h2>Ve tus agentes <span class="grad">en 30 segundos.</span></h2>
+        <p class="desc" style="max-width:560px;margin:14px auto 0">Sin cuenta, sin claves, sin nube.</p>
         <div class="cmd">
           <code><span class="pr">$</span>npx lookspan</code>
           <button class="copy" data-copy="npx lookspan" aria-label="Copiar comando">

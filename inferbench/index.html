@@ -156,8 +156,8 @@
       <div class="wrap cols">
         <div>
           <span class="pill reveal"><span class="dot"></span> Open source · MIT · Sin coste</span>
-          <h1 class="reveal">Sabe qué LLM corre en tu GPU <span class="grad">y a cuántos tok/s</span>.</h1>
-          <p class="sub reveal"><strong>inferbench</strong> descarga, arranca y <b>benchmarkea motores de inferencia LLM locales con un solo click</b>. Sin Docker obligatorio, sin tocar la terminal. Midiendo de verdad — nunca números inventados.</p>
+          <h1 class="reveal">Qué LLM corre en tu GPU <span class="grad">y a cuántos tok/s</span>.</h1>
+          <p class="sub reveal"><strong>inferbench</strong> <b>descarga, arranca y benchmarkea LLMs locales en un click</b>. Sin Docker, sin terminal. Mide de verdad.</p>
           <div class="row reveal">
             <a class="btn btn-fire" href="#download">Descargar gratis</a>
             <a class="btn btn-ghost" href="https://github.com/JoniMartin27/inferbench">Ver en GitHub</a>
@@ -198,13 +198,13 @@
       <div class="wrap center reveal">
         <span class="eye">Demo</span>
         <h2>Míralo en acción</h2>
-        <p class="desc">Del hardware detectado al catálogo con optimización automática, el benchmark en vivo con tok/s reales, comparar runs lado a lado y servir un modelo (incluida generación de imagen) por MCP — todo en tu equipo.</p>
+        <p class="desc">Hardware, optimización, benchmark en vivo, comparación de runs y Serve/MCP — todo en tu equipo.</p>
       </div>
       <div class="wrap reveal" style="max-width:920px;margin-top:32px">
         <figure class="glass" style="overflow:hidden;padding:0">
           <img src="https://github.com/JoniMartin27/inferbench/raw/master/assets/inferbench-demo.gif" alt="inferbench en acción: hardware detectado, catálogo con optimización, benchmark en vivo con tok/s, comparación de runs y Serve/MCP con generación de imagen" loading="lazy" decoding="async" style="width:100%;display:block" />
         </figure>
-        <p style="text-align:center;font-size:11px;color:var(--dim);margin-top:10px">Recorrido real del producto — cifras de benchmark reales, sin edición.</p>
+        <p style="text-align:center;font-size:11px;color:var(--dim);margin-top:10px">Cifras de benchmark reales, sin edición.</p>
       </div>
     </section>
 
@@ -218,29 +218,29 @@
 
     <!-- HOW -->
     <section class="sec alt" id="how"><div class="wrap">
-      <div class="center reveal"><span class="eye">El flujo</span><h2>De "no tengo ni idea" a resultados reales en 5 pasos</h2><p class="desc">Eliges modelo y cuantizaciones; inferbench se encarga del resto y mide de verdad.</p></div>
+      <div class="center reveal"><span class="eye">El flujo</span><h2>De cero a resultados reales en 5 pasos</h2></div>
       <div class="steps">
-        <div class="glass step reveal"><div class="n mono">01</div><h4>Eliges modelo</h4><p>Del catálogo o tus GGUF locales (LM Studio, Ollama, caché HF).</p></div>
-        <div class="glass step reveal"><div class="n mono">02</div><h4>Descarga el motor</h4><p>Binario oficial de GitHub + GGUF que falten de Hugging Face.</p></div>
-        <div class="glass step reveal"><div class="n mono">03</div><h4>Arranca optimizado</h4><p>Config óptima auto-calculada para tu GPU: quant, KV-cache, contexto, flags.</p></div>
-        <div class="glass step reveal"><div class="n mono">04</div><h4>Benchmark en vivo</h4><p>Suite de prompts midiendo TTFT, tok/s, VRAM y calidad en tiempo real.</p></div>
-        <div class="glass step reveal"><div class="n mono">05</div><h4>Compara y decide</h4><p>Resultados guardados en SQLite, comparables lado a lado con gráficos.</p></div>
+        <div class="glass step reveal"><div class="n mono">01</div><h4>Eliges modelo</h4><p>Del catálogo o tus GGUF locales.</p></div>
+        <div class="glass step reveal"><div class="n mono">02</div><h4>Descarga el motor</h4><p>Binario oficial + GGUF de Hugging Face.</p></div>
+        <div class="glass step reveal"><div class="n mono">03</div><h4>Arranca optimizado</h4><p>Config óptima auto-calculada para tu GPU.</p></div>
+        <div class="glass step reveal"><div class="n mono">04</div><h4>Benchmark en vivo</h4><p>TTFT, tok/s, VRAM y calidad en tiempo real.</p></div>
+        <div class="glass step reveal"><div class="n mono">05</div><h4>Compara y decide</h4><p>Runs guardados, comparables lado a lado.</p></div>
       </div>
     </div></section>
 
     <!-- FEATURES -->
     <section class="sec" id="features"><div class="wrap">
-      <div class="center reveal"><span class="eye">Características</span><h2>Todo lo que necesitas para tunear inferencia local</h2></div>
+      <div class="center reveal"><span class="eye">Características</span><h2>Todo para tunear inferencia local</h2></div>
       <div class="cards">
-        <div class="glass feat reveal"><div class="ic">⚡</div><h3>Auto-bootstrap de un click</h3><p>1 click descarga el binario del motor, baja los GGUF que falten de Hugging Face, arranca con la config óptima y lanza el benchmark. End-to-end.</p></div>
-        <div class="glass feat reveal"><div class="ic">🧩</div><h3>Detección de hardware</h3><p>CPU, RAM y GPU (NVIDIA vía NVML, AMD vía rocm-smi, Apple Silicon). Cacheada: la compatibilidad de 124 modelos sale en ~4 ms.</p></div>
-        <div class="glass feat reveal"><div class="ic">📦</div><h3>Modo nativo, sin Docker</h3><p>Para llama.cpp descarga la release oficial de GitHub, auto-detecta CUDA y baja también las DLLs del runtime. Docker queda opcional.</p></div>
-        <div class="glass feat reveal"><div class="ic">🗂️</div><h3>Catálogo de 124 modelos</h3><p>Llama, Qwen, Gemma, Mistral, Phi, DeepSeek… todos verificados contra Hugging Face antes de entrar. Sin datos inventados.</p></div>
-        <div class="glass feat reveal"><div class="ic">🪄</div><h3>Optimizador automático</h3><p>Dado tu hardware + modelo + motor calcula la mejor cuantización, KV-cache, contexto máximo, MoE offload y flags. Todo sobrescribible.</p></div>
-        <div class="glass feat reveal"><div class="ic">🗜️</div><h3>Compresión KV explicada</h3><p>5 presets de Calidad a Extremo, con qué hace cada uno y una tabla de los modelos más potentes que caben con cada nivel en TU GPU.</p></div>
-        <div class="glass feat reveal"><div class="ic">📈</div><h3>Métricas reales en vivo</h3><p>TTFT, tok/s, pico de VRAM y RAM medidos de verdad vía SSE. Nada simulado: si un motor falla, te lo dice.</p></div>
-        <div class="glass feat reveal"><div class="ic">⚖️</div><h3>Sweep y comparación</h3><p>Lanza el mismo modelo con N cuantizaciones en cola y compara varias runs del historial lado a lado, con gráficos.</p></div>
-        <div class="glass feat reveal"><div class="ic">🛡️</div><h3>100% local y privado</h3><p>Tus prompts y tus modelos nunca salen de tu máquina. Sin telemetría, sin cuenta, sin servidor. Open-source MIT.</p></div>
+        <div class="glass feat reveal"><div class="ic">⚡</div><h3>Auto-bootstrap de un click</h3><p>Motor, GGUF, config óptima y benchmark. End-to-end.</p></div>
+        <div class="glass feat reveal"><div class="ic">🧩</div><h3>Detección de hardware</h3><p>CPU, RAM y GPU. Compatibilidad de 124 modelos en ~4 ms.</p></div>
+        <div class="glass feat reveal"><div class="ic">📦</div><h3>Modo nativo, sin Docker</h3><p>Release oficial + CUDA + DLLs auto. Docker opcional.</p></div>
+        <div class="glass feat reveal"><div class="ic">🗂️</div><h3>Catálogo de 124 modelos</h3><p>Llama, Qwen, Gemma, Mistral, Phi, DeepSeek… verificados.</p></div>
+        <div class="glass feat reveal"><div class="ic">🪄</div><h3>Optimizador automático</h3><p>Quant, KV-cache, contexto, MoE offload y flags. Sobrescribible.</p></div>
+        <div class="glass feat reveal"><div class="ic">🗜️</div><h3>Compresión KV explicada</h3><p>5 presets, con qué cabe en TU GPU en cada nivel.</p></div>
+        <div class="glass feat reveal"><div class="ic">📈</div><h3>Métricas reales en vivo</h3><p>TTFT, tok/s y VRAM medidos vía SSE. Nada simulado.</p></div>
+        <div class="glass feat reveal"><div class="ic">⚖️</div><h3>Sweep y comparación</h3><p>N cuantizaciones en cola, runs comparables con gráficos.</p></div>
+        <div class="glass feat reveal"><div class="ic">🛡️</div><h3>100% local y privado</h3><p>Sin telemetría, sin cuenta, sin servidor. MIT.</p></div>
       </div>
     </div></section>
 
@@ -249,11 +249,11 @@
       <div class="reveal">
         <span class="eye">Catálogo</span>
         <h2>124 modelos verificados, cero inventados</h2>
-        <p class="desc">Cada entrada se comprueba contra Hugging Face antes de añadirse: el repo GGUF existe, la plantilla de archivo se deriva de los archivos reales publicados y se valida que el <code class="mono" style="background:var(--line);border-radius:4px;padding:1px 5px;color:var(--amber)">Q4_K_M</code> resuelve.</p>
+        <p class="desc">Cada entrada se comprueba contra Hugging Face: el repo GGUF existe y el <code class="mono" style="background:var(--line);border-radius:4px;padding:1px 5px;color:var(--amber)">Q4_K_M</code> resuelve.</p>
         <div class="chips">
           <span class="chip">Llama 3.x</span><span class="chip">Qwen 2.5 / 3</span><span class="chip">Gemma 2 / 3</span><span class="chip">Mistral · Mixtral</span><span class="chip">Phi 2-4</span><span class="chip">DeepSeek R1</span><span class="chip">QwQ 32B</span><span class="chip">Visión (VL)</span><span class="chip">Código</span><span class="chip">MoE 30B-A3B</span><span class="chip">Granite</span><span class="chip">Command-R</span>
         </div>
-        <p style="font-size:14px;color:var(--dim);margin-top:18px">Además escanea tus GGUF locales (LM Studio, Ollama, caché HF) y lee el recuento real de parámetros de la metadata, independiente del quant.</p>
+        <p style="font-size:14px;color:var(--dim);margin-top:18px">Además escanea tus GGUF locales (LM Studio, Ollama, caché HF).</p>
       </div>
       <div class="glass reveal" style="overflow:hidden">
         <div style="border-bottom:1px solid var(--line);padding:12px 16px;font-weight:600;font-size:14px">Motores soportados</div>
@@ -269,24 +269,23 @@
             <tr><td>OpenRouter / NVIDIA</td><td style="color:var(--ash)">API</td><td>n/a</td><td>n/a</td><td style="color:var(--ash)">n/a</td></tr>
           </tbody>
         </table></div>
-        <div style="border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--dim)">llama.cpp/ollama corren nativos (sin Docker); vLLM/SGLang/TGI vía Docker + GPU NVIDIA. Las APIs cloud usan tu key (solo sampling).</div>
+        <div style="border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--dim)">llama.cpp/ollama nativos; vLLM/SGLang/TGI vía Docker + GPU NVIDIA. APIs cloud con tu key.</div>
       </div>
     </div></section>
 
     <!-- QUALITY -->
     <section class="sec"><div class="wrap">
-      <div class="center reveal"><span class="eye">Calidad</span><h2>No solo velocidad: también calidad, en 3 modos</h2><p class="desc">TTFT y tok/s siempre son medidas reales. La nota de calidad (0-100) la eliges tú según tu equipo.</p></div>
+      <div class="center reveal"><span class="eye">Calidad</span><h2>No solo velocidad: también calidad, en 3 modos</h2><p class="desc">TTFT y tok/s siempre reales. La nota de calidad (0-100) la eliges tú.</p></div>
       <div class="cards" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
-        <div class="glass feat reveal"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">Referencia (offline)</h3><span class="chip" style="color:var(--amber)">Por defecto</span></div><p style="margin-top:10px">Compara contra la respuesta de referencia: F1 de tokens recall-weighted, recall de números, stemming. Python puro, sin GPU/modelo/red.</p></div>
-        <div class="glass feat reveal"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">LLM-judge local</h3><span class="chip" style="color:var(--ember)">Opcional</span></div><p style="margin-top:10px">El propio motor puntúa sus respuestas con rúbrica 0-100. Fiable con modelos capaces (≥7-8B).</p></div>
-        <div class="glass feat reveal"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">LLM-judge por API</h3><span class="chip" style="color:var(--spark)">Más fiable</span></div><p style="margin-top:10px">Un modelo cloud OpenAI-compatible juzga de forma imparcial. Requiere API key (guardada en el almacén del SO).</p></div>
+        <div class="glass feat reveal"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">Referencia (offline)</h3><span class="chip" style="color:var(--amber)">Por defecto</span></div><p style="margin-top:10px">Compara contra la referencia. Python puro, sin GPU ni red.</p></div>
+        <div class="glass feat reveal"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">LLM-judge local</h3><span class="chip" style="color:var(--ember)">Opcional</span></div><p style="margin-top:10px">El motor puntúa con rúbrica 0-100. Fiable con modelos ≥7-8B.</p></div>
+        <div class="glass feat reveal"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">LLM-judge por API</h3><span class="chip" style="color:var(--spark)">Más fiable</span></div><p style="margin-top:10px">Un modelo cloud juzga imparcial. Requiere API key.</p></div>
       </div>
-      <p class="center reveal" style="font-size:14px;color:var(--dim);margin-top:22px">El default es offline a propósito: funciona en cualquier ordenador, sin GPU ni API.</p>
     </div></section>
 
     <!-- DOWNLOAD -->
     <section class="sec alt" id="download"><div class="wrap">
-      <div class="center reveal"><span class="eye">Descarga</span><h2>Descárgalo gratis</h2><p class="desc">Sin Python ni Node instalados: el backend va embebido como sidecar. Detectamos tu sistema y te damos el binario directo.</p></div>
+      <div class="center reveal"><span class="eye">Descarga</span><h2>Descárgalo gratis</h2><p class="desc">Sin Python ni Node: el backend va embebido. Detectamos tu sistema.</p></div>
       <div class="dlhero reveal">
         <a class="btn btn-fire dlmain" id="dlMain" href="https://github.com/JoniMartin27/inferbench/releases/latest">
           <span style="font-size:22px" id="dlIcon">⬇️</span>
@@ -306,7 +305,7 @@
       <div class="glass ctaband reveal">
         <div class="bggrid" style="position:absolute;inset:0;z-index:-1;opacity:.6"></div>
         <h2>Deja de adivinar. <span class="grad">Mídelo.</span></h2>
-        <p class="desc" style="max-width:560px;margin:14px auto 0">Qué cuantización te entra, a cuántos tok/s va y qué motor es más rápido en tu hardware — respondido con datos reales, en local.</p>
+        <p class="desc" style="max-width:560px;margin:14px auto 0">Qué cuantización entra, a cuántos tok/s y qué motor gana en tu hardware — con datos reales, en local.</p>
         <div class="row" style="justify-content:center;margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
           <a class="btn btn-fire" href="#download">Descargar inferbench</a>
           <a class="btn btn-ghost" href="https://github.com/JoniMartin27/inferbench">⭐ Estrella en GitHub</a>

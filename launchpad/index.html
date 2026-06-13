@@ -169,12 +169,12 @@
         <div>
           <span class="pill reveal"><span class="dot"></span> Open source · MIT · Local-only en 127.0.0.1</span>
           <h1 class="reveal">Una carpeta, doce repos, <span class="grad">una sola pantalla</span>.</h1>
-          <p class="sub reveal"><strong>Mission Control</strong> apunta a la carpeta donde guardas tus proyectos y pulsa arrancar. <b>Los detecta todos, deduce cómo lanzar cada uno desde sus propios archivos y los corre a la vez en puertos sin colisión</b> — con logs en vivo, git y salud en una vista. Sin rituales de <span class="mono">cd</span>, sin detectives de puertos.</p>
+          <p class="sub reveal"><b>Apunta y pulsa arrancar.</b> Puertos sin colisión, logs, git y salud en vivo.</p>
           <div class="row reveal">
             <a class="btn btn-fire" href="#start">Cómo instalarlo</a>
             <a class="btn btn-ghost" href="https://github.com/JoniMartin27/launchpad">Ver en GitHub</a>
           </div>
-          <div class="trust reveal"><span>✓ Sin cuentas, sin telemetría</span><span>✓ Node 18+</span><span>✓ Nada sale de tu máquina</span></div>
+          <div class="trust reveal"><span>✓ Sin telemetría</span><span>✓ Node 18+</span><span>✓ Nada sale de tu máquina</span></div>
         </div>
 
         <div class="demo reveal">
@@ -198,7 +198,7 @@
               <div class="term mono" id="log"><div style="color:var(--dim)">$ mission-control · escaneando ~/code …</div></div>
             </div>
           </div>
-          <p style="text-align:center;font-size:11px;color:var(--dim);margin-top:8px">Demo ilustrativa de la rejilla de proyectos.</p>
+          <p style="text-align:center;font-size:11px;color:var(--dim);margin-top:8px">Demo ilustrativa.</p>
         </div>
       </div>
     </section>
@@ -208,48 +208,48 @@
       <div class="wrap center reveal">
         <span class="eye">Demo</span>
         <h2>Míralo en acción</h2>
-        <p class="desc">Lanza dos proyectos en puertos sin colisión y mira los logs en vivo en el cajón de detalle — branch de git, versión publicada y estado de CI, todo en la misma pantalla y todo en tu equipo.</p>
+        <p class="desc">Dos proyectos, puertos sin colisión, logs en vivo.</p>
       </div>
       <div class="wrap reveal" style="max-width:940px;margin-top:32px">
         <figure class="glass" style="overflow:hidden;padding:0">
           <img src="https://raw.githubusercontent.com/JoniMartin27/launchpad/main/docs/demo.gif" alt="Mission Control en acción: lanza dos proyectos en puertos sin colisión y observa los logs en vivo en el cajón de detalle" loading="lazy" decoding="async" style="width:100%;display:block" />
         </figure>
-        <p style="text-align:center;font-size:11px;color:var(--dim);margin-top:10px">Recorrido real del producto, sin edición.</p>
+        <p style="text-align:center;font-size:11px;color:var(--dim);margin-top:10px">Recorrido real, sin edición.</p>
       </div>
     </section>
 
     <!-- STATS -->
     <section class="sec"><div class="wrap stats">
-      <div class="reveal"><div class="v grad">100</div><div class="l">puertos del rango (4000–4099)</div></div>
+      <div class="reveal"><div class="v grad">100</div><div class="l">puertos (4000–4099)</div></div>
       <div class="reveal"><div class="v grad">1</div><div class="l">pantalla para todo</div></div>
-      <div class="reveal"><div class="v grad">127.0.0.1</div><div class="l">único host de escucha</div></div>
-      <div class="reveal"><div class="v grad">0</div><div class="l">datos enviados a la nube</div></div>
+      <div class="reveal"><div class="v grad">127.0.0.1</div><div class="l">único host</div></div>
+      <div class="reveal"><div class="v grad">0</div><div class="l">datos a la nube</div></div>
     </div></section>
 
     <!-- HOW -->
     <section class="sec alt" id="how"><div class="wrap">
-      <div class="center reveal"><span class="eye">El flujo</span><h2>De doce <span class="mono" style="font-size:.8em">cd</span> al día a una sola pantalla</h2><p class="desc">Apunta a tu carpeta de proyectos y pulsa arrancar. Mission Control hace el resto, sin nombres hardcodeados.</p></div>
+      <div class="center reveal"><span class="eye">El flujo</span><h2>De doce <span class="mono" style="font-size:.8em">cd</span> al día a una pantalla</h2></div>
       <div class="steps">
-        <div class="glass step reveal"><div class="n mono">01</div><h4>Apunta a la carpeta</h4><p>Vive dentro de tu raíz de proyectos. En el primer arranque la escanea y siembra un <span class="mono">config.json</span> local.</p></div>
-        <div class="glass step reveal"><div class="n mono">02</div><h4>Auto-detecta cada uno</h4><p>Deduce tipo y comando de dev desde los propios archivos del proyecto. Cero configuración para empezar.</p></div>
-        <div class="glass step reveal"><div class="n mono">03</div><h4>Arranca sin chocar</h4><p>Cada proyecto recibe un puerto único del rango, inyectado al lanzar (env <span class="mono">PORT</span> + el flag correcto por framework).</p></div>
-        <div class="glass step reveal"><div class="n mono">04</div><h4>Vigila en vivo</h4><p>Logs por WebSocket, git, versión publicada y CI en una vista. Para con árbol de procesos completo: nada queda colgando un puerto.</p></div>
+        <div class="glass step reveal"><div class="n mono">01</div><h4>Apunta a la carpeta</h4><p>Vive en tu raíz de proyectos.</p></div>
+        <div class="glass step reveal"><div class="n mono">02</div><h4>Auto-detecta cada uno</h4><p>Tipo y comando de dev. Cero config.</p></div>
+        <div class="glass step reveal"><div class="n mono">03</div><h4>Arranca sin chocar</h4><p>Un puerto único por proyecto.</p></div>
+        <div class="glass step reveal"><div class="n mono">04</div><h4>Vigila en vivo</h4><p>Logs, git y CI en una vista.</p></div>
       </div>
     </div></section>
 
     <!-- FEATURES -->
     <section class="sec" id="features"><div class="wrap">
-      <div class="center reveal"><span class="eye">Características</span><h2>Reemplaza todo el baile por una pantalla</h2></div>
+      <div class="center reveal"><span class="eye">Características</span><h2>Todo el baile, una sola pantalla</h2></div>
       <div class="cards">
-        <div class="glass feat reveal"><div class="ic">🔍</div><h3>Auto-detección sin config</h3><p>Escanea tu carpeta y deduce tipo y comando de dev de los propios archivos: scripts de <span class="mono">package.json</span>, Vite, Next, Astro, Electron, Express/Fastify, sitios estáticos, Python/FastAPI, bots de Telegram y monorepos de workspaces.</p></div>
-        <div class="glass feat reveal"><div class="ic">🛰️</div><h3>Lanza muchos, cero choques</h3><p>Cada proyecto obtiene un puerto único en un rango configurable (por defecto 4000–4099), inyectado al lanzar. Corre cinco a la vez, todos aislados.</p></div>
-        <div class="glass feat reveal"><div class="ic">📡</div><h3>Logs en vivo</h3><p>Streaming por WebSocket, limpios de ANSI, con filtrar / seguir / limpiar. El cajón de detalle muestra la salida de cada proceso en tiempo real.</p></div>
-        <div class="glass feat reveal"><div class="ic">🌿</div><h3>Git de un vistazo</h3><p>Branch, recuento de cambios sin commitear, ahead/behind y último commit — por proyecto, sin abrir la terminal.</p></div>
-        <div class="glass feat reveal"><div class="ic">📈</div><h3>Salud publicada</h3><p>Versión publicada en npm/PyPI y estado de CI de GitHub (vía <span class="mono">gh</span>), cacheado para que la rejilla siga rápida.</p></div>
-        <div class="glass feat reveal"><div class="ic">🩹</div><h3>Fallos amables</h3><p>¿Faltan <span class="mono">node_modules</span>? Un botón <b>Instalar</b> de un click. ¿Falta un env o un token? Una pista clara, no un muro rojo.</p></div>
-        <div class="glass feat reveal"><div class="ic">✨</div><h3>Re-escaneo en vivo</h3><p>Suelta una carpeta nueva de proyecto y se anima dentro de la rejilla (watcher de sistema de archivos), sin reiniciar nada.</p></div>
-        <div class="glass feat reveal"><div class="ic">🛑</div><h3>Control de procesos limpio</h3><p>Start/stop con kill del árbol de procesos completo en Windows (<span class="mono">taskkill /T /F</span>): nada se queda agarrando un puerto de ayer.</p></div>
-        <div class="glass feat reveal"><div class="ic">🔒</div><h3>Local-only por diseño</h3><p>Escucha en <span class="mono">127.0.0.1</span> (HTTP + WebSocket), nunca <span class="mono">0.0.0.0</span>. Sin cuentas, sin telemetría, sin llamar a casa.</p></div>
+        <div class="glass feat reveal"><div class="ic">🔍</div><h3>Auto-detección sin config</h3><p>Deduce tipo y comando de Vite, Next, Astro, Electron, Express, Python/FastAPI, bots y monorepos.</p></div>
+        <div class="glass feat reveal"><div class="ic">🛰️</div><h3>Lanza muchos, cero choques</h3><p>Un puerto único por proyecto (4000–4099). Corre cinco a la vez, aislados.</p></div>
+        <div class="glass feat reveal"><div class="ic">📡</div><h3>Logs en vivo</h3><p>Streaming por WebSocket: filtrar, seguir, limpiar.</p></div>
+        <div class="glass feat reveal"><div class="ic">🌿</div><h3>Git de un vistazo</h3><p>Branch, cambios, ahead/behind y último commit, por proyecto.</p></div>
+        <div class="glass feat reveal"><div class="ic">📈</div><h3>Salud publicada</h3><p>Versión en npm/PyPI y CI de GitHub, cacheado.</p></div>
+        <div class="glass feat reveal"><div class="ic">🩹</div><h3>Fallos amables</h3><p>¿Faltan <span class="mono">node_modules</span>? Botón <b>Instalar</b> de un click.</p></div>
+        <div class="glass feat reveal"><div class="ic">✨</div><h3>Re-escaneo en vivo</h3><p>Suelta una carpeta nueva y aparece, sin reiniciar.</p></div>
+        <div class="glass feat reveal"><div class="ic">🛑</div><h3>Control de procesos limpio</h3><p>Start/stop con kill del árbol completo en Windows.</p></div>
+        <div class="glass feat reveal"><div class="ic">🔒</div><h3>Local-only por diseño</h3><p>Escucha en <span class="mono">127.0.0.1</span>, nunca <span class="mono">0.0.0.0</span>.</p></div>
       </div>
     </div></section>
 
@@ -258,43 +258,43 @@
       <div class="reveal">
         <span class="eye">Detección</span>
         <h2>Genérica, sin nombres hardcodeados</h2>
-        <p class="desc">La detección es <b>híbrida</b>: un escaneo automático del sistema de archivos, unido a tus sobrescrituras por proyecto en <span class="mono" style="background:var(--line);border-radius:4px;padding:1px 5px;color:var(--amber)">config.json</span> (local de tu máquina, fuera de git). Edítalo a mano o desde el propio dashboard.</p>
+        <p class="desc">Escaneo automático más tus sobrescrituras en <span class="mono" style="background:var(--line);border-radius:4px;padding:1px 5px;color:var(--amber)">config.json</span> (local, fuera de git). Edítalo a mano o desde el dashboard.</p>
         <div class="chips">
           <span class="chip">Vite · React</span><span class="chip">Next.js</span><span class="chip">Astro</span><span class="chip">Electron</span><span class="chip">Express · Fastify</span><span class="chip">Python · FastAPI</span><span class="chip">Sitios estáticos</span><span class="chip">Bots de Telegram</span><span class="chip">Monorepos (workspaces)</span><span class="chip">backend/ + frontend/</span>
         </div>
-        <p style="font-size:14px;color:var(--dim);margin-top:18px">Por proyecto puedes fijar el puerto, cambiar el nombre o el comando, ajustar cómo se inyecta el puerto, añadir variables de entorno, ocultar una tarjeta o marcarla como no lanzable.</p>
+        <p style="font-size:14px;color:var(--dim);margin-top:18px">Por proyecto: fija el puerto, renombra, cambia el comando, añade variables u oculta la tarjeta.</p>
       </div>
       <div class="glass reveal" style="overflow:hidden">
         <div style="border-bottom:1px solid var(--line);padding:12px 16px;font-weight:600;font-size:14px">Sobrescrituras por proyecto</div>
         <div style="overflow-x:auto"><table>
           <thead><tr><th>Campo</th><th>Qué hace</th></tr></thead>
           <tbody>
-            <tr><td class="mono">port</td><td style="color:var(--ash)">Fija el puerto asignado</td></tr>
-            <tr><td class="mono">name</td><td style="color:var(--ash)">Nombre que se muestra</td></tr>
-            <tr><td class="mono">command</td><td style="color:var(--ash)">Sobrescribe el comando de dev</td></tr>
+            <tr><td class="mono">port</td><td style="color:var(--ash)">Fija el puerto</td></tr>
+            <tr><td class="mono">name</td><td style="color:var(--ash)">Nombre mostrado</td></tr>
+            <tr><td class="mono">command</td><td style="color:var(--ash)">Sobrescribe el comando</td></tr>
             <tr><td class="mono">portFlag / portEnv</td><td style="color:var(--ash)">Cómo se pasa el puerto</td></tr>
-            <tr><td class="mono">env</td><td style="color:var(--ash)">Variables extra (<span class="mono">${PORT}</span> se sustituye)</td></tr>
-            <tr><td class="mono">hidden / runnable</td><td style="color:var(--ash)">Oculta tarjeta / marca no lanzable</td></tr>
+            <tr><td class="mono">env</td><td style="color:var(--ash)">Variables extra (<span class="mono">${PORT}</span>)</td></tr>
+            <tr><td class="mono">hidden / runnable</td><td style="color:var(--ash)">Oculta / no lanzable</td></tr>
             <tr><td class="mono">cwd</td><td style="color:var(--ash)">Directorio de trabajo</td></tr>
           </tbody>
         </table></div>
-        <div style="border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--dim)">Ajustes globales bajo <span class="mono">settings</span>: raíz de proyectos, puerto del dashboard, rango de puertos, TTL de métricas y auto-escaneo.</div>
+        <div style="border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--dim)">Globales en <span class="mono">settings</span>: raíz, puerto, rango, TTL y auto-escaneo.</div>
       </div>
     </div></section>
 
     <!-- WHY / PRIVACY -->
     <section class="sec"><div class="wrap">
-      <div class="center reveal"><span class="eye">Postura</span><h2>Un solo usuario, solo loopback</h2><p class="desc">Cada petición se comprueba contra una dirección remota de loopback; el socket escucha en <span class="mono">127.0.0.1</span> en exclusiva. Lanza procesos que ya tienes en disco con comandos derivados de esos proyectos — trátalo como ejecutar <span class="mono">npm run dev</span> tú mismo.</p></div>
+      <div class="center reveal"><span class="eye">Postura</span><h2>Un solo usuario, solo loopback</h2><p class="desc">El socket escucha en <span class="mono">127.0.0.1</span> en exclusiva. Lanza procesos que ya tienes en disco — como ejecutar <span class="mono">npm run dev</span> tú mismo.</p></div>
       <div class="cards" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
-        <div class="glass feat reveal"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">Sin nube</h3><span class="chip" style="color:var(--amber)">Siempre</span></div><p style="margin-top:10px">Nada sale de tu máquina. Sin cuentas, sin telemetría, sin llamadas a casa. El binding a <span class="mono">127.0.0.1</span> es el control principal.</p></div>
-        <div class="glass feat reveal"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">Degrada con gracia</h3><span class="chip" style="color:var(--ember)">Opcional</span></div><p style="margin-top:10px"><span class="mono">git</span> y la <span class="mono">gh</span> CLI alimentan los paneles de git y CI; <span class="mono">uv</span> los proyectos Python. Si faltan, el resto sigue funcionando.</p></div>
-        <div class="glass feat reveal"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">Windows-aware</h3><span class="chip" style="color:var(--spark)">Probado</span></div><p style="margin-top:10px">La lógica de lanzar y de puertos es consciente de Windows: kill del árbol de procesos y sonda de readiness dual-stack. Node 18+.</p></div>
+        <div class="glass feat reveal"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">Sin nube</h3><span class="chip" style="color:var(--amber)">Siempre</span></div><p style="margin-top:10px">Nada sale de tu máquina. Sin cuentas, sin telemetría.</p></div>
+        <div class="glass feat reveal"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">Degrada con gracia</h3><span class="chip" style="color:var(--ember)">Opcional</span></div><p style="margin-top:10px"><span class="mono">git</span>, <span class="mono">gh</span> y <span class="mono">uv</span> enriquecen las vistas. Si faltan, el resto sigue.</p></div>
+        <div class="glass feat reveal"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">Windows-aware</h3><span class="chip" style="color:var(--spark)">Probado</span></div><p style="margin-top:10px">Kill del árbol de procesos y sonda dual-stack. Node 18+.</p></div>
       </div>
     </div></section>
 
     <!-- START (CTA principal: command box) -->
     <section class="sec alt" id="start"><div class="wrap">
-      <div class="center reveal"><span class="eye">Empezar</span><h2>Clónalo dentro de tu carpeta y arranca</h2><p class="desc">Mission Control está pensado para vivir <b>dentro</b> de la carpeta que gestiona. Clónalo junto a tus proyectos, compila la UI una vez y sirve todo en un puerto.</p></div>
+      <div class="center reveal"><span class="eye">Empezar</span><h2>Clónalo dentro de tu carpeta y arranca</h2><p class="desc">Vive <b>dentro</b> de la carpeta que gestiona. Clónalo, compila la UI una vez y sirve todo en un puerto.</p></div>
       <div class="cmdwrap reveal">
         <div class="cmdbox">
           <span class="glow"></span>
@@ -307,13 +307,13 @@
         </div>
       </div>
       <div class="dlhero reveal">
-        <p style="font-size:14px;color:var(--ash);max-width:560px;text-align:center;margin-top:18px">Abre <a class="mono" style="color:var(--amber)" href="http://127.0.0.1:7777">http://127.0.0.1:7777</a>. En el primer arranque escanea la carpeta padre, siembra un <span class="mono">config.json</span> local y muestra tus proyectos. Ya está.</p>
+        <p style="font-size:14px;color:var(--ash);max-width:560px;text-align:center;margin-top:18px">Abre <a class="mono" style="color:var(--amber)" href="http://127.0.0.1:7777">http://127.0.0.1:7777</a>. Escanea la carpeta padre, siembra un <span class="mono">config.json</span> y muestra tus proyectos.</p>
         <div class="dlothers" id="dlOthers">
           <a class="dlchip" href="https://github.com/JoniMartin27/launchpad">🐙 <b>Repositorio</b> · GitHub</a>
-          <a class="dlchip" href="https://github.com/JoniMartin27/launchpad/blob/main/SPEC.md">📄 <b>SPEC.md</b> · contrato REST + WS</a>
-          <a class="dlchip" href="https://github.com/JoniMartin27/launchpad/blob/main/DESIGN.md">🎨 <b>DESIGN.md</b> · sistema de diseño</a>
+          <a class="dlchip" href="https://github.com/JoniMartin27/launchpad/blob/main/SPEC.md">📄 <b>SPEC.md</b> · REST + WS</a>
+          <a class="dlchip" href="https://github.com/JoniMartin27/launchpad/blob/main/DESIGN.md">🎨 <b>DESIGN.md</b> · diseño</a>
         </div>
-        <p style="font-size:13px;color:var(--dim);margin-top:12px">¿Otra carpeta de proyectos? Pon <span class="mono">MISSION_CONTROL_PROJECTS_ROOT=/ruta/a/code</span> o edita <span class="mono">settings.projectsRoot</span>. · Modo dev (HMR): <span class="mono">npm run dev</span></p>
+        <p style="font-size:13px;color:var(--dim);margin-top:12px">¿Otra carpeta? <span class="mono">MISSION_CONTROL_PROJECTS_ROOT=/ruta/a/code</span>. · Dev (HMR): <span class="mono">npm run dev</span></p>
       </div>
     </div></section>
 
@@ -322,7 +322,7 @@
       <div class="glass ctaband reveal">
         <div class="bggrid" style="position:absolute;inset:0;z-index:-1;opacity:.6"></div>
         <h2>Deja de hacer de detective de puertos. <span class="grad">Pulsa arrancar.</span></h2>
-        <p class="desc" style="max-width:560px;margin:14px auto 0">Una carpeta, todos tus repos, una pantalla — detectados solos, sin choques de puerto, con logs, git y salud en vivo. Y todo en tu equipo.</p>
+        <p class="desc" style="max-width:560px;margin:14px auto 0">Una carpeta, todos tus repos, una pantalla. Sin choques, con logs, git y salud en vivo.</p>
         <div class="row" style="justify-content:center;margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
           <a class="btn btn-fire" href="#start">Cómo instalarlo</a>
           <a class="btn btn-ghost" href="https://github.com/JoniMartin27/launchpad">⭐ Estrella en GitHub</a>
