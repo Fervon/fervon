@@ -6,19 +6,28 @@ Ejecuta estos pasos para blindar el nombre antes de que alguien lo tome.
 
 ## 1. npm — reservar el nombre `fervon` y el scope `@fervon`
 
-```bash
-cd Desktop/proyects/fervon
-npm login                 # tu cuenta npm
-npm publish               # publica fervon@0.0.1 (reserva el nombre pelado)
+Ya tienes sesión activa (`npm whoami` → `lookspan`). El único paso bloqueante es el **2FA**: el publish pide un código OTP de tu app de autenticación, así que **lo ejecutas tú** (un agente no puede publicar headless).
+
+```powershell
+npm publish "C:\Users\jonat\Desktop\proyects\fervon"
+# npm pedirá el OTP. O directo:  npm publish "...\fervon" --otp=CÓDIGO
 ```
 
-Para reservar también el scope `@fervon` (para futuros `@fervon/cli`, `@fervon/core`…), publica un placeholder bajo el scope:
+Esto reserva el nombre pelado `fervon@0.0.1`.
 
-```bash
-mkdir fervon-scope && cd fervon-scope
-npm init -y               # luego edita "name" a "@fervon/brand"
-npm publish --access public   # los paquetes con scope requieren --access public
+### Scope de marca `@fervon` — NO es renombrar el usuario
+
+npm **no permite renombrar** la cuenta `lookspan`, y no hace falta. Para publicar bajo `@fervon/...` necesitas una **organización npm `fervon`** (gratis para paquetes públicos):
+
+1. Crea la org en **https://www.npmjs.com/org/create** → nombre `fervon`, plan **Free** (Unlimited public packages).
+2. A partir de ahí, futuros paquetes:
+
+```powershell
+# en cada paquete con package.json name "@fervon/cli", "@fervon/core", etc.
+npm publish --access public --otp=CÓDIGO   # los scoped requieren --access public
 ```
+
+Tu login sigue siendo `lookspan`; la cara pública de la marca es el paquete `fervon` + el scope `@fervon`.
 
 ## 2. GitHub — crear la organización `fervon` (paso 4)
 
