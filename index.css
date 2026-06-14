@@ -147,3 +147,12 @@
     footer .copy{color:#5A4F46;font-size:13px}
 
     @media(max-width:560px){.hero{padding:60px 20px 44px}.lead{font-size:17px}.hero .logo{max-width:300px}.star,.services,.about{padding:26px 22px}}
+/* === utility classes extracted from style="" attributes === */
+.s-wo-hrmDi{font-size:10px}
+.s-ZETSm3WM{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.s-h_iOgBNu{--ac:#B98BFF}
+.s-f1Zbn6Zb{--ac:#FFB02E}
+.s-9MORdOj_{--ac:#5BC8D8}
+.s-5h9VS3PC{--ac:#A78BFF}
+.s-LQsgACj5{--ac:#8FD06B}
+.s-Cl-z-CpE{--ac:#FF8A66}
