@@ -144,4 +144,24 @@ Social share card background for a centralized multi-channel cross-poster called
 
 ---
 
+## 15 · hero-regenta — Hero de /regenta (1600×900) · producto comercial
+**Herramienta:** Midjourney v6 (`--ar 16:9 --style raw --s 280`)
+```
+Cinematic macro hero image for a commercial agentic control-plane product called Regenta — "govern your fleet of AI agents" — in a red-hot forge visual language. Concept: command and orderly governance forged in fire. A single large authoritative glowing ingot (the regent / command bar) rests prominently on a dark anvil, and from it thin disciplined filaments of incandescent light reach out and hold a neat formation of several smaller subordinate ingots arranged in a controlled arc, like a fleet held under command — every connection deliberate, nothing chaotic. The heat gradient rises: the command ingot and its base glow ember red #B5300A and brasa #E0480F at the bottom, incandescent #FF6A00 through the core, amber #FFB02E and pale-gold #FFD37A sparks where the command lines terminate. The smaller ingots glow in obedient harmony, slightly dimmer than the central one to read as a hierarchy. Pure carbon-black background #0E0B0A to #16110E, strong radial ember glow behind the command ingot, bokeh embers lifting, faint quench-steam. Brushed dark forged steel and matte iron, authoritative controlled premium engineering mood, powerful but disciplined, not corporate. Left third kept very dark as negative space. Macro photography, shallow depth of field, dramatic low-key chiaroscuro, anamorphic. No text, no letters, no numbers, no org-chart diagram, no logo, no UI. Aspect 16:9.
+```
+**Negative:** `purple, violet, magenta, blue neon, cyberpunk, generic AI art, stock photo, office, people, face, hands, readable text, letters, words, numbers, org chart, flowchart boxes, logo, watermark, UI screenshot, glossy plastic, low contrast, rainbow, chaotic crossing trails, clutter`
+**Notas:** Metáfora = un ingote "regente" que comanda una formación ordenada de ingotes menores por filamentos de luz (= flota de agentes bajo control jerárquico). NO un organigrama literal.
+
+---
+
+## 16 · og-regenta — OG de /regenta (1200×630)
+**Herramienta:** Flux.1 [pro]
+```
+Social share card background for a commercial agentic control-plane product called Regenta ("govern your fleet of AI agents"), forge visual identity. A single large authoritative glowing command ingot rests on a dark anvil in the upper-right two-thirds, holding a neat controlled arc of several smaller subordinate ingots by thin disciplined filaments of incandescent light — a fleet under command, every connection deliberate. Heat gradient rises: command ingot ember red #B5300A and brasa #E0480F at the base, incandescent #FF6A00 through the core, amber #FFB02E and pale-gold #FFD37A spark tips where the command lines end; subordinate ingots glow slightly dimmer to read as hierarchy. Pure carbon-black background #0E0B0A to #16110E, strong radial ember glow behind the command ingot, sparse bokeh embers, faint smoke. Brushed dark forged steel, authoritative controlled premium mood. Lower-left third reserved as clean dark negative space for an overlaid title and logo lockup. Macro cinematic, shallow depth of field, low-key chiaroscuro. No text, no letters, no numbers, no org chart, no logo, no UI. Aspect 1.91:1.
+```
+**Negative:** `purple, violet, blue, neon, cyberpunk, generic AI art, stock photo, office, people, face, readable text, letters, numbers, org chart, flowchart, logo, watermark, UI screenshot, glossy plastic, low contrast, rainbow, crossing trails, clutter`
+**Notas:** Hasta generar el Flux definitivo, hay un `og-regenta.png` interino vectorial (mismo palette/motivo) en `assets/` — sustitúyelo por la imagen fotográfica cuando esté.
+
+---
+
 **Flujo sugerido:** genera cada par hero/OG de un producto en la misma sesión para que compartan grano y composición. Tras generar, sustituye en cada página el mockup CSS por la imagen (en el `.visual`/hero) y actualiza el `og:image` de su `<head>`.

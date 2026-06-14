@@ -21,5 +21,8 @@
   "files": [
     "index.js",
     "README.md"
-  ]
+  ],
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2"
+  }
 }

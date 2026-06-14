@@ -93,15 +93,22 @@ for (const file of walk(ROOT)) {
   writeFileSync(file, html, 'utf8');
 }
 
+// Cloudflare Web Analytics beacon (script + connect-back).
+const CF_INSIGHTS_SCRIPT = 'https://static.cloudflareinsights.com';
+const CF_INSIGHTS_CONNECT = 'https://cloudflareinsights.com';
+
 const hashesArr = [...jsonLdHashes].sort();
+// Mirrors the live CSP served by the Cloudflare Transform Rule on fervon.dev.
+// style-src-attr 'unsafe-inline' was dropped — there are no inline style=""
+// attributes left in the HTML (all moved to utility classes), so the policy
+// is now fully strict. Paste the output below into the Cloudflare rule.
 const csp = [
-  "default-src 'self'",
-  `script-src 'self' ${hashesArr.join(' ')}`.trim(),
+  "default-src 'none'",
+  `script-src 'self' ${hashesArr.join(' ')} ${CF_INSIGHTS_SCRIPT}`.replace(/\s+/g, ' ').trim(),
   "style-src 'self'",
-  "style-src-attr 'unsafe-inline'",
   "img-src 'self' data:",
   "font-src 'self'",
-  "connect-src 'self' https://formspree.io",
+  `connect-src 'self' https://formspree.io ${CF_INSIGHTS_CONNECT}`,
   "form-action 'self' https://formspree.io",
   "frame-ancestors 'none'",
   "base-uri 'none'",
