@@ -1,0 +1,32 @@
+<svg viewBox="0 0 148 155" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Fervon">
+  <defs>
+    <linearGradient id="fi-forge" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#B5300A"/>
+      <stop offset="0.45" stop-color="#E0480F"/>
+      <stop offset="0.75" stop-color="#FF6A00"/>
+      <stop offset="1" stop-color="#FFB02E"/>
+    </linearGradient>
+    <linearGradient id="fi-spark" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FF6A00"/>
+      <stop offset="1" stop-color="#FFD37A"/>
+    </linearGradient>
+    <radialGradient id="fi-glow" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#FF6A00" stop-opacity="0.30"/>
+      <stop offset="1" stop-color="#FF6A00" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g transform="translate(10,10)">
+    <ellipse cx="34" cy="62" rx="60" ry="60" fill="url(#fi-glow)"/>
+    <g stroke="none">
+      <path d="M44 4 C30 4 22 13 22 30 L22 40 L8 40 L8 56 L22 56 L22 116 C22 119 24 121 27 121 L37 121 C40 121 42 119 42 116 L42 56 L60 56 L60 40 L42 40 L42 30 C42 23 45 20 52 20 L64 20 L64 4 Z" fill="url(#fi-forge)"/>
+      <path d="M58 40 L96 40 C92 47 86 50 78 50 L60 50 L58 56 L60 56 L78 56 C88 56 96 49 99 39 C100 36 99 33 96 33 L60 33 L58 40 Z" fill="url(#fi-spark)"/>
+    </g>
+    <circle cx="104" cy="38" r="4.5" fill="#FFD37A"/>
+    <circle cx="118" cy="44" r="2.6" fill="#FF6A00"/>
+    <path d="M62 38 L72 30" stroke="#FFB02E" stroke-width="3" stroke-linecap="round"/>
+    <path d="M70 22 L74 12" stroke="#FF6A00" stroke-width="3" stroke-linecap="round"/>
+    <path d="M84 24 L90 16" stroke="#FFB02E" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="80" cy="9" r="3" fill="#FFD37A"/>
+    <circle cx="96" cy="13" r="2" fill="#FF8A2A"/>
+  </g>
+</svg>
