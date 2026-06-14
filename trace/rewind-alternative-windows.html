@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>The best Rewind alternative for Windows (local-first, pay-once) · Trace by Fervon</title>
+  <meta name="description" content="Rewind AI was Mac-only and Meta shut it down. Trace is the local-first, pay-once Rewind alternative for Windows — searchable memory of your day with no screen recording, no cloud and no subscription. Join the beta." />
+  <link rel="canonical" href="https://fervon.dev/trace/rewind-alternative-windows" />
+  <meta name="keywords" content="Rewind alternative, Rewind alternative Windows, Rewind AI alternative, local memory app Windows, Microsoft Recall alternative, Screenpipe alternative, on-device activity history, pay-once memory app" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#0E0B0A" />
+  <link rel="icon" href="/assets/logo.svg" type="image/svg+xml" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Fervon" />
+  <meta property="og:title" content="The best Rewind alternative for Windows (local-first, pay-once)" />
+  <meta property="og:description" content="Rewind AI was Mac-only and Meta shut it down. Trace brings local, searchable memory to Windows — no screen recording, no cloud, no subscription. Pay once." />
+  <meta property="og:url" content="https://fervon.dev/trace/rewind-alternative-windows" />
+  <meta property="og:image" content="https://fervon.dev/assets/og-trace.png" />
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-trace.png" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- ===== Structured data: breadcrumb ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://fervon.dev/" },
+      { "@type": "ListItem", "position": 2, "name": "Trace", "item": "https://fervon.dev/trace/" },
+      { "@type": "ListItem", "position": 3, "name": "Rewind alternative", "item": "https://fervon.dev/trace/rewind-alternative-windows" }
+    ]
+  }
+  </script>
+
+  <!-- ===== Structured data: FAQ (eligible for FAQ rich results) ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is there a Rewind alternative for Windows?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Trace by Fervon is a local-first personal memory app for Windows, macOS and Linux. It captures lightweight activity history on your own machine so you can search everything you saw, read or did — without the cloud and without a subscription. Trace is currently in waitlist/beta, so you can join the list to be notified when Windows builds are ready." }
+      },
+      {
+        "@type": "Question",
+        "name": "Did Rewind AI work on Windows?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Rewind AI was a Mac-only app. There was never an official Rewind build for Windows, which is exactly why Windows users were left without a local memory tool when the app was discontinued." }
+      },
+      {
+        "@type": "Question",
+        "name": "What happened to Rewind AI?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Rewind (later Limitless) was acquired by Meta, and the Rewind app was shut down on December 19, 2025. People who relied on it for a searchable, local record of their day were left looking for an alternative." }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Trace different from Microsoft Recall?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Microsoft Recall is tied to Copilot+ PCs and takes constant snapshots of your screen, which has drawn privacy criticism. Trace runs on any modern Windows PC, captures far less, filters exclusions before anything is written to disk, and is designed to run with your firewall closed." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Trace free?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Trace is a one-time purchase, not a subscription. Joining the waitlist locks in the $39 early-bird lifetime price (regular $59). There is no recurring fee for the desktop app." }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{--bg:#0E0B0A;--bg2:#16110E;--panel:#1A1310;--line:#2C211B;--line2:#3A2C22;--ember:#FF6A00;--brasa:#E0480F;--amber:#FFB02E;--spark:#FFD37A;--bone:#EFE7DC;--ash:#A89A8E;--dim:#7A6C60}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--bone);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+    .grad{background:linear-gradient(90deg,var(--ember),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .glass{background:rgba(26,19,16,.55);border:1px solid var(--line);border-radius:16px;backdrop-filter:blur(8px)}
+    .bggrid{background-image:linear-gradient(rgba(255,106,0,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,106,0,.045) 1px,transparent 1px);background-size:46px 46px}
+    .eye{font-size:13px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--amber)}
+    .mono{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace}
+    /* nav */
+    .nav{position:fixed;top:0;inset-inline:0;z-index:50}
+    .nav .bar{margin:12px auto 0;max-width:1120px;display:flex;align-items:center;justify-content:space-between;padding:10px 18px}
+    .crumb{display:flex;align-items:center;gap:8px;font-weight:700}
+    .crumb .fv{color:var(--ember)}
+    .crumb .sep{color:var(--dim);font-weight:400}
+    .crumb .mark{vertical-align:-3px;margin-right:2px}
+    .crumb a:hover{color:var(--amber)}
+    .nav .menu{display:flex;gap:26px;font-size:14px;color:var(--ash)}
+    .nav .menu a:hover{color:var(--bone)}
+    .nav .act{display:flex;gap:10px;align-items:center}
+    @media(max-width:880px){.nav .menu{display:none}}
+    /* buttons */
+    .btn{display:inline-flex;align-items:center;gap:8px;border-radius:11px;padding:12px 20px;font-size:15px;font-weight:600;cursor:pointer;transition:.16s;border:0}
+    .btn-fire{background:linear-gradient(180deg,var(--ember),var(--brasa));color:#1A0E06;box-shadow:0 8px 26px rgba(255,106,0,.32)}
+    .btn-fire:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(255,106,0,.45)}
+    .btn-ghost{border:1px solid var(--line2);color:var(--bone)}
+    .btn-ghost:hover{border-color:var(--ember);color:var(--amber)}
+    .btn-sm{padding:8px 14px;font-size:14px}
+    .btn-block{width:100%;justify-content:center}
+    /* hero */
+    .hero{position:relative;padding:128px 0 72px}
+    .hero .cols{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center}
+    .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line2);background:rgba(26,19,16,.6);border-radius:20px;padding:5px 12px;font-size:12px;color:var(--ash)}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber)}
+    .hero h1{font-size:clamp(34px,5vw,58px);line-height:1.04;letter-spacing:-1.5px;font-weight:800;margin-top:20px}
+    .hero .sub{font-size:18px;color:var(--ash);max-width:540px;margin-top:20px}
+    .hero .sub b{color:var(--bone)}
+    .hero .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .trust{display:flex;gap:18px;flex-wrap:wrap;margin-top:22px;font-size:12px;color:var(--dim)}
+    @media(max-width:900px){.hero .cols{grid-template-columns:1fr}.demo{order:-1}}
+    /* demo / search mock card */
+    .demo .top{display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line);padding:12px 16px;font-size:12px;color:var(--dim)}
+    .demo .top i{width:11px;height:11px;border-radius:50%;display:inline-block}
+    .demo .body{padding:18px}
+    .srch{display:flex;align-items:center;gap:10px;border:1px solid var(--line2);background:rgba(14,11,10,.6);border-radius:11px;padding:11px 14px}
+    .srch svg{flex:0 0 auto;color:var(--ash)}
+    .srch .q{font-size:14px;color:var(--bone)}
+    .srch .car{width:1.5px;height:16px;background:var(--amber);display:inline-block;animation:blink 1.1s step-end infinite}
+    @keyframes blink{50%{opacity:0}}
+    .res{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+    .rrow{display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:rgba(14,11,10,.45);border-radius:10px;padding:10px 12px;opacity:0;transform:translateY(6px);transition:opacity .45s ease,transform .45s ease}
+    .rrow.in{opacity:1;transform:none}
+    .rrow .t{font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums}
+    .rrow .k{font-size:10px;letter-spacing:.5px;text-transform:uppercase;border-radius:5px;padding:2px 7px;flex:0 0 auto}
+    .k-web{background:rgba(255,106,0,.14);color:var(--ember)}
+    .k-doc{background:rgba(255,176,46,.16);color:var(--amber)}
+    .k-app{background:rgba(255,211,122,.16);color:var(--spark)}
+    .rrow .x{font-size:13px;color:var(--bone);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    /* sections */
+    .sec{padding:72px 0}
+    .sec.alt{background:var(--bg2);border-block:1px solid var(--line)}
+    .center{text-align:center;max-width:680px;margin:0 auto}
+    .sec h2{font-size:clamp(26px,3.4vw,38px);letter-spacing:-.8px;font-weight:800;margin-top:10px}
+    .sec .desc{color:var(--ash);margin-top:14px}
+    .prose{max-width:760px;margin:0 auto}
+    .prose p{color:var(--ash);margin-top:18px;font-size:16px}
+    .prose p:first-of-type{margin-top:28px}
+    .prose p b,.prose p strong{color:var(--bone)}
+    .prose a{color:var(--amber);text-decoration:underline;text-underline-offset:2px}
+    .prose a:hover{color:var(--spark)}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+    .stats .v{font-size:clamp(30px,4vw,42px);font-weight:800}
+    .stats .l{font-size:14px;color:var(--dim);margin-top:4px}
+    @media(max-width:620px){.stats{grid-template-columns:repeat(2,1fr)}}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:44px}
+    .feat{padding:24px}
+    .feat .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(255,106,0,.1);color:var(--ember);font-size:22px}
+    .feat h3{font-size:16px;font-weight:700;margin:14px 0 6px}
+    .feat p{font-size:14px;color:var(--ash)}
+    .feat p em{color:var(--bone);font-style:italic}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+    .step{padding:24px}
+    .step .n{font-size:13px;color:var(--amber)}
+    .step h4{margin-top:8px;font-weight:700;font-size:16px}
+    .step p{font-size:14px;color:var(--ash);margin-top:8px}
+    .step p em{color:var(--bone);font-style:italic}
+    @media(max-width:820px){.steps{grid-template-columns:1fr}}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+    .chip{border:1px solid var(--line2);background:rgba(26,19,16,.6);border-radius:20px;padding:5px 12px;font-size:12px;color:var(--ash)}
+    table{width:100%;border-collapse:collapse;font-size:14px}
+    thead{font-size:12px;color:var(--dim)}
+    th,td{padding:11px 14px;text-align:center;vertical-align:middle}
+    th:first-child,td:first-child{text-align:left}
+    tbody tr:nth-child(odd){background:rgba(14,11,10,.4)}
+    th.isus{color:var(--amber)}
+    td.isus{background:rgba(255,106,0,.07) !important}
+    .yes{color:#9FC979;font-weight:600}
+    .no{color:var(--brasa)}
+    .warn{color:var(--amber)}
+    /* link list */
+    .links{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:40px}
+    .lcard{display:flex;flex-direction:column;gap:6px;padding:20px;transition:.16s}
+    .lcard:hover{border-color:var(--ember);transform:translateY(-2px)}
+    .lcard .lt{font-weight:700;font-size:15px;color:var(--bone);display:flex;align-items:center;gap:8px}
+    .lcard .lt .arr{color:var(--ember)}
+    .lcard .ld{font-size:13px;color:var(--ash)}
+    /* waitlist */
+    .wlform{max-width:560px;margin:34px auto 0}
+    .frow{display:flex;gap:10px}
+    @media(max-width:520px){.frow{flex-direction:column}}
+    .frow input{flex:1;background:rgba(14,11,10,.6);border:1px solid var(--line2);border-radius:11px;padding:14px 16px;font-size:15px;color:var(--bone);font-family:inherit}
+    .frow input::placeholder{color:var(--dim)}
+    .frow input:focus{outline:none;border-color:var(--ember);box-shadow:0 0 0 3px rgba(255,106,0,.14)}
+    .fmsg{min-height:20px;font-size:14px;margin-top:12px;text-align:center}
+    .fmsg.ok{color:#9FC979}
+    .fmsg.err{color:var(--brasa)}
+    .ffine{font-size:12px;color:var(--dim);text-align:center;margin-top:8px}
+    .vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+    /* faq */
+    .faq{max-width:760px;margin:40px auto 0;display:flex;flex-direction:column;gap:10px}
+    details{border:1px solid var(--line);background:rgba(26,19,16,.5);border-radius:12px;padding:4px 18px}
+    details[open]{border-color:var(--line2)}
+    summary{cursor:pointer;font-weight:600;padding:14px 0;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+    summary::-webkit-details-marker{display:none}
+    summary::after{content:"+";color:var(--amber);font-size:20px;font-weight:400;transition:.2s}
+    details[open] summary::after{transform:rotate(45deg)}
+    details p{font-size:14px;color:var(--ash);padding:0 0 16px}
+    /* cta */
+    .ctaband{position:relative;overflow:hidden;border-radius:24px;padding:60px 24px;text-align:center}
+    /* footer */
+    .foot{border-top:1px solid var(--line);padding:30px 0;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--dim)}
+    .foot a{color:var(--brasa)}
+    .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.in{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+
+  <header class="nav"><div class="glass bar">
+    <a class="crumb" href="/">
+      <span class="fv">🔥 fervon</span><span class="sep">›</span>
+      <a href="/trace/"><svg class="mark" width="17" height="17" viewBox="0 0 26 26" aria-hidden="true"><path d="M4 18 L11 8 L18 14 L22 6" fill="none" stroke="var(--amber)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4" cy="18" r="2.4" fill="var(--amber)"/><circle cx="11" cy="8" r="2.4" fill="var(--amber)"/><circle cx="18" cy="14" r="2.4" fill="var(--amber)"/><circle cx="22" cy="6" r="2.4" fill="var(--amber)"/></svg>Trace</a><span class="sep">›</span>
+      <span data-es="Alternativa a Rewind">Rewind alternative</span>
+    </a>
+    <div class="act">
+      <button id="lang" class="btn btn-ghost btn-sm" type="button" aria-label="Cambiar idioma / Switch language">ES</button>
+      <a class="btn btn-ghost btn-sm" href="https://github.com/JoniMartin27/trace">GitHub</a>
+      <a class="btn btn-fire btn-sm" href="/trace/#waitlist" data-es="Únete a la lista">Join the waitlist</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div aria-hidden="true" style="position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(14,11,10,.96),rgba(14,11,10,.8) 45%,rgba(14,11,10,.5)),url(/assets/hero-trace.png) center/cover no-repeat;mask-image:linear-gradient(#000 60%,transparent)"></div>
+      <div class="bggrid" style="position:absolute;inset:0;z-index:-1;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000,transparent)"></div>
+      <div class="wrap cols">
+        <div>
+          <span class="pill reveal"><span class="dot"></span> <span data-es="Local-first · Windows · macOS · Linux">Local-first · Windows · macOS · Linux</span></span>
+          <h1 class="reveal" data-es="¿Buscas una <span class=&quot;grad&quot;>alternativa a Rewind</span> en Windows?">Looking for a <span class="grad">Rewind alternative</span> on Windows?</h1>
+          <p class="sub reveal" data-es="Rewind AI era solo para Mac, y Meta la cerró. Trace lleva a Windows una memoria local y buscable de tu día — <b>en tu máquina, sin nube, sin suscripción.</b>">Rewind AI was Mac-only, and Meta shut it down. Trace brings a local, searchable memory of your day to Windows — <b>on your machine, no cloud, no subscription.</b></p>
+          <div class="row reveal">
+            <a class="btn btn-fire" href="#waitlist" data-es="Únete a la beta">Join the beta waitlist</a>
+            <a class="btn btn-ghost" href="#how" data-es="Ver cómo funciona">See how it works</a>
+          </div>
+          <p class="pill reveal" style="margin-top:18px"><span class="dot"></span> <span data-es="Pago único · <b style=&quot;color:var(--bone)&quot;>$39</b> early-bird <span style=&quot;color:var(--dim)&quot;>(luego $59)</span>">Pay once · <b style="color:var(--bone)">$39</b> early-bird <span style="color:var(--dim)">(then $59)</span></span></p>
+          <div class="trust reveal"><span data-es="✓ Pago único">✓ Pay once</span><span data-es="✓ Firewall cerrado">✓ Firewall-closed</span><span data-es="✓ Open-core auditable">✓ Open-core auditable</span></div>
+        </div>
+
+        <div class="demo reveal">
+          <div class="glass">
+            <div class="top">
+              <i style="background:#E0480F"></i><i style="background:#FFB02E"></i><i style="background:#9FC979"></i>
+              <span style="margin-left:6px" data-es="Trace · Tu línea de tiempo">Trace · Your timeline</span>
+              <span style="margin-left:auto;color:var(--amber);display:inline-flex;align-items:center;gap:6px"><span class="dot"></span> LOCAL</span>
+            </div>
+            <div class="body">
+              <div class="srch">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+                <span class="q" id="q"></span><span class="car"></span>
+              </div>
+              <div class="res" id="res">
+                <div class="rrow" data-i="0"><span class="t">14:32</span><span class="k k-web">web</span><span class="x" data-es="Precios del competidor — plan nube $25/mes">Competitor pricing — cloud plan $25/mo</span></div>
+                <div class="rrow" data-i="1"><span class="t">11:08</span><span class="k k-doc">doc</span><span class="x" data-es="Notas: «pago único, sin suscripción»">Notes: "pay once, no subscription"</span></div>
+                <div class="rrow" data-i="2"><span class="t">09:51</span><span class="k k-app">app</span><span class="x" data-es="Figma — borrador del hero de la landing">Figma — landing hero draft</span></div>
+              </div>
+            </div>
+          </div>
+          <p style="text-align:center;font-size:11px;color:var(--dim);margin-top:8px" data-es="Demo ilustrativa.">Illustrative demo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT REWIND DID -->
+    <section class="sec alt" id="story"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-es="El contexto">The context</span><h2 data-es="Qué hacía Rewind — y por qué ya no está">What Rewind did — and why it's gone</h2></div>
+      <div class="prose reveal">
+        <p data-es="Rewind AI ofrecía algo realmente útil: un registro buscable de todo lo que habías visto y hecho en tu ordenador. ¿No recuerdas qué artículo tenía ese dato? ¿No sabes dónde leíste un precio, o qué se dijo en una llamada hace tres semanas? Buscabas en tu propio pasado y lo encontrabas. Era un gran producto.">Rewind AI gave people something genuinely useful: a searchable record of everything they had seen and done on their computer. Forgot which article had that one statistic? Couldn't remember where you read a price, or what was said in a call three weeks ago? You just searched your own past and found it. It was a great product.</p>
+        <p data-es="Luego la empresa pivotó a un wearable, se renombró como Limitless y fue adquirida por Meta. La app original de escritorio de Rewind se cerró el <strong>19 de diciembre de 2025</strong>. Para todos los que habían cogido el hábito de buscar en su propia memoria, la herramienta simplemente dejó de existir — y no había un reemplazo directo que mantuviera todo en la máquina local.">Then the company behind it pivoted to a wearable, rebranded as Limitless, and was acquired by Meta. The original Rewind desktop app was shut down on <strong>December 19, 2025</strong>. For everyone who had built the habit of searching their own memory, the tool simply stopped existing — and there was no drop-in replacement that kept everything on the local machine.</p>
+        <p data-es="Esta página no está aquí para criticar a Rewind. Rewind era genial, y ya no está. La cuestión es qué deberían hacer ahora quienes dependían de él — sobre todo si nunca pudieron usarlo siquiera.">This page isn't here to dunk on Rewind. Rewind was great, and it's gone. The point is what people who relied on it should do next — especially if they were never able to use it in the first place.</p>
+      </div>
+    </div></section>
+
+    <!-- WHY WINDOWS USERS WERE LEFT OUT -->
+    <section class="sec" id="windows"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-es="El hueco">The gap</span><h2 data-es="Por qué los usuarios de Windows se quedaron fuera">Why Windows users were left out</h2></div>
+      <div class="prose reveal">
+        <p data-es="Aquí está la parte que escuece si estás en un PC: Rewind AI era <strong>solo para Mac</strong>. Nunca hubo una build oficial de Rewind para Windows. Así que cuando la gente busca una «alternativa a Rewind para Windows», normalmente no está reemplazando algo que perdió — está buscando la app de memoria local que nunca pudo usar.">Here's the part that stings if you're on a PC: Rewind AI was <strong>Mac-only</strong>. There was never an official Rewind build for Windows. So when people search for a "Rewind alternative for Windows," they're usually not replacing something they lost — they're looking for the local memory app they could never run to begin with.</p>
+        <p data-es="Las opciones de Windows que sí existen vienen todas con trampa. Microsoft Recall es local, pero está atado a los nuevos PC Copilot+ y toma capturas constantes de todo lo que haces — un enfoque que recibió fuertes críticas de privacidad al lanzarse. Proyectos open-source como Screenpipe son potentes pero se apoyan en grabación de pantalla continua y pesada y en un tier de nube opcional. Y muchas apps de «memoria» suben tu actividad a los servidores de otros sin que te enteres.">The Windows options that do exist all come with a catch. Microsoft Recall is local, but it's locked to new Copilot+ PCs and takes constant screenshots of everything you do — an approach that drew serious privacy criticism on launch. Open-source projects like Screenpipe are powerful but lean on heavy, continuous screen recording and an optional cloud tier. And plenty of "memory" apps quietly upload your activity to someone else's servers.</p>
+        <p data-es="Así que el hueco es concreto: los usuarios de Windows quieren memoria en su dispositivo y un historial de actividad buscable, sin vídeo continuo de pantalla, sin requisito de PC Copilot+ y sin que nada salga de su máquina. Ese es el hueco que Trace está hecho para llenar.">So the gap is specific: Windows users want on-device memory and a searchable activity history, without continuous screen video, without a Copilot+ PC requirement, and without anything leaving their machine. That's the gap Trace is built to fill.</p>
+      </div>
+    </div></section>
+
+    <!-- WHY TRACE FITS -->
+    <section class="sec alt" id="why"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-es="Por qué encaja Trace">Why Trace fits</span><h2 data-es="Local-first, sin grabar pantalla, pago único">Local-first, no screen recording, pay once</h2><p class="desc" data-es="Las tres cosas que la gente quería de Rewind — sin las que no querían.">The three things people wanted from Rewind — without the ones they didn't.</p></div>
+      <div class="cards">
+        <div class="glass feat reveal"><div class="ic">📵</div><h3 data-es="Local de verdad">Genuinely local</h3><p data-es="Funciona con el firewall cerrado. Sin servidores, sin cuentas, sin telemetría. El motor open-core te deja verificar que nada llama a casa.">Works with your firewall closed. No servers, no accounts, no telemetry. The open-core engine lets you verify that nothing phones home.</p></div>
+        <div class="glass feat reveal"><div class="ic">🎥</div><h3 data-es="Sin grabar pantalla">No screen recording</h3><p data-es="Trace anota señales ligeras — historial, ventana activa, portapapeles — no vídeo continuo. El OCR de capturas está previsto como extra opcional, <em>desactivado por defecto</em>.">Trace notes lightweight signals — history, active window, clipboard — not continuous video. Screenshot OCR is planned as an optional extra, <em>off by default</em>.</p></div>
+        <div class="glass feat reveal"><div class="ic">🪙</div><h3 data-es="Pago único">Pay once</h3><p data-es="Un solo pago por la app de escritorio. La tienes, y sigue funcionando pagues o no de nuevo. Sin cuota recurrente.">A single payment for the desktop app. You own it, and it keeps working whether or not you ever pay again. No recurring fee.</p></div>
+        <div class="glass feat reveal"><div class="ic">💻</div><h3 data-es="Cualquier PC moderno">Any modern PC</h3><p data-es="Sin requisito de PC Copilot+ ni de hardware especial. Trace está pensado para correr ligero en el portátil con Windows que ya tienes.">No Copilot+ PC or special hardware required. Trace is designed to run light on the Windows laptop you already own.</p></div>
+      </div>
+    </div></section>
+
+    <!-- HOW -->
+    <section class="sec" id="how"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-es="El flujo">The flow</span><h2 data-es="Cómo funciona Trace en Windows">How Trace works on Windows</h2><p class="desc" data-es="Tres pasos discretos. Todo ocurre en tu PC — nada sale de él.">Three quiet steps. Everything happens on your PC — nothing leaves it.</p></div>
+      <div class="steps">
+        <div class="glass step reveal"><div class="n mono">01</div><h4 data-es="Captura ligera">Light capture</h4><p data-es="Trace anota señales ligeras: tu historial de navegador, la app o ventana activa y el texto del portapapeles. Sin grabar pantalla 24/7. Las capturas con OCR están previstas como extra opcional y desactivado por defecto — no es algo que corra hoy.">Trace notes lightweight signals: your browser history, the active app or window, and clipboard text. No 24/7 screen recording. Screenshots with OCR are planned as an optional, off-by-default extra — not something running today.</p></div>
+        <div class="glass step reveal"><div class="n mono">02</div><h4 data-es="Indexado local">Local indexing</h4><p data-es="Todo se indexa y se cifra en tu propia máquina. El filtro de exclusiones corre <em>antes</em> de escribir nada, así que las apps privadas, los dominios y las ventanas de incógnito nunca llegan a grabarse.">Everything is indexed and encrypted on your own machine. The exclusion filter runs <em>before</em> anything is written, so private apps, domains and incognito windows never get recorded in the first place.</p></div>
+        <div class="glass step reveal"><div class="n mono">03</div><h4 data-es="Búsqueda y timeline">Search &amp; timeline</h4><p data-es="Busca cualquier palabra que recuerdes, o recorre una línea de tiempo para responder «¿qué estaba haciendo el martes?». Instantáneo, totalmente offline y solo tuyo. Funciona igual en Windows, macOS y Linux.">Search any word you remember, or scroll a timeline to answer "what was I doing on Tuesday?". Instant, fully offline, and yours alone. It works the same on Windows, macOS and Linux.</p></div>
+      </div>
+    </div></section>
+
+    <!-- STATS -->
+    <section class="sec alt"><div class="wrap stats">
+      <div class="reveal"><div class="v grad">0</div><div class="l" data-es="datos a la nube">data to the cloud</div></div>
+      <div class="reveal"><div class="v grad">3</div><div class="l">Win · macOS · Linux</div></div>
+      <div class="reveal"><div class="v grad">1×</div><div class="l" data-es="pago único">one-time payment</div></div>
+      <div class="reveal"><div class="v grad">$39</div><div class="l" data-es="lifetime early-bird">lifetime early-bird</div></div>
+    </div></section>
+
+    <!-- COMPARE -->
+    <section class="sec" id="compare"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-es="Comparativa">Comparison</span><h2 data-es="Trace vs Microsoft Recall vs Screenpipe">Trace vs Microsoft Recall vs Screenpipe</h2><p class="desc" data-es="Las tres opciones realistas de memoria local para Windows hoy, lado a lado.">The three realistic local-memory options for Windows today, side by side.</p></div>
+      <div class="glass reveal" style="overflow:hidden;margin-top:40px">
+        <div style="overflow-x:auto"><table>
+          <thead><tr><th>&nbsp;</th><th class="isus">Trace</th><th>Microsoft Recall</th><th>Screenpipe</th></tr></thead>
+          <tbody>
+            <tr>
+              <th scope="row" data-es="Corre en Windows">Runs on Windows</th>
+              <td class="isus"><span class="yes" data-es="Sí — cualquier PC moderno">Yes — any modern PC</span></td>
+              <td><span class="warn" data-es="Solo PC Copilot+">Copilot+ PC only</span></td>
+              <td><span class="yes" data-es="Sí">Yes</span></td>
+            </tr>
+            <tr>
+              <th scope="row" data-es="Qué captura">What it captures</th>
+              <td class="isus"><span class="yes" data-es="Señales ligeras (historial, ventana activa, portapapeles)">Light signals (history, active window, clipboard)</span></td>
+              <td><span class="warn" data-es="Capturas constantes de pantalla completa">Constant full-screen snapshots</span></td>
+              <td><span class="warn" data-es="Grabación de pantalla continua">Continuous screen recording</span></td>
+            </tr>
+            <tr>
+              <th scope="row" data-es="Local / offline de verdad">Truly local / offline</th>
+              <td class="isus"><span class="yes" data-es="Sí — funciona con el firewall cerrado">Yes — works firewall-closed</span></td>
+              <td><span class="warn" data-es="Local, pero polémico">Local, but controversial</span></td>
+              <td><span class="warn" data-es="Local, con venta de nube">Local, with cloud upsell</span></td>
+            </tr>
+            <tr>
+              <th scope="row" data-es="Consumo de recursos">Resource footprint</th>
+              <td class="isus"><span class="yes" data-es="Ligero — sin vídeo 24/7">Light — no 24/7 video</span></td>
+              <td><span class="warn" data-es="Capturas constantes">Constant snapshotting</span></td>
+              <td><span class="no" data-es="Pesado (mucha RAM/CPU)">Heavy (high RAM/CPU)</span></td>
+            </tr>
+            <tr>
+              <th scope="row" data-es="Precio">Pricing</th>
+              <td class="isus"><span class="yes" data-es="Pago único $39 (early-bird)">One-time $39 (early-bird)</span></td>
+              <td><span class="warn" data-es="Incluido, necesita hardware nuevo">Bundled, needs new hardware</span></td>
+              <td><span class="no" data-es="El tier de nube es suscripción">Cloud tier is subscription</span></td>
+            </tr>
+            <tr>
+              <th scope="row" data-es="Disponibilidad">Availability</th>
+              <td class="isus"><span class="warn" data-es="Beta — únete a la lista">Beta — join the waitlist</span></td>
+              <td><span class="yes" data-es="En el mercado (en PC Copilot+)">Shipping (on Copilot+ PCs)</span></td>
+              <td><span class="yes" data-es="Disponible (open source)">Available (open source)</span></td>
+            </tr>
+          </tbody>
+        </table></div>
+        <div style="border-top:1px solid var(--line);padding:12px 16px;font-size:11px;color:var(--dim)" data-es="La comparativa refleja hechos públicos a mediados de 2026 y se ofrece de buena fe. Las marcas pertenecen a sus dueños.">Comparison reflects publicly reported facts as of mid-2026 and is provided in good faith. Product names belong to their respective owners.</div>
+      </div>
+    </div></section>
+
+    <!-- PRICING -->
+    <section class="sec alt" id="pricing"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-es="Precio">Pricing</span><h2 data-es="Pago único, sin suscripción">One-time, no subscription</h2></div>
+      <div class="prose reveal">
+        <p data-es="Rewind cobraba una cuota recurrente, y la mayoría de las herramientas de memoria con sabor a nube siguen haciéndolo. Trace no. Es un único pago por la app de escritorio — la tienes, y sigue funcionando pagues o no de nuevo.">Rewind charged a recurring fee, and most cloud-flavoured memory tools still do. Trace doesn't. It's a single payment for the desktop app — you own it, and it keeps working whether or not you ever pay again.</p>
+        <p data-es="Unirte a la lista fija el precio early-bird de <strong>$39</strong> (precio normal $59) como pago único que cubre Windows, macOS y Linux más las futuras actualizaciones de la app de escritorio. Un tier «Pro» de IA local — chat semántico sobre tu propia memoria, también corriendo en el dispositivo — está previsto para después y es totalmente opcional. La memoria local del núcleo nunca depende de él.">Joining the waitlist locks in the early-bird price of <strong>$39</strong> (regular price $59) as a one-time purchase that covers Windows, macOS and Linux plus future updates of the desktop app. A local-AI "Pro" tier — semantic chat over your own memory, still running on-device — is planned for later and is entirely optional. The core local memory never depends on it.</p>
+      </div>
+      <div class="row reveal" style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:28px">
+        <a class="btn btn-fire" href="#waitlist" data-es="Fija el precio de $39">Lock in the $39 price</a>
+        <a class="btn btn-ghost" href="/trace/#pricing" data-es="Detalles completos de precio">Full pricing details</a>
+      </div>
+    </div></section>
+
+    <!-- WAITLIST (primary CTA) -->
+    <section class="sec" id="waitlist"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-es="Lista de espera">Waitlist</span><h2 data-es="Sé de los primeros en la beta de Windows">Get the Windows beta first</h2><p class="desc" data-es="Trace aún no se puede descargar. Únete a la lista para conseguir la beta de Windows, fijar el precio lifetime de $39 y ayudar a decidir qué se construye.">Trace isn't downloadable yet. Join the waitlist to get the Windows beta, lock in the $39 lifetime price, and help shape what gets built.</p></div>
+      <form id="wl" class="wlform reveal" action="https://formspree.io/f/mnjyoknb" method="POST" novalidate>
+        <div class="frow">
+          <label class="vh" for="email" data-es="Correo electrónico">Email address</label>
+          <input type="email" id="email" name="email" required autocomplete="email" inputmode="email" placeholder="you@example.com" data-i18n-attr="placeholder" data-es="tu@ejemplo.com" />
+          <button type="submit" class="btn btn-fire" data-es="Únete a la lista">Join the waitlist</button>
+        </div>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="vh" aria-hidden="true" />
+        <p class="fmsg" id="fmsg" role="status" aria-live="polite"></p>
+        <p class="ffine" data-es="Sin spam. Un solo email cuando abra la beta.">No spam, ever. One email when the beta opens.</p>
+      </form>
+    </div></section>
+
+    <!-- HOW TO GET STARTED -->
+    <section class="sec alt" id="getstarted"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-es="Empezar">Get started</span><h2 data-es="Cómo empezar">How to get started</h2><p class="desc" data-es="Como Trace aún está en beta, empezar hoy significa ponerte en la cola — no descargar un instalador. Esto es exactamente lo que pasa.">Because Trace is still in beta, getting started today means getting in line — not downloading an installer. Here's exactly what happens.</p></div>
+      <div class="cards">
+        <div class="glass feat reveal"><div class="ic">①</div><p data-es="Añade tu correo a la lista de abajo. Es el único paso necesario ahora mismo.">Add your email to the waitlist below. That's the only step that's needed right now.</p></div>
+        <div class="glass feat reveal"><div class="ic">②</div><p data-es="Te escribimos cuando la build beta de Windows esté lista — sin spam entremedias, solo ese mensaje.">We email you when the Windows beta build is ready — no spam in between, just that one message.</p></div>
+        <div class="glass feat reveal"><div class="ic">③</div><p data-es="Los miembros de la lista conservan el precio lifetime early-bird de $39 cuando Trace se lance.">Waitlist members keep the $39 early-bird lifetime price when Trace launches.</p></div>
+        <div class="glass feat reveal"><div class="ic">④</div><p data-es="¿Con curiosidad por cómo funcionan de verdad la captura y la búsqueda? Lee <a href=&quot;/trace/#how&quot;>cómo funciona Trace</a> en la página principal.">Curious how the capture and search actually work? Read <a href="/trace/#how">how Trace works</a> on the home page.</p></div>
+      </div>
+    </div></section>
+
+    <!-- FAQ -->
+    <section class="sec" id="faq"><div class="wrap">
+      <div class="center reveal"><span class="eye">FAQ</span><h2 data-es="Preguntas frecuentes">Frequently asked questions</h2></div>
+      <div class="faq reveal">
+        <details><summary data-es="¿Hay una alternativa a Rewind para Windows?">Is there a Rewind alternative for Windows?</summary><p data-es="Sí. Trace by Fervon es una app de memoria personal local-first para Windows, macOS y Linux. Captura un historial de actividad ligero en tu propia máquina para que puedas buscar todo lo que viste, leíste o hiciste — sin la nube y sin suscripción. Trace está actualmente en lista de espera/beta, así que puedes unirte a la lista para que te avisemos cuando las builds de Windows estén listas.">Yes. Trace by Fervon is a local-first personal memory app for Windows, macOS and Linux. It captures lightweight activity history on your own machine so you can search everything you saw, read or did — without the cloud and without a subscription. Trace is currently in waitlist/beta, so you can join the list to be notified when Windows builds are ready.</p></details>
+        <details><summary data-es="¿Rewind AI funcionaba en Windows?">Did Rewind AI work on Windows?</summary><p data-es="No. Rewind AI era una app solo para Mac — nunca hubo una build oficial de Rewind para Windows. Por eso exactamente los usuarios de Windows se quedaron sin una herramienta de memoria local, tanto mientras Rewind existía como tras su descontinuación.">No. Rewind AI was a Mac-only app — there was never an official Rewind build for Windows. That's exactly why Windows users were left without a local memory tool, both while Rewind existed and after it was discontinued.</p></details>
+        <details><summary data-es="¿Qué pasó con Rewind AI?">What happened to Rewind AI?</summary><p data-es="Rewind (luego Limitless) fue adquirido por Meta, y la app de escritorio de Rewind se cerró el 19 de diciembre de 2025. Quienes dependían de ella para un registro buscable y local de su día se quedaron buscando una alternativa.">Rewind (later Limitless) was acquired by Meta, and the Rewind desktop app was shut down on December 19, 2025. People who relied on it for a searchable, local record of their day were left looking for an alternative.</p></details>
+        <details><summary data-es="¿En qué se diferencia Trace de Microsoft Recall?">How is Trace different from Microsoft Recall?</summary><p data-es="Microsoft Recall está atado a los PC Copilot+ y toma capturas constantes de tu pantalla, lo que recibió críticas de privacidad. Trace funciona en cualquier PC con Windows moderno, captura mucho menos, filtra las exclusiones antes de escribir nada en disco, y está diseñado para correr con el firewall cerrado.">Microsoft Recall is tied to Copilot+ PCs and takes constant snapshots of your screen, which drew privacy criticism. Trace runs on any modern Windows PC, captures far less, filters exclusions before anything is written to disk, and is designed to run with your firewall closed.</p></details>
+        <details><summary data-es="¿Trace es gratis?">Is Trace free?</summary><p data-es="Trace es un pago único, no una suscripción. Unirte a la lista fija el precio lifetime early-bird de $39 (normal $59). No hay cuota recurrente por la app de escritorio, y un tier opcional de IA local más adelante nunca es obligatorio.">Trace is a one-time purchase, not a subscription. Joining the waitlist locks in the $39 early-bird lifetime price (regular $59). There's no recurring fee for the desktop app, and an optional local-AI tier later is never required.</p></details>
+      </div>
+    </div></section>
+
+    <!-- MORE ALTERNATIVES -->
+    <section class="sec alt" id="more"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-es="Más alternativas">More alternatives</span><h2 data-es="¿Investigando el campo a fondo?">Researching the field more broadly?</h2><p class="desc" data-es="Mira cómo encaja Trace frente a las otras herramientas de memoria local — o vuelve a la página principal de Trace.">See how Trace stacks up against the other local-memory tools — or head back to the main Trace page.</p></div>
+      <div class="links reveal">
+        <a class="glass lcard" href="/trace/limitless-alternative"><span class="lt"><span class="arr">→</span> <span data-es="Alternativa a Limitless">Limitless alternative</span></span><span class="ld" data-es="El wearable en el que se convirtió Rewind, frente a una memoria de escritorio local.">The wearable Rewind became, versus a local desktop memory.</span></a>
+        <a class="glass lcard" href="/trace/microsoft-recall-alternative"><span class="lt"><span class="arr">→</span> <span data-es="Alternativa a Microsoft Recall">Microsoft Recall alternative</span></span><span class="ld" data-es="Sin requisito de PC Copilot+ y sin capturas constantes de pantalla.">No Copilot+ PC requirement and no constant screen snapshots.</span></a>
+        <a class="glass lcard" href="/trace/screenpipe-alternative"><span class="lt"><span class="arr">→</span> <span data-es="Alternativa a Screenpipe">Screenpipe alternative</span></span><span class="ld" data-es="Señales ligeras en vez de grabación de pantalla pesada y continua.">Light signals instead of heavy, continuous screen recording.</span></a>
+        <a class="glass lcard" href="/trace/"><span class="lt"><span class="arr">→</span> <span data-es="Inicio de Trace">Trace home</span></span><span class="ld" data-es="La historia completa: cómo funciona, privacidad, precio y FAQ.">The full story: how it works, privacy, pricing and FAQ.</span></a>
+      </div>
+    </div></section>
+
+    <!-- CTA -->
+    <section class="sec"><div class="wrap">
+      <div class="glass ctaband reveal">
+        <div class="bggrid" style="position:absolute;inset:0;z-index:-1;opacity:.6"></div>
+        <h2 data-es="Deja de buscar a ciegas. <span class=&quot;grad&quot;>Recuérdalo.</span>">Stop searching blind. <span class="grad">Remember it.</span></h2>
+        <p class="desc" style="max-width:560px;margin:14px auto 0" data-es="Privada, local y tuya para siempre. Fija el precio lifetime de $39.">Private, local and yours forever. Lock in the $39 lifetime price.</p>
+        <div class="row" style="justify-content:center;margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn btn-fire" href="#waitlist" data-es="Únete a la lista">Join the waitlist</a>
+          <a class="btn btn-ghost" href="https://github.com/JoniMartin27/trace" data-es="⭐ Motor en GitHub">⭐ Engine on GitHub</a>
+        </div>
+      </div>
+    </div></section>
+  </main>
+
+  <footer><div class="wrap foot">
+    <span data-es="Trace es un proyecto de <a href=&quot;https://fervon.dev&quot;>🔥 Fervon</a> · Forjado al rojo vivo">Trace is a project by <a href="https://fervon.dev">🔥 Fervon</a> · Forged red-hot</span>
+    <span data-es="© 2026 Jonathan Martín · Local-first por diseño">© 2026 Jonathan Martín · Local-first by design</span>
+  </div></footer>
+
+  <script>
+    // ---- Hero: search + timeline reveal animation ----
+    (function(){
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var qEl = document.getElementById("q");
+      var rows = Array.prototype.slice.call(document.querySelectorAll("#res .rrow"));
+      function query(){ return (document.documentElement.getAttribute("lang")==="es") ? "esa página de precios que vi el martes…" : "that pricing page I saw on Tuesday…"; }
+      function showAll(){ if(qEl)qEl.textContent=query(); rows.forEach(function(r){ r.classList.add("in"); }); }
+      if(reduce){ showAll(); return; }
+      var done=false;
+      function play(){
+        if(done) return; done=true;
+        var q=query();
+        var i=0;
+        (function type(){
+          if(!qEl) return;
+          qEl.textContent = q.slice(0,i);
+          i++;
+          if(i<=q.length){ setTimeout(type, 38); }
+          else { rows.forEach(function(r,k){ setTimeout(function(){ r.classList.add("in"); }, 260 + k*420); }); }
+        })();
+      }
+      var obs=new IntersectionObserver(function(e){ if(e[0].isIntersecting){ obs.disconnect(); setTimeout(play,300); } },{threshold:.4});
+      var host=document.getElementById("res"); if(host) obs.observe(host); else showAll();
+    })();
+
+    // ---- Waitlist form (Formspree, progressive enhancement) ----
+    (function(){
+      var form=document.getElementById("wl"); if(!form) return;
+      var msg=document.getElementById("fmsg");
+      var input=document.getElementById("email");
+      var btn=form.querySelector("button[type=submit]");
+      var btnText=btn?btn.textContent:"";
+      var emailRe=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      function es(){ return document.documentElement.getAttribute("lang")==="es"; }
+      function setMsg(t,cls){ if(!msg)return; msg.textContent=t; msg.className="fmsg"+(cls?" "+cls:""); }
+      form.addEventListener("submit", function(ev){
+        ev.preventDefault();
+        var val=(input&&input.value||"").trim();
+        if(!emailRe.test(val)){ setMsg(es()?"Introduce un correo válido, por favor.":"Please enter a valid email.","err"); if(input)input.focus(); return; }
+        if(btn){ btn.disabled=true; btn.textContent=es()?"Uniéndote…":"Joining…"; }
+        setMsg("","");
+        fetch(form.action,{ method:"POST", body:new FormData(form), headers:{ "Accept":"application/json" } })
+          .then(function(res){
+            if(res.ok){ form.reset(); setMsg(es()?"🎉 ¡Estás en la lista! Revisa tu bandeja para confirmar.":"🎉 You're on the list! Check your inbox to confirm.","ok"); }
+            else { return res.json().then(function(d){ throw new Error((d&&d.errors&&d.errors[0]&&d.errors[0].message)||"err"); }); }
+          })
+          .catch(function(){ setMsg(es()?"Vaya, no se envió. Inténtalo de nuevo en un momento.":"Hmm, that didn't send. Please try again in a moment.","err"); })
+          .finally(function(){ if(btn){ btn.disabled=false; btn.textContent=btnText; } });
+      });
+    })();
+
+    // ---- Reveal on scroll ----
+    var rev=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("in"); rev.unobserve(en.target); } }); },{threshold:.12});
+    document.querySelectorAll(".reveal").forEach(function(el){ rev.observe(el); });
+  </script>
+
+<script>
+/* Fervon bilingual toggle — keep identical across all Fervon pages */
+(function(){
+  var KEY="fervon-lang";
+  var base=(document.documentElement.getAttribute("lang")||"es").slice(0,2).toLowerCase();
+  var other=base==="es"?"en":"es";
+  var nodes=[].slice.call(document.querySelectorAll("[data-"+other+"]"));
+  nodes.forEach(function(n){
+    var a=n.getAttribute("data-i18n-attr");
+    n.setAttribute("data-"+base, a?(n.getAttribute(a)||""):n.innerHTML);
+  });
+  function apply(lang){
+    document.documentElement.setAttribute("lang",lang);
+    for(var i=0;i<nodes.length;i++){
+      var n=nodes[i], v=n.getAttribute("data-"+lang);
+      if(v===null) continue;
+      var a=n.getAttribute("data-i18n-attr");
+      if(a) n.setAttribute(a,v); else n.innerHTML=v;
+    }
+    var b=document.getElementById("lang"); if(b) b.textContent=(lang==="es"?"EN":"ES");
+  }
+  var saved=null; try{saved=localStorage.getItem(KEY);}catch(e){}
+  var initial=saved||(((navigator.language||"").toLowerCase().slice(0,2)==="es")?"es":"en");
+  apply(initial);
+  var b=document.getElementById("lang");
+  if(b) b.addEventListener("click",function(){
+    var nx=(document.documentElement.getAttribute("lang")==="es")?"en":"es";
+    try{localStorage.setItem(KEY,nx);}catch(e){}
+    apply(nx);
+  });
+})();
+</script>
+</body>
+</html>

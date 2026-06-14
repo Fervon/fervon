@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>A private Microsoft Recall alternative (any PC, local-first) · Trace by Fervon</title>
+  <meta name="description" content="Want Recall's searchable memory without the Copilot+ PC lock-in or the privacy worries? Trace is a private, local-first Microsoft Recall alternative that runs on any Windows, Mac or Linux PC, fully on-device. Pay once, $39." />
+  <link rel="canonical" href="https://fervon.dev/trace/microsoft-recall-alternative" />
+  <meta name="keywords" content="Microsoft Recall alternative, Microsoft Recall privacy alternative, Recall without Copilot+ PC, local-first memory app, private personal memory, on-device timeline" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#0E0B0A" />
+  <link rel="icon" href="/assets/logo.svg" type="image/svg+xml" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Fervon" />
+  <meta property="og:title" content="A private Microsoft Recall alternative (any PC, local-first) · Trace by Fervon" />
+  <meta property="og:description" content="Recall's searchable memory without the Copilot+ PC requirement or the privacy worries. Trace is local-first, cross-platform, and a one-time $39." />
+  <meta property="og:url" content="https://fervon.dev/trace/microsoft-recall-alternative" />
+  <meta property="og:image" content="https://fervon.dev/assets/og-trace.png" />
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-trace.png" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Fervon", "item": "https://fervon.dev/" },
+      { "@type": "ListItem", "position": 2, "name": "Trace", "item": "https://fervon.dev/trace/" },
+      { "@type": "ListItem", "position": 3, "name": "Microsoft Recall alternative", "item": "https://fervon.dev/trace/microsoft-recall-alternative" }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Do I need a Copilot+ PC for Trace?", "acceptedAnswer": { "@type": "Answer", "text": "No. Unlike Microsoft Recall, Trace does not require a Copilot+ PC or any dedicated AI hardware (NPU). It runs on any reasonably modern Windows, macOS or Linux computer because it captures lightweight signals instead of constant full-screen snapshots." } },
+      { "@type": "Question", "name": "Is Microsoft Recall private?", "acceptedAnswer": { "@type": "Answer", "text": "Microsoft says Recall keeps its snapshots local and encrypted, and after widely reported criticism it made the feature opt-in and added Windows Hello protection. Even so, the approach of periodically capturing your screen has continued to draw privacy concerns from security researchers. Trace takes a different route: it records far less, filters exclusions before anything is written, and works fully on-device." } },
+      { "@type": "Question", "name": "What's a good Microsoft Recall alternative?", "acceptedAnswer": { "@type": "Answer", "text": "If you want Recall's core benefit — finding anything you saw or did — without the Copilot+ PC requirement, Trace is a strong alternative. It is local-first, cross-platform, captures lightweight signals rather than continuous screenshots, and is a one-time purchase instead of being bundled into a specific class of new PC." } },
+      { "@type": "Question", "name": "Does Trace take constant screenshots like Recall?", "acceptedAnswer": { "@type": "Answer", "text": "No. By default Trace notes lightweight signals — browser history, the active window, and clipboard text. Screenshots with OCR are planned as an opt-in extra and are not part of the current build. Continuous screen capture is not how Trace works." } },
+      { "@type": "Question", "name": "How much does Trace cost and which platforms does it support?", "acceptedAnswer": { "@type": "Answer", "text": "Trace is a one-time purchase. Joining the waitlist locks in the $39 early-bird price (regular $59), with no subscription. It targets Windows, macOS and Linux, and is currently in a waitlist and beta phase — not yet available to download." } }
+    ]
+  }
+  </script>
+
+  <style>
+    :root{--bg:#0E0B0A;--bg2:#16110E;--panel:#1A1310;--line:#2C211B;--line2:#3A2C22;--ember:#FF6A00;--brasa:#E0480F;--amber:#FFB02E;--spark:#FFD37A;--bone:#EFE7DC;--ash:#A89A8E;--dim:#7A6C60}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--bone);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    a{color:inherit;text-decoration:none}
+    .wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+    .grad{background:linear-gradient(90deg,var(--ember),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
+    .glass{background:rgba(26,19,16,.55);border:1px solid var(--line);border-radius:16px;backdrop-filter:blur(8px)}
+    .bggrid{background-image:linear-gradient(rgba(255,106,0,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,106,0,.045) 1px,transparent 1px);background-size:46px 46px}
+    .eye{font-size:13px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--amber)}
+    .mono{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace}
+    /* nav */
+    .nav{position:fixed;top:0;inset-inline:0;z-index:50}
+    .nav .bar{margin:12px auto 0;max-width:1120px;display:flex;align-items:center;justify-content:space-between;padding:10px 18px}
+    .crumb{display:flex;align-items:center;gap:8px;font-weight:700}
+    .crumb .fv{color:var(--ember)}
+    .crumb .sep{color:var(--dim);font-weight:400}
+    .crumb .mark{vertical-align:-3px;margin-right:2px}
+    .nav .menu{display:flex;gap:26px;font-size:14px;color:var(--ash)}
+    .nav .menu a:hover{color:var(--bone)}
+    .nav .act{display:flex;gap:10px;align-items:center}
+    @media(max-width:880px){.nav .menu{display:none}}
+    /* buttons */
+    .btn{display:inline-flex;align-items:center;gap:8px;border-radius:11px;padding:12px 20px;font-size:15px;font-weight:600;cursor:pointer;transition:.16s;border:0}
+    .btn-fire{background:linear-gradient(180deg,var(--ember),var(--brasa));color:#1A0E06;box-shadow:0 8px 26px rgba(255,106,0,.32)}
+    .btn-fire:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(255,106,0,.45)}
+    .btn-ghost{border:1px solid var(--line2);color:var(--bone)}
+    .btn-ghost:hover{border-color:var(--ember);color:var(--amber)}
+    .btn-sm{padding:8px 14px;font-size:14px}
+    .btn-block{width:100%;justify-content:center}
+    /* hero */
+    .hero{position:relative;padding:128px 0 72px}
+    .hero .cols{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center}
+    .pill{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line2);background:rgba(26,19,16,.6);border-radius:20px;padding:5px 12px;font-size:12px;color:var(--ash)}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px var(--amber)}
+    .hero h1{font-size:clamp(34px,5vw,58px);line-height:1.04;letter-spacing:-1.5px;font-weight:800;margin-top:20px}
+    .hero .sub{font-size:18px;color:var(--ash);max-width:540px;margin-top:20px}
+    .hero .sub b{color:var(--bone)}
+    .hero .row{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+    .trust{display:flex;gap:18px;flex-wrap:wrap;margin-top:22px;font-size:12px;color:var(--dim)}
+    @media(max-width:900px){.hero .cols{grid-template-columns:1fr}.demo{order:-1}}
+    /* demo / search mock card */
+    .demo .top{display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--line);padding:12px 16px;font-size:12px;color:var(--dim)}
+    .demo .top i{width:11px;height:11px;border-radius:50%;display:inline-block}
+    .demo .body{padding:18px}
+    .srch{display:flex;align-items:center;gap:10px;border:1px solid var(--line2);background:rgba(14,11,10,.6);border-radius:11px;padding:11px 14px}
+    .srch svg{flex:0 0 auto;color:var(--ash)}
+    .srch .q{font-size:14px;color:var(--bone)}
+    .srch .car{width:1.5px;height:16px;background:var(--amber);display:inline-block;animation:blink 1.1s step-end infinite}
+    @keyframes blink{50%{opacity:0}}
+    .res{display:flex;flex-direction:column;gap:8px;margin-top:14px}
+    .rrow{display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:rgba(14,11,10,.45);border-radius:10px;padding:10px 12px;opacity:0;transform:translateY(6px);transition:opacity .45s ease,transform .45s ease}
+    .rrow.in{opacity:1;transform:none}
+    .rrow .t{font-size:12px;color:var(--dim);font-variant-numeric:tabular-nums}
+    .rrow .k{font-size:10px;letter-spacing:.5px;text-transform:uppercase;border-radius:5px;padding:2px 7px;flex:0 0 auto}
+    .k-web{background:rgba(255,106,0,.14);color:var(--ember)}
+    .k-doc{background:rgba(255,176,46,.16);color:var(--amber)}
+    .k-app{background:rgba(255,211,122,.16);color:var(--spark)}
+    .rrow .x{font-size:13px;color:var(--bone);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    /* sections */
+    .sec{padding:72px 0}
+    .sec.alt{background:var(--bg2);border-block:1px solid var(--line)}
+    .center{text-align:center;max-width:680px;margin:0 auto}
+    .sec h2{font-size:clamp(26px,3.4vw,38px);letter-spacing:-.8px;font-weight:800;margin-top:10px}
+    .sec .desc{color:var(--ash);margin-top:14px}
+    .prose{max-width:760px;margin:0 auto}
+    .prose p{color:var(--ash);margin-top:18px;font-size:16px}
+    .prose p b,.prose p strong{color:var(--bone)}
+    .prose p a{color:var(--amber);text-decoration:underline;text-underline-offset:2px}
+    .prose p a:hover{color:var(--spark)}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center}
+    .stats .v{font-size:clamp(30px,4vw,42px);font-weight:800}
+    .stats .l{font-size:14px;color:var(--dim);margin-top:4px}
+    @media(max-width:620px){.stats{grid-template-columns:repeat(2,1fr)}}
+    .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:44px}
+    .feat{padding:24px}
+    .feat .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(255,106,0,.1);color:var(--ember);font-size:22px}
+    .feat h3{font-size:16px;font-weight:700;margin:14px 0 6px}
+    .feat p{font-size:14px;color:var(--ash)}
+    .feat p em{color:var(--bone);font-style:italic}
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+    .step{padding:24px}
+    .step .n{font-size:13px;color:var(--amber)}
+    .step h4{margin-top:8px;font-weight:700;font-size:16px}
+    .step p{font-size:14px;color:var(--ash);margin-top:8px}
+    .step p em{color:var(--bone);font-style:italic}
+    @media(max-width:820px){.steps{grid-template-columns:1fr}}
+    .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+    .chip{border:1px solid var(--line2);background:rgba(26,19,16,.6);border-radius:20px;padding:5px 12px;font-size:12px;color:var(--ash)}
+    table{width:100%;border-collapse:collapse;font-size:14px}
+    thead{font-size:12px;color:var(--dim)}
+    th,td{padding:11px 14px;text-align:center;vertical-align:middle}
+    th:first-child,td:first-child{text-align:left}
+    tbody tr:nth-child(odd){background:rgba(14,11,10,.4)}
+    th.isus{color:var(--amber)}
+    td.isus{background:rgba(255,106,0,.07) !important}
+    .yes{color:#9FC979;font-weight:600}
+    .no{color:var(--brasa)}
+    .warn{color:var(--amber)}
+    /* pricing */
+    .prices{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:840px;margin:44px auto 0}
+    @media(max-width:760px){.prices{grid-template-columns:1fr}}
+    .price{position:relative;padding:28px}
+    .price.feat-card{border-color:var(--line2);box-shadow:0 0 0 1px rgba(255,106,0,.25),0 18px 50px rgba(0,0,0,.35)}
+    .pbadge{position:absolute;top:-12px;left:24px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;border-radius:20px;padding:5px 12px;background:linear-gradient(180deg,var(--ember),var(--brasa));color:#1A0E06}
+    .pbadge.soon{background:transparent;border:1px solid var(--line2);color:var(--ash)}
+    .pname{font-size:18px;font-weight:700;margin-top:6px}
+    .pamt{display:flex;align-items:baseline;gap:10px;margin-top:14px}
+    .pnow{font-size:42px;font-weight:800;letter-spacing:-1px}
+    .pwas{font-size:18px;color:var(--dim);text-decoration:line-through}
+    .pcyc{font-size:13px;color:var(--dim);margin-top:2px}
+    .plist{list-style:none;margin:18px 0;display:flex;flex-direction:column;gap:9px}
+    .plist li{font-size:14px;color:var(--ash);padding-left:24px;position:relative}
+    .plist li::before{content:"✓";position:absolute;left:0;color:var(--ember);font-weight:700}
+    .plist li strong{color:var(--bone)}
+    .pfoot{font-size:12px;color:var(--dim);margin-top:12px;text-align:center}
+    /* waitlist */
+    .wlform{max-width:560px;margin:34px auto 0}
+    .frow{display:flex;gap:10px}
+    @media(max-width:520px){.frow{flex-direction:column}}
+    .frow input{flex:1;background:rgba(14,11,10,.6);border:1px solid var(--line2);border-radius:11px;padding:14px 16px;font-size:15px;color:var(--bone);font-family:inherit}
+    .frow input::placeholder{color:var(--dim)}
+    .frow input:focus{outline:none;border-color:var(--ember);box-shadow:0 0 0 3px rgba(255,106,0,.14)}
+    .fmsg{min-height:20px;font-size:14px;margin-top:12px;text-align:center}
+    .fmsg.ok{color:#9FC979}
+    .fmsg.err{color:var(--brasa)}
+    .ffine{font-size:12px;color:var(--dim);text-align:center;margin-top:8px}
+    .vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+    /* faq */
+    .faq{max-width:760px;margin:40px auto 0;display:flex;flex-direction:column;gap:10px}
+    details{border:1px solid var(--line);background:rgba(26,19,16,.5);border-radius:12px;padding:4px 18px}
+    details[open]{border-color:var(--line2)}
+    summary{cursor:pointer;font-weight:600;padding:14px 0;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:12px}
+    summary::-webkit-details-marker{display:none}
+    summary::after{content:"+";color:var(--amber);font-size:20px;font-weight:400;transition:.2s}
+    details[open] summary::after{transform:rotate(45deg)}
+    details p{font-size:14px;color:var(--ash);padding:0 0 16px}
+    /* cta */
+    .ctaband{position:relative;overflow:hidden;border-radius:24px;padding:60px 24px;text-align:center}
+    /* more links */
+    .morelinks{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:24px}
+    .morelinks a{border:1px solid var(--line2);background:rgba(26,19,16,.6);border-radius:20px;padding:7px 14px;font-size:13px;color:var(--ash);transition:.16s}
+    .morelinks a:hover{border-color:var(--ember);color:var(--amber)}
+    /* footer */
+    .foot{border-top:1px solid var(--line);padding:30px 0;display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:14px;color:var(--dim)}
+    .foot a{color:var(--brasa)}
+    .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.in{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+
+  <header class="nav"><div class="glass bar">
+    <a class="crumb" href="/">
+      <span class="fv">🔥 fervon</span><span class="sep">›</span>
+      <a href="/trace/"><span><svg class="mark" width="17" height="17" viewBox="0 0 26 26" aria-hidden="true"><path d="M4 18 L11 8 L18 14 L22 6" fill="none" stroke="var(--amber)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4" cy="18" r="2.4" fill="var(--amber)"/><circle cx="11" cy="8" r="2.4" fill="var(--amber)"/><circle cx="18" cy="14" r="2.4" fill="var(--amber)"/><circle cx="22" cy="6" r="2.4" fill="var(--amber)"/></svg>Trace</span></a>
+      <span class="sep">›</span>
+      <span data-es="Alternativa a Recall">Recall alternative</span>
+    </a>
+    <nav class="menu">
+      <a href="#problem" data-es="El problema">The problem</a>
+      <a href="#different" data-es="En qué se diferencia">How it differs</a>
+      <a href="#compare" data-es="Comparativa">Comparison</a>
+      <a href="#pricing" data-es="Precio">Pricing</a>
+      <a href="#faq" data-es="Preguntas">FAQ</a>
+    </nav>
+    <div class="act">
+      <button id="lang" class="btn btn-ghost btn-sm" type="button" aria-label="Cambiar idioma / Switch language">ES</button>
+      <a class="btn btn-ghost btn-sm" href="https://github.com/JoniMartin27/trace">GitHub</a>
+      <a class="btn btn-fire btn-sm" href="/trace/#waitlist" data-es="Únete a la lista">Join the waitlist</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div aria-hidden="true" style="position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(14,11,10,.96),rgba(14,11,10,.8) 45%,rgba(14,11,10,.5)),url(/assets/hero-trace.png) center/cover no-repeat;mask-image:linear-gradient(#000 60%,transparent)"></div>
+      <div class="bggrid" style="position:absolute;inset:0;z-index:-1;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000,transparent)"></div>
+      <div class="wrap cols">
+        <div>
+          <span class="pill reveal"><span class="dot"></span> <span data-es="Alternativa a Microsoft Recall · cualquier PC">Microsoft Recall alternative · any PC</span></span>
+          <h1 class="reveal" data-es="Una alternativa a Microsoft Recall que <span class=&quot;grad&quot;>respeta tu privacidad</span>.">A Microsoft Recall alternative that <span class="grad">respects your privacy</span>.</h1>
+          <p class="sub reveal" data-es="Microsoft Recall le da a Windows una memoria con búsqueda — pero solo en un <b>Copilot+ PC</b> y tomando capturas de tu pantalla. Trace logra lo mismo —encuentra lo que viste, leíste o hiciste— en <b>cualquier PC moderno</b>, totalmente en tu equipo.">Microsoft Recall gives Windows a searchable memory of what you've seen — but only on a <b>Copilot+ PC</b>, and only by taking snapshots of your screen. Trace delivers the same everyday win — find anything you saw, read or did — on <b>any modern PC</b>, fully on-device.</p>
+          <div class="row reveal">
+            <a class="btn btn-fire" href="/trace/#waitlist" data-es="Únete a la lista">Join the waitlist</a>
+            <a class="btn btn-ghost" href="/trace/#how" data-es="Ver cómo funciona">See how Trace works</a>
+          </div>
+          <p class="pill reveal" style="margin-top:18px"><span class="dot"></span> <span data-es="Pago único · <b style=&quot;color:var(--bone)&quot;>$39</b> early-bird <span style=&quot;color:var(--dim)&quot;>(luego $59)</span>">Pay once · <b style="color:var(--bone)">$39</b> early-bird <span style="color:var(--dim)">(then $59)</span></span></p>
+          <div class="trust reveal"><span data-es="✓ Sin Copilot+ PC">✓ No Copilot+ PC</span><span data-es="✓ Firewall cerrado">✓ Firewall-closed</span><span data-es="✓ Open-core auditable">✓ Auditable open-core</span></div>
+        </div>
+
+        <div class="demo reveal">
+          <div class="glass">
+            <div class="top">
+              <i style="background:#E0480F"></i><i style="background:#FFB02E"></i><i style="background:#9FC979"></i>
+              <span style="margin-left:6px" data-es="Trace · Tu línea de tiempo">Trace · Your timeline</span>
+              <span style="margin-left:auto;color:var(--amber);display:inline-flex;align-items:center;gap:6px"><span class="dot"></span> LOCAL</span>
+            </div>
+            <div class="body">
+              <div class="srch">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+                <span class="q" id="q"></span><span class="car"></span>
+              </div>
+              <div class="res" id="res">
+                <div class="rrow" data-i="0"><span class="t">14:32</span><span class="k k-web">web</span><span class="x" data-es="Página de precios del competidor — nube $25/mes">Competitor pricing page — cloud $25/mo</span></div>
+                <div class="rrow" data-i="1"><span class="t">11:08</span><span class="k k-doc">doc</span><span class="x" data-es="Notas: «sin Copilot+ PC, sin suscripción»">Notes: "no Copilot+ PC, no subscription"</span></div>
+                <div class="rrow" data-i="2"><span class="t">09:51</span><span class="k k-app">app</span><span class="x" data-es="Figma — borrador del hero de la landing">Figma — landing hero draft</span></div>
+              </div>
+            </div>
+          </div>
+          <p style="text-align:center;font-size:11px;color:var(--dim);margin-top:8px" data-es="Demo ilustrativa.">Illustrative demo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM: Recall's catch -->
+    <section class="sec alt" id="problem"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-es="El problema">The problem</span><h2 data-es="El truco de Recall: solo Copilot+ PC">Recall's catch: Copilot+ PC only</h2><p class="desc" data-es="Antes de poder usarlo, te topas con un muro de hardware.">Before you can use it, you hit a wall of hardware.</p></div>
+      <div class="prose reveal">
+        <p data-es="Cuando la mayoría busca una <b>alternativa a Microsoft Recall</b>, el primer muro que encuentra es el hardware. Recall no es una función que simplemente actives en Windows: viene con los <b>Copilot+ PC</b>, una categoría de equipos que Microsoft define por una unidad de procesamiento neuronal (NPU) de 40+ TOPS, además de mínimos de RAM y almacenamiento. Si tu portátil o sobremesa actual es anterior a esa especificación, Recall queda descartado, por muy capaz que sea el resto de la máquina.">When most people search for a <b>Microsoft Recall alternative</b>, the first wall they hit is hardware. Recall isn't a feature you can simply switch on in Windows — it ships with <b>Copilot+ PCs</b>, a class of machines that Microsoft defines by a dedicated neural processing unit (NPU) rated at 40+ TOPS, plus minimum RAM and storage. If your current laptop or desktop predates that spec, Recall is off the table, no matter how capable the rest of the machine is.</p>
+        <p data-es="Es mucho pedir para una herramienta de memoria. Lo que de verdad quieres —escribir «esa página de precios que leí el martes» y recuperarla— no necesita en el fondo una NPU nueva. Necesita una captura ligera y una buena búsqueda local. Recall ata la función a un silicio concreto porque se apoya en capturas constantes y análisis de imagen en el equipo; Trace, deliberadamente, no, y por eso funciona en hardware que ya tienes.">That's a steep ask for a memory tool. The thing you actually want — to type "that pricing page I read on Tuesday" and get it back — doesn't fundamentally need a brand-new NPU. It needs a lightweight capture pipeline and good local search. Recall couples the feature to specific silicon because it leans on constant on-device snapshotting and image analysis; Trace deliberately doesn't, which is why it runs on hardware you already own.</p>
+        <p data-es="También hay un límite de plataforma: Recall es una función exclusiva de Windows para equipos Windows. Si vives entre un Mac en casa y un portátil Windows en el trabajo, o estás en Linux, Recall no te puede seguir. Una app de memoria multiplataforma sí.">There's also a platform limit: Recall is a Windows-only feature for Windows machines. If you live across a Mac at home and a Windows laptop at work, or you're on Linux, Recall can't follow you. A cross-platform memory app can.</p>
+      </div>
+    </div></section>
+
+    <!-- PRIVACY concerns explained -->
+    <section class="sec" id="privacy"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-es="Privacidad">Privacy</span><h2 data-es="Las dudas de privacidad, explicadas">The privacy concerns, explained</h2><p class="desc" data-es="La versión justa y factual — ni acusaciones ni exageraciones.">The fair, factual version — no accusations, no hype.</p></div>
+      <div class="prose reveal">
+        <p data-es="La otra razón por la que la gente busca una alternativa privada es el historial de Recall. Cuando se presentó por primera vez en 2024, su diseño —capturar periódicamente casi todo lo que hay en pantalla y guardarlo en una base de datos local— recibió críticas serias y muy difundidas de investigadores de seguridad. Los primeros análisis prácticos señalaron que otros procesos del mismo equipo podían leer esa base de datos de capturas y que contenido sensible mostrado en pantalla, incluidas contraseñas y datos financieros, podía acabar capturado.">The other reason people look for a private alternative is Recall's track record. When Recall was first previewed in 2024, the design — periodically capturing screenshots of nearly everything on screen and storing them in a local database — drew serious, widely reported criticism from security researchers. Early hands-on analyses noted that the snapshot database could be read by other processes on the same machine and that sensitive content shown on screen, including passwords and financial details, could end up captured.</p>
+        <p data-es="Hay que reconocer que Microsoft respondió. Antes de la disponibilidad general, cambió Recall para que sea opcional en lugar de estar activado por defecto, exigió inicio de sesión con Windows Hello para abrir la línea de tiempo, añadió cifrado al almacén de capturas e incorporó filtrado para cosas como campos de contraseña y navegación privada. Fueron mejoras reales y significativas, y es justo decir que el Recall de hoy está más blindado que la versión que se criticó al principio.">To Microsoft's credit, it responded. Before general availability the company changed Recall so it is opt-in rather than on by default, required Windows Hello sign-in to open the timeline, added encryption around the snapshot store, and built in filtering for things like password fields and private browsing. Those were real, meaningful improvements, and it's fair to say Recall today is more locked-down than the version that was first criticised.</p>
+        <p data-es="Aun así, el modelo de fondo —sacar fotos periódicas de tu pantalla— es intrínsecamente amplio. Captura lo que haya visible en el momento de la captura, que es mucha superficie en la que confiar, y los investigadores de seguridad han seguido escrutándolo. Nada de esto es una acusación de que Recall sea malicioso; es simplemente que «capturar todo y luego filtrarlo y protegerlo» es una postura de privacidad más pesada de la que mucha gente está cómoda para una herramienta de memoria. Si esa es tu preocupación, la solución más limpia es un enfoque que capture mucho menos desde el principio.">Even so, the core model — taking regular pictures of your screen — is inherently broad. It captures whatever happens to be visible at snapshot time, which is a lot of surface area to trust, and security researchers have continued to scrutinise it. None of this is an accusation that Recall is malicious; it's simply that "screenshot everything, then filter and protect it" is a heavier privacy posture than many people are comfortable with for a memory tool. If that's your concern, the cleanest fix is an approach that captures far less in the first place.</p>
+      </div>
+    </div></section>
+
+    <!-- HOW TRACE IS DIFFERENT -->
+    <section class="sec alt" id="different"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-es="Por qué Trace">Why Trace</span><h2 data-es="En qué se diferencia Trace">How Trace is different</h2><p class="desc" data-es="Empieza por el extremo opuesto: capturar lo mínimo y seguir siendo útil de verdad.">It starts from the opposite end: capture the least it can while still being genuinely useful.</p></div>
+      <div class="prose reveal">
+        <p data-es="En lugar de fotografiar tu pantalla, Trace anota señales ligeras —tu historial de navegador, la app o ventana activa y el texto del portapapeles— y las indexa para que puedas buscar y recorrer una línea de tiempo de tu día. Hay muchos menos datos crudos y sensibles en el disco porque la pantalla en sí nunca se grabó.">Instead of photographing your screen, Trace notes lightweight signals — your browser history, the active app or window, and clipboard text — and indexes them so you can search and scroll a timeline of your day. There's far less raw, sensitive data sitting on disk because the screen itself was never recorded.</p>
+      </div>
+      <div class="cards">
+        <div class="glass feat reveal"><div class="ic">💻</div><h3 data-es="Sin hardware especial">No special hardware</h3><p data-es="Sin Copilot+ PC, sin NPU. Trace funciona en cualquier PC moderno con Windows, Mac o Linux — el que ya tienes.">No Copilot+ PC, no NPU requirement. Trace runs on any reasonably modern Windows, Mac or Linux machine — the one you already have.</p></div>
+        <div class="glass feat reveal"><div class="ic">🪶</div><h3 data-es="Captura ligera, no capturas">Light capture, not snapshots</h3><p data-es="Historial, ventana activa y portapapeles — no capturas constantes de pantalla. El OCR sobre capturas se prevé como extra opcional, no como predeterminado.">Browser history, active window and clipboard text — not constant screen captures. Screenshots with OCR are planned as an opt-in extra, not the default.</p></div>
+        <div class="glass feat reveal"><div class="ic">🧹</div><h3 data-es="Exclusiones antes de capturar">Exclusions before capture</h3><p data-es="Bloquea apps, dominios y ventanas privadas/incógnito. El filtro de exclusión corre <em>antes</em> de escribir nada en disco, así que la actividad excluida nunca se guarda.">Block apps, domains and private/incognito windows. The exclusion filter runs <em>before</em> anything is written to disk, so excluded activity is never stored.</p></div>
+        <div class="glass feat reveal"><div class="ic">📵</div><h3 data-es="Totalmente en tu equipo">Fully on-device</h3><p data-es="Sin servidores, sin cuentas, sin sincronización. Trace está hecho para funcionar con el firewall cerrado, y su motor open-core te deja verificar que no hay actividad de red.">No servers, no accounts, no sync. Trace is built to run with your firewall closed, and its open-core engine lets you verify there's no network activity.</p></div>
+      </div>
+      <p class="desc center reveal" style="margin-top:28px" data-es="¿Quieres el desglose completo del modelo de captura y el diseño de privacidad? Mira <a href=&quot;/trace/#how&quot; style=&quot;color:var(--amber);text-decoration:underline&quot;>cómo funciona Trace</a> y la <a href=&quot;/trace/#privacy&quot; style=&quot;color:var(--amber);text-decoration:underline&quot;>sección de privacidad</a> en la página principal.">Want the full breakdown of the capture model and the privacy design? See <a href="/trace/#how" style="color:var(--amber);text-decoration:underline">how Trace works</a> and the <a href="/trace/#privacy" style="color:var(--amber);text-decoration:underline">privacy section</a> on the home page.</p>
+    </div></section>
+
+    <!-- STATS -->
+    <section class="sec"><div class="wrap stats">
+      <div class="reveal"><div class="v grad">0</div><div class="l" data-es="datos a la nube">data to the cloud</div></div>
+      <div class="reveal"><div class="v grad">3</div><div class="l">Win · macOS · Linux</div></div>
+      <div class="reveal"><div class="v grad">0</div><div class="l" data-es="NPU necesaria">NPU required</div></div>
+      <div class="reveal"><div class="v grad">$39</div><div class="l" data-es="pago único early-bird">one-time early-bird</div></div>
+    </div></section>
+
+    <!-- COMPARE -->
+    <section class="sec alt" id="compare"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-es="Comparativa">Comparison</span><h2 data-es="Trace frente a Microsoft Recall">Trace vs Microsoft Recall</h2><p class="desc" data-es="Los dos enfoques, lado a lado. Los datos de Recall reflejan los requisitos y cambios documentados públicamente por Microsoft; las marcas pertenecen a sus dueños.">A side-by-side look at the two approaches. Recall details reflect Microsoft's publicly documented requirements and changes; product names belong to their respective owners.</p></div>
+      <div class="glass reveal" style="overflow:hidden;margin-top:40px">
+        <div style="overflow-x:auto"><table>
+          <thead><tr><th>&nbsp;</th><th class="isus">Trace by Fervon</th><th>Microsoft Recall</th></tr></thead>
+          <tbody>
+            <tr>
+              <th scope="row" data-es="Hardware necesario">Hardware required</th>
+              <td class="isus"><span class="yes" data-es="Cualquier PC moderno con Windows, Mac o Linux">Any modern Windows, Mac or Linux PC</span></td>
+              <td><span class="no" data-es="Copilot+ PC con NPU de 40+ TOPS">Copilot+ PC with a 40+ TOPS NPU</span></td>
+            </tr>
+            <tr>
+              <th scope="row" data-es="Plataformas">Platforms</th>
+              <td class="isus"><span class="yes" data-es="Windows, macOS y Linux">Windows, macOS &amp; Linux</span></td>
+              <td><span class="warn" data-es="Solo Windows">Windows only</span></td>
+            </tr>
+            <tr>
+              <th scope="row" data-es="Qué captura">What it captures</th>
+              <td class="isus"><span class="yes" data-es="Señales ligeras (historial, ventana activa, portapapeles)">Lightweight signals (history, active window, clipboard)</span></td>
+              <td><span class="warn" data-es="Capturas periódicas de toda la pantalla">Periodic full-screen snapshots</span></td>
+            </tr>
+            <tr>
+              <th scope="row" data-es="Capturas continuas">Continuous screenshots</th>
+              <td class="isus"><span class="yes" data-es="No (el OCR sobre capturas es un extra opcional, más adelante)">No (OCR screenshots are an opt-in extra, coming later)</span></td>
+              <td><span class="warn" data-es="Sí, por diseño">Yes, by design</span></td>
+            </tr>
+            <tr>
+              <th scope="row" data-es="Exclusiones">Exclusions</th>
+              <td class="isus"><span class="yes" data-es="Filtradas <em>antes</em> de escribir nada">Filtered <em>before</em> anything is written</span></td>
+              <td><span class="warn" data-es="Filtradas después de capturar">Filtered after capture</span></td>
+            </tr>
+            <tr>
+              <th scope="row" data-es="Funciona totalmente offline">Runs fully offline</th>
+              <td class="isus"><span class="yes" data-es="Sí — con el firewall cerrado, motor open-core">Yes — works firewall-closed, open-core engine</span></td>
+              <td><span class="yes" data-es="Sí — el procesado es en el equipo">Yes — processing is on-device</span></td>
+            </tr>
+            <tr>
+              <th scope="row" data-es="Historial de privacidad">Privacy track record</th>
+              <td class="isus"><span class="yes" data-es="Captura mínima desde el primer día">Minimal capture from day one</span></td>
+              <td><span class="warn" data-es="Reforzado tras críticas muy difundidas">Hardened after widely reported criticism</span></td>
+            </tr>
+            <tr>
+              <th scope="row" data-es="Precio">Pricing</th>
+              <td class="isus"><span class="yes" data-es="Pago único de $39 (early-bird, normal $59)">One-time $39 (early-bird, reg. $59)</span></td>
+              <td><span class="warn" data-es="Incluido al comprar un Copilot+ PC">Bundled with a Copilot+ PC purchase</span></td>
+            </tr>
+          </tbody>
+        </table></div>
+        <div style="border-top:1px solid var(--line);padding:12px 16px;font-size:11px;color:var(--dim)" data-es="Comparativa hecha de buena fe con información pública disponible a 2026. Microsoft ha cambiado los valores por defecto y las protecciones de Recall con el tiempo; consulta la documentación actual de Microsoft para los últimos detalles.">Comparison provided in good faith based on publicly available information as of 2026. Microsoft has changed Recall's defaults and protections over time; check current Microsoft documentation for the latest details.</div>
+      </div>
+    </div></section>
+
+    <!-- PRICING -->
+    <section class="sec" id="pricing"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-es="Precio">Pricing</span><h2 data-es="Precio y plataformas">Pricing &amp; platforms</h2><p class="desc" data-es="Recall es «gratis» en el sentido de que viene con un Copilot+ PC — pero eso significa comprar una categoría de hardware Windows más nueva. Trace es lo contrario: un pequeño pago único sobre el equipo que ya tienes.">Recall comes "free" in the sense that it's bundled with a Copilot+ PC — but that means buying into a specific, newer class of Windows hardware. Trace is the opposite: a small one-time payment on hardware you already own.</p></div>
+      <div class="prices">
+        <div class="glass price feat-card reveal">
+          <span class="pbadge" data-es="Early-bird">Early-bird</span>
+          <div class="pname" data-es="De por vida">Lifetime</div>
+          <div class="pamt"><span class="pnow grad">$39</span><span class="pwas">$59</span></div>
+          <div class="pcyc" data-es="pago único">one-time</div>
+          <ul class="plist">
+            <li data-es="Captura, búsqueda y timeline locales">Local capture, search and timeline</li>
+            <li data-es="Windows, macOS y Linux">Windows, macOS and Linux</li>
+            <li data-es="Sin Copilot+ PC ni NPU">No Copilot+ PC or NPU needed</li>
+            <li data-es="Open-core, cifrado en reposo">Open-core, encrypted at rest</li>
+          </ul>
+          <a class="btn btn-fire btn-block" href="/trace/#waitlist" data-es="Conseguir acceso early-bird">Get early-bird access</a>
+          <p class="pfoot" data-es="La lista fija el precio de $39.">The waitlist locks in the $39 price.</p>
+        </div>
+
+        <div class="glass price reveal">
+          <span class="pbadge soon" data-es="Próximamente">Coming soon</span>
+          <div class="pname" data-es="Pro IA">AI Pro</div>
+          <div class="pamt"><span class="pnow">$5–8</span></div>
+          <div class="pcyc" data-es="al mes · opcional">per month · optional</div>
+          <ul class="plist">
+            <li data-es="Preguntas semánticas sobre tu memoria">Semantic questions over your memory</li>
+            <li data-es="Modelo de IA <strong>local</strong> — sin nube">A <strong>local</strong> AI model — no cloud</li>
+            <li data-es="100% opcional — De por vida no lo necesita">100% optional — Lifetime never needs it</li>
+          </ul>
+          <a class="btn btn-ghost btn-block" href="/trace/#waitlist" data-es="Avísame">Notify me</a>
+          <p class="pfoot" data-es="Tras lanzar la app de escritorio.">After the desktop app ships.</p>
+        </div>
+      </div>
+      <p class="desc center reveal" style="margin-top:28px" data-es="Una nota honesta: <b style=&quot;color:var(--bone)&quot;>Trace está ahora en fase de lista de espera y beta, y aún no se puede descargar.</b> El botón te apunta a la lista para que recibas la beta primero y conserves el precio early-bird.">One honest note: <b style="color:var(--bone)">Trace is currently in a waitlist and beta phase and isn't available to download yet.</b> The button adds you to the list so you get the beta first and keep the early-bird price.</p>
+    </div></section>
+
+    <!-- WAITLIST CTA -->
+    <section class="sec alt" id="waitlist"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-es="Empezar">Get started</span><h2 data-es="Sé de los primeros">Be among the first</h2><p class="desc" data-es="Si querías Recall pero no podías usarlo, o no estabas cómodo con capturas constantes de pantalla, Trace está hecho para ti. Únete a la lista para conseguir la beta, fijar el precio de por vida de $39 y ayudar a decidir qué se construye — en el PC que ya tienes.">If you wanted Recall but couldn't use it, or you weren't comfortable with constant screen snapshots, Trace is built for you. Join the waitlist to get the beta, lock in the $39 lifetime price, and help shape what gets built — on the PC you already have.</p></div>
+      <form id="wl" class="wlform reveal" action="https://formspree.io/f/mnjyoknb" method="POST" novalidate>
+        <div class="frow">
+          <label class="vh" for="email" data-es="Correo electrónico">Email address</label>
+          <input type="email" id="email" name="email" required autocomplete="email" inputmode="email" placeholder="you@example.com" data-es="tu@ejemplo.com" data-i18n-attr="placeholder" />
+          <button type="submit" class="btn btn-fire" data-es="Únete a la lista">Join the waitlist</button>
+        </div>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="vh" aria-hidden="true" />
+        <p class="fmsg" id="fmsg" role="status" aria-live="polite"></p>
+        <p class="ffine" data-es="Sin spam. Un solo email cuando abra la beta.">No spam, ever. One email when the beta opens.</p>
+      </form>
+    </div></section>
+
+    <!-- FAQ -->
+    <section class="sec" id="faq"><div class="wrap">
+      <div class="center reveal"><span class="eye">FAQ</span><h2 data-es="Preguntas frecuentes">Frequently asked questions</h2></div>
+      <div class="faq reveal">
+        <details><summary data-es="¿Necesito un Copilot+ PC para Trace?">Do I need a Copilot+ PC for Trace?</summary><p data-es="No. A diferencia de Microsoft Recall, Trace no requiere un Copilot+ PC ni hardware de IA dedicado (NPU). Funciona en cualquier ordenador razonablemente moderno con Windows, macOS o Linux porque captura señales ligeras en vez de capturas constantes de toda la pantalla.">No. Unlike Microsoft Recall, Trace doesn't require a Copilot+ PC or any dedicated AI hardware (NPU). It runs on any reasonably modern Windows, macOS or Linux computer because it captures lightweight signals instead of constant full-screen snapshots.</p></details>
+        <details><summary data-es="¿Es privado Microsoft Recall?">Is Microsoft Recall private?</summary><p data-es="Microsoft afirma que Recall mantiene sus capturas locales y cifradas, y tras críticas muy difundidas lo hizo opcional y añadió protección con Windows Hello. Aun así, el enfoque de capturar tu pantalla periódicamente ha seguido generando dudas de privacidad entre investigadores de seguridad. Trace toma otra vía: graba mucho menos, filtra las exclusiones antes de escribir nada y funciona totalmente en tu equipo.">Microsoft says Recall keeps its snapshots local and encrypted, and after widely reported criticism it made the feature opt-in and added Windows Hello protection. Even so, the approach of periodically capturing your screen has continued to draw privacy concerns from security researchers. Trace takes a different route: it records far less, filters exclusions before anything is written, and works fully on-device.</p></details>
+        <details><summary data-es="¿Cuál es una buena alternativa a Microsoft Recall?">What's a good Microsoft Recall alternative?</summary><p data-es="Si quieres el beneficio central de Recall —encontrar cualquier cosa que viste o hiciste— sin el requisito del Copilot+ PC, Trace es una alternativa sólida. Es local-first, multiplataforma, captura señales ligeras en vez de capturas continuas y es un pago único en lugar de estar atado a una categoría concreta de PC nuevo.">If you want Recall's core benefit — finding anything you saw or did — without the Copilot+ PC requirement, Trace is a strong alternative. It's local-first, cross-platform, captures lightweight signals rather than continuous screenshots, and is a one-time purchase instead of being tied to a specific class of new PC.</p></details>
+        <details><summary data-es="¿Trace toma capturas constantes como Recall?">Does Trace take constant screenshots like Recall?</summary><p data-es="No. Por defecto Trace anota señales ligeras — historial de navegador, la ventana activa y el texto del portapapeles. Las capturas con OCR se prevén como extra opcional y no forman parte del build actual. La captura continua de pantalla no es como funciona Trace.">No. By default Trace notes lightweight signals — browser history, the active window, and clipboard text. Screenshots with OCR are planned as an opt-in extra and are not part of the current build. Continuous screen capture isn't how Trace works.</p></details>
+        <details><summary data-es="¿Cuánto cuesta Trace y ya está disponible?">How much does Trace cost, and is it available yet?</summary><p data-es="Trace es un pago único — unirte a la lista fija el precio early-bird de $39 (normal $59), sin suscripción. Apunta a Windows, macOS y Linux. Ahora está en fase de lista de espera y beta y aún no se puede descargar; la lista es cómo consigues la beta primero.">Trace is a one-time purchase — joining the waitlist locks in the $39 early-bird price (regular $59), with no subscription. It targets Windows, macOS and Linux. It's currently in a waitlist and beta phase and isn't available to download yet; the waitlist is how you get the beta first.</p></details>
+      </div>
+    </div></section>
+
+    <!-- CTA -->
+    <section class="sec alt"><div class="wrap">
+      <div class="glass ctaband reveal">
+        <div class="bggrid" style="position:absolute;inset:0;z-index:-1;opacity:.6"></div>
+        <h2 data-es="La memoria de Recall, sin el Copilot+ PC. <span class=&quot;grad&quot;>Recuérdalo.</span>">Recall's memory, minus the Copilot+ PC. <span class="grad">Remember it.</span></h2>
+        <p class="desc" style="max-width:560px;margin:14px auto 0" data-es="Privada, local y en cualquier PC moderno. Fija el precio de por vida de $39.">Private, local, and on any modern PC. Lock in the $39 lifetime price.</p>
+        <div class="row" style="justify-content:center;margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn btn-fire" href="/trace/#waitlist" data-es="Únete a la lista">Join the waitlist</a>
+          <a class="btn btn-ghost" href="https://github.com/JoniMartin27/trace" data-es="⭐ Motor en GitHub">⭐ Engine on GitHub</a>
+        </div>
+      </div>
+    </div></section>
+
+    <!-- MORE ALTERNATIVES -->
+    <section class="sec"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-es="Más alternativas">More alternatives</span><h2 data-es="¿Comparas otras herramientas de memoria?">Weighing other memory tools?</h2><p class="desc" data-es="Mira cómo se compara Trace — y lee la historia completa en la página principal.">See how Trace stacks up — and read the full story on the home page.</p></div>
+      <div class="morelinks reveal">
+        <a href="/trace/rewind-alternative-windows" data-es="Alternativa a Rewind para Windows">Rewind alternative for Windows</a>
+        <a href="/trace/limitless-alternative" data-es="Alternativa a Limitless">Limitless alternative</a>
+        <a href="/trace/screenpipe-alternative" data-es="Alternativa a Screenpipe">Screenpipe alternative</a>
+        <a href="/trace/" data-es="Inicio de Trace">Trace home</a>
+      </div>
+    </div></section>
+  </main>
+
+  <footer><div class="wrap foot">
+    <span data-es="Trace es un proyecto de <a href=&quot;https://fervon.dev&quot;>🔥 Fervon</a> · Forjado al rojo vivo">Trace is a project by <a href="https://fervon.dev">🔥 Fervon</a> · Forged red-hot</span>
+    <span data-es="© 2026 Jonathan Martín · Local-first por diseño">© 2026 Jonathan Martín · Local-first by design</span>
+  </div></footer>
+
+  <script>
+    // ---- Hero: search + timeline reveal animation ----
+    (function(){
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      var qEl = document.getElementById("q");
+      var rows = Array.prototype.slice.call(document.querySelectorAll("#res .rrow"));
+      function query(){ return (document.documentElement.getAttribute("lang")==="es") ? "esa página de precios que vi el martes…" : "that pricing page I saw on Tuesday…"; }
+      function showAll(){ if(qEl)qEl.textContent=query(); rows.forEach(function(r){ r.classList.add("in"); }); }
+      if(reduce){ showAll(); return; }
+      var done=false;
+      function play(){
+        if(done) return; done=true;
+        var q=query(), i=0;
+        (function type(){
+          if(!qEl) return;
+          qEl.textContent = q.slice(0,i);
+          i++;
+          if(i<=q.length){ setTimeout(type, 38); }
+          else { rows.forEach(function(r,k){ setTimeout(function(){ r.classList.add("in"); }, 260 + k*420); }); }
+        })();
+      }
+      var obs=new IntersectionObserver(function(e){ if(e[0].isIntersecting){ obs.disconnect(); setTimeout(play,300); } },{threshold:.4});
+      var host=document.getElementById("res"); if(host) obs.observe(host); else showAll();
+    })();
+
+    // ---- Waitlist form (Formspree, progressive enhancement) ----
+    (function(){
+      var form=document.getElementById("wl"); if(!form) return;
+      var msg=document.getElementById("fmsg");
+      var input=document.getElementById("email");
+      var btn=form.querySelector("button[type=submit]");
+      var btnText=btn?btn.textContent:"";
+      var emailRe=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      function es(){ return document.documentElement.getAttribute("lang")==="es"; }
+      function setMsg(t,cls){ if(!msg)return; msg.textContent=t; msg.className="fmsg"+(cls?" "+cls:""); }
+      form.addEventListener("submit", function(ev){
+        ev.preventDefault();
+        var val=(input&&input.value||"").trim();
+        if(!emailRe.test(val)){ setMsg(es()?"Introduce un correo válido, por favor.":"Please enter a valid email.","err"); if(input)input.focus(); return; }
+        if(btn){ btn.disabled=true; btn.textContent=es()?"Uniéndote…":"Joining…"; }
+        setMsg("","");
+        fetch(form.action,{ method:"POST", body:new FormData(form), headers:{ "Accept":"application/json" } })
+          .then(function(res){
+            if(res.ok){ form.reset(); setMsg(es()?"🎉 ¡Estás en la lista! Revisa tu bandeja para confirmar.":"🎉 You're on the list! Check your inbox to confirm.","ok"); }
+            else { return res.json().then(function(d){ throw new Error((d&&d.errors&&d.errors[0]&&d.errors[0].message)||"err"); }); }
+          })
+          .catch(function(){ setMsg(es()?"Vaya, no se envió. Inténtalo de nuevo en un momento.":"Hmm, that didn't send. Please try again in a moment.","err"); })
+          .finally(function(){ if(btn){ btn.disabled=false; btn.textContent=btnText; } });
+      });
+    })();
+
+    // ---- Reveal on scroll ----
+    var rev=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("in"); rev.unobserve(en.target); } }); },{threshold:.12});
+    document.querySelectorAll(".reveal").forEach(function(el){ rev.observe(el); });
+  </script>
+
+  <script>
+  /* Fervon bilingual toggle — keep identical across all Fervon pages */
+  (function(){
+    var KEY="fervon-lang";
+    var base=(document.documentElement.getAttribute("lang")||"es").slice(0,2).toLowerCase();
+    var other=base==="es"?"en":"es";
+    var nodes=[].slice.call(document.querySelectorAll("[data-"+other+"]"));
+    nodes.forEach(function(n){
+      var a=n.getAttribute("data-i18n-attr");
+      n.setAttribute("data-"+base, a?(n.getAttribute(a)||""):n.innerHTML);
+    });
+    function apply(lang){
+      document.documentElement.setAttribute("lang",lang);
+      for(var i=0;i<nodes.length;i++){
+        var n=nodes[i], v=n.getAttribute("data-"+lang);
+        if(v===null) continue;
+        var a=n.getAttribute("data-i18n-attr");
+        if(a) n.setAttribute(a,v); else n.innerHTML=v;
+      }
+      var b=document.getElementById("lang"); if(b) b.textContent=(lang==="es"?"EN":"ES");
+    }
+    var saved=null; try{saved=localStorage.getItem(KEY);}catch(e){}
+    var initial=saved||(((navigator.language||"").toLowerCase().slice(0,2)==="es")?"es":"en");
+    apply(initial);
+    var b=document.getElementById("lang");
+    if(b) b.addEventListener("click",function(){
+      var nx=(document.documentElement.getAttribute("lang")==="es")?"en":"es";
+      try{localStorage.setItem(KEY,nx);}catch(e){}
+      apply(nx);
+    });
+  })();
+  </script>
+</body>
+</html>

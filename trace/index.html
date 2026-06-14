@@ -201,15 +201,16 @@
       <span><svg class="mark" width="17" height="17" viewBox="0 0 26 26" aria-hidden="true"><path d="M4 18 L11 8 L18 14 L22 6" fill="none" stroke="var(--amber)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4" cy="18" r="2.4" fill="var(--amber)"/><circle cx="11" cy="8" r="2.4" fill="var(--amber)"/><circle cx="18" cy="14" r="2.4" fill="var(--amber)"/><circle cx="22" cy="6" r="2.4" fill="var(--amber)"/></svg>Trace</span>
     </a>
     <nav class="menu">
-      <a href="#how">Cómo funciona</a>
-      <a href="#privacy">Privacidad</a>
-      <a href="#compare">Comparativa</a>
-      <a href="#pricing">Precio</a>
-      <a href="#faq">FAQ</a>
+      <a href="#how" data-en="How it works">Cómo funciona</a>
+      <a href="#privacy" data-en="Privacy">Privacidad</a>
+      <a href="#compare" data-en="Compare">Comparativa</a>
+      <a href="#pricing" data-en="Pricing">Precio</a>
+      <a href="#faq" data-en="FAQ">FAQ</a>
     </nav>
     <div class="act">
+      <button id="lang" class="btn btn-ghost btn-sm" type="button" aria-label="Cambiar idioma / Switch language">EN</button>
       <a class="btn btn-ghost btn-sm" href="https://github.com/JoniMartin27/trace">GitHub</a>
-      <a class="btn btn-fire btn-sm" href="#waitlist">Únete a la lista</a>
+      <a class="btn btn-fire btn-sm" href="#waitlist" data-en="Join the waitlist">Únete a la lista</a>
     </div>
   </div></header>
 
@@ -220,23 +221,23 @@
       <div class="bggrid" style="position:absolute;inset:0;z-index:-1;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000,transparent)"></div>
       <div class="wrap cols">
         <div>
-          <span class="pill reveal"><span class="dot"></span> Local-first · Windows · macOS · Linux</span>
-          <h1 class="reveal">Tu memoria personal, <span class="grad">en tu máquina</span>.</h1>
-          <p class="sub reveal">Encuentra cualquier cosa que viste, leíste o hiciste. <b>Sin grabar tu pantalla, sin nube, sin suscripción.</b></p>
+          <span class="pill reveal" data-en='<span class="dot"></span> Local-first · Windows · macOS · Linux'><span class="dot"></span> Local-first · Windows · macOS · Linux</span>
+          <h1 class="reveal" data-en='Your personal memory, <span class="grad">on your machine</span>.'>Tu memoria personal, <span class="grad">en tu máquina</span>.</h1>
+          <p class="sub reveal" data-en='Find anything you saw, read, or did. <b>No screen recording, no cloud, no subscription.</b>'>Encuentra cualquier cosa que viste, leíste o hiciste. <b>Sin grabar tu pantalla, sin nube, sin suscripción.</b></p>
           <div class="row reveal">
-            <a class="btn btn-fire" href="#waitlist">Únete a la lista</a>
-            <a class="btn btn-ghost" href="#how">Ver cómo funciona</a>
+            <a class="btn btn-fire" href="#waitlist" data-en="Join the waitlist">Únete a la lista</a>
+            <a class="btn btn-ghost" href="#how" data-en="See how it works">Ver cómo funciona</a>
           </div>
-          <p class="pill reveal" style="margin-top:18px"><span class="dot"></span> Pago único · <b style="color:var(--bone)">$39</b> early-bird <span style="color:var(--dim)">(luego $59)</span></p>
-          <div class="trust reveal"><span>✓ Pago único</span><span>✓ Firewall cerrado</span><span>✓ Open-core auditable</span></div>
+          <p class="pill reveal" style="margin-top:18px" data-en='<span class="dot"></span> One-time payment · <b style="color:var(--bone)">$39</b> early-bird <span style="color:var(--dim)">(then $59)</span>'><span class="dot"></span> Pago único · <b style="color:var(--bone)">$39</b> early-bird <span style="color:var(--dim)">(luego $59)</span></p>
+          <div class="trust reveal" data-en='<span>✓ One-time payment</span><span>✓ Firewall closed</span><span>✓ Auditable open-core</span>'><span>✓ Pago único</span><span>✓ Firewall cerrado</span><span>✓ Open-core auditable</span></div>
         </div>
 
         <div class="demo reveal">
           <div class="glass">
             <div class="top">
               <i style="background:#E0480F"></i><i style="background:#FFB02E"></i><i style="background:#9FC979"></i>
-              <span style="margin-left:6px">Trace · Tu línea de tiempo</span>
-              <span style="margin-left:auto;color:var(--amber);display:inline-flex;align-items:center;gap:6px"><span class="dot"></span> LOCAL</span>
+              <span style="margin-left:6px" data-en="Trace · Your timeline">Trace · Tu línea de tiempo</span>
+              <span style="margin-left:auto;color:var(--amber);display:inline-flex;align-items:center;gap:6px" data-en='<span class="dot"></span> LOCAL'><span class="dot"></span> LOCAL</span>
             </div>
             <div class="body">
               <div class="srch">
@@ -244,164 +245,164 @@
                 <span class="q" id="q"></span><span class="car"></span>
               </div>
               <div class="res" id="res">
-                <div class="rrow" data-i="0"><span class="t">14:32</span><span class="k k-web">web</span><span class="x">Precios del competidor — plan nube $25/mes</span></div>
-                <div class="rrow" data-i="1"><span class="t">11:08</span><span class="k k-doc">doc</span><span class="x">Notas: «pago único, sin suscripción»</span></div>
-                <div class="rrow" data-i="2"><span class="t">09:51</span><span class="k k-app">app</span><span class="x">Figma — borrador del hero de la landing</span></div>
+                <div class="rrow" data-i="0"><span class="t">14:32</span><span class="k k-web">web</span><span class="x" data-en="Competitor pricing — cloud plan $25/mo">Precios del competidor — plan nube $25/mes</span></div>
+                <div class="rrow" data-i="1"><span class="t">11:08</span><span class="k k-doc">doc</span><span class="x" data-en="Notes: “one-time payment, no subscription”">Notas: «pago único, sin suscripción»</span></div>
+                <div class="rrow" data-i="2"><span class="t">09:51</span><span class="k k-app">app</span><span class="x" data-en="Figma — landing hero draft">Figma — borrador del hero de la landing</span></div>
               </div>
             </div>
           </div>
-          <p style="text-align:center;font-size:11px;color:var(--dim);margin-top:8px">Demo ilustrativa.</p>
+          <p style="text-align:center;font-size:11px;color:var(--dim);margin-top:8px" data-en="Illustrative demo.">Demo ilustrativa.</p>
         </div>
       </div>
     </section>
 
     <!-- PROBLEM -->
     <section class="sec alt" id="problem"><div class="wrap">
-      <div class="center reveal"><span class="eye">El problema</span><h2>«¿Dónde vi eso?»</h2><p class="desc">Lo viste. No lo encuentras.</p></div>
+      <div class="center reveal"><span class="eye" data-en="The problem">El problema</span><h2 data-en="“Where did I see that?”">«¿Dónde vi eso?»</h2><p class="desc" data-en="You saw it. You can't find it.">Lo viste. No lo encuentras.</p></div>
       <div class="cards" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
-        <div class="glass feat reveal"><div class="ic">🔍</div><p>Tu día, repartido en una docena de apps que no se hablan.</p></div>
-        <div class="glass feat reveal"><div class="ic">🧠</div><p>Recuerdas haberlo <em>visto</em>, no <em>dónde</em>.</p></div>
-        <div class="glass feat reveal"><div class="ic">🔒</div><p>Las apps que lo arreglaban murieron o quieren tu pantalla en su nube.</p></div>
+        <div class="glass feat reveal"><div class="ic">🔍</div><p data-en="Your day, scattered across a dozen apps that don't talk to each other.">Tu día, repartido en una docena de apps que no se hablan.</p></div>
+        <div class="glass feat reveal"><div class="ic">🧠</div><p data-en="You remember <em>seeing</em> it, not <em>where</em>.">Recuerdas haberlo <em>visto</em>, no <em>dónde</em>.</p></div>
+        <div class="glass feat reveal"><div class="ic">🔒</div><p data-en="The apps that fixed this died, or want your screen in their cloud.">Las apps que lo arreglaban murieron o quieren tu pantalla en su nube.</p></div>
       </div>
     </div></section>
 
     <!-- HOW -->
     <section class="sec" id="how"><div class="wrap">
-      <div class="center reveal"><span class="eye">El flujo</span><h2>Cómo funciona</h2><p class="desc">Tres pasos. Nada sale de tu ordenador.</p></div>
+      <div class="center reveal"><span class="eye" data-en="The flow">El flujo</span><h2 data-en="How it works">Cómo funciona</h2><p class="desc" data-en="Three steps. Nothing leaves your computer.">Tres pasos. Nada sale de tu ordenador.</p></div>
       <div class="steps">
-        <div class="glass step reveal"><div class="n mono">01</div><h4>Captura ligera</h4><p>Historial, ventana activa, portapapeles. Sin grabar pantalla 24/7.</p></div>
-        <div class="glass step reveal"><div class="n mono">02</div><h4>Indexado local</h4><p>Indexado y cifrado en tu máquina. Exclusiones <em>antes</em> de escribir.</p></div>
-        <div class="glass step reveal"><div class="n mono">03</div><h4>Búsqueda y timeline</h4><p>Busca o recorre tu día. Instantáneo y offline.</p></div>
+        <div class="glass step reveal"><div class="n mono">01</div><h4 data-en="Lightweight capture">Captura ligera</h4><p data-en="History, active window, clipboard. No 24/7 screen recording.">Historial, ventana activa, portapapeles. Sin grabar pantalla 24/7.</p></div>
+        <div class="glass step reveal"><div class="n mono">02</div><h4 data-en="Local indexing">Indexado local</h4><p data-en="Indexed and encrypted on your machine. Exclusions <em>before</em> writing.">Indexado y cifrado en tu máquina. Exclusiones <em>antes</em> de escribir.</p></div>
+        <div class="glass step reveal"><div class="n mono">03</div><h4 data-en="Search & timeline">Búsqueda y timeline</h4><p data-en="Search or scroll through your day. Instant and offline.">Busca o recorre tu día. Instantáneo y offline.</p></div>
       </div>
     </div></section>
 
     <!-- PRIVACY (star feature) -->
     <section class="sec alt" id="privacy"><div class="wrap">
-      <div class="center reveal"><span class="eye">La feature estrella</span><h2>Privacidad que puedes verificar</h2><p class="desc">Las demás «memorias privadas» llaman a casa. Trace no te pide que le creas.</p></div>
+      <div class="center reveal"><span class="eye" data-en="The star feature">La feature estrella</span><h2 data-en="Privacy you can verify">Privacidad que puedes verificar</h2><p class="desc" data-en="Other “private memories” phone home. Trace doesn't ask you to take its word for it.">Las demás «memorias privadas» llaman a casa. Trace no te pide que le creas.</p></div>
       <div class="cards">
-        <div class="glass feat reveal"><div class="ic">📵</div><h3>Cero-red verificable</h3><p>Funciona con el firewall cerrado. Sin telemetría ni cuentas.</p></div>
-        <div class="glass feat reveal"><div class="ic">🧹</div><h3>Exclusiones antes de capturar</h3><p>Bloquea apps, dominios e incógnito antes de escribir en disco.</p></div>
-        <div class="glass feat reveal"><div class="ic">🔐</div><h3>Cifrado en reposo</h3><p>Índice cifrado en tu disco. Borra cualquier momento, o todo, en un clic.</p></div>
-        <div class="glass feat reveal"><div class="ic">🔎</div><h3>Motor open-core</h3><p>Código abierto y auditable. Ve exactamente qué se recoge.</p></div>
+        <div class="glass feat reveal"><div class="ic">📵</div><h3 data-en="Verifiable zero-network">Cero-red verificable</h3><p data-en="Works with the firewall closed. No telemetry, no accounts.">Funciona con el firewall cerrado. Sin telemetría ni cuentas.</p></div>
+        <div class="glass feat reveal"><div class="ic">🧹</div><h3 data-en="Exclusions before capture">Exclusiones antes de capturar</h3><p data-en="Block apps, domains and incognito before anything is written to disk.">Bloquea apps, dominios e incógnito antes de escribir en disco.</p></div>
+        <div class="glass feat reveal"><div class="ic">🔐</div><h3 data-en="Encrypted at rest">Cifrado en reposo</h3><p data-en="Index encrypted on your disk. Delete any moment, or everything, in one click.">Índice cifrado en tu disco. Borra cualquier momento, o todo, en un clic.</p></div>
+        <div class="glass feat reveal"><div class="ic">🔎</div><h3 data-en="Open-core engine">Motor open-core</h3><p data-en="Open source and auditable. See exactly what gets collected.">Código abierto y auditable. Ve exactamente qué se recoge.</p></div>
       </div>
     </div></section>
 
     <!-- STATS -->
     <section class="sec"><div class="wrap stats">
-      <div class="reveal"><div class="v grad">0</div><div class="l">datos a la nube</div></div>
-      <div class="reveal"><div class="v grad">3</div><div class="l">Win · macOS · Linux</div></div>
-      <div class="reveal"><div class="v grad">1×</div><div class="l">pago único</div></div>
-      <div class="reveal"><div class="v grad">$39</div><div class="l">lifetime early-bird</div></div>
+      <div class="reveal"><div class="v grad">0</div><div class="l" data-en="data to the cloud">datos a la nube</div></div>
+      <div class="reveal"><div class="v grad">3</div><div class="l" data-en="Win · macOS · Linux">Win · macOS · Linux</div></div>
+      <div class="reveal"><div class="v grad">1×</div><div class="l" data-en="one-time payment">pago único</div></div>
+      <div class="reveal"><div class="v grad">$39</div><div class="l" data-en="lifetime early-bird">lifetime early-bird</div></div>
     </div></section>
 
     <!-- COMPARE -->
     <section class="sec alt" id="compare"><div class="wrap">
-      <div class="center reveal"><span class="eye">Comparativa</span><h2>Cómo se compara</h2><p class="desc">La versión honesta.</p></div>
+      <div class="center reveal"><span class="eye" data-en="Compare">Comparativa</span><h2 data-en="How it compares">Cómo se compara</h2><p class="desc" data-en="The honest version.">La versión honesta.</p></div>
       <div class="glass reveal" style="overflow:hidden;margin-top:40px">
         <div style="overflow-x:auto"><table>
           <thead><tr><th>&nbsp;</th><th class="isus">Trace</th><th>Rewind / Limitless</th><th>Screenpipe</th><th>Microsoft Recall</th></tr></thead>
           <tbody>
             <tr>
-              <th scope="row">Sigue vivo e independiente</th>
-              <td class="isus"><span class="yes">Sí</span></td>
-              <td><span class="no">Comprado por Meta, app cerrada el 19-dic-2025</span></td>
-              <td><span class="yes">Sí</span></td>
-              <td><span class="warn">Atado a Microsoft</span></td>
+              <th scope="row" data-en="Still alive & independent">Sigue vivo e independiente</th>
+              <td class="isus"><span class="yes" data-en="Yes">Sí</span></td>
+              <td><span class="no" data-en="Bought by Meta, app shut down Dec 19, 2025">Comprado por Meta, app cerrada el 19-dic-2025</span></td>
+              <td><span class="yes" data-en="Yes">Sí</span></td>
+              <td><span class="warn" data-en="Tied to Microsoft">Atado a Microsoft</span></td>
             </tr>
             <tr>
-              <th scope="row">Realmente local / offline</th>
-              <td class="isus"><span class="yes">Sí — firewall cerrado</span></td>
-              <td><span class="no">Tira hacia la nube</span></td>
-              <td><span class="warn">Te empuja a la nube</span></td>
-              <td><span class="warn">Local, pero polémico</span></td>
+              <th scope="row" data-en="Truly local / offline">Realmente local / offline</th>
+              <td class="isus"><span class="yes" data-en="Yes — firewall closed">Sí — firewall cerrado</span></td>
+              <td><span class="no" data-en="Pulls toward the cloud">Tira hacia la nube</span></td>
+              <td><span class="warn" data-en="Pushes you to the cloud">Te empuja a la nube</span></td>
+              <td><span class="warn" data-en="Local, but controversial">Local, pero polémico</span></td>
             </tr>
             <tr>
-              <th scope="row">Ligero</th>
-              <td class="isus"><span class="yes">Señales, no vídeo 24/7</span></td>
-              <td><span class="warn">Grabación pesada de pantalla</span></td>
-              <td><span class="no">&gt;10GB RAM, &gt;100% CPU</span></td>
-              <td><span class="warn">Capturas constantes</span></td>
+              <th scope="row" data-en="Lightweight">Ligero</th>
+              <td class="isus"><span class="yes" data-en="Signals, not 24/7 video">Señales, no vídeo 24/7</span></td>
+              <td><span class="warn" data-en="Heavy screen recording">Grabación pesada de pantalla</span></td>
+              <td><span class="no" data-en="&gt;10GB RAM, &gt;100% CPU">&gt;10GB RAM, &gt;100% CPU</span></td>
+              <td><span class="warn" data-en="Constant snapshots">Capturas constantes</span></td>
             </tr>
             <tr>
-              <th scope="row">Precio</th>
-              <td class="isus"><span class="yes">Pago único ($39 early-bird)</span></td>
-              <td><span class="warn">Suscripción (descontinuado)</span></td>
-              <td><span class="no">$25–49/mes en la nube</span></td>
-              <td><span class="warn">Necesita un «Copilot+ PC»</span></td>
+              <th scope="row" data-en="Price">Precio</th>
+              <td class="isus"><span class="yes" data-en="One-time payment ($39 early-bird)">Pago único ($39 early-bird)</span></td>
+              <td><span class="warn" data-en="Subscription (discontinued)">Suscripción (descontinuado)</span></td>
+              <td><span class="no" data-en="$25–49/mo in the cloud">$25–49/mes en la nube</span></td>
+              <td><span class="warn" data-en="Requires a “Copilot+ PC”">Necesita un «Copilot+ PC»</span></td>
             </tr>
             <tr>
-              <th scope="row">Requisito de hardware</th>
-              <td class="isus"><span class="yes">Cualquier PC moderno</span></td>
-              <td><span class="warn">Mac primero</span></td>
-              <td><span class="warn">Máquina potente</span></td>
-              <td><span class="no">Solo Copilot+ PC</span></td>
+              <th scope="row" data-en="Hardware requirement">Requisito de hardware</th>
+              <td class="isus"><span class="yes" data-en="Any modern PC">Cualquier PC moderno</span></td>
+              <td><span class="warn" data-en="Mac first">Mac primero</span></td>
+              <td><span class="warn" data-en="Powerful machine">Máquina potente</span></td>
+              <td><span class="no" data-en="Copilot+ PC only">Solo Copilot+ PC</span></td>
             </tr>
           </tbody>
         </table></div>
-        <div style="border-top:1px solid var(--line);padding:12px 16px;font-size:11px;color:var(--dim)">Hechos públicos a mediados de 2025. Las marcas pertenecen a sus dueños.</div>
+        <div style="border-top:1px solid var(--line);padding:12px 16px;font-size:11px;color:var(--dim)" data-en="Public facts as of mid-2025. Trademarks belong to their owners.">Hechos públicos a mediados de 2025. Las marcas pertenecen a sus dueños.</div>
       </div>
     </div></section>
 
     <!-- PRICING -->
     <section class="sec" id="pricing"><div class="wrap">
-      <div class="center reveal"><span class="eye">Precio</span><h2>Simple y honesto</h2><p class="desc">Paga una vez. Tuyo para siempre.</p></div>
+      <div class="center reveal"><span class="eye" data-en="Pricing">Precio</span><h2 data-en="Simple and honest">Simple y honesto</h2><p class="desc" data-en="Pay once. Yours forever.">Paga una vez. Tuyo para siempre.</p></div>
       <div class="prices">
         <div class="glass price feat-card reveal">
-          <span class="pbadge">Early-bird</span>
-          <div class="pname">Lifetime</div>
+          <span class="pbadge" data-en="Early-bird">Early-bird</span>
+          <div class="pname" data-en="Lifetime">Lifetime</div>
           <div class="pamt"><span class="pnow grad">$39</span><span class="pwas">$59</span></div>
-          <div class="pcyc">pago único</div>
+          <div class="pcyc" data-en="one-time payment">pago único</div>
           <ul class="plist">
-            <li>Captura, búsqueda y timeline locales</li>
-            <li>Windows, macOS y Linux</li>
-            <li>Open-core, cifrado en reposo</li>
-            <li>Todas las futuras actualizaciones</li>
+            <li data-en="Local capture, search and timeline">Captura, búsqueda y timeline locales</li>
+            <li data-en="Windows, macOS and Linux">Windows, macOS y Linux</li>
+            <li data-en="Open-core, encrypted at rest">Open-core, cifrado en reposo</li>
+            <li data-en="All future updates">Todas las futuras actualizaciones</li>
           </ul>
-          <a class="btn btn-fire btn-block" href="#waitlist">Conseguir acceso early-bird</a>
-          <p class="pfoot">La lista fija el precio de $39.</p>
+          <a class="btn btn-fire btn-block" href="#waitlist" data-en="Get early-bird access">Conseguir acceso early-bird</a>
+          <p class="pfoot" data-en="The waitlist locks in the $39 price.">La lista fija el precio de $39.</p>
         </div>
 
         <div class="glass price reveal">
-          <span class="pbadge soon">Próximamente</span>
-          <div class="pname">Pro IA</div>
+          <span class="pbadge soon" data-en="Coming soon">Próximamente</span>
+          <div class="pname" data-en="AI Pro">Pro IA</div>
           <div class="pamt"><span class="pnow">$5–8</span></div>
-          <div class="pcyc">al mes · opcional</div>
+          <div class="pcyc" data-en="per month · optional">al mes · opcional</div>
           <ul class="plist">
-            <li>Chat semántico sobre tu memoria</li>
-            <li>Modelo de IA <strong>local</strong> — sin nube</li>
-            <li>100% opcional — Lifetime no lo necesita</li>
+            <li data-en="Semantic chat over your memory">Chat semántico sobre tu memoria</li>
+            <li data-en="<strong>Local</strong> AI model — no cloud">Modelo de IA <strong>local</strong> — sin nube</li>
+            <li data-en="100% optional — Lifetime doesn't need it">100% opcional — Lifetime no lo necesita</li>
           </ul>
-          <a class="btn btn-ghost btn-block" href="#waitlist">Avísame</a>
-          <p class="pfoot">Tras lanzar la app de escritorio.</p>
+          <a class="btn btn-ghost btn-block" href="#waitlist" data-en="Notify me">Avísame</a>
+          <p class="pfoot" data-en="After the desktop app launches.">Tras lanzar la app de escritorio.</p>
         </div>
       </div>
     </div></section>
 
     <!-- WAITLIST (primary CTA) -->
     <section class="sec alt" id="waitlist"><div class="wrap">
-      <div class="center reveal"><span class="eye">Lista de espera</span><h2>Sé de los primeros</h2><p class="desc">Consigue la beta y fija el precio lifetime de $39.</p></div>
+      <div class="center reveal"><span class="eye" data-en="Waitlist">Lista de espera</span><h2 data-en="Be among the first">Sé de los primeros</h2><p class="desc" data-en="Get the beta and lock in the $39 lifetime price.">Consigue la beta y fija el precio lifetime de $39.</p></div>
       <form id="wl" class="wlform reveal" action="https://formspree.io/f/mnjyoknb" method="POST" novalidate>
         <div class="frow">
-          <label class="vh" for="email">Correo electrónico</label>
-          <input type="email" id="email" name="email" required autocomplete="email" inputmode="email" placeholder="tu@ejemplo.com" />
+          <label class="vh" for="email" data-en="Email address">Correo electrónico</label>
+          <input type="email" id="email" name="email" required autocomplete="email" inputmode="email" placeholder="tu@ejemplo.com" data-i18n-attr="placeholder" data-en="you@example.com" />
           <button type="submit" class="btn btn-fire">Únete a la lista</button>
         </div>
         <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="vh" aria-hidden="true" />
         <p class="fmsg" id="fmsg" role="status" aria-live="polite"></p>
-        <p class="ffine">Sin spam. Un solo email cuando abra la beta.</p>
+        <p class="ffine" data-en="No spam. One email when the beta opens.">Sin spam. Un solo email cuando abra la beta.</p>
       </form>
     </div></section>
 
     <!-- FAQ -->
     <section class="sec" id="faq"><div class="wrap">
-      <div class="center reveal"><span class="eye">FAQ</span><h2>Preguntas frecuentes</h2></div>
+      <div class="center reveal"><span class="eye" data-en="FAQ">FAQ</span><h2 data-en="Frequently asked questions">Preguntas frecuentes</h2></div>
       <div class="faq reveal">
-        <details><summary>¿Trace graba mi pantalla todo el tiempo?</summary><p>No. Captura señales ligeras — historial, ventana activa, portapapeles — no vídeo continuo. El OCR es opcional y está desactivado por defecto.</p></details>
-        <details><summary>¿Se envía algún dato mío a la nube?</summary><p>No. Sin servidores ni cuentas. Funciona con el firewall cerrado y el motor open-core te deja verificarlo.</p></details>
-        <details><summary>¿En qué se diferencia de Microsoft Recall?</summary><p>Recall está atado a los «Copilot+ PC» y captura constantemente. Trace funciona en cualquier PC moderno, captura mucho menos y filtra antes de escribir.</p></details>
-        <details><summary>¿Qué pasó con Rewind / Limitless?</summary><p>Lo compró Meta y cerró la app el 19 de diciembre de 2025. Trace es el sucesor independiente y realmente local.</p></details>
-        <details><summary>¿Qué plataformas soporta?</summary><p>Windows, macOS y Linux. La lista sabrá qué builds llegan primero.</p></details>
-        <details><summary>¿Cuándo puedo usarlo y cuánto cuesta?</summary><p>En desarrollo temprano. La lista fija el precio lifetime de $39 (normal $59). El tier Pro de IA local es opcional.</p></details>
+        <details><summary data-en="Does Trace record my screen all the time?">¿Trace graba mi pantalla todo el tiempo?</summary><p data-en="No. It captures lightweight signals — history, active window, clipboard — not continuous video. OCR is optional and off by default.">No. Captura señales ligeras — historial, ventana activa, portapapeles — no vídeo continuo. El OCR es opcional y está desactivado por defecto.</p></details>
+        <details><summary data-en="Is any of my data sent to the cloud?">¿Se envía algún dato mío a la nube?</summary><p data-en="No. No servers, no accounts. It works with the firewall closed, and the open-core engine lets you verify it.">No. Sin servidores ni cuentas. Funciona con el firewall cerrado y el motor open-core te deja verificarlo.</p></details>
+        <details><summary data-en="How is it different from Microsoft Recall?">¿En qué se diferencia de Microsoft Recall?</summary><p data-en="Recall is tied to “Copilot+ PCs” and captures constantly. Trace runs on any modern PC, captures far less, and filters before writing.">Recall está atado a los «Copilot+ PC» y captura constantemente. Trace funciona en cualquier PC moderno, captura mucho menos y filtra antes de escribir.</p></details>
+        <details><summary data-en="What happened to Rewind / Limitless?">¿Qué pasó con Rewind / Limitless?</summary><p data-en="Meta bought it and shut the app down on December 19, 2025. Trace is the independent, truly local successor.">Lo compró Meta y cerró la app el 19 de diciembre de 2025. Trace es el sucesor independiente y realmente local.</p></details>
+        <details><summary data-en="Which platforms does it support?">¿Qué plataformas soporta?</summary><p data-en="Windows, macOS and Linux. The waitlist will know which builds land first.">Windows, macOS y Linux. La lista sabrá qué builds llegan primero.</p></details>
+        <details><summary data-en="When can I use it and how much does it cost?">¿Cuándo puedo usarlo y cuánto cuesta?</summary><p data-en="Early development. The waitlist locks in the $39 lifetime price (normally $59). The local AI Pro tier is optional.">En desarrollo temprano. La lista fija el precio lifetime de $39 (normal $59). El tier Pro de IA local es opcional.</p></details>
       </div>
     </div></section>
 
@@ -409,19 +410,19 @@
     <section class="sec alt"><div class="wrap">
       <div class="glass ctaband reveal">
         <div class="bggrid" style="position:absolute;inset:0;z-index:-1;opacity:.6"></div>
-        <h2>Deja de buscar a ciegas. <span class="grad">Recuérdalo.</span></h2>
-        <p class="desc" style="max-width:560px;margin:14px auto 0">Privada, local y tuya para siempre. Fija el precio lifetime de $39.</p>
+        <h2 data-en='Stop searching blind. <span class="grad">Remember it.</span>'>Deja de buscar a ciegas. <span class="grad">Recuérdalo.</span></h2>
+        <p class="desc" style="max-width:560px;margin:14px auto 0" data-en="Private, local, and yours forever. Lock in the $39 lifetime price.">Privada, local y tuya para siempre. Fija el precio lifetime de $39.</p>
         <div class="row" style="justify-content:center;margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
-          <a class="btn btn-fire" href="#waitlist">Únete a la lista</a>
-          <a class="btn btn-ghost" href="https://github.com/JoniMartin27/trace">⭐ Motor en GitHub</a>
+          <a class="btn btn-fire" href="#waitlist" data-en="Join the waitlist">Únete a la lista</a>
+          <a class="btn btn-ghost" href="https://github.com/JoniMartin27/trace" data-en="⭐ Engine on GitHub">⭐ Motor en GitHub</a>
         </div>
       </div>
     </div></section>
   </main>
 
   <footer><div class="wrap foot">
-    <span>Trace es un proyecto de <a href="https://fervon.dev">🔥 Fervon</a> · Forjado al rojo vivo</span>
-    <span>© 2026 Jonathan Martín · Local-first por diseño</span>
+    <span data-en='Trace is a project by <a href="https://fervon.dev">🔥 Fervon</a> · Forged red-hot'>Trace es un proyecto de <a href="https://fervon.dev">🔥 Fervon</a> · Forjado al rojo vivo</span>
+    <span data-en="© 2026 Jonathan Martín · Local-first by design">© 2026 Jonathan Martín · Local-first por diseño</span>
   </div></footer>
 
   <script>
@@ -478,5 +479,37 @@
     var rev=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("in"); rev.unobserve(en.target); } }); },{threshold:.12});
     document.querySelectorAll(".reveal").forEach(function(el){ rev.observe(el); });
   </script>
+<script>
+/* Fervon bilingual toggle — keep identical across all Fervon pages */
+(function(){
+  var KEY="fervon-lang";
+  var base=(document.documentElement.getAttribute("lang")||"es").slice(0,2).toLowerCase();
+  var other=base==="es"?"en":"es";
+  var nodes=[].slice.call(document.querySelectorAll("[data-"+other+"]"));
+  nodes.forEach(function(n){
+    var a=n.getAttribute("data-i18n-attr");
+    n.setAttribute("data-"+base, a?(n.getAttribute(a)||""):n.innerHTML);
+  });
+  function apply(lang){
+    document.documentElement.setAttribute("lang",lang);
+    for(var i=0;i<nodes.length;i++){
+      var n=nodes[i], v=n.getAttribute("data-"+lang);
+      if(v===null) continue;
+      var a=n.getAttribute("data-i18n-attr");
+      if(a) n.setAttribute(a,v); else n.innerHTML=v;
+    }
+    var b=document.getElementById("lang"); if(b) b.textContent=(lang==="es"?"EN":"ES");
+  }
+  var saved=null; try{saved=localStorage.getItem(KEY);}catch(e){}
+  var initial=saved||(((navigator.language||"").toLowerCase().slice(0,2)==="es")?"es":"en");
+  apply(initial);
+  var b=document.getElementById("lang");
+  if(b) b.addEventListener("click",function(){
+    var nx=(document.documentElement.getAttribute("lang")==="es")?"en":"es";
+    try{localStorage.setItem(KEY,nx);}catch(e){}
+    apply(nx);
+  });
+})();
+</script>
 </body>
 </html>
