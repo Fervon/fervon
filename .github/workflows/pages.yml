@@ -1,0 +1,59 @@
+name: Deploy fervon.dev to Pages
+
+# Publishes the static site to GitHub Pages while EXCLUDING repo dev/doc files
+# (README, SETUP, package manifests, build scripts…) so they are never served at
+# fervon.dev. Replaces the legacy "deploy from branch" build, which served the
+# whole repo root verbatim (.nojekyll).
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment; don't cancel an in-progress publish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Stage public files (exclude dev/doc/build files)
+        run: |
+          mkdir -p _site
+          rsync -a ./ _site/ \
+            --exclude '_site' \
+            --exclude '.git' \
+            --exclude '.github' \
+            --exclude '.wrangler' \
+            --exclude 'node_modules' \
+            --exclude 'scripts' \
+            --exclude '.gitignore' \
+            --exclude 'README.md' \
+            --exclude 'SECURITY.md' \
+            --exclude 'SETUP.md' \
+            --exclude 'BRAND-IMAGE-PROMPTS.md' \
+            --exclude 'package.json' \
+            --exclude 'package-lock.json' \
+            --exclude 'index.js'
+          echo "Published files:"; find _site -maxdepth 1 | sort
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
