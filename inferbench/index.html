@@ -138,15 +138,16 @@
   <header class="nav"><div class="glass bar">
     <a class="crumb" href="/"><span class="fv">🔥 fervon</span><span class="sep">›</span><span>inferbench</span></a>
     <nav class="menu">
-      <a href="#features">Características</a>
-      <a href="#demo">Demo</a>
-      <a href="#how">Cómo funciona</a>
-      <a href="#models">Modelos</a>
-      <a href="#download">Descargar</a>
+      <a href="#features" data-en="Features">Características</a>
+      <a href="#demo" data-en="Demo">Demo</a>
+      <a href="#how" data-en="How it works">Cómo funciona</a>
+      <a href="#models" data-en="Models">Modelos</a>
+      <a href="#download" data-en="Download">Descargar</a>
     </nav>
     <div class="act">
+      <button id="lang" class="btn btn-ghost btn-sm" type="button" aria-label="Cambiar idioma / Switch language">EN</button>
       <a class="btn btn-ghost btn-sm" href="https://github.com/JoniMartin27/inferbench">GitHub</a>
-      <a class="btn btn-fire btn-sm" href="#download">Descargar</a>
+      <a class="btn btn-fire btn-sm" href="#download" data-en="Download">Descargar</a>
     </div>
   </div></header>
 
@@ -157,21 +158,21 @@
       <div class="bggrid" style="position:absolute;inset:0;z-index:-1;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000,transparent)"></div>
       <div class="wrap cols">
         <div>
-          <span class="pill reveal"><span class="dot"></span> Open source · MIT · Sin coste</span>
-          <h1 class="reveal">Qué LLM corre en tu GPU <span class="grad">y a cuántos tok/s</span>.</h1>
-          <p class="sub reveal"><strong>inferbench</strong> <b>descarga, arranca y benchmarkea LLMs locales en un click</b>. Sin Docker, sin terminal. Mide de verdad.</p>
+          <span class="pill reveal" data-en="<span class=&quot;dot&quot;></span> Open source · MIT · Free"><span class="dot"></span> Open source · MIT · Sin coste</span>
+          <h1 class="reveal" data-en="Which LLM runs on your GPU <span class=&quot;grad&quot;>and at how many tok/s</span>.">Qué LLM corre en tu GPU <span class="grad">y a cuántos tok/s</span>.</h1>
+          <p class="sub reveal" data-en="<strong>inferbench</strong> <b>downloads, launches and benchmarks local LLMs in one click</b>. No Docker, no terminal. It actually measures."><strong>inferbench</strong> <b>descarga, arranca y benchmarkea LLMs locales en un click</b>. Sin Docker, sin terminal. Mide de verdad.</p>
           <div class="row reveal">
-            <a class="btn btn-fire" href="#download">Descargar gratis</a>
-            <a class="btn btn-ghost" href="https://github.com/JoniMartin27/inferbench">Ver en GitHub</a>
+            <a class="btn btn-fire" href="#download" data-en="Download free">Descargar gratis</a>
+            <a class="btn btn-ghost" href="https://github.com/JoniMartin27/inferbench" data-en="View on GitHub">Ver en GitHub</a>
           </div>
-          <div class="trust reveal"><span>✓ Windows · macOS · Linux</span><span>✓ Sin Python ni Node</span><span>✓ 100% local y privado</span></div>
+          <div class="trust reveal"><span data-en="✓ Windows · macOS · Linux">✓ Windows · macOS · Linux</span><span data-en="✓ No Python or Node">✓ Sin Python ni Node</span><span data-en="✓ 100% local and private">✓ 100% local y privado</span></div>
         </div>
 
         <div class="demo reveal">
           <div class="glass">
             <div class="top">
               <i style="background:#E0480F"></i><i style="background:#FFB02E"></i><i style="background:#9FC979"></i>
-              <span style="margin-left:6px">inferbench · Benchmark en vivo</span>
+              <span style="margin-left:6px" data-en="inferbench · Live benchmark">inferbench · Benchmark en vivo</span>
               <span style="margin-left:auto;color:var(--amber);display:inline-flex;align-items:center;gap:6px"><span class="dot"></span> LIVE</span>
             </div>
             <div class="body">
@@ -190,7 +191,7 @@
               <div class="term mono" id="log"><div style="color:var(--dim)">$ inferbench run --auto</div></div>
             </div>
           </div>
-          <p style="text-align:center;font-size:11px;color:var(--dim);margin-top:8px">Demo ilustrativa de la vista de benchmark.</p>
+          <p style="text-align:center;font-size:11px;color:var(--dim);margin-top:8px" data-en="Illustrative demo of the benchmark view.">Demo ilustrativa de la vista de benchmark.</p>
         </div>
       </div>
     </section>
@@ -198,107 +199,107 @@
     <!-- DEMO REAL -->
     <section class="sec alt" id="demo">
       <div class="wrap center reveal">
-        <span class="eye">Demo</span>
-        <h2>Míralo en acción</h2>
-        <p class="desc">Hardware, optimización, benchmark en vivo, comparación de runs y Serve/MCP — todo en tu equipo.</p>
+        <span class="eye" data-en="Demo">Demo</span>
+        <h2 data-en="See it in action">Míralo en acción</h2>
+        <p class="desc" data-en="Hardware, optimization, live benchmark, run comparison and Serve/MCP — all on your machine.">Hardware, optimización, benchmark en vivo, comparación de runs y Serve/MCP — todo en tu equipo.</p>
       </div>
       <div class="wrap reveal" style="max-width:920px;margin-top:32px">
         <figure class="glass" style="overflow:hidden;padding:0">
-          <img src="https://github.com/JoniMartin27/inferbench/raw/master/assets/inferbench-demo.gif" alt="inferbench en acción: hardware detectado, catálogo con optimización, benchmark en vivo con tok/s, comparación de runs y Serve/MCP con generación de imagen" loading="lazy" decoding="async" style="width:100%;display:block" />
+          <img src="https://github.com/JoniMartin27/inferbench/raw/master/assets/inferbench-demo.gif" alt="inferbench en acción: hardware detectado, catálogo con optimización, benchmark en vivo con tok/s, comparación de runs y Serve/MCP con generación de imagen" data-i18n-attr="alt" data-en="inferbench in action: detected hardware, catalog with optimization, live benchmark with tok/s, run comparison and Serve/MCP with image generation" loading="lazy" decoding="async" style="width:100%;display:block" />
         </figure>
-        <p style="text-align:center;font-size:11px;color:var(--dim);margin-top:10px">Cifras de benchmark reales, sin edición.</p>
+        <p style="text-align:center;font-size:11px;color:var(--dim);margin-top:10px" data-en="Real benchmark numbers, unedited.">Cifras de benchmark reales, sin edición.</p>
       </div>
     </section>
 
     <!-- STATS -->
     <section class="sec"><div class="wrap stats">
-      <div class="reveal"><div class="v grad">124</div><div class="l">modelos verificados</div></div>
-      <div class="reveal"><div class="v grad">3</div><div class="l">sistemas: Win · macOS · Linux</div></div>
-      <div class="reveal"><div class="v grad">~4 ms</div><div class="l">listado de compatibilidad</div></div>
-      <div class="reveal"><div class="v grad">0</div><div class="l">datos enviados a la nube</div></div>
+      <div class="reveal"><div class="v grad">124</div><div class="l" data-en="verified models">modelos verificados</div></div>
+      <div class="reveal"><div class="v grad">3</div><div class="l" data-en="systems: Win · macOS · Linux">sistemas: Win · macOS · Linux</div></div>
+      <div class="reveal"><div class="v grad">~4 ms</div><div class="l" data-en="compatibility listing">listado de compatibilidad</div></div>
+      <div class="reveal"><div class="v grad">0</div><div class="l" data-en="data sent to the cloud">datos enviados a la nube</div></div>
     </div></section>
 
     <!-- HOW -->
     <section class="sec alt" id="how"><div class="wrap">
-      <div class="center reveal"><span class="eye">El flujo</span><h2>De cero a resultados reales en 5 pasos</h2></div>
+      <div class="center reveal"><span class="eye" data-en="The flow">El flujo</span><h2 data-en="From zero to real results in 5 steps">De cero a resultados reales en 5 pasos</h2></div>
       <div class="steps">
-        <div class="glass step reveal"><div class="n mono">01</div><h4>Eliges modelo</h4><p>Del catálogo o tus GGUF locales.</p></div>
-        <div class="glass step reveal"><div class="n mono">02</div><h4>Descarga el motor</h4><p>Binario oficial + GGUF de Hugging Face.</p></div>
-        <div class="glass step reveal"><div class="n mono">03</div><h4>Arranca optimizado</h4><p>Config óptima auto-calculada para tu GPU.</p></div>
-        <div class="glass step reveal"><div class="n mono">04</div><h4>Benchmark en vivo</h4><p>TTFT, tok/s, VRAM y calidad en tiempo real.</p></div>
-        <div class="glass step reveal"><div class="n mono">05</div><h4>Compara y decide</h4><p>Runs guardados, comparables lado a lado.</p></div>
+        <div class="glass step reveal"><div class="n mono">01</div><h4 data-en="Pick a model">Eliges modelo</h4><p data-en="From the catalog or your local GGUFs.">Del catálogo o tus GGUF locales.</p></div>
+        <div class="glass step reveal"><div class="n mono">02</div><h4 data-en="Download the engine">Descarga el motor</h4><p data-en="Official binary + GGUF from Hugging Face.">Binario oficial + GGUF de Hugging Face.</p></div>
+        <div class="glass step reveal"><div class="n mono">03</div><h4 data-en="Launch optimized">Arranca optimizado</h4><p data-en="Optimal config auto-computed for your GPU.">Config óptima auto-calculada para tu GPU.</p></div>
+        <div class="glass step reveal"><div class="n mono">04</div><h4 data-en="Live benchmark">Benchmark en vivo</h4><p data-en="TTFT, tok/s, VRAM and quality in real time.">TTFT, tok/s, VRAM y calidad en tiempo real.</p></div>
+        <div class="glass step reveal"><div class="n mono">05</div><h4 data-en="Compare and decide">Compara y decide</h4><p data-en="Saved runs, comparable side by side.">Runs guardados, comparables lado a lado.</p></div>
       </div>
     </div></section>
 
     <!-- FEATURES -->
     <section class="sec" id="features"><div class="wrap">
-      <div class="center reveal"><span class="eye">Características</span><h2>Todo para tunear inferencia local</h2></div>
+      <div class="center reveal"><span class="eye" data-en="Features">Características</span><h2 data-en="Everything to tune local inference">Todo para tunear inferencia local</h2></div>
       <div class="cards">
-        <div class="glass feat reveal"><div class="ic">⚡</div><h3>Auto-bootstrap de un click</h3><p>Motor, GGUF, config óptima y benchmark. End-to-end.</p></div>
-        <div class="glass feat reveal"><div class="ic">🧩</div><h3>Detección de hardware</h3><p>CPU, RAM y GPU. Compatibilidad de 124 modelos en ~4 ms.</p></div>
-        <div class="glass feat reveal"><div class="ic">📦</div><h3>Modo nativo, sin Docker</h3><p>Release oficial + CUDA + DLLs auto. Docker opcional.</p></div>
-        <div class="glass feat reveal"><div class="ic">🗂️</div><h3>Catálogo de 124 modelos</h3><p>Llama, Qwen, Gemma, Mistral, Phi, DeepSeek… verificados.</p></div>
-        <div class="glass feat reveal"><div class="ic">🪄</div><h3>Optimizador automático</h3><p>Quant, KV-cache, contexto, MoE offload y flags. Sobrescribible.</p></div>
-        <div class="glass feat reveal"><div class="ic">🗜️</div><h3>Compresión KV explicada</h3><p>5 presets, con qué cabe en TU GPU en cada nivel.</p></div>
-        <div class="glass feat reveal"><div class="ic">📈</div><h3>Métricas reales en vivo</h3><p>TTFT, tok/s y VRAM medidos vía SSE. Nada simulado.</p></div>
-        <div class="glass feat reveal"><div class="ic">⚖️</div><h3>Sweep y comparación</h3><p>N cuantizaciones en cola, runs comparables con gráficos.</p></div>
-        <div class="glass feat reveal"><div class="ic">🛡️</div><h3>100% local y privado</h3><p>Sin telemetría, sin cuenta, sin servidor. MIT.</p></div>
+        <div class="glass feat reveal"><div class="ic">⚡</div><h3 data-en="One-click auto-bootstrap">Auto-bootstrap de un click</h3><p data-en="Engine, GGUF, optimal config and benchmark. End-to-end.">Motor, GGUF, config óptima y benchmark. End-to-end.</p></div>
+        <div class="glass feat reveal"><div class="ic">🧩</div><h3 data-en="Hardware detection">Detección de hardware</h3><p data-en="CPU, RAM and GPU. Compatibility for 124 models in ~4 ms.">CPU, RAM y GPU. Compatibilidad de 124 modelos en ~4 ms.</p></div>
+        <div class="glass feat reveal"><div class="ic">📦</div><h3 data-en="Native mode, no Docker">Modo nativo, sin Docker</h3><p data-en="Official release + CUDA + DLLs auto. Docker optional.">Release oficial + CUDA + DLLs auto. Docker opcional.</p></div>
+        <div class="glass feat reveal"><div class="ic">🗂️</div><h3 data-en="124-model catalog">Catálogo de 124 modelos</h3><p data-en="Llama, Qwen, Gemma, Mistral, Phi, DeepSeek… verified.">Llama, Qwen, Gemma, Mistral, Phi, DeepSeek… verificados.</p></div>
+        <div class="glass feat reveal"><div class="ic">🪄</div><h3 data-en="Automatic optimizer">Optimizador automático</h3><p data-en="Quant, KV-cache, context, MoE offload and flags. Overridable.">Quant, KV-cache, contexto, MoE offload y flags. Sobrescribible.</p></div>
+        <div class="glass feat reveal"><div class="ic">🗜️</div><h3 data-en="KV compression explained">Compresión KV explicada</h3><p data-en="5 presets, with what fits on YOUR GPU at each level.">5 presets, con qué cabe en TU GPU en cada nivel.</p></div>
+        <div class="glass feat reveal"><div class="ic">📈</div><h3 data-en="Real metrics, live">Métricas reales en vivo</h3><p data-en="TTFT, tok/s and VRAM measured via SSE. Nothing simulated.">TTFT, tok/s y VRAM medidos vía SSE. Nada simulado.</p></div>
+        <div class="glass feat reveal"><div class="ic">⚖️</div><h3 data-en="Sweep and compare">Sweep y comparación</h3><p data-en="N quantizations queued, comparable runs with charts.">N cuantizaciones en cola, runs comparables con gráficos.</p></div>
+        <div class="glass feat reveal"><div class="ic">🛡️</div><h3 data-en="100% local and private">100% local y privado</h3><p data-en="No telemetry, no account, no server. MIT.">Sin telemetría, sin cuenta, sin servidor. MIT.</p></div>
       </div>
     </div></section>
 
     <!-- MODELS -->
     <section class="sec alt" id="models"><div class="wrap two">
       <div class="reveal">
-        <span class="eye">Catálogo</span>
-        <h2>124 modelos verificados, cero inventados</h2>
-        <p class="desc">Cada entrada se comprueba contra Hugging Face: el repo GGUF existe y el <code class="mono" style="background:var(--line);border-radius:4px;padding:1px 5px;color:var(--amber)">Q4_K_M</code> resuelve.</p>
+        <span class="eye" data-en="Catalog">Catálogo</span>
+        <h2 data-en="124 verified models, zero made up">124 modelos verificados, cero inventados</h2>
+        <p class="desc" data-en="Every entry is checked against Hugging Face: the GGUF repo exists and the <code class=&quot;mono&quot; style=&quot;background:var(--line);border-radius:4px;padding:1px 5px;color:var(--amber)&quot;>Q4_K_M</code> resolves.">Cada entrada se comprueba contra Hugging Face: el repo GGUF existe y el <code class="mono" style="background:var(--line);border-radius:4px;padding:1px 5px;color:var(--amber)">Q4_K_M</code> resuelve.</p>
         <div class="chips">
-          <span class="chip">Llama 3.x</span><span class="chip">Qwen 2.5 / 3</span><span class="chip">Gemma 2 / 3</span><span class="chip">Mistral · Mixtral</span><span class="chip">Phi 2-4</span><span class="chip">DeepSeek R1</span><span class="chip">QwQ 32B</span><span class="chip">Visión (VL)</span><span class="chip">Código</span><span class="chip">MoE 30B-A3B</span><span class="chip">Granite</span><span class="chip">Command-R</span>
+          <span class="chip">Llama 3.x</span><span class="chip">Qwen 2.5 / 3</span><span class="chip">Gemma 2 / 3</span><span class="chip">Mistral · Mixtral</span><span class="chip">Phi 2-4</span><span class="chip">DeepSeek R1</span><span class="chip">QwQ 32B</span><span class="chip" data-en="Vision (VL)">Visión (VL)</span><span class="chip" data-en="Code">Código</span><span class="chip">MoE 30B-A3B</span><span class="chip">Granite</span><span class="chip">Command-R</span>
         </div>
-        <p style="font-size:14px;color:var(--dim);margin-top:18px">Además escanea tus GGUF locales (LM Studio, Ollama, caché HF).</p>
+        <p style="font-size:14px;color:var(--dim);margin-top:18px" data-en="It also scans your local GGUFs (LM Studio, Ollama, HF cache).">Además escanea tus GGUF locales (LM Studio, Ollama, caché HF).</p>
       </div>
       <div class="glass reveal" style="overflow:hidden">
-        <div style="border-bottom:1px solid var(--line);padding:12px 16px;font-weight:600;font-size:14px">Motores soportados</div>
+        <div style="border-bottom:1px solid var(--line);padding:12px 16px;font-weight:600;font-size:14px" data-en="Supported engines">Motores soportados</div>
         <div style="overflow-x:auto"><table>
-          <thead><tr><th>Motor</th><th>Tipo</th><th>Nativo</th><th>Docker</th><th>Auto-descarga</th></tr></thead>
+          <thead><tr><th data-en="Engine">Motor</th><th data-en="Type">Tipo</th><th data-en="Native">Nativo</th><th>Docker</th><th data-en="Auto-download">Auto-descarga</th></tr></thead>
           <tbody>
-            <tr><td>llama.cpp</td><td style="color:var(--ash)">local</td><td>✅</td><td>✅</td><td style="color:var(--ash)">✅ HF GGUF</td></tr>
-            <tr><td>ollama</td><td style="color:var(--ash)">local</td><td>✅</td><td>✅</td><td style="color:var(--ash)">✅ registro</td></tr>
-            <tr><td>vLLM</td><td style="color:var(--ash)">local</td><td>—</td><td>✅ GPU</td><td style="color:var(--ash)">✅ HF</td></tr>
-            <tr><td>SGLang</td><td style="color:var(--ash)">local</td><td>—</td><td>✅ GPU</td><td style="color:var(--ash)">✅ HF</td></tr>
-            <tr><td>TGI</td><td style="color:var(--ash)">local</td><td>—</td><td>✅ GPU</td><td style="color:var(--ash)">✅ HF</td></tr>
+            <tr><td>llama.cpp</td><td style="color:var(--ash)" data-en="local">local</td><td>✅</td><td>✅</td><td style="color:var(--ash)" data-en="✅ HF GGUF">✅ HF GGUF</td></tr>
+            <tr><td>ollama</td><td style="color:var(--ash)" data-en="local">local</td><td>✅</td><td>✅</td><td style="color:var(--ash)" data-en="✅ registry">✅ registro</td></tr>
+            <tr><td>vLLM</td><td style="color:var(--ash)" data-en="local">local</td><td>—</td><td>✅ GPU</td><td style="color:var(--ash)">✅ HF</td></tr>
+            <tr><td>SGLang</td><td style="color:var(--ash)" data-en="local">local</td><td>—</td><td>✅ GPU</td><td style="color:var(--ash)">✅ HF</td></tr>
+            <tr><td>TGI</td><td style="color:var(--ash)" data-en="local">local</td><td>—</td><td>✅ GPU</td><td style="color:var(--ash)">✅ HF</td></tr>
             <tr><td>OpenAI / Anthropic</td><td style="color:var(--ash)">API</td><td>n/a</td><td>n/a</td><td style="color:var(--ash)">n/a</td></tr>
             <tr><td>OpenRouter / NVIDIA</td><td style="color:var(--ash)">API</td><td>n/a</td><td>n/a</td><td style="color:var(--ash)">n/a</td></tr>
           </tbody>
         </table></div>
-        <div style="border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--dim)">llama.cpp/ollama nativos; vLLM/SGLang/TGI vía Docker + GPU NVIDIA. APIs cloud con tu key.</div>
+        <div style="border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--dim)" data-en="llama.cpp/ollama native; vLLM/SGLang/TGI via Docker + NVIDIA GPU. Cloud APIs with your key.">llama.cpp/ollama nativos; vLLM/SGLang/TGI vía Docker + GPU NVIDIA. APIs cloud con tu key.</div>
       </div>
     </div></section>
 
     <!-- QUALITY -->
     <section class="sec"><div class="wrap">
-      <div class="center reveal"><span class="eye">Calidad</span><h2>No solo velocidad: también calidad, en 3 modos</h2><p class="desc">TTFT y tok/s siempre reales. La nota de calidad (0-100) la eliges tú.</p></div>
+      <div class="center reveal"><span class="eye" data-en="Quality">Calidad</span><h2 data-en="Not just speed: quality too, in 3 modes">No solo velocidad: también calidad, en 3 modos</h2><p class="desc" data-en="TTFT and tok/s always real. The quality score (0-100) is up to you.">TTFT y tok/s siempre reales. La nota de calidad (0-100) la eliges tú.</p></div>
       <div class="cards" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
-        <div class="glass feat reveal"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">Referencia (offline)</h3><span class="chip" style="color:var(--amber)">Por defecto</span></div><p style="margin-top:10px">Compara contra la referencia. Python puro, sin GPU ni red.</p></div>
-        <div class="glass feat reveal"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">LLM-judge local</h3><span class="chip" style="color:var(--ember)">Opcional</span></div><p style="margin-top:10px">El motor puntúa con rúbrica 0-100. Fiable con modelos ≥7-8B.</p></div>
-        <div class="glass feat reveal"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">LLM-judge por API</h3><span class="chip" style="color:var(--spark)">Más fiable</span></div><p style="margin-top:10px">Un modelo cloud juzga imparcial. Requiere API key.</p></div>
+        <div class="glass feat reveal"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0" data-en="Reference (offline)">Referencia (offline)</h3><span class="chip" style="color:var(--amber)" data-en="Default">Por defecto</span></div><p style="margin-top:10px" data-en="Compare against the reference. Pure Python, no GPU or network.">Compara contra la referencia. Python puro, sin GPU ni red.</p></div>
+        <div class="glass feat reveal"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0">LLM-judge local</h3><span class="chip" style="color:var(--ember)" data-en="Optional">Opcional</span></div><p style="margin-top:10px" data-en="The engine scores with a 0-100 rubric. Reliable with models ≥7-8B.">El motor puntúa con rúbrica 0-100. Fiable con modelos ≥7-8B.</p></div>
+        <div class="glass feat reveal"><div style="display:flex;justify-content:space-between;align-items:center"><h3 style="margin:0" data-en="LLM-judge via API">LLM-judge por API</h3><span class="chip" style="color:var(--spark)" data-en="Most reliable">Más fiable</span></div><p style="margin-top:10px" data-en="A cloud model judges impartially. Requires API key.">Un modelo cloud juzga imparcial. Requiere API key.</p></div>
       </div>
     </div></section>
 
     <!-- DOWNLOAD -->
     <section class="sec alt" id="download"><div class="wrap">
-      <div class="center reveal"><span class="eye">Descarga</span><h2>Descárgalo gratis</h2><p class="desc">Sin Python ni Node: el backend va embebido. Detectamos tu sistema.</p></div>
+      <div class="center reveal"><span class="eye" data-en="Download">Descarga</span><h2 data-en="Download it free">Descárgalo gratis</h2><p class="desc" data-en="No Python or Node: the backend is embedded. We detect your system.">Sin Python ni Node: el backend va embebido. Detectamos tu sistema.</p></div>
       <div class="dlhero reveal">
         <a class="btn btn-fire dlmain" id="dlMain" href="https://github.com/JoniMartin27/inferbench/releases/latest">
           <span style="font-size:22px" id="dlIcon">⬇️</span>
           <span>Descargar para <span id="dlOsName">tu sistema</span><br><span class="os mono" id="dlFile">InferBench · v0.1.1</span></span>
         </a>
         <div class="dlothers" id="dlOthers">
-          <a class="dlchip" data-os="win" href="https://github.com/JoniMartin27/inferbench/releases/download/v0.1.1/InferBench.Setup.0.1.1.exe">🪟 <b>Windows</b> · .exe</a>
-          <a class="dlchip" data-os="mac" href="https://github.com/JoniMartin27/inferbench/releases/download/v0.1.1/InferBench-0.1.1-arm64.dmg">🍎 <b>macOS</b> · .dmg (Apple Silicon)</a>
-          <a class="dlchip" data-os="linux" href="https://github.com/JoniMartin27/inferbench/releases/download/v0.1.1/InferBench-0.1.1.AppImage">🐧 <b>Linux</b> · .AppImage</a>
+          <a class="dlchip" data-os="win" href="https://github.com/JoniMartin27/inferbench/releases/download/v0.1.1/InferBench.Setup.0.1.1.exe" data-en="🪟 <b>Windows</b> · .exe">🪟 <b>Windows</b> · .exe</a>
+          <a class="dlchip" data-os="mac" href="https://github.com/JoniMartin27/inferbench/releases/download/v0.1.1/InferBench-0.1.1-arm64.dmg" data-en="🍎 <b>macOS</b> · .dmg (Apple Silicon)">🍎 <b>macOS</b> · .dmg (Apple Silicon)</a>
+          <a class="dlchip" data-os="linux" href="https://github.com/JoniMartin27/inferbench/releases/download/v0.1.1/InferBench-0.1.1.AppImage" data-en="🐧 <b>Linux</b> · .AppImage">🐧 <b>Linux</b> · .AppImage</a>
         </div>
-        <p style="font-size:13px;color:var(--dim);margin-top:10px">v0.1.1 · ¿otra versión o compilar tú? <a href="https://github.com/JoniMartin27/inferbench/releases" style="color:var(--brasa)">Todas las releases →</a></p>
+        <p style="font-size:13px;color:var(--dim);margin-top:10px" data-en="v0.1.1 · another version or build it yourself? <a href=&quot;https://github.com/JoniMartin27/inferbench/releases&quot; style=&quot;color:var(--brasa)&quot;>All releases →</a>">v0.1.1 · ¿otra versión o compilar tú? <a href="https://github.com/JoniMartin27/inferbench/releases" style="color:var(--brasa)">Todas las releases →</a></p>
       </div>
     </div></section>
 
@@ -306,19 +307,19 @@
     <section class="sec"><div class="wrap">
       <div class="glass ctaband reveal">
         <div class="bggrid" style="position:absolute;inset:0;z-index:-1;opacity:.6"></div>
-        <h2>Deja de adivinar. <span class="grad">Mídelo.</span></h2>
-        <p class="desc" style="max-width:560px;margin:14px auto 0">Qué cuantización entra, a cuántos tok/s y qué motor gana en tu hardware — con datos reales, en local.</p>
+        <h2 data-en="Stop guessing. <span class=&quot;grad&quot;>Measure it.</span>">Deja de adivinar. <span class="grad">Mídelo.</span></h2>
+        <p class="desc" style="max-width:560px;margin:14px auto 0" data-en="Which quantization fits, at how many tok/s and which engine wins on your hardware — with real data, locally.">Qué cuantización entra, a cuántos tok/s y qué motor gana en tu hardware — con datos reales, en local.</p>
         <div class="row" style="justify-content:center;margin-top:28px;display:flex;gap:12px;flex-wrap:wrap">
-          <a class="btn btn-fire" href="#download">Descargar inferbench</a>
-          <a class="btn btn-ghost" href="https://github.com/JoniMartin27/inferbench">⭐ Estrella en GitHub</a>
+          <a class="btn btn-fire" href="#download" data-en="Download inferbench">Descargar inferbench</a>
+          <a class="btn btn-ghost" href="https://github.com/JoniMartin27/inferbench" data-en="⭐ Star on GitHub">⭐ Estrella en GitHub</a>
         </div>
       </div>
     </div></section>
   </main>
 
   <footer><div class="wrap foot">
-    <span>inferbench es un proyecto de <a href="https://fervon.dev">🔥 Fervon</a> · Forjado al rojo vivo</span>
-    <span>MIT © 2026 Jonathan Martín · <a href="https://github.com/JoniMartin27/inferbench">GitHub ↗</a></span>
+    <span data-en="inferbench is a project by <a href=&quot;https://fervon.dev&quot;>🔥 Fervon</a> · Forged white-hot">inferbench es un proyecto de <a href="https://fervon.dev">🔥 Fervon</a> · Forjado al rojo vivo</span>
+    <span data-en="MIT © 2026 Jonathan Martín · <a href=&quot;https://github.com/JoniMartin27/inferbench&quot;>GitHub ↗</a>">MIT © 2026 Jonathan Martín · <a href="https://github.com/JoniMartin27/inferbench">GitHub ↗</a></span>
   </div></footer>
 
   <script>
@@ -376,5 +377,25 @@
     var rev=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("in"); rev.unobserve(en.target); } }); },{threshold:.12});
     document.querySelectorAll(".reveal").forEach(function(el){ rev.observe(el); });
   </script>
+<script>
+/* Fervon bilingual toggle — keep identical across all Fervon pages */
+(function(){
+  var KEY="fervon-lang";
+  var base=(document.documentElement.getAttribute("lang")||"es").slice(0,2).toLowerCase();
+  var other=base==="es"?"en":"es";
+  var nodes=[].slice.call(document.querySelectorAll("[data-"+other+"]"));
+  nodes.forEach(function(n){ var a=n.getAttribute("data-i18n-attr"); n.setAttribute("data-"+base, a?(n.getAttribute(a)||""):n.innerHTML); });
+  function apply(lang){
+    document.documentElement.setAttribute("lang",lang);
+    for(var i=0;i<nodes.length;i++){ var n=nodes[i], v=n.getAttribute("data-"+lang); if(v===null) continue; var a=n.getAttribute("data-i18n-attr"); if(a) n.setAttribute(a,v); else n.innerHTML=v; }
+    var b=document.getElementById("lang"); if(b) b.textContent=(lang==="es"?"EN":"ES");
+  }
+  var saved=null; try{saved=localStorage.getItem(KEY);}catch(e){}
+  var initial=saved||(((navigator.language||"").toLowerCase().slice(0,2)==="es")?"es":"en");
+  apply(initial);
+  var b=document.getElementById("lang");
+  if(b) b.addEventListener("click",function(){ var nx=(document.documentElement.getAttribute("lang")==="es")?"en":"es"; try{localStorage.setItem(KEY,nx);}catch(e){} apply(nx); });
+})();
+</script>
 </body>
 </html>

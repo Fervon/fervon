@@ -159,15 +159,16 @@
   <header class="nav"><div class="glass bar">
     <a class="crumb" href="/"><span class="fv">🔥 fervon</span><span class="sep">›</span><span>claudescope</span></a>
     <nav class="menu">
-      <a href="#features">Qué obtienes</a>
-      <a href="#demo">Demo</a>
-      <a href="#how">Cómo funciona</a>
-      <a href="#privacy">Privacidad</a>
-      <a href="#get">Instalar</a>
+      <a href="#features" data-en="What you get">Qué obtienes</a>
+      <a href="#demo" data-en="Demo">Demo</a>
+      <a href="#how" data-en="How it works">Cómo funciona</a>
+      <a href="#privacy" data-en="Privacy">Privacidad</a>
+      <a href="#get" data-en="Install">Instalar</a>
     </nav>
     <div class="act">
+      <button id="lang" class="btn btn-ghost btn-sm" type="button" aria-label="Cambiar idioma / Switch language">EN</button>
       <a class="btn btn-ghost btn-sm" href="https://github.com/JoniMartin27/claudescope">GitHub</a>
-      <a class="btn btn-fire btn-sm" href="#get">Instalar</a>
+      <a class="btn btn-fire btn-sm" href="#get" data-en="Install">Instalar</a>
     </div>
   </div></header>
 
@@ -178,17 +179,17 @@
       <div class="bggrid" style="position:absolute;inset:0;z-index:-1;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000,transparent)"></div>
       <div class="wrap cols">
         <div>
-          <span class="pill reveal"><span class="dot"></span> MIT · 0 dependencias · 0 red</span>
-          <h1 class="reveal">¿En qué sesión <span class="grad">resolviste ese bug?</span></h1>
-          <p class="sub reveal"><b>Búsqueda full-text en cada sesión de Claude Code</b>, más el panel de uso que tu suscripción te oculta.</p>
+          <span class="pill reveal" data-en="<span class=&quot;dot&quot;></span> MIT · 0 dependencies · 0 network"><span class="dot"></span> MIT · 0 dependencias · 0 red</span>
+          <h1 class="reveal" data-en="Which session did you <span class=&quot;grad&quot;>fix that bug in?</span>">¿En qué sesión <span class="grad">resolviste ese bug?</span></h1>
+          <p class="sub reveal" data-en="<b>Full-text search across every Claude Code session</b>, plus the usage panel your subscription hides from you."><b>Búsqueda full-text en cada sesión de Claude Code</b>, más el panel de uso que tu suscripción te oculta.</p>
           <div class="row reveal">
             <div class="cmd">
               <span class="pr mono">$</span><code class="mono" id="cmd">npx claudescope-cli</code>
               <button class="cp" id="copyBtn" aria-label="Copiar comando">⧉ Copiar</button>
             </div>
-            <a class="btn btn-ghost" href="https://github.com/JoniMartin27/claudescope">Ver en GitHub</a>
+            <a class="btn btn-ghost" href="https://github.com/JoniMartin27/claudescope" data-en="View on GitHub">Ver en GitHub</a>
           </div>
-          <div class="trust reveal"><span>✓ 127.0.0.1:4317</span><span>✓ Solo lectura</span><span>✓ 100% local</span></div>
+          <div class="trust reveal"><span>✓ 127.0.0.1:4317</span><span data-en="✓ Read-only">✓ Solo lectura</span><span data-en="✓ 100% local">✓ 100% local</span></div>
         </div>
 
         <div class="demo reveal">
@@ -206,26 +207,26 @@
               </div>
               <div class="res" id="res">
                 <div class="hit" data-h="1">
-                  <div class="meta"><span class="role u">prompt</span><span class="mono">trading-bot</span><span>·</span><span>hace 3 semanas</span></div>
-                  <div class="txt">…añade el <mark>driver de Postgres</mark> al adaptador, que el pool no cierra bien al…</div>
+                  <div class="meta"><span class="role u" data-en="prompt">prompt</span><span class="mono">trading-bot</span><span>·</span><span data-en="3 weeks ago">hace 3 semanas</span></div>
+                  <div class="txt" data-en="…add the <mark>Postgres driver</mark> to the adapter, the pool isn't closing properly when…">…añade el <mark>driver de Postgres</mark> al adaptador, que el pool no cierra bien al…</div>
                 </div>
                 <div class="hit" data-h="2">
-                  <div class="meta"><span class="role a">respuesta</span><span class="mono">trading-bot</span><span>·</span><span>hace 3 semanas</span></div>
-                  <div class="txt">El <mark>driver de Postgres</mark> ya queda con <code class="mono">pg-mem</code> en proceso; el remoto real lo dejo como follow-up…</div>
+                  <div class="meta"><span class="role a" data-en="response">respuesta</span><span class="mono">trading-bot</span><span>·</span><span data-en="3 weeks ago">hace 3 semanas</span></div>
+                  <div class="txt" data-en="The <mark>Postgres driver</mark> now runs on <code class=&quot;mono&quot;>pg-mem</code> in-process; the real remote one I'm leaving as a follow-up…">El <mark>driver de Postgres</mark> ya queda con <code class="mono">pg-mem</code> en proceso; el remoto real lo dejo como follow-up…</div>
                 </div>
                 <div class="hit" data-h="3">
-                  <div class="meta"><span class="role t">tool · Edit</span><span class="mono">trading-bot</span><span>·</span><span>hace 3 semanas</span></div>
+                  <div class="meta"><span class="role t">tool · Edit</span><span class="mono">trading-bot</span><span>·</span><span data-en="3 weeks ago">hace 3 semanas</span></div>
                   <div class="txt">src/db/<mark>postgres</mark>.ts · createPool({ ... })</div>
                 </div>
               </div>
               <div class="m3">
-                <div class="mcell"><div class="lab">sesiones</div><div class="val mono" style="color:var(--amber)" id="m-ses">0</div></div>
-                <div class="mcell"><div class="lab">mensajes</div><div class="val mono" style="color:var(--ember)" id="m-msg">0</div></div>
-                <div class="mcell"><div class="lab">caché ahorró</div><div class="val mono" style="color:var(--spark)" id="m-cache">$0</div></div>
+                <div class="mcell"><div class="lab" data-en="sessions">sesiones</div><div class="val mono" style="color:var(--amber)" id="m-ses">0</div></div>
+                <div class="mcell"><div class="lab" data-en="messages">mensajes</div><div class="val mono" style="color:var(--ember)" id="m-msg">0</div></div>
+                <div class="mcell"><div class="lab" data-en="cache saved">caché ahorró</div><div class="val mono" style="color:var(--spark)" id="m-cache">$0</div></div>
               </div>
             </div>
           </div>
-          <p style="text-align:center;font-size:11px;color:var(--dim);margin-top:8px">Demo ilustrativa.</p>
+          <p style="text-align:center;font-size:11px;color:var(--dim);margin-top:8px" data-en="Illustrative demo.">Demo ilustrativa.</p>
         </div>
       </div>
     </section>
@@ -233,80 +234,80 @@
     <!-- DEMO REAL -->
     <section class="sec alt" id="demo">
       <div class="wrap center reveal">
-        <span class="eye">Demo</span>
-        <h2>Míralo en acción</h2>
-        <p class="desc">Uso, gasto por modelo y búsqueda full-text — desde tus propios transcripts.</p>
+        <span class="eye" data-en="Demo">Demo</span>
+        <h2 data-en="See it in action">Míralo en acción</h2>
+        <p class="desc" data-en="Usage, spend per model and full-text search — straight from your own transcripts.">Uso, gasto por modelo y búsqueda full-text — desde tus propios transcripts.</p>
       </div>
       <div class="wrap reveal" style="max-width:920px;margin-top:32px">
         <figure class="glass" style="overflow:hidden;padding:0">
           <img src="https://github.com/JoniMartin27/claudescope/raw/main/docs/promo.gif" alt="ClaudeScope en acción: tarjetas de estadísticas, desglose de gasto por modelo y búsqueda full-text de sesiones de Claude Code" loading="lazy" decoding="async" style="width:100%;display:block" />
         </figure>
-        <p style="text-align:center;font-size:11px;color:var(--dim);margin-top:10px">Producto real, en local.</p>
+        <p style="text-align:center;font-size:11px;color:var(--dim);margin-top:10px" data-en="Real product, running locally.">Producto real, en local.</p>
       </div>
     </section>
 
     <!-- STATS -->
     <section class="sec"><div class="wrap stats">
-      <div class="reveal"><div class="v grad">0</div><div class="l">peticiones de red</div></div>
-      <div class="reveal"><div class="v grad">0</div><div class="l">dependencias en node_modules</div></div>
-      <div class="reveal"><div class="v grad">&lt;2 s</div><div class="l">para parsear ~35k mensajes</div></div>
-      <div class="reveal"><div class="v grad">1</div><div class="l">comando, sin instalar nada</div></div>
+      <div class="reveal"><div class="v grad">0</div><div class="l" data-en="network requests">peticiones de red</div></div>
+      <div class="reveal"><div class="v grad">0</div><div class="l" data-en="dependencies in node_modules">dependencias en node_modules</div></div>
+      <div class="reveal"><div class="v grad">&lt;2 s</div><div class="l" data-en="to parse ~35k messages">para parsear ~35k mensajes</div></div>
+      <div class="reveal"><div class="v grad">1</div><div class="l" data-en="command, nothing to install">comando, sin instalar nada</div></div>
     </div></section>
 
     <!-- HOW -->
     <section class="sec alt" id="how"><div class="wrap">
-      <div class="center reveal"><span class="eye">El flujo</span><h2>De gigabytes de <span class="mono" style="font-size:.8em">.jsonl</span> a respuestas, en un comando</h2></div>
+      <div class="center reveal"><span class="eye" data-en="The flow">El flujo</span><h2 data-en="From gigabytes of <span class=&quot;mono&quot; style=&quot;font-size:.8em&quot;>.jsonl</span> to answers, in one command">De gigabytes de <span class="mono" style="font-size:.8em">.jsonl</span> a respuestas, en un comando</h2></div>
       <div class="steps">
-        <div class="glass step reveal"><div class="n mono">01</div><h4>Ejecuta un comando</h4><p><code class="mono">npx claudescope-cli</code>. Nada que instalar.</p></div>
-        <div class="glass step reveal"><div class="n mono">02</div><h4>Detecta tus datos</h4><p>Encuentra tu carpeta de Claude Code automáticamente.</p></div>
-        <div class="glass step reveal"><div class="n mono">03</div><h4>Construye en memoria</h4><p>Streaming de cada transcript, tolerante a líneas corruptas.</p></div>
-        <div class="glass step reveal"><div class="n mono">04</div><h4>Abre el dashboard</h4><p>Tu navegador abre en <code class="mono">127.0.0.1:4317</code>.</p></div>
+        <div class="glass step reveal"><div class="n mono">01</div><h4 data-en="Run one command">Ejecuta un comando</h4><p data-en="<code class=&quot;mono&quot;>npx claudescope-cli</code>. Nothing to install."><code class="mono">npx claudescope-cli</code>. Nada que instalar.</p></div>
+        <div class="glass step reveal"><div class="n mono">02</div><h4 data-en="It finds your data">Detecta tus datos</h4><p data-en="Locates your Claude Code folder automatically.">Encuentra tu carpeta de Claude Code automáticamente.</p></div>
+        <div class="glass step reveal"><div class="n mono">03</div><h4 data-en="Builds in memory">Construye en memoria</h4><p data-en="Streams every transcript, tolerant of corrupt lines.">Streaming de cada transcript, tolerante a líneas corruptas.</p></div>
+        <div class="glass step reveal"><div class="n mono">04</div><h4 data-en="Opens the dashboard">Abre el dashboard</h4><p data-en="Your browser opens at <code class=&quot;mono&quot;>127.0.0.1:4317</code>.">Tu navegador abre en <code class="mono">127.0.0.1:4317</code>.</p></div>
       </div>
     </div></section>
 
     <!-- FEATURES -->
     <section class="sec" id="features"><div class="wrap">
-      <div class="center reveal"><span class="eye">Qué obtienes</span><h2>Tu historial con Claude Code, por fin legible</h2></div>
+      <div class="center reveal"><span class="eye" data-en="What you get">Qué obtienes</span><h2 data-en="Your Claude Code history, finally readable">Tu historial con Claude Code, por fin legible</h2></div>
       <div class="cards">
-        <div class="glass feat reveal"><div class="ic">🔎</div><h3>Búsqueda full-text</h3><p>Grep instantáneo sobre cada prompt, respuesta y tool-call, con resaltado.</p></div>
-        <div class="glass feat reveal"><div class="ic">📖</div><h3>Lector de sesiones</h3><p>Pincha un resultado y lee la conversación entera en su sitio.</p></div>
-        <div class="glass feat reveal"><div class="ic">📊</div><h3>Uso de un vistazo</h3><p>Sesiones, mensajes, tokens, coste API y <b>cuánto te ahorró la caché</b>.</p></div>
-        <div class="glass feat reveal"><div class="ic">🍩</div><h3>Tokens y gasto</h3><p>A dónde van tus tokens y coste por modelo, sin librerías.</p></div>
-        <div class="glass feat reveal"><div class="ic">🧭</div><h3>Sesión típica</h3><p>Coste, mensajes y duración en mediana y p90.</p></div>
-        <div class="glass feat reveal"><div class="ic">🔥</div><h3>Heatmap y timeline</h3><p>Tu ritmo por día × hora y la tendencia diaria.</p></div>
-        <div class="glass feat reveal"><div class="ic">🧠</div><h3>Insights y arquetipo</h3><p>Tus hábitos en lenguaje claro, más tu arquetipo y racha.</p></div>
-        <div class="glass feat reveal"><div class="ic">🪄</div><h3>Tarjeta Wrapped</h3><p>Resumen anual <b>anonimizado</b> y compartible, generado en local.</p></div>
-        <div class="glass feat reveal"><div class="ic">🔌</div><h3>Multi-CLI</h3><p>También lee <b>Codex, Cursor, Aider, Gemini y Copilot CLI</b>.</p></div>
+        <div class="glass feat reveal"><div class="ic">🔎</div><h3 data-en="Full-text search">Búsqueda full-text</h3><p data-en="Instant grep over every prompt, response and tool-call, with highlighting.">Grep instantáneo sobre cada prompt, respuesta y tool-call, con resaltado.</p></div>
+        <div class="glass feat reveal"><div class="ic">📖</div><h3 data-en="Session reader">Lector de sesiones</h3><p data-en="Click a result and read the whole conversation in place.">Pincha un resultado y lee la conversación entera en su sitio.</p></div>
+        <div class="glass feat reveal"><div class="ic">📊</div><h3 data-en="Usage at a glance">Uso de un vistazo</h3><p data-en="Sessions, messages, tokens, API cost and <b>how much the cache saved you</b>.">Sesiones, mensajes, tokens, coste API y <b>cuánto te ahorró la caché</b>.</p></div>
+        <div class="glass feat reveal"><div class="ic">🍩</div><h3 data-en="Tokens and spend">Tokens y gasto</h3><p data-en="Where your tokens go and cost per model, with zero libraries.">A dónde van tus tokens y coste por modelo, sin librerías.</p></div>
+        <div class="glass feat reveal"><div class="ic">🧭</div><h3 data-en="Typical session">Sesión típica</h3><p data-en="Cost, messages and duration at median and p90.">Coste, mensajes y duración en mediana y p90.</p></div>
+        <div class="glass feat reveal"><div class="ic">🔥</div><h3 data-en="Heatmap and timeline">Heatmap y timeline</h3><p data-en="Your rhythm by day × hour and the daily trend.">Tu ritmo por día × hora y la tendencia diaria.</p></div>
+        <div class="glass feat reveal"><div class="ic">🧠</div><h3 data-en="Insights and archetype">Insights y arquetipo</h3><p data-en="Your habits in plain language, plus your archetype and streak.">Tus hábitos en lenguaje claro, más tu arquetipo y racha.</p></div>
+        <div class="glass feat reveal"><div class="ic">🪄</div><h3 data-en="Wrapped card">Tarjeta Wrapped</h3><p data-en="A shareable, <b>anonymized</b> year-in-review, generated locally.">Resumen anual <b>anonimizado</b> y compartible, generado en local.</p></div>
+        <div class="glass feat reveal"><div class="ic">🔌</div><h3 data-en="Multi-CLI">Multi-CLI</h3><p data-en="Also reads <b>Codex, Cursor, Aider, Gemini and Copilot CLI</b>.">También lee <b>Codex, Cursor, Aider, Gemini y Copilot CLI</b>.</p></div>
       </div>
-      <p class="center reveal" style="font-size:13.5px;color:var(--dim);margin-top:26px">Además: badge de percentil offline, PWA instalable, coste real opt-in y export a Markdown, CSV o JSON.</p>
+      <p class="center reveal" style="font-size:13.5px;color:var(--dim);margin-top:26px" data-en="Plus: offline percentile badge, installable PWA, opt-in real cost and export to Markdown, CSV or JSON.">Además: badge de percentil offline, PWA instalable, coste real opt-in y export a Markdown, CSV o JSON.</p>
     </div></section>
 
     <!-- PROBLEM / SEARCH -->
     <section class="sec alt"><div class="wrap two">
       <div class="reveal">
-        <span class="eye">El problema</span>
-        <h2>Tu respuesta está ahí, pero no la puedes <span class="grad">grepear</span></h2>
-        <p class="desc"><code class="mono" style="color:var(--amber)">claude --resume</code> te enseña un muro de IDs sin contenido ni búsqueda. La respuesta vive en <code class="mono" style="background:var(--line);border-radius:4px;padding:1px 5px;color:var(--amber)">~/.claude/projects/</code>, encerrada en gigabytes de <code class="mono">.jsonl</code> en crudo.</p>
+        <span class="eye" data-en="The problem">El problema</span>
+        <h2 data-en="Your answer is in there, but you can't <span class=&quot;grad&quot;>grep it</span>">Tu respuesta está ahí, pero no la puedes <span class="grad">grepear</span></h2>
+        <p class="desc" data-en="<code class=&quot;mono&quot; style=&quot;color:var(--amber)&quot;>claude --resume</code> shows you a wall of IDs with no content and no search. The answer lives in <code class=&quot;mono&quot; style=&quot;background:var(--line);border-radius:4px;padding:1px 5px;color:var(--amber)&quot;>~/.claude/projects/</code>, locked inside gigabytes of raw <code class=&quot;mono&quot;>.jsonl</code>."><code class="mono" style="color:var(--amber)">claude --resume</code> te enseña un muro de IDs sin contenido ni búsqueda. La respuesta vive en <code class="mono" style="background:var(--line);border-radius:4px;padding:1px 5px;color:var(--amber)">~/.claude/projects/</code>, encerrada en gigabytes de <code class="mono">.jsonl</code> en crudo.</p>
         <div class="chips">
-          <span class="chip">🔎 ¿Dónde monté el driver de Postgres?</span>
-          <span class="chip">💸 ¿Cuántos tokens quemo?</span>
-          <span class="chip">🗂️ ¿Qué proyecto me come más?</span>
-          <span class="chip">🛠️ ¿Qué tools usa Claude?</span>
-          <span class="chip">⏰ ¿Cuándo soy más productivo?</span>
+          <span class="chip" data-en="🔎 Where did I set up the Postgres driver?">🔎 ¿Dónde monté el driver de Postgres?</span>
+          <span class="chip" data-en="💸 How many tokens am I burning?">💸 ¿Cuántos tokens quemo?</span>
+          <span class="chip" data-en="🗂️ Which project eats the most?">🗂️ ¿Qué proyecto me come más?</span>
+          <span class="chip" data-en="🛠️ Which tools does Claude use?">🛠️ ¿Qué tools usa Claude?</span>
+          <span class="chip" data-en="⏰ When am I most productive?">⏰ ¿Cuándo soy más productivo?</span>
         </div>
-        <p style="font-size:14px;color:var(--dim);margin-top:18px">Desde los transcripts que ya tienes — <b style="color:var(--ash)">100% local, cero red</b>.</p>
+        <p style="font-size:14px;color:var(--dim);margin-top:18px" data-en="From the transcripts you already have — <b style=&quot;color:var(--ash)&quot;>100% local, zero network</b>.">Desde los transcripts que ya tienes — <b style="color:var(--ash)">100% local, cero red</b>.</p>
       </div>
       <div class="glass reveal" style="overflow:hidden">
-        <div style="border-bottom:1px solid var(--line);padding:12px 16px;font-weight:600;font-size:14px">Ritual semanal · <span class="mono" style="color:var(--amber)">--weekly</span></div>
+        <div style="border-bottom:1px solid var(--line);padding:12px 16px;font-weight:600;font-size:14px" data-en="Weekly ritual · <span class=&quot;mono&quot; style=&quot;color:var(--amber)&quot;>--weekly</span>">Ritual semanal · <span class="mono" style="color:var(--amber)">--weekly</span></div>
         <div style="padding:16px 18px">
-          <p style="font-size:13.5px;color:var(--ash)">Imprime un <b>Scope Report</b> en texto plano: deltas vs. la semana anterior, racha 🔥, arquetipo y percentil. Cabléalo a un cron.</p>
+          <p style="font-size:13.5px;color:var(--ash)" data-en="Prints a plain-text <b>Scope Report</b>: deltas vs. last week, streak 🔥, archetype and percentile. Wire it to a cron job.">Imprime un <b>Scope Report</b> en texto plano: deltas vs. la semana anterior, racha 🔥, arquetipo y percentil. Cabléalo a un cron.</p>
           <div class="codeblock mono" style="margin-top:14px">
-<span class="c"># cron, cada lunes a las 9:00</span>
+<span class="c" data-en="# cron, every Monday at 9:00"># cron, cada lunes a las 9:00</span>
 0 9 * * 1 claudescope <span class="p">--weekly</span> &gt;&gt; ~/scope.log
           </div>
         </div>
         <div style="border-top:1px solid var(--line);padding:14px 18px">
-          <div style="font-size:12px;color:var(--dim);margin-bottom:8px">Heatmap de actividad (día × hora)</div>
+          <div style="font-size:12px;color:var(--dim);margin-bottom:8px" data-en="Activity heatmap (day × hour)">Heatmap de actividad (día × hora)</div>
           <div class="heat" id="heat"></div>
         </div>
       </div>
@@ -314,28 +315,28 @@
 
     <!-- PRIVACY -->
     <section class="sec" id="privacy"><div class="wrap">
-      <div class="center reveal"><span class="eye">Privacidad primero</span><h2>Lo más sensible que tienes <span class="grad">nunca sale de tu máquina</span></h2><p class="desc">Tu historial de programación con IA no debería irse a ningún sitio para entenderse. Así que no lo hace.</p></div>
+      <div class="center reveal"><span class="eye" data-en="Privacy first">Privacidad primero</span><h2 data-en="The most sensitive thing you own <span class=&quot;grad&quot;>never leaves your machine</span>">Lo más sensible que tienes <span class="grad">nunca sale de tu máquina</span></h2><p class="desc" data-en="Your AI coding history shouldn't have to go anywhere to be understood. So it doesn't.">Tu historial de programación con IA no debería irse a ningún sitio para entenderse. Así que no lo hace.</p></div>
       <div class="pri">
-        <div class="it reveal"><div class="k">📡</div><div><h4>Cero peticiones de red</h4><p>Desconecta el WiFi y funciona idéntico.</p></div></div>
-        <div class="it reveal"><div class="k">👁️</div><div><h4>Solo lectura</h4><p>Lee tus transcripts. Nunca los toca.</p></div></div>
-        <div class="it reveal"><div class="k">🔒</div><div><h4>Servidor solo-local</h4><p>Atado a <code class="mono" style="color:var(--amber)">127.0.0.1</code>, no alcanzable desde tu red.</p></div></div>
-        <div class="it reveal"><div class="k">📦</div><div><h4>Cero dependencias</h4><p>Node puro. Nada que auditar en <code class="mono">node_modules</code>.</p></div></div>
+        <div class="it reveal"><div class="k">📡</div><div><h4 data-en="Zero network requests">Cero peticiones de red</h4><p data-en="Pull the WiFi and it works exactly the same.">Desconecta el WiFi y funciona idéntico.</p></div></div>
+        <div class="it reveal"><div class="k">👁️</div><div><h4 data-en="Read-only">Solo lectura</h4><p data-en="Reads your transcripts. Never touches them.">Lee tus transcripts. Nunca los toca.</p></div></div>
+        <div class="it reveal"><div class="k">🔒</div><div><h4 data-en="Local-only server">Servidor solo-local</h4><p data-en="Bound to <code class=&quot;mono&quot; style=&quot;color:var(--amber)&quot;>127.0.0.1</code>, unreachable from your network.">Atado a <code class="mono" style="color:var(--amber)">127.0.0.1</code>, no alcanzable desde tu red.</p></div></div>
+        <div class="it reveal"><div class="k">📦</div><div><h4 data-en="Zero dependencies">Cero dependencias</h4><p data-en="Pure Node. Nothing to audit in <code class=&quot;mono&quot;>node_modules</code>.">Node puro. Nada que auditar en <code class="mono">node_modules</code>.</p></div></div>
       </div>
-      <p class="center reveal" style="font-size:13.5px;color:var(--dim);margin-top:26px"><code class="mono" style="color:var(--amber)">--merge</code> combina máquinas de tu equipo y <code class="mono" style="color:var(--amber)">--csv</code> / <code class="mono" style="color:var(--amber)">--report</code> generan un artefacto verificable por hash, sin exponer ni un solo prompt.</p>
+      <p class="center reveal" style="font-size:13.5px;color:var(--dim);margin-top:26px" data-en="<code class=&quot;mono&quot; style=&quot;color:var(--amber)&quot;>--merge</code> combines your team's machines and <code class=&quot;mono&quot; style=&quot;color:var(--amber)&quot;>--csv</code> / <code class=&quot;mono&quot; style=&quot;color:var(--amber)&quot;>--report</code> produce a hash-verifiable artifact, without exposing a single prompt."><code class="mono" style="color:var(--amber)">--merge</code> combina máquinas de tu equipo y <code class="mono" style="color:var(--amber)">--csv</code> / <code class="mono" style="color:var(--amber)">--report</code> generan un artefacto verificable por hash, sin exponer ni un solo prompt.</p>
     </div></section>
 
     <!-- GET / INSTALL -->
     <section class="sec alt" id="get"><div class="wrap">
-      <div class="center reveal"><span class="eye">Instalar</span><h2>Un comando. Eso es todo.</h2><p class="desc">Sin config, sin cuenta, sin red. Node 18+ y tu navegador abre el dashboard.</p></div>
+      <div class="center reveal"><span class="eye" data-en="Install">Instalar</span><h2 data-en="One command. That's it.">Un comando. Eso es todo.</h2><p class="desc" data-en="No config, no account, no network. Node 18+ and your browser opens the dashboard.">Sin config, sin cuenta, sin red. Node 18+ y tu navegador abre el dashboard.</p></div>
       <div class="reveal" style="display:flex;flex-direction:column;align-items:center;gap:16px;margin-top:38px">
         <div class="cmd" style="font-size:17px;padding:16px 16px 16px 22px">
           <span class="pr mono">$</span><code class="mono" id="cmd2">npx claudescope-cli</code>
           <button class="cp" id="copyBtn2" aria-label="Copiar comando">⧉ Copiar</button>
         </div>
-        <p style="font-size:13.5px;color:var(--dim);text-align:center;max-width:560px">Abre en <code class="mono" style="color:var(--amber)">http://127.0.0.1:4317</code>. ¿Lo prefieres global? <code class="mono">npm i -g claudescope-cli</code>.</p>
+        <p style="font-size:13.5px;color:var(--dim);text-align:center;max-width:560px" data-en="Opens at <code class=&quot;mono&quot; style=&quot;color:var(--amber)&quot;>http://127.0.0.1:4317</code>. Prefer it global? <code class=&quot;mono&quot;>npm i -g claudescope-cli</code>.">Abre en <code class="mono" style="color:var(--amber)">http://127.0.0.1:4317</code>. ¿Lo prefieres global? <code class="mono">npm i -g claudescope-cli</code>.</p>
         <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:4px">
-          <a class="btn btn-ghost" href="https://github.com/JoniMartin27/claudescope">⭐ Estrella en GitHub</a>
-          <a class="btn btn-ghost" href="https://www.npmjs.com/package/claudescope-cli">📦 Ver en npm</a>
+          <a class="btn btn-ghost" href="https://github.com/JoniMartin27/claudescope" data-en="⭐ Star on GitHub">⭐ Estrella en GitHub</a>
+          <a class="btn btn-ghost" href="https://www.npmjs.com/package/claudescope-cli" data-en="📦 View on npm">📦 Ver en npm</a>
         </div>
         <div class="trust" style="justify-content:center"><span>✓ Windows · macOS · Linux</span><span>✓ Node ≥ 18</span><span>✓ MIT</span></div>
       </div>
@@ -345,19 +346,19 @@
     <section class="sec"><div class="wrap">
       <div class="glass ctaband reveal">
         <div class="bggrid" style="position:absolute;inset:0;z-index:-1;opacity:.6"></div>
-        <h2>Deja de buscar a ciegas. <span class="grad">Ponle el catalejo.</span></h2>
-        <p class="desc" style="max-width:560px;margin:14px auto 0">Tus propios transcripts, por fin legibles. En local.</p>
+        <h2 data-en="Stop searching blind. <span class=&quot;grad&quot;>Point the spyglass.</span>">Deja de buscar a ciegas. <span class="grad">Ponle el catalejo.</span></h2>
+        <p class="desc" style="max-width:560px;margin:14px auto 0" data-en="Your own transcripts, finally readable. Locally.">Tus propios transcripts, por fin legibles. En local.</p>
         <div class="row" style="justify-content:center;margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;align-items:center">
           <div class="cmd"><span class="pr mono">$</span><code class="mono" id="cmd3">npx claudescope-cli</code><button class="cp" id="copyBtn3" aria-label="Copiar comando">⧉ Copiar</button></div>
-          <a class="btn btn-ghost" href="https://github.com/JoniMartin27/claudescope">⭐ Estrella en GitHub</a>
+          <a class="btn btn-ghost" href="https://github.com/JoniMartin27/claudescope" data-en="⭐ Star on GitHub">⭐ Estrella en GitHub</a>
         </div>
       </div>
     </div></section>
   </main>
 
   <footer><div class="wrap foot">
-    <span>ClaudeScope es un proyecto de <a href="https://fervon.dev">🔥 Fervon</a> · Forjado al rojo vivo</span>
-    <span>MIT © 2026 Joni Martin · <a href="https://github.com/JoniMartin27/claudescope">GitHub ↗</a></span>
+    <span data-en="ClaudeScope is a project by <a href=&quot;https://fervon.dev&quot;>🔥 Fervon</a> · Forged red-hot">ClaudeScope es un proyecto de <a href="https://fervon.dev">🔥 Fervon</a> · Forjado al rojo vivo</span>
+    <span data-en="MIT © 2026 Joni Martin · <a href=&quot;https://github.com/JoniMartin27/claudescope&quot;>GitHub ↗</a>">MIT © 2026 Joni Martin · <a href="https://github.com/JoniMartin27/claudescope">GitHub ↗</a></span>
   </div></footer>
 
   <script>
@@ -435,5 +436,25 @@
     var rev=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("in"); rev.unobserve(en.target); } }); },{threshold:.12});
     document.querySelectorAll(".reveal").forEach(function(el){ rev.observe(el); });
   </script>
+<script>
+/* Fervon bilingual toggle — keep identical across all Fervon pages */
+(function(){
+  var KEY="fervon-lang";
+  var base=(document.documentElement.getAttribute("lang")||"es").slice(0,2).toLowerCase();
+  var other=base==="es"?"en":"es";
+  var nodes=[].slice.call(document.querySelectorAll("[data-"+other+"]"));
+  nodes.forEach(function(n){ var a=n.getAttribute("data-i18n-attr"); n.setAttribute("data-"+base, a?(n.getAttribute(a)||""):n.innerHTML); });
+  function apply(lang){
+    document.documentElement.setAttribute("lang",lang);
+    for(var i=0;i<nodes.length;i++){ var n=nodes[i], v=n.getAttribute("data-"+lang); if(v===null) continue; var a=n.getAttribute("data-i18n-attr"); if(a) n.setAttribute(a,v); else n.innerHTML=v; }
+    var b=document.getElementById("lang"); if(b) b.textContent=(lang==="es"?"EN":"ES");
+  }
+  var saved=null; try{saved=localStorage.getItem(KEY);}catch(e){}
+  var initial=saved||(((navigator.language||"").toLowerCase().slice(0,2)==="es")?"es":"en");
+  apply(initial);
+  var b=document.getElementById("lang");
+  if(b) b.addEventListener("click",function(){ var nx=(document.documentElement.getAttribute("lang")==="es")?"en":"es"; try{localStorage.setItem(KEY,nx);}catch(e){} apply(nx); });
+})();
+</script>
 </body>
 </html>
