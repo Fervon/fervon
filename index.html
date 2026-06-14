@@ -58,9 +58,11 @@
     nav .links .cta{color:var(--bone);border:1px solid var(--line2);margin-left:6px}
     nav .links .cta:hover{border-color:var(--ember);color:var(--amber)}
     .hasmega{position:relative}
+    .hasmega::after{content:"";position:absolute;top:100%;left:-40px;right:-40px;height:18px;display:none}
+    .hasmega:hover::after,.hasmega.open::after{display:block}
     .navbtn{cursor:pointer;display:inline-flex;align-items:center;gap:5px}
-    .mega{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(6px);width:min(700px,94vw);background:#15100E;border:1px solid var(--line2);border-radius:16px;padding:16px;box-shadow:0 24px 60px rgba(0,0,0,.55);display:grid;grid-template-columns:1fr 1fr;gap:6px 20px;opacity:0;visibility:hidden;transition:opacity .16s ease,transform .16s ease;z-index:70}
-    .hasmega:hover .mega{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+    .mega{position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(6px);width:min(700px,94vw);background:#15100E;border:1px solid var(--line2);border-radius:16px;padding:16px;box-shadow:0 24px 60px rgba(0,0,0,.55);display:grid;grid-template-columns:1fr 1fr;gap:6px 20px;opacity:0;visibility:hidden;transition:opacity .16s ease,transform .16s ease;z-index:70}
+    .hasmega:hover .mega,.hasmega.open .mega{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
     .megagroup.full{grid-column:1 / -1}
     .megalabel{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--dim);padding:8px 10px 3px}
     .megaitem{display:flex;gap:11px;align-items:flex-start;padding:9px 10px;border-radius:10px;transition:background .14s}
@@ -102,15 +104,19 @@
     .sec .sub{text-align:center;color:var(--dim);font-size:15px;margin-bottom:32px}
 
     /* Trace destacado */
-    .star{position:relative;border-radius:20px;padding:32px;display:grid;grid-template-columns:1fr auto;gap:26px;align-items:center;background:linear-gradient(140deg,#211425,#15100E);border:1px solid var(--line2);overflow:hidden}
-    .star::after{content:"";position:absolute;right:-60px;top:-60px;width:280px;height:280px;background:radial-gradient(circle,rgba(185,139,255,.18),transparent 70%);pointer-events:none}
-    .star .picon{font-size:54px;position:relative}
-    .star .pname{font-size:26px;font-weight:800;letter-spacing:-.4px;margin-top:12px}
+    .star{position:relative;border-radius:20px;display:grid;grid-template-columns:1.12fr .88fr;align-items:stretch;background:linear-gradient(140deg,#1d1420,#15100E);border:1px solid var(--line2);overflow:hidden;min-height:310px;transition:border-color .18s ease,box-shadow .18s ease}
+    .star:hover{border-color:color-mix(in srgb,var(--ac) 55%,var(--line2));box-shadow:0 20px 48px rgba(0,0,0,.5)}
+    .star .scontent{padding:34px 36px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:2}
+    .star .sshot{position:relative;overflow:hidden}
+    .star .sshot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.92;transition:transform .5s ease}
+    .star:hover .sshot img{transform:scale(1.04)}
+    .star .sshot::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#15100E 1%,rgba(21,16,14,.35) 42%,transparent 70%)}
+    .star .pname{font-size:27px;font-weight:800;letter-spacing:-.4px;margin-top:14px}
     .star .pname small{color:var(--dim);font-weight:400;font-size:15px}
-    .star .pdesc{color:var(--ash);margin-top:10px;max-width:520px}
+    .star .pdesc{color:var(--ash);margin-top:12px;max-width:470px;line-height:1.62}
     .star .pdesc strong{color:var(--bone)}
-    .star .acts{margin-top:20px;display:flex;gap:12px;flex-wrap:wrap}
-    @media(max-width:640px){.star{grid-template-columns:1fr}.star .picon{display:none}}
+    .star .acts{margin-top:22px;display:flex;gap:12px;flex-wrap:wrap}
+    @media(max-width:680px){.star{grid-template-columns:1fr;min-height:0}.star .sshot{display:none}.star .scontent{padding:28px 24px}}
 
     /* Categorías */
     .catrow{display:flex;align-items:center;gap:14px;margin:36px 0 14px}
@@ -119,13 +125,19 @@
     .catrow::after{content:"";flex:1;height:1px;background:var(--line)}
 
     /* Grid de productos */
-    .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px}
-    .pcard{position:relative;display:block;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;transition:transform .16s ease,border-color .16s ease,box-shadow .16s ease}
-    .pcard:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--ac) 60%,var(--line));box-shadow:0 14px 34px rgba(0,0,0,.42)}
-    .pcard .picon{width:46px;height:46px;border-radius:13px;display:grid;place-items:center;font-size:24px;background:color-mix(in srgb,var(--ac) 15%,transparent);border:1px solid color-mix(in srgb,var(--ac) 32%,transparent)}
-    .pcard .pname{display:flex;align-items:center;gap:9px;font-size:18px;font-weight:700;margin-top:14px}
+    .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:18px}
+    .pcard{position:relative;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+    .pcard:hover{transform:translateY(-5px);border-color:color-mix(in srgb,var(--ac) 60%,var(--line));box-shadow:0 18px 40px rgba(0,0,0,.5)}
+    .pcard .shot{position:relative;aspect-ratio:16/9;overflow:hidden;background:#0c0908}
+    .pcard .shot img{width:100%;height:100%;object-fit:cover;display:block;opacity:.92;transition:transform .45s ease}
+    .pcard:hover .shot img{transform:scale(1.06)}
+    .pcard .shot::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 52%,var(--card))}
+    .pcard .pbody{padding:16px 20px 22px;margin-top:-8px;position:relative;z-index:2}
+    .pcard .pname{display:flex;align-items:center;gap:9px;font-size:18px;font-weight:700}
     .pcard .pdesc{color:var(--ash);font-size:14.5px;margin-top:8px;min-height:42px}
-    .pcard .pgo{margin-top:16px;font-size:13.5px;font-weight:600;color:var(--ac)}
+    .pcard .pgo{margin-top:16px;font-size:13.5px;font-weight:700;color:var(--ac);display:inline-flex;align-items:center;gap:6px}
+    .pcard .pgo::after{content:"→";transition:transform .16s ease}
+    .pcard:hover .pgo::after{transform:translateX(4px)}
     .badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:14px;white-space:nowrap}
     .badge.free{background:rgba(143,200,107,.14);color:#A6D585;border:1px solid rgba(143,200,107,.3)}
     .badge.paid{background:rgba(255,176,46,.14);color:var(--amber);border:1px solid rgba(255,176,46,.32)}
@@ -244,7 +256,7 @@
       <p class="sub">Cada producto tiene su propia página. Divididos por para qué sirven.</p>
 
       <a class="star" href="/trace/" style="--ac:#B98BFF">
-        <div>
+        <div class="scontent">
           <span class="badge paid">⭐ Producto estrella · de pago</span>
           <div class="pname">Trace <small>by Fervon</small></div>
           <p class="pdesc">Tu memoria personal, en tu máquina. Todo lo que ves, lees y escribes — buscable al instante, cross-platform y <strong>sin grabar tu pantalla</strong>. El "Rewind" que Meta mató, pero local y privado.</p>
@@ -253,44 +265,54 @@
             <span class="btn btn-ghost">Únete a la lista</span>
           </div>
         </div>
-        <div class="picon">🧠</div>
+        <div class="sshot"><img src="/assets/hero-trace.png" alt="Trace — memoria personal local-first" loading="lazy"></div>
       </a>
 
       <div class="catrow"><span class="cattag">IA local &amp; agentes</span><span class="catnote">Para construir y medir con LLMs en tu equipo</span></div>
       <div class="products">
         <a class="pcard" href="/inferbench/" style="--ac:#FFB02E">
-          <div class="picon">🔬</div>
-          <div class="pname">inferbench <span class="badge free">Gratis</span></div>
-          <div class="pdesc">Sabe qué LLM corre en tu GPU y a cuántos tok/s. Benchmark real con un click. Serve + MCP.</div>
-          <div class="pgo">Ver inferbench →</div>
+          <div class="shot"><img src="/assets/hero-inferbench.png" alt="inferbench" loading="lazy"></div>
+          <div class="pbody">
+            <div class="pname">inferbench <span class="badge free">Gratis</span></div>
+            <div class="pdesc">Sabe qué LLM corre en tu GPU y a cuántos tok/s. Benchmark real con un click. Serve + MCP.</div>
+            <div class="pgo">Ver inferbench</div>
+          </div>
         </a>
         <a class="pcard" href="/lookspan/" style="--ac:#5BC8D8">
-          <div class="picon">📡</div>
-          <div class="pname">Lookspan <span class="badge free">Gratis</span></div>
-          <div class="pdesc">Observabilidad local-first para agentes de IA. Cada llamada LLM, herramienta MCP y coste.</div>
-          <div class="pgo">Ver Lookspan →</div>
+          <div class="shot"><img src="/assets/hero-lookspan.png" alt="Lookspan" loading="lazy"></div>
+          <div class="pbody">
+            <div class="pname">Lookspan <span class="badge free">Gratis</span></div>
+            <div class="pdesc">Observabilidad local-first para agentes de IA. Cada llamada LLM, herramienta MCP y coste.</div>
+            <div class="pgo">Ver Lookspan</div>
+          </div>
         </a>
         <a class="pcard" href="/claudescope/" style="--ac:#A78BFF">
-          <div class="picon">🔭</div>
-          <div class="pname">ClaudeScope <span class="badge free">Gratis</span></div>
-          <div class="pdesc">Busca en todas tus sesiones de Claude Code. Dashboard local-first, 0 deps, 0 red.</div>
-          <div class="pgo">Ver ClaudeScope →</div>
+          <div class="shot"><img src="/assets/hero-claudescope.png" alt="ClaudeScope" loading="lazy"></div>
+          <div class="pbody">
+            <div class="pname">ClaudeScope <span class="badge free">Gratis</span></div>
+            <div class="pdesc">Busca en todas tus sesiones de Claude Code. Dashboard local-first, 0 deps, 0 red.</div>
+            <div class="pgo">Ver ClaudeScope</div>
+          </div>
         </a>
       </div>
 
       <div class="catrow"><span class="cattag">Tus utilidades</span><span class="catnote">Para tu día a día como dev</span></div>
       <div class="products">
         <a class="pcard" href="/launchpad/" style="--ac:#8FD06B">
-          <div class="picon">🚀</div>
-          <div class="pname">launchpad <span class="badge free">Gratis</span></div>
-          <div class="pdesc">Launcher local que descubre y levanta todos tus proyectos sin colisión de puertos.</div>
-          <div class="pgo">Ver launchpad →</div>
+          <div class="shot"><img src="/assets/hero-launchpad.png" alt="launchpad" loading="lazy"></div>
+          <div class="pbody">
+            <div class="pname">launchpad <span class="badge free">Gratis</span></div>
+            <div class="pdesc">Launcher local que descubre y levanta todos tus proyectos sin colisión de puertos.</div>
+            <div class="pgo">Ver launchpad</div>
+          </div>
         </a>
         <a class="pcard" href="/pregon/" style="--ac:#FF8A66">
-          <div class="picon">📣</div>
-          <div class="pname">Pregón <span class="badge free">Gratis</span></div>
-          <div class="pdesc">Compón una vez, publica en 8+ canales y mide la tracción de tus lanzamientos.</div>
-          <div class="pgo">Ver Pregón →</div>
+          <div class="shot"><img src="/assets/hero-pregon.png" alt="Pregón" loading="lazy"></div>
+          <div class="pbody">
+            <div class="pname">Pregón <span class="badge free">Gratis</span></div>
+            <div class="pdesc">Compón una vez, publica en 8+ canales y mide la tracción de tus lanzamientos.</div>
+            <div class="pgo">Ver Pregón</div>
+          </div>
         </a>
       </div>
     </section>
@@ -357,5 +379,13 @@
     <div class="copy">Forjado al rojo vivo · © 2026 Fervon</div>
   </div></footer>
 
+  <script>
+    (function(){
+      var hm=document.querySelector('.hasmega'); if(!hm) return;
+      var t, mq=window.matchMedia('(min-width:761px)');
+      hm.addEventListener('mouseenter',function(){ if(!mq.matches) return; clearTimeout(t); hm.classList.add('open'); });
+      hm.addEventListener('mouseleave',function(){ clearTimeout(t); t=setTimeout(function(){ hm.classList.remove('open'); },320); });
+    })();
+  </script>
 </body>
 </html>
