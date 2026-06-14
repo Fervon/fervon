@@ -73,13 +73,14 @@
   <link rel="stylesheet" href="screenpipe-alternative.css" />
 </head>
 <body>
+  <a class="skip" href="#top" data-en="Skip to content">Saltar al contenido</a>
 
   <header class="nav"><div class="glass bar">
-    <a class="crumb" href="/">
-      <span class="fv"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> fervon</span><span class="sep">›</span>
+    <nav class="crumb" aria-label="Ruta de navegación">
+      <a href="/"><span class="fv"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> fervon</span></a><span class="sep">›</span>
       <a href="/trace/"><svg class="mark" width="17" height="17" viewBox="0 0 26 26" aria-hidden="true"><path d="M4 18 L11 8 L18 14 L22 6" fill="none" stroke="var(--amber)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4" cy="18" r="2.4" fill="var(--amber)"/><circle cx="11" cy="8" r="2.4" fill="var(--amber)"/><circle cx="18" cy="14" r="2.4" fill="var(--amber)"/><circle cx="22" cy="6" r="2.4" fill="var(--amber)"/></svg>Trace</a><span class="sep">›</span>
-      <span data-es="Alternativa a Screenpipe">Screenpipe alternative</span>
-    </a>
+      <span aria-current="page" data-es="Alternativa a Screenpipe">Screenpipe alternative</span>
+    </nav>
     <div class="act">
       <button id="lang" class="btn btn-ghost btn-sm" type="button" aria-label="Cambiar idioma / Switch language">ES</button>
       <a class="btn btn-ghost btn-sm" href="https://github.com/JoniMartin27/trace">GitHub</a>
@@ -144,10 +145,10 @@
     <section class="sec" id="different"><div class="wrap">
       <div class="center reveal"><span class="eye" data-es="Por qué encaja Trace">Why Trace fits</span><h2 data-es="Qué hace Trace de forma diferente">What Trace does differently</h2><p class="desc" data-es="Trace se construye sobre otra apuesta: rara vez necesitas un vídeo completo de tu pantalla — necesitas <em>volver a encontrar las cosas</em>. Así que captura menos, no te estorba y aun así te deja buscar en todo tu día.">Trace is built around a different bet: you rarely need a full video of your screen — you need to <em>find things again</em>. So it captures less, stays out of your way, and still lets you search your whole day.</p></div>
       <div class="cards">
-        <div class="glass feat reveal"><div class="ic">🪶</div><h3 data-es="Señales pequeñas, no vídeo">Small signals, not video</h3><p data-es="Trace anota señales ligeras — historial de navegador, la app o ventana activa y el texto del portapapeles — en vez de grabar metraje continuo de pantalla y audio.">Trace notes lightweight signals — browser history, the active app or window, and clipboard text — rather than recording continuous screen-and-audio footage.</p></div>
-        <div class="glass feat reveal"><div class="ic">🔎</div><h3 data-es="Búsqueda y timeline">Search &amp; timeline</h3><p data-es="Escribe cualquier palabra que recuerdes, o recorre una línea de tiempo para responder «¿qué estaba haciendo el martes?». Instantáneo, totalmente offline y solo tuyo.">Type any word you remember, or scroll a timeline to answer "what was I doing on Tuesday?". Instant, fully offline, and yours alone.</p></div>
-        <div class="glass feat reveal"><div class="ic">📵</div><h3 data-es="Local de verdad">Truly local</h3><p data-es="Sin servidores, sin cuentas, sin sincronización. Trace está diseñado para correr con el firewall cerrado, así que tu memoria nunca sale de tu ordenador.">No servers, no accounts, no sync. Trace is designed to run with your firewall closed, so your memory never leaves your computer.</p></div>
-        <div class="glass feat reveal"><div class="ic">🧩</div><h3 data-es="Capturas + OCR, más adelante">Screenshots + OCR, later</h3><p data-es="Las capturas opcionales con OCR están en la hoja de ruta — opt-in y desactivadas por defecto. La captura de hoy es deliberadamente ligera.">Optional screenshots with OCR are on the roadmap — opt-in and off by default. Today's capture is deliberately light.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.67 19a2 2 0 0 0 1.416-.588l6.154-6.172a6 6 0 0 0-8.49-8.49L5.586 9.914A2 2 0 0 0 5 11.328V18a1 1 0 0 0 1 1z"/><path d="M16 8 2 22"/><path d="M17.5 15H9"/></svg></div><h3 data-es="Señales pequeñas, no vídeo">Small signals, not video</h3><p data-es="Trace anota señales ligeras — historial de navegador, la app o ventana activa y el texto del portapapeles — en vez de grabar metraje continuo de pantalla y audio.">Trace notes lightweight signals — browser history, the active app or window, and clipboard text — rather than recording continuous screen-and-audio footage.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div><h3 data-es="Búsqueda y timeline">Search &amp; timeline</h3><p data-es="Escribe cualquier palabra que recuerdes, o recorre una línea de tiempo para responder «¿qué estaba haciendo el martes?». Instantáneo, totalmente offline y solo tuyo.">Type any word you remember, or scroll a timeline to answer "what was I doing on Tuesday?". Instant, fully offline, and yours alone.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h.01"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/><path d="M5 12.859a10 10 0 0 1 5.17-2.69"/><path d="M19 12.859a10 10 0 0 0-2.007-1.523"/><path d="M2 8.82a15 15 0 0 1 4.177-2.643"/><path d="M22 8.82a15 15 0 0 0-11.288-3.764"/><path d="m2 2 20 20"/></svg></div><h3 data-es="Local de verdad">Truly local</h3><p data-es="Sin servidores, sin cuentas, sin sincronización. Trace está diseñado para correr con el firewall cerrado, así que tu memoria nunca sale de tu ordenador.">No servers, no accounts, no sync. Trace is designed to run with your firewall closed, so your memory never leaves your computer.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"/></svg></div><h3 data-es="Capturas + OCR, más adelante">Screenshots + OCR, later</h3><p data-es="Las capturas opcionales con OCR están en la hoja de ruta — opt-in y desactivadas por defecto. La captura de hoy es deliberadamente ligera.">Optional screenshots with OCR are on the roadmap — opt-in and off by default. Today's capture is deliberately light.</p></div>
       </div>
     </div></section>
 
@@ -188,7 +189,7 @@
       <div class="center reveal"><span class="eye" data-es="Comparativa">Comparison</span><h2 data-es="Trace vs Screenpipe">Trace vs Screenpipe</h2><p class="desc" data-es="Una mirada justa, lado a lado. Herramientas distintas para personas distintas — elige la que encaje con cómo trabajas de verdad.">A fair, side-by-side look. Different tools for different people — pick the one that fits how you actually work.</p></div>
       <div class="glass reveal s-oxNvOtru">
         <div class="s-Gx11RS-7"><table>
-          <thead><tr><th>&nbsp;</th><th class="isus">Trace</th><th>Screenpipe</th></tr></thead>
+          <thead><tr><th scope="col">&nbsp;</th><th scope="col" class="isus">Trace</th><th scope="col">Screenpipe</th></tr></thead>
           <tbody>
             <tr>
               <th scope="row" data-es="Enfoque de captura">Capture approach</th>
@@ -240,6 +241,8 @@
     <section class="sec alt" id="waitlist"><div class="wrap">
       <div class="center reveal"><span class="eye" data-es="Lista de espera">Waitlist</span><h2 data-es="Empezar">Get started</h2><p class="desc" data-es="Trace está en desarrollo temprano y aún no se puede descargar. Únete a la lista para conseguir la beta, fijar el precio lifetime de $39 y ser de los primeros en probar la alternativa ligera y de pago único a Screenpipe.">Trace is in early development and not downloadable yet. Join the waitlist to get the beta, lock in the $39 lifetime price, and be first to try the lightweight, one-time-purchase alternative to Screenpipe.</p></div>
       <form id="wl" class="wlform reveal" action="https://formspree.io/f/mnjyoknb" method="POST" novalidate>
+          <input type="hidden" name="origen" value="trace/screenpipe-alternative" />
+          <input type="hidden" name="_subject" value="fervon.dev · trace/screenpipe-alternative" />
         <div class="frow">
           <label class="vh" for="email" data-es="Correo electrónico">Email address</label>
           <input type="email" id="email" name="email" required autocomplete="email" inputmode="email" placeholder="you@example.com" data-i18n-attr="placeholder" data-es="tu@ejemplo.com" />

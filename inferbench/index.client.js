@@ -1,9 +1,9 @@
 // ---- Descarga: detección de SO ----
     (function(){
       var bins = {
-        win:   { name:"Windows",  file:"InferBench.Setup.0.1.1.exe",  icon:"🪟", url:"https://github.com/JoniMartin27/inferbench/releases/download/v0.1.1/InferBench.Setup.0.1.1.exe" },
-        mac:   { name:"macOS",    file:"InferBench-0.1.1-arm64.dmg",  icon:"🍎", url:"https://github.com/JoniMartin27/inferbench/releases/download/v0.1.1/InferBench-0.1.1-arm64.dmg" },
-        linux: { name:"Linux",    file:"InferBench-0.1.1.AppImage",   icon:"🐧", url:"https://github.com/JoniMartin27/inferbench/releases/download/v0.1.1/InferBench-0.1.1.AppImage" }
+        win:   { name:"Windows",  file:".exe · Setup",          icon:"🪟", url:"https://github.com/JoniMartin27/inferbench/releases/latest" },
+        mac:   { name:"macOS",    file:".dmg · Apple Silicon",  icon:"🍎", url:"https://github.com/JoniMartin27/inferbench/releases/latest" },
+        linux: { name:"Linux",    file:".AppImage",             icon:"🐧", url:"https://github.com/JoniMartin27/inferbench/releases/latest" }
       };
       var p = (navigator.userAgent + " " + (navigator.platform||"")).toLowerCase();
       var os = p.indexOf("win")>-1 ? "win" : (p.indexOf("mac")>-1||p.indexOf("iphone")>-1||p.indexOf("ipad")>-1) ? "mac" : (p.indexOf("linux")>-1||p.indexOf("android")>-1) ? "linux" : null;
@@ -12,7 +12,6 @@
         main.href = b.url;
         document.getElementById("dlOsName").textContent = b.name;
         document.getElementById("dlFile").textContent = b.file;
-        document.getElementById("dlIcon").textContent = b.icon;
         // resaltar el chip del SO actual y mover los otros (deja los 3 visibles)
         var chip = document.querySelector('.dlchip[data-os="'+os+'"]');
         if(chip) chip.style.display = "none";
@@ -71,4 +70,36 @@
   apply(initial);
   var b=document.getElementById("lang");
   if(b) b.addEventListener("click",function(){ var nx=(document.documentElement.getAttribute("lang")==="es")?"en":"es"; try{localStorage.setItem(KEY,nx);}catch(e){} apply(nx); });
+})();
+
+
+/* Fervon mobile nav — universal, keep identical across all pages */
+(function(){
+  var bar=document.querySelector('.nav .bar')||document.querySelector('nav .bar');
+  var src=document.querySelector('.nav .menu')||document.querySelector('nav .links');
+  if(!bar||!src||bar.querySelector('.mnav-btn')) return;
+  var links=[].slice.call(src.querySelectorAll('a[href]')).filter(function(a){ return !a.classList.contains('navbtn'); });
+  if(!links.length) return;
+  var btn=document.createElement('button');
+  btn.type='button'; btn.className='mnav-btn';
+  btn.setAttribute('aria-label','Menú'); btn.setAttribute('aria-expanded','false'); btn.setAttribute('aria-controls','mnav-panel');
+  btn.innerHTML='<span></span><span></span><span></span>';
+  var panel=document.createElement('nav');
+  panel.className='mnav-panel'; panel.id='mnav-panel'; panel.setAttribute('aria-label','Menú');
+  links.forEach(function(a){
+    var c=document.createElement('a');
+    c.href=a.getAttribute('href');
+    c.textContent=((a.querySelector('.mi-n,.pname,.nm')||a).textContent||'').replace(/\s+/g,' ').trim();
+    if(a.classList.contains('cta')||a.classList.contains('btn-fire')) c.className='hot';
+    panel.appendChild(c);
+  });
+  var gh=bar.querySelector('.act a.btn-ghost, .act a[href*="github"]');
+  if(gh){ var g=document.createElement('a'); g.href=gh.getAttribute('href'); g.textContent=(gh.textContent||'GitHub').replace(/\s+/g,' ').trim(); panel.appendChild(g); }
+  var act=bar.querySelector('.act'); (act||bar).appendChild(btn); bar.appendChild(panel); bar.classList.add('mnav-on');
+  function set(o){ btn.setAttribute('aria-expanded',o?'true':'false'); panel.classList.toggle('open',o); btn.classList.toggle('on',o); }
+  btn.addEventListener('click',function(e){ e.stopPropagation(); set(!panel.classList.contains('open')); });
+  panel.addEventListener('click',function(e){ if(e.target.closest('a')) set(false); });
+  document.addEventListener('click',function(e){ if(!bar.contains(e.target)) set(false); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape') set(false); });
+  window.addEventListener('resize',function(){ if(window.innerWidth>880) set(false); });
 })();
