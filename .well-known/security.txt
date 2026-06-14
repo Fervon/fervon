@@ -1,0 +1,5 @@
+Contact: mailto:jonathanmartinpaez@gmail.com
+Expires: 2027-06-14T23:59:59.000Z
+Preferred-Languages: es, en
+Canonical: https://fervon.dev/.well-known/security.txt
+Policy: https://github.com/Fervon/fervon/blob/main/SECURITY.md
