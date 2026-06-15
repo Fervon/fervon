@@ -49,39 +49,5 @@
       });
     })();
 
-    // ---- Reveal on scroll ----
-    var rev=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("in"); rev.unobserve(en.target); } }); },{threshold:.12});
-    document.querySelectorAll(".reveal").forEach(function(el){ rev.observe(el); });
   
-
-  /* Fervon bilingual toggle — keep identical across all Fervon pages */
-  (function(){
-    var KEY="fervon-lang";
-    var base=(document.documentElement.getAttribute("lang")||"es").slice(0,2).toLowerCase();
-    var other=base==="es"?"en":"es";
-    var nodes=[].slice.call(document.querySelectorAll("[data-"+other+"]"));
-    nodes.forEach(function(n){
-      var a=n.getAttribute("data-i18n-attr");
-      n.setAttribute("data-"+base, a?(n.getAttribute(a)||""):n.innerHTML);
-    });
-    function apply(lang){
-      document.documentElement.setAttribute("lang",lang);
-      for(var i=0;i<nodes.length;i++){
-        var n=nodes[i], v=n.getAttribute("data-"+lang);
-        if(v===null) continue;
-        var a=n.getAttribute("data-i18n-attr");
-        if(a) n.setAttribute(a,v); else n.innerHTML=v;
-      }
-      var b=document.getElementById("lang"); if(b) b.textContent=(lang==="es"?"EN":"ES");
-    }
-    var saved=null; try{saved=localStorage.getItem(KEY);}catch(e){}
-    var initial=saved||(((navigator.language||"").toLowerCase().slice(0,2)==="es")?"es":"en");
-    apply(initial);
-    var b=document.getElementById("lang");
-    if(b) b.addEventListener("click",function(){
-      var nx=(document.documentElement.getAttribute("lang")==="es")?"en":"es";
-      try{localStorage.setItem(KEY,nx);}catch(e){}
-      apply(nx);
-    });
-  })();
 

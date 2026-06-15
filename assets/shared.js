@@ -36,3 +36,40 @@
   document.addEventListener('keydown',function(e){ if(e.key==='Escape') set(false); });
   window.addEventListener('resize',function(){ if(window.innerWidth>880) set(false); });
 })();
+
+/* Fervon bilingual toggle — ES/EN, persisted, used by every page */
+(function(){
+  var KEY="fervon-lang";
+  var base=(document.documentElement.getAttribute("lang")||"es").slice(0,2).toLowerCase();
+  var other=base==="es"?"en":"es";
+  var nodes=[].slice.call(document.querySelectorAll("[data-"+other+"]"));
+  nodes.forEach(function(n){ var a=n.getAttribute("data-i18n-attr"); n.setAttribute("data-"+base, a?(n.getAttribute(a)||""):n.innerHTML); });
+  function apply(lang){
+    document.documentElement.setAttribute("lang",lang);
+    for(var i=0;i<nodes.length;i++){ var n=nodes[i], v=n.getAttribute("data-"+lang); if(v===null) continue; var a=n.getAttribute("data-i18n-attr"); if(a) n.setAttribute(a,v); else n.innerHTML=v; }
+    var b=document.getElementById("lang"); if(b) b.textContent=(lang==="es"?"EN":"ES");
+    document.dispatchEvent(new CustomEvent("fervon:lang",{detail:lang}));
+  }
+  var saved=null; try{saved=localStorage.getItem(KEY);}catch(e){}
+  var initial=saved||(((navigator.language||"").toLowerCase().slice(0,2)==="es")?"es":"en");
+  apply(initial);
+  var b=document.getElementById("lang");
+  if(b) b.addEventListener("click",function(){ var nx=(document.documentElement.getAttribute("lang")==="es")?"en":"es"; try{localStorage.setItem(KEY,nx);}catch(e){} apply(nx); });
+})();
+
+/* Reveal-on-scroll — fade/slide elements in as they enter the viewport.
+   IO handles below-the-fold; a rAF pass reveals whatever is already on
+   screen so content is never left hidden if the initial IO tick is missed. */
+(function(){
+  var els=[].slice.call(document.querySelectorAll(".reveal")); if(!els.length) return;
+  function show(el){ el.classList.add("in"); }
+  if(!("IntersectionObserver" in window)){ els.forEach(show); return; }
+  var rev=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ show(en.target); rev.unobserve(en.target); } }); },{threshold:.12});
+  els.forEach(function(el){ rev.observe(el); });
+  // Safety net: reveal whatever is already on screen, in case the initial
+  // IntersectionObserver tick is missed. setTimeout fires regardless of paint.
+  setTimeout(function(){
+    var vh=window.innerHeight||document.documentElement.clientHeight;
+    els.forEach(function(el){ var r=el.getBoundingClientRect(); if(r.top<vh+40 && r.bottom>-40){ show(el); rev.unobserve(el); } });
+  },60);
+})();
