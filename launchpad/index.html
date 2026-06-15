@@ -37,9 +37,13 @@
   }
   </script>
 
+  <link rel="stylesheet" href="/assets/core.css" />
+  <link rel="stylesheet" href="/assets/product.css" />
   <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="/assets/shared.css" />
 </head>
 <body>
+  <a class="skip" href="#top" data-en="Skip to content">Saltar al contenido</a>
 
   <header class="nav"><div class="glass bar">
     <a class="crumb" href="/"><span class="fv"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> fervon</span><span class="sep">›</span><span>launchpad</span></a>
@@ -109,7 +113,7 @@
       </div>
       <div class="wrap reveal s-YQpEB8rm">
         <figure class="glass s-C5vSwR5_">
-          <img src="/assets/launchpad-demo.gif" alt="Mission Control en acción: lanza dos proyectos en puertos sin colisión y observa los logs en vivo en el cajón de detalle" loading="lazy" decoding="async" class="s-h9OptjuP" />
+          <img src="/assets/launchpad-demo.gif" width="920" height="588" alt="Mission Control en acción: lanza dos proyectos en puertos sin colisión y observa los logs en vivo en el cajón de detalle" loading="lazy" decoding="async" class="s-h9OptjuP" />
         </figure>
         <p class="s-KScCWUrT" data-en="Real walkthrough, no editing.">Recorrido real, sin edición.</p>
       </div>
@@ -127,10 +131,10 @@
     <section class="sec alt" id="how"><div class="wrap">
       <div class="center reveal"><span class="eye" data-en="The flow">El flujo</span><h2 data-en="From twelve &lt;span class=&quot;mono&quot; style=&quot;font-size:.8em&quot;&gt;cd&lt;/span&gt;s a day to one screen">De doce <span class="mono s-mkl85k5q">cd</span> al día a una pantalla</h2></div>
       <div class="steps">
-        <div class="glass step reveal"><div class="n mono">01</div><h4 data-en="Point it at the folder">Apunta a la carpeta</h4><p data-en="It lives in your projects root.">Vive en tu raíz de proyectos.</p></div>
-        <div class="glass step reveal"><div class="n mono">02</div><h4 data-en="Auto-detects each one">Auto-detecta cada uno</h4><p data-en="Type and dev command. Zero config.">Tipo y comando de dev. Cero config.</p></div>
-        <div class="glass step reveal"><div class="n mono">03</div><h4 data-en="Starts without clashing">Arranca sin chocar</h4><p data-en="A unique port per project.">Un puerto único por proyecto.</p></div>
-        <div class="glass step reveal"><div class="n mono">04</div><h4 data-en="Watch it live">Vigila en vivo</h4><p data-en="Logs, git and CI in one view.">Logs, git y CI en una vista.</p></div>
+        <div class="glass step reveal"><div class="n mono">01</div><h3 data-en="Point it at the folder">Apunta a la carpeta</h3><p data-en="It lives in your projects root.">Vive en tu raíz de proyectos.</p></div>
+        <div class="glass step reveal"><div class="n mono">02</div><h3 data-en="Auto-detects each one">Auto-detecta cada uno</h3><p data-en="Type and dev command. Zero config.">Tipo y comando de dev. Cero config.</p></div>
+        <div class="glass step reveal"><div class="n mono">03</div><h3 data-en="Starts without clashing">Arranca sin chocar</h3><p data-en="A unique port per project.">Un puerto único por proyecto.</p></div>
+        <div class="glass step reveal"><div class="n mono">04</div><h3 data-en="Watch it live">Vigila en vivo</h3><p data-en="Logs, git and CI in one view.">Logs, git y CI en una vista.</p></div>
       </div>
     </div></section>
 
@@ -138,15 +142,15 @@
     <section class="sec" id="features"><div class="wrap">
       <div class="center reveal"><span class="eye" data-en="Features">Características</span><h2 data-en="The whole dance, one single screen">Todo el baile, una sola pantalla</h2></div>
       <div class="cards">
-        <div class="glass feat reveal"><div class="ic">🔍</div><h3 data-en="Config-free auto-detection">Auto-detección sin config</h3><p data-en="Infers type and command for Vite, Next, Astro, Electron, Express, Python/FastAPI, bots and monorepos.">Deduce tipo y comando de Vite, Next, Astro, Electron, Express, Python/FastAPI, bots y monorepos.</p></div>
-        <div class="glass feat reveal"><div class="ic">🛰️</div><h3 data-en="Launch many, zero clashes">Lanza muchos, cero choques</h3><p data-en="A unique port per project (4000–4099). Run five at once, isolated.">Un puerto único por proyecto (4000–4099). Corre cinco a la vez, aislados.</p></div>
-        <div class="glass feat reveal"><div class="ic">📡</div><h3 data-en="Live logs">Logs en vivo</h3><p data-en="WebSocket streaming: filter, follow, clear.">Streaming por WebSocket: filtrar, seguir, limpiar.</p></div>
-        <div class="glass feat reveal"><div class="ic">🌿</div><h3 data-en="Git at a glance">Git de un vistazo</h3><p data-en="Branch, changes, ahead/behind and last commit, per project.">Branch, cambios, ahead/behind y último commit, por proyecto.</p></div>
-        <div class="glass feat reveal"><div class="ic">📈</div><h3 data-en="Published health">Salud publicada</h3><p data-en="npm/PyPI version and GitHub CI, cached.">Versión en npm/PyPI y CI de GitHub, cacheado.</p></div>
-        <div class="glass feat reveal"><div class="ic">🩹</div><h3 data-en="Friendly failures">Fallos amables</h3><p data-en="Missing &lt;span class=&quot;mono&quot;&gt;node_modules&lt;/span&gt;? One-click &lt;b&gt;Install&lt;/b&gt; button.">¿Faltan <span class="mono">node_modules</span>? Botón <b>Instalar</b> de un click.</p></div>
-        <div class="glass feat reveal"><div class="ic">✨</div><h3 data-en="Live re-scan">Re-escaneo en vivo</h3><p data-en="Drop in a new folder and it shows up, no restart.">Suelta una carpeta nueva y aparece, sin reiniciar.</p></div>
-        <div class="glass feat reveal"><div class="ic">🛑</div><h3 data-en="Clean process control">Control de procesos limpio</h3><p data-en="Start/stop with full process-tree kill on Windows.">Start/stop con kill del árbol completo en Windows.</p></div>
-        <div class="glass feat reveal"><div class="ic">🔒</div><h3 data-en="Local-only by design">Local-only por diseño</h3><p data-en="Listens on &lt;span class=&quot;mono&quot;&gt;127.0.0.1&lt;/span&gt;, never &lt;span class=&quot;mono&quot;&gt;0.0.0.0&lt;/span&gt;.">Escucha en <span class="mono">127.0.0.1</span>, nunca <span class="mono">0.0.0.0</span>.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div><h3 data-en="Config-free auto-detection">Auto-detección sin config</h3><p data-en="Infers type and command for Vite, Next, Astro, Electron, Express, Python/FastAPI, bots and monorepos.">Deduce tipo y comando de Vite, Next, Astro, Electron, Express, Python/FastAPI, bots y monorepos.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10a7.31 7.31 0 0 0 10 10Z"/><path d="m9 15 3-3"/><path d="M17 13a6 6 0 0 0-6-6"/><path d="M21 13A10 10 0 0 0 11 3"/></svg></div><h3 data-en="Launch many, zero clashes">Lanza muchos, cero choques</h3><p data-en="A unique port per project (4000–4099). Run five at once, isolated.">Un puerto único por proyecto (4000–4099). Corre cinco a la vez, aislados.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.9 16.1C1 12.2 1 5.8 4.9 1.9"/><path d="M7.8 4.7a6.14 6.14 0 0 0-.8 7.5"/><circle cx="12" cy="9" r="2"/><path d="M16.2 4.8c2 2 2.26 5.11.8 7.47"/><path d="M19.1 1.9a9.96 9.96 0 0 1 0 14.1"/><path d="M9.5 18h5"/><path d="m8 22 4-11 4 11"/></svg></div><h3 data-en="Live logs">Logs en vivo</h3><p data-en="WebSocket streaming: filter, follow, clear.">Streaming por WebSocket: filtrar, seguir, limpiar.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg></div><h3 data-en="Git at a glance">Git de un vistazo</h3><p data-en="Branch, changes, ahead/behind and last commit, per project.">Branch, cambios, ahead/behind y último commit, por proyecto.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div><h3 data-en="Published health">Salud publicada</h3><p data-en="npm/PyPI version and GitHub CI, cached.">Versión en npm/PyPI y CI de GitHub, cacheado.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 10.01h.01"/><path d="M10 14.01h.01"/><path d="M14 10.01h.01"/><path d="M14 14.01h.01"/><path d="M18 6v11.5"/><path d="M6 6v12"/><rect x="2" y="6" width="20" height="12" rx="2"/></svg></div><h3 data-en="Friendly failures">Fallos amables</h3><p data-en="Missing &lt;span class=&quot;mono&quot;&gt;node_modules&lt;/span&gt;? One-click &lt;b&gt;Install&lt;/b&gt; button.">¿Faltan <span class="mono">node_modules</span>? Botón <b>Instalar</b> de un click.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg></div><h3 data-en="Live re-scan">Re-escaneo en vivo</h3><p data-en="Drop in a new folder and it shows up, no restart.">Suelta una carpeta nueva y aparece, sin reiniciar.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.586 16.726A2 2 0 0 1 2 15.312V8.688a2 2 0 0 1 .586-1.414l4.688-4.688A2 2 0 0 1 8.688 2h6.624a2 2 0 0 1 1.414.586l4.688 4.688A2 2 0 0 1 22 8.688v6.624a2 2 0 0 1-.586 1.414l-4.688 4.688a2 2 0 0 1-1.414.586H8.688a2 2 0 0 1-1.414-.586z"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg></div><h3 data-en="Clean process control">Control de procesos limpio</h3><p data-en="Start/stop with full process-tree kill on Windows.">Start/stop con kill del árbol completo en Windows.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3 data-en="Local-only by design">Local-only por diseño</h3><p data-en="Listens on &lt;span class=&quot;mono&quot;&gt;127.0.0.1&lt;/span&gt;, never &lt;span class=&quot;mono&quot;&gt;0.0.0.0&lt;/span&gt;.">Escucha en <span class="mono">127.0.0.1</span>, nunca <span class="mono">0.0.0.0</span>.</p></div>
       </div>
     </div></section>
 
@@ -234,6 +238,7 @@
   </div></footer>
 
   <script src="index.client.js" defer></script>
+  <script src="/assets/shared.js" defer></script>
 
 </body>
 </html>

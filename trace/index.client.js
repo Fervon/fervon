@@ -3,18 +3,20 @@
       var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       var qEl = document.getElementById("q");
       var rows = Array.prototype.slice.call(document.querySelectorAll("#res .rrow"));
-      var query = "esa página de precios que vi el martes…";
-      function showAll(){ if(qEl)qEl.textContent=query; rows.forEach(function(r){ r.classList.add("in"); }); }
+      function query(){ return (document.documentElement.getAttribute("lang")==="es") ? "esa página de precios que vi el martes…" : "that pricing page I saw on Tuesday…"; }
+      function showAll(){ if(qEl)qEl.textContent=query(); rows.forEach(function(r){ r.classList.add("in"); }); }
+      var _lb=document.getElementById("lang"); if(_lb)_lb.addEventListener("click",function(){ setTimeout(function(){ if(qEl&&qEl.textContent) qEl.textContent=query(); },0); });
       if(reduce){ showAll(); return; }
       var done=false;
       function play(){
         if(done) return; done=true;
+        var q=query();
         var i=0;
         (function type(){
           if(!qEl) return;
-          qEl.textContent = query.slice(0,i);
+          qEl.textContent = q.slice(0,i);
           i++;
-          if(i<=query.length){ setTimeout(type, 38); }
+          if(i<=q.length){ setTimeout(type, 38); }
           else { rows.forEach(function(r,k){ setTimeout(function(){ r.classList.add("in"); }, 260 + k*420); }); }
         })();
       }
@@ -47,39 +49,5 @@
       });
     })();
 
-    // ---- Reveal on scroll ----
-    var rev=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("in"); rev.unobserve(en.target); } }); },{threshold:.12});
-    document.querySelectorAll(".reveal").forEach(function(el){ rev.observe(el); });
   
 
-
-/* Fervon bilingual toggle — keep identical across all Fervon pages */
-(function(){
-  var KEY="fervon-lang";
-  var base=(document.documentElement.getAttribute("lang")||"es").slice(0,2).toLowerCase();
-  var other=base==="es"?"en":"es";
-  var nodes=[].slice.call(document.querySelectorAll("[data-"+other+"]"));
-  nodes.forEach(function(n){
-    var a=n.getAttribute("data-i18n-attr");
-    n.setAttribute("data-"+base, a?(n.getAttribute(a)||""):n.innerHTML);
-  });
-  function apply(lang){
-    document.documentElement.setAttribute("lang",lang);
-    for(var i=0;i<nodes.length;i++){
-      var n=nodes[i], v=n.getAttribute("data-"+lang);
-      if(v===null) continue;
-      var a=n.getAttribute("data-i18n-attr");
-      if(a) n.setAttribute(a,v); else n.innerHTML=v;
-    }
-    var b=document.getElementById("lang"); if(b) b.textContent=(lang==="es"?"EN":"ES");
-  }
-  var saved=null; try{saved=localStorage.getItem(KEY);}catch(e){}
-  var initial=saved||(((navigator.language||"").toLowerCase().slice(0,2)==="es")?"es":"en");
-  apply(initial);
-  var b=document.getElementById("lang");
-  if(b) b.addEventListener("click",function(){
-    var nx=(document.documentElement.getAttribute("lang")==="es")?"en":"es";
-    try{localStorage.setItem(KEY,nx);}catch(e){}
-    apply(nx);
-  });
-})();

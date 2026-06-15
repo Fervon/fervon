@@ -36,9 +36,13 @@
   }
   </script>
 
+  <link rel="stylesheet" href="/assets/core.css" />
+  <link rel="stylesheet" href="/assets/product.css" />
   <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="/assets/shared.css" />
 </head>
 <body>
+  <a class="skip" href="#top" data-en="Skip to content">Saltar al contenido</a>
 
   <header class="nav"><div class="glass bar">
     <a class="crumb" href="/"><span class="fv"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> fervon</span><span class="sep">›</span><span>inferbench</span></a>
@@ -110,7 +114,7 @@
       </div>
       <div class="wrap reveal s-InoH4OY_">
         <figure class="glass s-C5vSwR5_">
-          <img src="/assets/inferbench-demo.gif" alt="inferbench en acción: hardware detectado, catálogo con optimización, benchmark en vivo con tok/s, comparación de runs y Serve/MCP con generación de imagen" data-i18n-attr="alt" data-en="inferbench in action: detected hardware, catalog with optimization, live benchmark with tok/s, run comparison and Serve/MCP with image generation" loading="lazy" decoding="async" class="s-h9OptjuP" />
+          <img src="/assets/inferbench-demo.gif" width="900" height="563" alt="inferbench en acción: hardware detectado, catálogo con optimización, benchmark en vivo con tok/s, comparación de runs y Serve/MCP con generación de imagen" data-i18n-attr="alt" data-en="inferbench in action: detected hardware, catalog with optimization, live benchmark with tok/s, run comparison and Serve/MCP with image generation" loading="lazy" decoding="async" class="s-h9OptjuP" />
         </figure>
         <p class="s-KScCWUrT" data-en="Real benchmark numbers, unedited.">Cifras de benchmark reales, sin edición.</p>
       </div>
@@ -128,11 +132,11 @@
     <section class="sec alt" id="how"><div class="wrap">
       <div class="center reveal"><span class="eye" data-en="The flow">El flujo</span><h2 data-en="From zero to real results in 5 steps">De cero a resultados reales en 5 pasos</h2></div>
       <div class="steps">
-        <div class="glass step reveal"><div class="n mono">01</div><h4 data-en="Pick a model">Eliges modelo</h4><p data-en="From the catalog or your local GGUFs.">Del catálogo o tus GGUF locales.</p></div>
-        <div class="glass step reveal"><div class="n mono">02</div><h4 data-en="Download the engine">Descarga el motor</h4><p data-en="Official binary + GGUF from Hugging Face.">Binario oficial + GGUF de Hugging Face.</p></div>
-        <div class="glass step reveal"><div class="n mono">03</div><h4 data-en="Launch optimized">Arranca optimizado</h4><p data-en="Optimal config auto-computed for your GPU.">Config óptima auto-calculada para tu GPU.</p></div>
-        <div class="glass step reveal"><div class="n mono">04</div><h4 data-en="Live benchmark">Benchmark en vivo</h4><p data-en="TTFT, tok/s, VRAM and quality in real time.">TTFT, tok/s, VRAM y calidad en tiempo real.</p></div>
-        <div class="glass step reveal"><div class="n mono">05</div><h4 data-en="Compare and decide">Compara y decide</h4><p data-en="Saved runs, comparable side by side.">Runs guardados, comparables lado a lado.</p></div>
+        <div class="glass step reveal"><div class="n mono">01</div><h3 data-en="Pick a model">Eliges modelo</h3><p data-en="From the catalog or your local GGUFs.">Del catálogo o tus GGUF locales.</p></div>
+        <div class="glass step reveal"><div class="n mono">02</div><h3 data-en="Download the engine">Descarga el motor</h3><p data-en="Official binary + GGUF from Hugging Face.">Binario oficial + GGUF de Hugging Face.</p></div>
+        <div class="glass step reveal"><div class="n mono">03</div><h3 data-en="Launch optimized">Arranca optimizado</h3><p data-en="Optimal config auto-computed for your GPU.">Config óptima auto-calculada para tu GPU.</p></div>
+        <div class="glass step reveal"><div class="n mono">04</div><h3 data-en="Live benchmark">Benchmark en vivo</h3><p data-en="TTFT, tok/s, VRAM and quality in real time.">TTFT, tok/s, VRAM y calidad en tiempo real.</p></div>
+        <div class="glass step reveal"><div class="n mono">05</div><h3 data-en="Compare and decide">Compara y decide</h3><p data-en="Saved runs, comparable side by side.">Runs guardados, comparables lado a lado.</p></div>
       </div>
     </div></section>
 
@@ -140,15 +144,15 @@
     <section class="sec" id="features"><div class="wrap">
       <div class="center reveal"><span class="eye" data-en="Features">Características</span><h2 data-en="Everything to tune local inference">Todo para tunear inferencia local</h2></div>
       <div class="cards">
-        <div class="glass feat reveal"><div class="ic">⚡</div><h3 data-en="One-click auto-bootstrap">Auto-bootstrap de un click</h3><p data-en="Engine, GGUF, optimal config and benchmark. End-to-end.">Motor, GGUF, config óptima y benchmark. End-to-end.</p></div>
-        <div class="glass feat reveal"><div class="ic">🧩</div><h3 data-en="Hardware detection">Detección de hardware</h3><p data-en="CPU, RAM and GPU. Compatibility for 124 models in ~4 ms.">CPU, RAM y GPU. Compatibilidad de 124 modelos en ~4 ms.</p></div>
-        <div class="glass feat reveal"><div class="ic">📦</div><h3 data-en="Native mode, no Docker">Modo nativo, sin Docker</h3><p data-en="Official release + CUDA + DLLs auto. Docker optional.">Release oficial + CUDA + DLLs auto. Docker opcional.</p></div>
-        <div class="glass feat reveal"><div class="ic">🗂️</div><h3 data-en="124-model catalog">Catálogo de 124 modelos</h3><p data-en="Llama, Qwen, Gemma, Mistral, Phi, DeepSeek… verified.">Llama, Qwen, Gemma, Mistral, Phi, DeepSeek… verificados.</p></div>
-        <div class="glass feat reveal"><div class="ic">🪄</div><h3 data-en="Automatic optimizer">Optimizador automático</h3><p data-en="Quant, KV-cache, context, MoE offload and flags. Overridable.">Quant, KV-cache, contexto, MoE offload y flags. Sobrescribible.</p></div>
-        <div class="glass feat reveal"><div class="ic">🗜️</div><h3 data-en="KV compression explained">Compresión KV explicada</h3><p data-en="5 presets, with what fits on YOUR GPU at each level.">5 presets, con qué cabe en TU GPU en cada nivel.</p></div>
-        <div class="glass feat reveal"><div class="ic">📈</div><h3 data-en="Real metrics, live">Métricas reales en vivo</h3><p data-en="TTFT, tok/s and VRAM measured via SSE. Nothing simulated.">TTFT, tok/s y VRAM medidos vía SSE. Nada simulado.</p></div>
-        <div class="glass feat reveal"><div class="ic">⚖️</div><h3 data-en="Sweep and compare">Sweep y comparación</h3><p data-en="N quantizations queued, comparable runs with charts.">N cuantizaciones en cola, runs comparables con gráficos.</p></div>
-        <div class="glass feat reveal"><div class="ic">🛡️</div><h3 data-en="100% local and private">100% local y privado</h3><p data-en="No telemetry, no account, no server. MIT.">Sin telemetría, sin cuenta, sin servidor. MIT.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></div><h3 data-en="One-click auto-bootstrap">Auto-bootstrap de un click</h3><p data-en="Engine, GGUF, optimal config and benchmark. End-to-end.">Motor, GGUF, config óptima y benchmark. End-to-end.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 19.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 24.39"/><path d="M2.83 16.17a2.414 2.414 0 0 0 0 3.414L4.51 21.27a1 1 0 0 0 1.68-.474 2.5 2.5 0 0 1 3.014 3.015"/></svg></div><h3 data-en="Hardware detection">Detección de hardware</h3><p data-en="CPU, RAM and GPU. Compatibility for 124 models in ~4 ms.">CPU, RAM y GPU. Compatibilidad de 124 modelos en ~4 ms.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"/><path d="M3.3 7 12 12l8.7-5"/><path d="M12 22V12"/></svg></div><h3 data-en="Native mode, no Docker">Modo nativo, sin Docker</h3><p data-en="Official release + CUDA + DLLs auto. Docker optional.">Release oficial + CUDA + DLLs auto. Docker opcional.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg></div><h3 data-en="124-model catalog">Catálogo de 124 modelos</h3><p data-en="Llama, Qwen, Gemma, Mistral, Phi, DeepSeek… verified.">Llama, Qwen, Gemma, Mistral, Phi, DeepSeek… verificados.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72"/><path d="m14 7 3 3"/><path d="M5 6v4"/><path d="M19 14v4"/><path d="M10 2v2"/><path d="M7 8H3"/><path d="M21 16h-4"/><path d="M11 3H9"/></svg></div><h3 data-en="Automatic optimizer">Optimizador automático</h3><p data-en="Quant, KV-cache, context, MoE offload and flags. Overridable.">Quant, KV-cache, contexto, MoE offload y flags. Sobrescribible.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 15 6 6m-6-6v4.8m0-4.8h4.8"/><path d="M9 19.8V15m0 0H4.2M9 15l-6 6"/><path d="M15 4.2V9m0 0h4.8M15 9l6-6"/><path d="M9 4.2V9m0 0H4.2M9 9 3 3"/></svg></div><h3 data-en="KV compression explained">Compresión KV explicada</h3><p data-en="5 presets, with what fits on YOUR GPU at each level.">5 presets, con qué cabe en TU GPU en cada nivel.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 7h6v6"/><path d="m22 7-8.5 8.5-5-5L2 17"/></svg></div><h3 data-en="Real metrics, live">Métricas reales en vivo</h3><p data-en="TTFT, tok/s and VRAM measured via SSE. Nothing simulated.">TTFT, tok/s y VRAM medidos vía SSE. Nada simulado.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></div><h3 data-en="Sweep and compare">Sweep y comparación</h3><p data-en="N quantizations queued, comparable runs with charts.">N cuantizaciones en cola, runs comparables con gráficos.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div><h3 data-en="100% local and private">100% local y privado</h3><p data-en="No telemetry, no account, no server. MIT.">Sin telemetría, sin cuenta, sin servidor. MIT.</p></div>
       </div>
     </div></section>
 
@@ -168,11 +172,11 @@
         <div class="s-Gx11RS-7"><table>
           <thead><tr><th data-en="Engine">Motor</th><th data-en="Type">Tipo</th><th data-en="Native">Nativo</th><th>Docker</th><th data-en="Auto-download">Auto-descarga</th></tr></thead>
           <tbody>
-            <tr><td>llama.cpp</td><td class="s-7TvVc0z_" data-en="local">local</td><td>✅</td><td>✅</td><td class="s-7TvVc0z_" data-en="✅ HF GGUF">✅ HF GGUF</td></tr>
-            <tr><td>ollama</td><td class="s-7TvVc0z_" data-en="local">local</td><td>✅</td><td>✅</td><td class="s-7TvVc0z_" data-en="✅ registry">✅ registro</td></tr>
-            <tr><td>vLLM</td><td class="s-7TvVc0z_" data-en="local">local</td><td>—</td><td>✅ GPU</td><td class="s-7TvVc0z_">✅ HF</td></tr>
-            <tr><td>SGLang</td><td class="s-7TvVc0z_" data-en="local">local</td><td>—</td><td>✅ GPU</td><td class="s-7TvVc0z_">✅ HF</td></tr>
-            <tr><td>TGI</td><td class="s-7TvVc0z_" data-en="local">local</td><td>—</td><td>✅ GPU</td><td class="s-7TvVc0z_">✅ HF</td></tr>
+            <tr><td>llama.cpp</td><td class="s-7TvVc0z_" data-en="local">local</td><td><span aria-hidden="true">✅</span><span class="vh" data-en="Yes">Sí</span></td><td><span aria-hidden="true">✅</span><span class="vh" data-en="Yes">Sí</span></td><td class="s-7TvVc0z_" data-en="✅ HF GGUF">✅ HF GGUF</td></tr>
+            <tr><td>ollama</td><td class="s-7TvVc0z_" data-en="local">local</td><td><span aria-hidden="true">✅</span><span class="vh" data-en="Yes">Sí</span></td><td><span aria-hidden="true">✅</span><span class="vh" data-en="Yes">Sí</span></td><td class="s-7TvVc0z_" data-en="✅ registry">✅ registro</td></tr>
+            <tr><td>vLLM</td><td class="s-7TvVc0z_" data-en="local">local</td><td><span aria-hidden="true">—</span><span class="vh" data-en="No">No</span></td><td>✅ GPU</td><td class="s-7TvVc0z_">✅ HF</td></tr>
+            <tr><td>SGLang</td><td class="s-7TvVc0z_" data-en="local">local</td><td><span aria-hidden="true">—</span><span class="vh" data-en="No">No</span></td><td>✅ GPU</td><td class="s-7TvVc0z_">✅ HF</td></tr>
+            <tr><td>TGI</td><td class="s-7TvVc0z_" data-en="local">local</td><td><span aria-hidden="true">—</span><span class="vh" data-en="No">No</span></td><td>✅ GPU</td><td class="s-7TvVc0z_">✅ HF</td></tr>
             <tr><td>OpenAI / Anthropic</td><td class="s-7TvVc0z_">API</td><td>n/a</td><td>n/a</td><td class="s-7TvVc0z_">n/a</td></tr>
             <tr><td>OpenRouter / NVIDIA</td><td class="s-7TvVc0z_">API</td><td>n/a</td><td>n/a</td><td class="s-7TvVc0z_">n/a</td></tr>
           </tbody>
@@ -196,15 +200,15 @@
       <div class="center reveal"><span class="eye" data-en="Download">Descarga</span><h2 data-en="Download it free">Descárgalo gratis</h2><p class="desc" data-en="No Python or Node: the backend is embedded. We detect your system.">Sin Python ni Node: el backend va embebido. Detectamos tu sistema.</p></div>
       <div class="dlhero reveal">
         <a class="btn btn-fire dlmain" id="dlMain" href="https://github.com/JoniMartin27/inferbench/releases/latest">
-          <span class="s-Uwbxj3Sb" id="dlIcon">⬇️</span>
-          <span>Descargar para <span id="dlOsName">tu sistema</span><br><span class="os mono" id="dlFile">InferBench · v0.1.1</span></span>
+          <span class="s-Uwbxj3Sb" id="dlIcon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></span>
+          <span>Descargar para <span id="dlOsName">tu sistema</span><br><span class="os mono" id="dlFile">InferBench · última versión</span></span>
         </a>
         <div class="dlothers" id="dlOthers">
-          <a class="dlchip" data-os="win" href="https://github.com/JoniMartin27/inferbench/releases/download/v0.1.1/InferBench.Setup.0.1.1.exe" data-en="🪟 <b>Windows</b> · .exe">🪟 <b>Windows</b> · .exe</a>
-          <a class="dlchip" data-os="mac" href="https://github.com/JoniMartin27/inferbench/releases/download/v0.1.1/InferBench-0.1.1-arm64.dmg" data-en="🍎 <b>macOS</b> · .dmg (Apple Silicon)">🍎 <b>macOS</b> · .dmg (Apple Silicon)</a>
-          <a class="dlchip" data-os="linux" href="https://github.com/JoniMartin27/inferbench/releases/download/v0.1.1/InferBench-0.1.1.AppImage" data-en="🐧 <b>Linux</b> · .AppImage">🐧 <b>Linux</b> · .AppImage</a>
+          <a class="dlchip" data-os="win" href="https://github.com/JoniMartin27/inferbench/releases/latest" data-en="🪟 <b>Windows</b> · .exe">🪟 <b>Windows</b> · .exe</a>
+          <a class="dlchip" data-os="mac" href="https://github.com/JoniMartin27/inferbench/releases/latest" data-en="🍎 <b>macOS</b> · .dmg (Apple Silicon)">🍎 <b>macOS</b> · .dmg (Apple Silicon)</a>
+          <a class="dlchip" data-os="linux" href="https://github.com/JoniMartin27/inferbench/releases/latest" data-en="🐧 <b>Linux</b> · .AppImage">🐧 <b>Linux</b> · .AppImage</a>
         </div>
-        <p class="s-Sye85s0n" data-en="v0.1.1 · another version or build it yourself? <a href=&quot;https://github.com/JoniMartin27/inferbench/releases&quot; style=&quot;color:var(--brasa)&quot;>All releases →</a>">v0.1.1 · ¿otra versión o compilar tú? <a href="https://github.com/JoniMartin27/inferbench/releases" class="s-meojCzlB">Todas las releases →</a></p>
+        <p class="s-Sye85s0n" data-en="Another version or build it yourself? <a href=&quot;https://github.com/JoniMartin27/inferbench/releases&quot; style=&quot;color:var(--brasa)&quot;>All releases →</a>">¿Otra versión o compilar tú? <a href="https://github.com/JoniMartin27/inferbench/releases" class="s-meojCzlB">Todas las releases →</a></p>
       </div>
     </div></section>
 
@@ -223,11 +227,12 @@
   </main>
 
   <footer><div class="wrap foot">
-    <span data-en="inferbench is a project by <a href=&quot;https://fervon.dev&quot;><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forged white-hot">inferbench es un proyecto de <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forjado al rojo vivo</span>
+    <span data-en="inferbench is a project by <a href=&quot;https://fervon.dev&quot;><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forged red-hot">inferbench es un proyecto de <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forjado al rojo vivo</span>
     <span data-en="MIT © 2026 Jonathan Martín · <a href=&quot;https://github.com/JoniMartin27/inferbench&quot;>GitHub ↗</a>">MIT © 2026 Jonathan Martín · <a href="https://github.com/JoniMartin27/inferbench">GitHub ↗</a></span>
   </div></footer>
 
   <script src="index.client.js" defer></script>
+  <script src="/assets/shared.js" defer></script>
 
 </body>
 </html>

@@ -1,0 +1,45 @@
+/* Fervon — product pages shared primitives (tokens, layout, buttons, glass). Linked before each product's own stylesheet. */
+
+/* shared by 2+ product pages */
+    .m3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+    .mcell{border:1px solid var(--line);background:rgba(14,11,10,.5);border-radius:12px;padding:11px}
+    .mcell .lab{font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:var(--dim)}
+    .mcell .val{font-size:24px;font-weight:700;margin-top:3px}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+.s-bSSWIDXh{vertical-align:-4px;margin-right:3px}
+.s-9EC6gkuB{position:absolute;inset:0;z-index:-1;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000,transparent)}
+.s-aBnRT5ZT{background:#E0480F}
+.s-wpdX47Tq{background:#FFB02E}
+.s-aNyb6LKH{background:#9FC979}
+.s-Sxc0fCNN{margin-left:6px}
+.s-cXQOUgJA{margin-left:auto;color:var(--amber);display:inline-flex;align-items:center;gap:6px}
+.s-Tjt46SSf{color:var(--amber)}
+.s-_3JYQidQ{color:var(--ember)}
+.s-UceLg92w{color:var(--spark)}
+.s-HOKjOaN8{text-align:center;font-size:11px;color:var(--dim);margin-top:8px}
+.s-InoH4OY_{max-width:920px;margin-top:32px}
+.s-C5vSwR5_{overflow:hidden;padding:0}
+.s-h9OptjuP{width:100%;display:block}
+.s-KScCWUrT{text-align:center;font-size:11px;color:var(--dim);margin-top:10px}
+.s-mkl85k5q{font-size:.8em}
+.s-7ufF5ecg{background:var(--line);border-radius:4px;padding:1px 5px;color:var(--amber)}
+.s-r1Fbi1KV{font-size:14px;color:var(--dim);margin-top:18px}
+.s-7TvVc0z_{color:var(--ash)}
+.s-pTF7jaW7{overflow:hidden}
+.s-m1cAPZWN{border-bottom:1px solid var(--line);padding:12px 16px;font-weight:600;font-size:14px}
+.s-mbm6U6qU{justify-content:center}
+.s-im9vJqY9{position:absolute;inset:0;z-index:-1;opacity:.6}
+.s-HQSJ4X1v{max-width:560px;margin:14px auto 0}
+    .term{height:118px;overflow:hidden;border:1px solid var(--line);background:#070504;border-radius:12px;padding:12px;font-size:12px;line-height:1.55;margin-top:16px}
+    .dlmain{display:inline-flex;align-items:center;gap:12px;font-size:18px;padding:18px 30px}
+    .dlchip{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line2);border-radius:10px;padding:9px 14px;font-size:13.5px;color:var(--ash)}
+    .dlchip:hover{border-color:var(--ember);color:var(--bone)}
+    .dlchip b{color:var(--bone)}
+.s-mev-PYc1{display:flex;justify-content:space-between;align-items:center}
+.s-sEVcIw8j{color:var(--dim)}
+.s-Gx11RS-7{overflow-x:auto}
+.s-pHurP39Q{border-top:1px solid var(--line);padding:10px 16px;font-size:11px;color:var(--dim)}
+.s-iLcIat7U{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.s-q3nqK4Vz{margin:0}
+.s-35KBScVH{margin-top:10px}
+.s-0syaN8w1{justify-content:center;margin-top:28px;display:flex;gap:12px;flex-wrap:wrap}
