@@ -1,0 +1,6 @@
+# Cloudflare Pages — solo se usa si migras el hosting de fervon.dev de GitHub
+# Pages a Cloudflare Pages (para poder pasar SSL/TLS a "Full (Strict)").
+# Mientras el sitio siga en GitHub Pages, este fichero es inerte (el build de
+# GitHub Actions en .github/workflows/pages.yml lo excluye de la publicación).
+name = "fervon"
+pages_build_output_dir = "dist"
