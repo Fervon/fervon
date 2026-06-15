@@ -1,6 +1,6 @@
 # Reservar los handles de Fervon
 
-> **Estado (2026-06-15):** La organización **[Fervon](https://github.com/Fervon)** ya existe en GitHub, este repo vive en **`Fervon/fervon`**, y **[fervon.dev](https://fervon.dev)** está **activo** (GitHub Pages + proxy Cloudflare). Lo único pendiente es **reservar el nombre en npm** (`fervon` + scope `@fervon`), que requiere tu OTP de 2FA — ver paso 1. `fervon.com` sigue en venta (lo dejamos para más adelante).
+> **Estado (2026-06-15):** Handles de marca **TODOS reservados**. La organización **[Fervon](https://github.com/Fervon)** existe en GitHub, este repo vive en **`Fervon/fervon`**, **[fervon.dev](https://fervon.dev)** está **activo** (GitHub Pages + proxy Cloudflare), y en **npm** ya están **el paquete pelado `fervon@0.0.1` publicado y el scope `@fervon`** reservado por la org npm (owner `lookspan`). Único pendiente opcional: `fervon.com` sigue en venta (arrancamos en `.dev`). Los pasos de abajo quedan como **referencia histórica** de cómo se blindó.
 
 Disponibilidad original confirmada (RDAP/registry, 2026-06-13): `npm fervon`, `@fervon`, `github.com/fervon` (user+org) y `fervon.dev` estaban **libres**.
 
