@@ -30,8 +30,10 @@
 .s-JYzqVkix{background:var(--line);border-radius:6px;padding:2px 8px;font-size:12px;color:var(--ash)}
 .s-bmtNTvWe{font-size:11px;color:var(--dim);margin-top:4px}
 .s-XkYfBwm2{font-size:13px}
+.dim{color:var(--dim)}
 .s-pKyGiDK4{display:flex;justify-content:space-between;font-size:12px;color:var(--dim);margin-top:14px}
 .s-Uwbxj3Sb{font-size:22px}
 .s-Sye85s0n{font-size:13px;color:var(--dim);margin-top:10px}
 .s-meojCzlB{color:var(--brasa)}
-
+/* === utility classes extracted from data-* style="" payloads === */
+.s-7ufF5ecg{background:var(--line);border-radius:4px;padding:1px 5px;color:var(--amber)}

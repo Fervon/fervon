@@ -47,4 +47,8 @@
 .s-YQpEB8rm{max-width:940px;margin-top:32px}
 .s-t_p9h0pa{font-size:14px;color:var(--ash);max-width:560px;text-align:center;margin-top:18px}
 .s-Ld0TWsu2{font-size:13px;color:var(--dim);margin-top:12px}
-
+.dim{color:var(--dim)}
+/* === utility classes extracted from data-* style="" payloads === */
+.s-mkl85k5q{font-size:.8em}
+.s-7ufF5ecg{background:var(--line);border-radius:4px;padding:1px 5px;color:var(--amber)}
+.s-Tjt46SSf{color:var(--amber)}

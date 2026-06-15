@@ -67,4 +67,8 @@
 .s-iWjuOMCm{font-size:13.5px;color:var(--dim);text-align:center;max-width:560px}
 .s-euPpcIEe{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:4px}
 .s-v2rvd44y{justify-content:center;margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-
+/* === utility classes extracted from data-* style="" payloads === */
+.s-mkl85k5q{font-size:.8em}
+.s-Tjt46SSf{color:var(--amber)}
+.s-7ufF5ecg{background:var(--line);border-radius:4px;padding:1px 5px;color:var(--amber)}
+.s-7TvVc0z_{color:var(--ash)}

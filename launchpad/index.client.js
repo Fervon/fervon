@@ -27,7 +27,7 @@
     async function loop(){
       // reset
       setDot("d0","s-idle"); setDot("d1","s-idle"); setDot("d2","s-idle"); setDot("d3","s-idle"); setCount(0);
-      if(log) log.innerHTML='<div style="color:var(--dim)">$ mission-control · escaneando ~/code …</div>';
+      if(log) log.innerHTML='<div class="dim">$ mission-control · escaneando ~/code …</div>';
       await sleep(650);
       addLog("✓ 4 proyectos detectados · puertos 4000–4003 asignados","#9FC979");
       await sleep(700);

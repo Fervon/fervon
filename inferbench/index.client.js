@@ -26,18 +26,18 @@
     function ramp(set,from,to,dur,fmt){ var start=performance.now(); return new Promise(function(res){ function frame(now){ var pr=Math.min(1,(now-start)/dur); var e=1-Math.pow(1-pr,3); set(fmt(from+(to-from)*e)); if(pr<1)requestAnimationFrame(frame); else res(); } requestAnimationFrame(frame); }); }
     function setPhase(label,target){ if(phaseLabel)phaseLabel.textContent=label; var cur=parseFloat((bar&&bar.style.width||"0").replace("%",""))||0; return ramp(function(v){ if(bar)bar.style.width=v+"%"; if(phasePct)phasePct.textContent=Math.round(v)+"%"; },cur,target,700,function(v){return v;}); }
     async function loop(){
-      if(mTps)mTps.textContent="0.0"; if(mTtft)mTtft.innerHTML='— <span style="font-size:13px">ms</span>'; if(mVram)mVram.innerHTML='0.0 <span style="font-size:13px">GB</span>'; if(bar)bar.style.width="0%"; if(log)log.innerHTML='<div style="color:var(--dim)">$ inferbench run --auto</div>';
+      if(mTps)mTps.textContent="0.0"; if(mTtft)mTtft.innerHTML='— <span class="s-XkYfBwm2">ms</span>'; if(mVram)mVram.innerHTML='0.0 <span class="s-XkYfBwm2">GB</span>'; if(bar)bar.style.width="0%"; if(log)log.innerHTML='<div class="dim">$ inferbench run --auto</div>';
       addLog("→ Detectando hardware… RTX 4060 · 8 GB · 32 GB RAM","var(--dim)"); await sleep(700);
       addLog("→ Optimizando: Q4_K_M · ctx 8192 · MoE offload 27 capas","var(--ember)");
       await setPhase("Descargando binario llama.cpp…",22); addLog("✓ llama-server (CUDA) listo","#9FC979");
       await setPhase("Descargando GGUF desde Hugging Face…",70); addLog("✓ qwen3-30b-a3b-Q4_K_M.gguf · 18.6 GB","#9FC979");
       await setPhase("Arrancando motor…",85); await sleep(400);
-      if(mTtft) await ramp(function(v){ mTtft.innerHTML=Math.round(v)+' <span style="font-size:13px">ms</span>'; },0,213,600,function(v){return v;});
+      if(mTtft) await ramp(function(v){ mTtft.innerHTML=Math.round(v)+' <span class="s-XkYfBwm2">ms</span>'; },0,213,600,function(v){return v;});
       addLog("→ TTFT 213 ms · generando…","var(--ash)");
       await setPhase("Benchmark en vivo…",100);
       await Promise.all([
         mTps?ramp(function(v){ mTps.textContent=v.toFixed(1); },0,47.3,2200,function(v){return v;}):null,
-        mVram?ramp(function(v){ mVram.innerHTML=v.toFixed(1)+' <span style="font-size:13px">GB</span>'; },0,7.4,2200,function(v){return v;}):null
+        mVram?ramp(function(v){ mVram.innerHTML=v.toFixed(1)+' <span class="s-XkYfBwm2">GB</span>'; },0,7.4,2200,function(v){return v;}):null
       ]);
       addLog("✓ run completada · 47.3 tok/s · calidad 87/100","#9FC979");
       if(phaseLabel)phaseLabel.textContent="Completado ✓";
@@ -45,7 +45,7 @@
     }
     var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if(!reduce){ var obs=new IntersectionObserver(function(e){ if(e[0].isIntersecting){ obs.disconnect(); loop(); } }); if(log) obs.observe(log); }
-    else { if(mTps)mTps.textContent="47.3"; if(mTtft)mTtft.innerHTML='213 <span style="font-size:13px">ms</span>'; if(mVram)mVram.innerHTML='7.4 <span style="font-size:13px">GB</span>'; if(bar)bar.style.width="100%"; if(phasePct)phasePct.textContent="100%"; if(phaseLabel)phaseLabel.textContent="Completado ✓"; }
+    else { if(mTps)mTps.textContent="47.3"; if(mTtft)mTtft.innerHTML='213 <span class="s-XkYfBwm2">ms</span>'; if(mVram)mVram.innerHTML='7.4 <span class="s-XkYfBwm2">GB</span>'; if(bar)bar.style.width="100%"; if(phasePct)phasePct.textContent="100%"; if(phaseLabel)phaseLabel.textContent="Completado ✓"; }
 
   
 
