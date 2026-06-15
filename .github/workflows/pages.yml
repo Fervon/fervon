@@ -45,6 +45,7 @@ jobs:
             --exclude 'README.md' \
             --exclude 'SECURITY.md' \
             --exclude 'SETUP.md' \
+            --exclude 'PAYMENTS.md' \
             --exclude 'BRAND-IMAGE-PROMPTS.md' \
             --exclude 'package.json' \
             --exclude 'package-lock.json' \

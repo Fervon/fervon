@@ -1,4 +1,18 @@
-// ---- Hero: search + timeline reveal animation ----
+/* ====== PAGO · pre-venta de Trace (Polar.sh) ======
+   Pega tu Checkout Link de Polar entre las comillas y el pago queda ACTIVO en
+   todos los botones "Reservar — $39" de la página. Mientras esté vacío, los
+   botones caen a su fallback (#pricing / #waitlist) sin romperse.
+   Cómo conseguirlo: Polar → Products → "Trace · Lifetime" → Checkout Links →
+   Copy. Tendrá la forma https://buy.polar.sh/xxxxxxxxxxxxxxxx
+   (Ver el runbook completo en PAYMENTS.md). */
+    var TRACE_CHECKOUT_URL = "";
+    (function(){
+      if(!TRACE_CHECKOUT_URL) return;
+      var buys=document.querySelectorAll("a[data-buy]");
+      for(var i=0;i<buys.length;i++){ buys[i].setAttribute("href", TRACE_CHECKOUT_URL); }
+    })();
+
+    // ---- Hero: search + timeline reveal animation ----
     (function(){
       var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       var qEl = document.getElementById("q");
