@@ -22,21 +22,39 @@ licencia cuando esté lista. Polar = merchant of record (IVA global + PCI).
 
 ## Backend de entrega (repo `trace`, ya construido)
 
-Tras pagar, Polar redirige al **worker de licencias**, que verifica la compra con
-la API de Polar y mintea/entrega la clave **Ed25519 offline**:
-`https://trace-license.jonathanmartinpaez.workers.dev`
+Tras pagar, Polar entrega la clave **Ed25519 offline** por dos vías, ambas
+verificadas server-side antes de mintear:
+- **Redirect** `/?checkout_id=…` → verifica con la API de Polar → muestra la clave
+  en pantalla (y la envía por email si no hay webhook).
+- **Webhook** `POST /webhook` (evento `order.paid`) → verifica la firma del webhook
+  (HMAC, anti-replay) → mintea → **envía la clave por email**. Se dispara aunque el
+  comprador cierre la pestaña: es el canal fiable.
+
+Worker: `https://trace-license.jonathanmartinpaez.workers.dev`
+Email vía **Resend** (un `fetch`, sin SDK), opcional pero recomendado.
 
 ## Pendiente HUMANO para que la entrega funcione al 100%
 
-(En el panel de Polar / Cloudflare — ver detalle en la memoria del repo `trace`.)
+(En el panel de Polar / Cloudflare / Resend — ver detalle en
+`trace/services/license-worker/README.md`.)
 
 1. **Confirmar** que el producto de Polar detrás de ese checkout cuesta **$39** y
    está activo (importe cobrado = importe anunciado en la landing).
 2. **Success URL** del checkout en Polar →
    `https://trace-license.jonathanmartinpaez.workers.dev/?checkout_id={CHECKOUT_ID}`
-3. Secrets del worker: `wrangler secret put TRACE_SIGNING_KEY` y
+3. Secrets base del worker: `wrangler secret put TRACE_SIGNING_KEY` y
    `wrangler secret put POLAR_ACCESS_TOKEN` (token de Polar scope `checkouts:read`).
-4. Al cablear de verdad, fijar el `PRODUCT_ID` real en el worker (falla cerrado).
+4. Fijar el `PRODUCT_ID` real en el worker (`wrangler.toml`, falla cerrado).
+5. **Email automático al comprador (Resend):**
+   - Verificar el dominio `fervon.dev` en Resend (registros DKIM/SPF en Cloudflare).
+   - `wrangler secret put RESEND_API_KEY` + `EMAIL_FROM = "Trace <license@fervon.dev>"`
+     en `wrangler.toml [vars]`.
+6. **Entrega fiable aunque cierren la pestaña (webhook):**
+   - En Polar → Settings → Webhooks: endpoint `…workers.dev/webhook`, evento
+     `order.paid`, formato Raw (Standard Webhooks).
+   - `wrangler secret put POLAR_WEBHOOK_SECRET` (el secret que muestra Polar).
+   - Con el webhook configurado, **el webhook es quien envía el email** y el redirect
+     deja de duplicar (solo muestra la clave en pantalla).
 
 ## Verificar
 
