@@ -37,24 +37,48 @@
   window.addEventListener('resize',function(){ if(window.innerWidth>880) set(false); });
 })();
 
-/* Fervon bilingual toggle — ES/EN, persisted, used by every page */
+/* Fervon bilingual toggle — ES/EN segmented control, persisted, used by every page */
 (function(){
   var KEY="fervon-lang";
   var base=(document.documentElement.getAttribute("lang")||"es").slice(0,2).toLowerCase();
   var other=base==="es"?"en":"es";
   var nodes=[].slice.call(document.querySelectorAll("[data-"+other+"]"));
   nodes.forEach(function(n){ var a=n.getAttribute("data-i18n-attr"); n.setAttribute("data-"+base, a?(n.getAttribute(a)||""):n.innerHTML); });
+
+  // Replace the legacy single #lang button with an ES/EN segmented control.
+  var opts={};
+  (function(){
+    var old=document.getElementById("lang"); if(!old) return;
+    var seg=document.createElement("div");
+    seg.id="lang"; seg.className="langseg";
+    seg.setAttribute("role","group"); seg.setAttribute("aria-label","Idioma / Language");
+    ["es","en"].forEach(function(lg){
+      var o=document.createElement("button");
+      o.type="button"; o.className="langopt"; o.setAttribute("data-lang",lg);
+      o.textContent=lg.toUpperCase();
+      o.setAttribute("aria-label",lg==="es"?"Español":"English");
+      o.addEventListener("click",function(){
+        if(document.documentElement.getAttribute("lang")===lg) return;
+        try{localStorage.setItem(KEY,lg);}catch(e){}
+        apply(lg);
+      });
+      opts[lg]=o; seg.appendChild(o);
+    });
+    old.parentNode.replaceChild(seg,old);
+  })();
+
   function apply(lang){
     document.documentElement.setAttribute("lang",lang);
     for(var i=0;i<nodes.length;i++){ var n=nodes[i], v=n.getAttribute("data-"+lang); if(v===null) continue; var a=n.getAttribute("data-i18n-attr"); if(a) n.setAttribute(a,v); else n.innerHTML=v; }
-    var b=document.getElementById("lang"); if(b) b.textContent=(lang==="es"?"EN":"ES");
+    if(opts.es&&opts.en){
+      opts.es.classList.toggle("on",lang==="es"); opts.es.setAttribute("aria-pressed",lang==="es"?"true":"false");
+      opts.en.classList.toggle("on",lang==="en"); opts.en.setAttribute("aria-pressed",lang==="en"?"true":"false");
+    }
     document.dispatchEvent(new CustomEvent("fervon:lang",{detail:lang}));
   }
   var saved=null; try{saved=localStorage.getItem(KEY);}catch(e){}
   var initial=saved||(((navigator.language||"").toLowerCase().slice(0,2)==="es")?"es":"en");
   apply(initial);
-  var b=document.getElementById("lang");
-  if(b) b.addEventListener("click",function(){ var nx=(document.documentElement.getAttribute("lang")==="es")?"en":"es"; try{localStorage.setItem(KEY,nx);}catch(e){} apply(nx); });
 })();
 
 /* Reveal-on-scroll — fade/slide elements in as they enter the viewport.
