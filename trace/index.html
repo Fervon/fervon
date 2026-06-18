@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Trace · Tu memoria personal, en tu máquina | Fervon</title>
-  <meta name="description" content="Trace es tu memoria personal local-first y multiplataforma. Encuentra cualquier cosa que viste, leíste o hiciste — sin grabar tu pantalla, sin nube, sin suscripción. La alternativa privada a Rewind, Limitless y Microsoft Recall. Pago único. Un proyecto de Fervon." />
+  <meta name="description" content="Trace es tu memoria personal local-first y multiplataforma. Encuentra cualquier cosa que viste, leíste o hiciste — sin grabar tu pantalla, sin nube. El núcleo es pago único y 100% offline; Trace AI añade preguntas en lenguaje natural sobre tu memoria. La alternativa privada a Rewind, Limitless y Microsoft Recall. Un proyecto de Fervon." />
   <link rel="canonical" href="https://fervon.dev/trace/" />
   <meta name="keywords" content="alternativa a Rewind, alternativa a Limitless, alternativa privada a Microsoft Recall, memoria personal local-first, alternativa a Screenpipe, línea de tiempo privada, memoria personal" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
@@ -16,7 +16,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Fervon" />
   <meta property="og:title" content="Trace · Tu memoria personal, en tu máquina" />
-  <meta property="og:description" content="Encuentra cualquier cosa que viste, leíste o hiciste — sin grabar tu pantalla, sin nube, sin suscripción. La alternativa privada y local-first a Rewind, Limitless y Microsoft Recall. Pago único." />
+  <meta property="og:description" content="Encuentra cualquier cosa que viste, leíste o hiciste — sin grabar tu pantalla, sin nube. Núcleo de pago único y 100% offline; Trace AI opcional añade preguntas en lenguaje natural. La alternativa privada y local-first a Rewind, Limitless y Microsoft Recall." />
   <meta property="og:url" content="https://fervon.dev/trace/" />
   <meta property="og:image" content="https://fervon.dev/assets/og-trace.png" />
   <meta name="twitter:image" content="https://fervon.dev/assets/og-trace.png" />
@@ -30,8 +30,11 @@
     "name": "Trace",
     "applicationCategory": "UtilitiesApplication",
     "operatingSystem": "Windows, macOS, Linux",
-    "description": "Memoria personal local-first y multiplataforma. Encuentra cualquier cosa que viste, leíste o hiciste — sin grabar tu pantalla, sin nube, sin suscripción. Alternativa privada a Rewind, Limitless y Microsoft Recall.",
-    "offers": { "@type": "Offer", "price": "39", "priceCurrency": "USD", "description": "Licencia lifetime early-bird" },
+    "description": "Memoria personal local-first y multiplataforma. Encuentra cualquier cosa que viste, leíste o hiciste — sin grabar tu pantalla, sin nube. Núcleo de pago único y offline; Trace AI opcional añade preguntas en lenguaje natural. Alternativa privada a Rewind, Limitless y Microsoft Recall.",
+    "offers": [
+      { "@type": "Offer", "name": "Trace", "price": "39", "priceCurrency": "USD", "description": "Licencia de pago único — todas las funciones locales, 100% offline" },
+      { "@type": "Offer", "name": "Trace AI", "priceCurrency": "USD", "description": "Suscripción opcional que añade Ask Trace (preguntas en lenguaje natural sobre tu memoria, IA alojada por Fervon)" }
+    ],
     "publisher": { "@type": "Organization", "name": "Fervon", "url": "https://fervon.dev/" },
     "url": "https://fervon.dev/trace/"
   }
@@ -47,7 +50,8 @@
       { "@type": "Question", "name": "¿En qué se diferencia de Microsoft Recall?", "acceptedAnswer": { "@type": "Answer", "text": "Recall está atado a los Copilot+ PC, toma capturas constantes y ha recibido fuertes críticas de privacidad. Trace funciona en cualquier PC moderno, captura mucho menos, filtra las exclusiones antes de escribir nada, y es transparente y opcional por diseño." } },
       { "@type": "Question", "name": "¿Qué pasó con Rewind y Limitless?", "acceptedAnswer": { "@type": "Answer", "text": "Rewind (luego Limitless) fue adquirido por Meta y su app se cerró el 19 de diciembre de 2025. Trace existe para ser el sucesor independiente y realmente local para quien aún quiere esto sin un dueño big-tech." } },
       { "@type": "Question", "name": "¿Qué plataformas soporta?", "acceptedAnswer": { "@type": "Answer", "text": "Trace apunta a Windows, macOS y Linux. A los de la lista se les dirá qué builds de plataforma estarán listos primero." } },
-      { "@type": "Question", "name": "¿Cuánto cuesta Trace?", "acceptedAnswer": { "@type": "Answer", "text": "Trace es un pago único. Unirte a la lista fija el precio lifetime early-bird de 39 USD (precio normal 59 USD). Un tier Pro de IA local está previsto para después y es totalmente opcional." } }
+      { "@type": "Question", "name": "¿Cuánto cuesta Trace?", "acceptedAnswer": { "@type": "Answer", "text": "Hay dos ediciones de pago. Trace es un pago único (39 USD early-bird, luego 59 USD) que desbloquea todas las funciones locales para siempre, 100% offline. Trace AI es una suscripción opcional que añade Ask Trace: preguntas en lenguaje natural sobre tu memoria, con IA alojada por Fervon. No hay versión gratuita." } },
+      { "@type": "Question", "name": "¿Qué es Trace AI y usa la nube?", "acceptedAnswer": { "@type": "Answer", "text": "Trace AI es la suscripción que añade Ask Trace: le preguntas en lenguaje natural y responde sobre tu propia memoria. Es lo único que usa la red, y solo cuando tú pulsas «preguntar»: se envían únicamente los fragmentos más relevantes (título, URL, fecha y un extracto) de los resultados locales a nuestro proxy, que llama al modelo. Todo lo demás sigue 100% offline. Si prefieres, puedes usar tu propia clave de IA (Anthropic, OpenAI, Ollama local…)." }
     ]
   }
   </script>
@@ -75,7 +79,7 @@
     <div class="act">
       <button id="lang" class="btn btn-ghost btn-sm" type="button" aria-label="Cambiar idioma / Switch language">EN</button>
       <a class="btn btn-ghost btn-sm" href="https://github.com/JoniMartin27/trace">GitHub</a>
-      <a class="btn btn-fire btn-sm" href="#waitlist" data-en="Join the waitlist">Únete a la lista</a>
+      <a class="btn btn-fire btn-sm" href="#pricing" data-en="See pricing">Ver precios</a>
     </div>
   </div></header>
 
@@ -88,7 +92,7 @@
         <div>
           <span class="pill reveal" data-en='<span class="dot"></span> Local-first · Windows · macOS · Linux'><span class="dot"></span> Local-first · Windows · macOS · Linux</span>
           <h1 class="reveal" data-en='Your personal memory, <span class="grad">on your machine</span>.'>Tu memoria personal, <span class="grad">en tu máquina</span>.</h1>
-          <p class="sub reveal" data-en='Find anything you saw, read, or did. <b>No screen recording, no cloud, no subscription.</b>'>Encuentra cualquier cosa que viste, leíste o hiciste. <b>Sin grabar tu pantalla, sin nube, sin suscripción.</b></p>
+          <p class="sub reveal" data-en='Find anything you saw, read, or did. <b>No screen recording, no cloud.</b> The core is a one-time purchase and 100% offline.'>Encuentra cualquier cosa que viste, leíste o hiciste. <b>Sin grabar tu pantalla, sin nube.</b> El núcleo es pago único y 100% offline.</p>
           <div class="row reveal">
             <a class="btn btn-fire" href="https://buy.polar.sh/polar_cl_uQFZh6NjMqG5zp0RVGHSjITzIJVn1CPA2uB4N0DUmNc" data-en="Buy — $39">Comprar — $39</a>
             <a class="btn btn-ghost" href="#how" data-en="See how it works">Ver cómo funciona</a>
@@ -210,42 +214,45 @@
 
     <!-- PRICING -->
     <section class="sec" id="pricing"><div class="wrap">
-      <div class="center reveal"><span class="eye" data-en="Pricing">Precio</span><h2 data-en="Simple and honest">Simple y honesto</h2><p class="desc" data-en="Pay once. Yours forever.">Paga una vez. Tuyo para siempre.</p></div>
+      <div class="center reveal"><span class="eye" data-en="Pricing">Precio</span><h2 data-en="Two editions. No free tier, no trap.">Dos ediciones. Sin tier gratis, sin trampa.</h2><p class="desc" data-en="Buy Trace once and own every local feature forever. Add Trace AI only if you want to ask your memory questions.">Compra Trace una vez y quédate con todas las funciones locales para siempre. Añade Trace AI solo si quieres hacerle preguntas a tu memoria.</p></div>
       <div class="prices">
+        <!-- Trace — one-time license (the "base" edition) -->
         <div class="glass price feat-card reveal">
           <span class="pbadge" data-en="Early-bird">Early-bird</span>
-          <div class="pname" data-en="Lifetime">Lifetime</div>
+          <div class="pname" data-en="Trace">Trace</div>
           <div class="pamt"><span class="pnow grad">$39</span><span class="pwas">$59</span></div>
-          <div class="pcyc" data-en="one-time payment">pago único</div>
+          <div class="pcyc" data-en="one-time payment · yours forever">pago único · tuyo para siempre</div>
           <ul class="plist">
-            <li data-en="Local capture, search and timeline">Captura, búsqueda y timeline locales</li>
-            <li data-en="Windows, macOS and Linux">Windows, macOS y Linux</li>
-            <li data-en="Open-core, encrypted at rest">Open-core, cifrado en reposo</li>
-            <li data-en="All future updates">Todas las futuras actualizaciones</li>
+            <li data-en="<strong>Every local feature</strong>: capture, search, timeline & insights"><strong>Todas las funciones locales</strong>: captura, búsqueda, timeline e insights</li>
+            <li data-en="Semantic search, pins, tags, smart digests & app usage">Búsqueda semántica, pines, etiquetas, resúmenes y uso de apps</li>
+            <li data-en="Encrypted vault & advanced export — <strong>100% offline</strong>">Bóveda cifrada y export avanzado — <strong>100% offline</strong></li>
+            <li data-en="Windows, macOS & Linux · all future updates">Windows, macOS y Linux · todas las futuras actualizaciones</li>
           </ul>
-          <a class="btn btn-fire btn-block" href="https://buy.polar.sh/polar_cl_uQFZh6NjMqG5zp0RVGHSjITzIJVn1CPA2uB4N0DUmNc" data-en="Buy — $39">Comprar — $39</a>
+          <a class="btn btn-fire btn-block" href="https://buy.polar.sh/polar_cl_uQFZh6NjMqG5zp0RVGHSjITzIJVn1CPA2uB4N0DUmNc" data-en="Buy Trace — $39">Comprar Trace — $39</a>
           <p class="pfoot" data-en="In beta — pre-sale. Buy now and get your license + the beta the moment it's ready. Full refund anytime before launch. Secure checkout by Polar.">En beta — preventa. Compra ahora y recibe tu licencia + la beta en cuanto esté lista. Reembolso total hasta el lanzamiento. Pago seguro con Polar.</p>
         </div>
 
+        <!-- Trace AI — recurring subscription (hosted "Ask Trace") -->
         <div class="glass price reveal">
-          <span class="pbadge soon" data-en="Coming soon">Próximamente</span>
-          <div class="pname" data-en="AI Pro">Pro IA</div>
-          <div class="pamt"><span class="pnow">$5–8</span></div>
-          <div class="pcyc" data-en="per month · optional">al mes · opcional</div>
+          <span class="pbadge soon" data-en="Add-on subscription">Suscripción opcional</span>
+          <div class="pname" data-en="Trace AI">Trace AI</div>
+          <div class="pamt"><span class="pnow grad">$TBD</span></div>
+          <div class="pcyc" data-en="per month · adds Ask Trace">al mes · añade Ask Trace</div>
           <ul class="plist">
-            <li data-en="Semantic chat over your memory">Chat semántico sobre tu memoria</li>
-            <li data-en="<strong>Local</strong> AI model — no cloud">Modelo de IA <strong>local</strong> — sin nube</li>
-            <li data-en="100% optional — Lifetime doesn't need it">100% opcional — Lifetime no lo necesita</li>
+            <li data-en="<strong>Ask Trace</strong>: ask your memory in plain language"><strong>Ask Trace</strong>: pregúntale a tu memoria en lenguaje natural</li>
+            <li data-en="AI <strong>hosted by Fervon</strong> — no API key to manage">IA <strong>alojada por Fervon</strong> — sin clave de API que gestionar</li>
+            <li data-en="Network used <strong>only</strong> when you hit Ask; the host is shown first">La red se usa <strong>solo</strong> al preguntar; te mostramos el destino antes</li>
+            <li data-en="Prefer your own key? Anthropic, OpenAI & local Ollama still work">¿Prefieres tu clave? Anthropic, OpenAI y Ollama local siguen disponibles</li>
           </ul>
-          <a class="btn btn-ghost btn-block" href="#waitlist" data-en="Notify me">Avísame</a>
-          <p class="pfoot" data-en="After the desktop app launches.">Tras lanzar la app de escritorio.</p>
+          <a class="btn btn-ghost btn-block" href="#SUBSCRIBE_URL" data-en="Subscribe to Trace AI">Suscribirse a Trace AI</a>
+          <p class="pfoot" data-en="Requires a Trace license. Optional — Trace works fully without it. Cancel anytime.">Requiere una licencia de Trace. Opcional — Trace funciona del todo sin esto. Cancela cuando quieras.</p>
         </div>
       </div>
     </div></section>
 
     <!-- WAITLIST (primary CTA) -->
     <section class="sec alt" id="waitlist"><div class="wrap">
-      <div class="center reveal"><span class="eye" data-en="Free waitlist">Lista gratis</span><h2 data-en="Not ready to buy?">¿Aún no quieres comprar?</h2><p class="desc" data-en="Leave your email and I'll tell you when the beta opens — no charge. Buying now gets you in first and locks the $39 price.">Déjame tu email y te aviso cuando abra la beta — sin coste. Comprar ahora te mete primero y fija el precio de $39.</p></div>
+      <div class="center reveal"><span class="eye" data-en="Stay in the loop">Mantente al tanto</span><h2 data-en="Not ready to buy?">¿Aún no quieres comprar?</h2><p class="desc" data-en="Leave your email and I'll tell you when the beta opens — no charge to join the list. Buying Trace now gets you in first and locks the $39 price.">Déjame tu email y te aviso cuando abra la beta — apuntarse no cuesta nada. Comprar Trace ahora te mete primero y fija el precio de $39.</p></div>
       <form id="wl" class="wlform reveal" action="https://formspree.io/f/mnjyoknb" method="POST" novalidate>
           <input type="hidden" name="origen" value="trace/index" />
           <input type="hidden" name="_subject" value="fervon.dev · trace/index" />
@@ -269,7 +276,8 @@
         <details><summary data-en="How is it different from Microsoft Recall?">¿En qué se diferencia de Microsoft Recall?</summary><p data-en="Recall is tied to “Copilot+ PCs” and captures constantly. Trace runs on any modern PC, captures far less, and filters before writing.">Recall está atado a los «Copilot+ PC» y captura constantemente. Trace funciona en cualquier PC moderno, captura mucho menos y filtra antes de escribir.</p></details>
         <details><summary data-en="What happened to Rewind / Limitless?">¿Qué pasó con Rewind / Limitless?</summary><p data-en="Meta bought it and shut the app down on December 19, 2025. Trace is the independent, truly local successor.">Lo compró Meta y cerró la app el 19 de diciembre de 2025. Trace es el sucesor independiente y realmente local.</p></details>
         <details><summary data-en="Which platforms does it support?">¿Qué plataformas soporta?</summary><p data-en="Windows, macOS and Linux. The waitlist will know which builds land first.">Windows, macOS y Linux. La lista sabrá qué builds llegan primero.</p></details>
-        <details><summary data-en="When can I use it and how much does it cost?">¿Cuándo puedo usarlo y cuánto cuesta?</summary><p data-en="Trace is in active development. You can buy the $39 lifetime now (normally $59): it's in beta, so you're charged today and get the beta plus your license the moment it's ready, with a full refund anytime before launch. Payments are handled securely by Polar (your card never touches my servers). The local AI Pro tier is optional and comes later.">Trace está en desarrollo activo. Puedes comprar ahora el lifetime de $39 (normal $59): está en beta, así que se te cobra hoy y recibes la beta más tu licencia en cuanto esté lista, con reembolso total hasta el lanzamiento. Los pagos los gestiona Polar de forma segura (tu tarjeta nunca pasa por mis servidores). El tier Pro de IA local es opcional y llega después.</p></details>
+        <details><summary data-en="When can I use it and how much does it cost?">¿Cuándo puedo usarlo y cuánto cuesta?</summary><p data-en="Trace is in active development. There are two paid editions and no free tier. Trace is a one-time $39 early-bird (normally $59) that unlocks every local feature forever. It's in beta, so you're charged today and get the beta plus your license the moment it's ready, with a full refund anytime before launch. Payments are handled securely by Polar (your card never touches my servers). Trace AI is an optional subscription that adds Ask Trace.">Trace está en desarrollo activo. Hay dos ediciones de pago y no hay versión gratuita. Trace es un pago único de $39 early-bird (normal $59) que desbloquea todas las funciones locales para siempre. Está en beta, así que se te cobra hoy y recibes la beta más tu licencia en cuanto esté lista, con reembolso total hasta el lanzamiento. Los pagos los gestiona Polar de forma segura (tu tarjeta nunca pasa por mis servidores). Trace AI es una suscripción opcional que añade Ask Trace.</p></details>
+        <details><summary data-en="What is Trace AI and does it use the cloud?">¿Qué es Trace AI y usa la nube?</summary><p data-en="Trace AI is the subscription that adds Ask Trace — ask your memory in plain language and get an answer. It's the only thing that uses the network, and only when you hit Ask: only the most relevant snippets (title, URL, date and an excerpt) of your local results are sent to our proxy, which calls the model. Everything else stays 100% offline. The exact host is shown before anything is sent. Prefer your own key? Anthropic, OpenAI and local Ollama still work.">Trace AI es la suscripción que añade Ask Trace — pregúntale a tu memoria en lenguaje natural y obtén una respuesta. Es lo único que usa la red, y solo cuando pulsas «preguntar»: únicamente se envían los fragmentos más relevantes (título, URL, fecha y un extracto) de tus resultados locales a nuestro proxy, que llama al modelo. Todo lo demás sigue 100% offline. Te mostramos el destino exacto antes de enviar nada. ¿Prefieres tu clave? Anthropic, OpenAI y Ollama local siguen disponibles.</p></details>
       </div>
     </div></section>
 

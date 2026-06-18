@@ -4,8 +4,16 @@ Estado: **el pago está CABLEADO y en vivo en fervon.dev/trace.** Los botones
 "Reservar — $39" enlazan directamente al checkout de Polar ya existente. La
 entrega de la licencia la hace el worker `trace-license` (repo `trace`).
 
-Modelo: **pre-venta lifetime early-bird $39** — cobras hoy, entregas beta +
-licencia cuando esté lista. Polar = merchant of record (IVA global + PCI).
+Modelo: **dos ediciones de pago, sin tier gratis.**
+- **Base** — licencia de **pago único** que desbloquea *todas* las funciones locales
+  (100% offline, clave Ed25519 verificada sin red). Pre-venta lifetime early-bird $39:
+  cobras hoy, entregas beta + licencia cuando esté lista.
+- **AI** — **suscripción recurrente** que añade el Q&A alojado **Ask Trace** (la única
+  ruta que usa la red). Se prueba con un **token AI firmado** aparte (misma familia de
+  claves Ed25519) y se valida **fail-closed** en nuestro Worker de IA. Aún NO se vende
+  (ver nota final); cuando se active, se crea como producto **suscripción** en Polar.
+
+Polar = merchant of record (IVA global + PCI) para ambas ediciones.
 
 ---
 
@@ -55,4 +63,8 @@ la API de Polar y mintea/entrega la clave **Ed25519 offline**:
 - **SEO opcional**: schema `Offer` con `availability: PreOrder` en el JSON-LD de
   `trace/index.html` → cambia el hash de la CSP (re-correr `build-csp.mjs` +
   actualizar la Transform Rule de Cloudflare). Por eso no se tocó el JSON-LD.
-- El tier "Pro IA" sigue "Próximamente" (no se vende aún).
+- La edición **AI (suscripción)** aún NO se vende: el botón sigue "Próximamente". La
+  infraestructura de IA alojada (Worker Cloudflare sobre Workers AI, asignación diaria
+  gratuita, validación fail-closed del token AI) ya está construida en el repo `trace`
+  (`services/ai-worker/`). Para venderla: crear el producto **suscripción** en Polar y
+  cablear la entrega del token `TRACE-AI.…` (ver `trace/SELLING.md`).
