@@ -37,39 +37,72 @@
   window.addEventListener('resize',function(){ if(window.innerWidth>880) set(false); });
 })();
 
-/* Fervon bilingual toggle — ES/EN, persisted, used by every page */
+/* Fervon bilingual toggle — ES/EN segmented control, persisted, used by every page */
 (function(){
   var KEY="fervon-lang";
   var base=(document.documentElement.getAttribute("lang")||"es").slice(0,2).toLowerCase();
   var other=base==="es"?"en":"es";
   var nodes=[].slice.call(document.querySelectorAll("[data-"+other+"]"));
   nodes.forEach(function(n){ var a=n.getAttribute("data-i18n-attr"); n.setAttribute("data-"+base, a?(n.getAttribute(a)||""):n.innerHTML); });
+
+  // Replace the legacy single #lang button with an ES/EN segmented control.
+  var opts={};
+  (function(){
+    var old=document.getElementById("lang"); if(!old) return;
+    var seg=document.createElement("div");
+    seg.id="lang"; seg.className="langseg";
+    seg.setAttribute("role","group"); seg.setAttribute("aria-label","Idioma / Language");
+    ["es","en"].forEach(function(lg){
+      var o=document.createElement("button");
+      o.type="button"; o.className="langopt"; o.setAttribute("data-lang",lg);
+      o.textContent=lg.toUpperCase();
+      o.setAttribute("aria-label",lg==="es"?"Español":"English");
+      o.addEventListener("click",function(){
+        if(document.documentElement.getAttribute("lang")===lg) return;
+        try{localStorage.setItem(KEY,lg);}catch(e){}
+        apply(lg);
+      });
+      opts[lg]=o; seg.appendChild(o);
+    });
+    old.parentNode.replaceChild(seg,old);
+  })();
+
   function apply(lang){
     document.documentElement.setAttribute("lang",lang);
     for(var i=0;i<nodes.length;i++){ var n=nodes[i], v=n.getAttribute("data-"+lang); if(v===null) continue; var a=n.getAttribute("data-i18n-attr"); if(a) n.setAttribute(a,v); else n.innerHTML=v; }
-    var b=document.getElementById("lang"); if(b) b.textContent=(lang==="es"?"EN":"ES");
+    if(opts.es&&opts.en){
+      opts.es.classList.toggle("on",lang==="es"); opts.es.setAttribute("aria-pressed",lang==="es"?"true":"false");
+      opts.en.classList.toggle("on",lang==="en"); opts.en.setAttribute("aria-pressed",lang==="en"?"true":"false");
+    }
     document.dispatchEvent(new CustomEvent("fervon:lang",{detail:lang}));
   }
   var saved=null; try{saved=localStorage.getItem(KEY);}catch(e){}
   var initial=saved||(((navigator.language||"").toLowerCase().slice(0,2)==="es")?"es":"en");
   apply(initial);
-  var b=document.getElementById("lang");
-  if(b) b.addEventListener("click",function(){ var nx=(document.documentElement.getAttribute("lang")==="es")?"en":"es"; try{localStorage.setItem(KEY,nx);}catch(e){} apply(nx); });
 })();
 
 /* Reveal-on-scroll — fade/slide elements in as they enter the viewport.
    IO handles below-the-fold; a rAF pass reveals whatever is already on
    screen so content is never left hidden if the initial IO tick is missed. */
 (function(){
-  var els=[].slice.call(document.querySelectorAll(".reveal")); if(!els.length) return;
-  function show(el){ el.classList.add("in"); }
-  if(!("IntersectionObserver" in window)){ els.forEach(show); return; }
-  var rev=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ show(en.target); rev.unobserve(en.target); } }); },{threshold:.12});
-  els.forEach(function(el){ rev.observe(el); });
-  // Safety net: reveal whatever is already on screen, in case the initial
-  // IntersectionObserver tick is missed. setTimeout fires regardless of paint.
-  setTimeout(function(){
+  var pending=[].slice.call(document.querySelectorAll(".reveal")); if(!pending.length) return;
+  function reveal(el){ el.classList.add("in"); }
+  function check(){
+    if(!pending.length) return;
     var vh=window.innerHeight||document.documentElement.clientHeight;
-    els.forEach(function(el){ var r=el.getBoundingClientRect(); if(r.top<vh+40 && r.bottom>-40){ show(el); rev.unobserve(el); } });
-  },60);
+    pending=pending.filter(function(el){
+      var r=el.getBoundingClientRect();
+      if(r.top<vh-40 && r.bottom>-40){ reveal(el); return false; }
+      return true;
+    });
+    if(!pending.length){ window.removeEventListener("scroll",onScroll); window.removeEventListener("resize",onScroll); }
+  }
+  var ticking=false;
+  function onScroll(){ if(ticking) return; ticking=true; requestAnimationFrame(function(){ ticking=false; check(); }); }
+  window.addEventListener("scroll",onScroll,{passive:true});
+  window.addEventListener("resize",onScroll,{passive:true});
+  // Initial passes as fonts/layout settle.
+  requestAnimationFrame(check); setTimeout(check,120); setTimeout(check,500);
+  // Final guard: never leave .reveal content stuck hidden, whatever happens.
+  setTimeout(function(){ pending.forEach(reveal); pending=[]; },4000);
 })();
