@@ -115,7 +115,10 @@
     .star .pname small{color:var(--dim);font-weight:400;font-size:15px}
     .star .pdesc{color:var(--ash);margin-top:11px;max-width:460px;line-height:1.6}
     .star .pdesc strong{color:var(--bone)}
-    .star .acts{margin-top:20px;display:flex;gap:12px;flex-wrap:wrap}
+    .star .priceline{margin-top:14px;font-size:14px;color:var(--ash)}
+    .star .priceline strong{color:var(--bone);font-weight:800;font-size:17px}
+    .star .priceline .old{color:var(--dim);text-decoration:line-through;margin:0 4px 0 7px}
+    .star .acts{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap}
     @media(max-width:680px){.star{grid-template-columns:1fr;padding:26px 24px}.star .sbig{display:none}}
 
     /* Categorías */
@@ -160,6 +163,10 @@
     .badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:14px;white-space:nowrap}
     .badge.free{background:rgba(143,200,107,.14);color:#A6D585;border:1px solid rgba(143,200,107,.3)}
     .badge.paid{background:rgba(255,176,46,.14);color:var(--amber);border:1px solid rgba(255,176,46,.32)}
+    .badge.live{background:rgba(255,106,0,.16);color:var(--amber);border:1px solid rgba(255,106,0,.42);display:inline-flex;align-items:center;gap:7px;text-transform:uppercase;letter-spacing:.6px;animation:livepulse 2.6s ease-out infinite}
+    .badge.live .livedot{width:7px;height:7px;border-radius:50%;background:var(--ember);box-shadow:0 0 8px var(--ember);flex:none}
+    @keyframes livepulse{0%{box-shadow:0 0 0 0 rgba(255,106,0,.45)}70%{box-shadow:0 0 0 9px rgba(255,106,0,0)}100%{box-shadow:0 0 0 0 rgba(255,106,0,0)}}
+    @media(prefers-reduced-motion:reduce){.badge.live{animation:none}}
 
     /* Servicios */
     .services{position:relative;background:linear-gradient(150deg,#1d1510,#140E0B);border:1px solid var(--line2);border-radius:20px;padding:40px 36px;overflow:hidden}
