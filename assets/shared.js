@@ -85,15 +85,24 @@
    IO handles below-the-fold; a rAF pass reveals whatever is already on
    screen so content is never left hidden if the initial IO tick is missed. */
 (function(){
-  var els=[].slice.call(document.querySelectorAll(".reveal")); if(!els.length) return;
-  function show(el){ el.classList.add("in"); }
-  if(!("IntersectionObserver" in window)){ els.forEach(show); return; }
-  var rev=new IntersectionObserver(function(es){ es.forEach(function(en){ if(en.isIntersecting){ show(en.target); rev.unobserve(en.target); } }); },{threshold:.12});
-  els.forEach(function(el){ rev.observe(el); });
-  // Safety net: reveal whatever is already on screen, in case the initial
-  // IntersectionObserver tick is missed. setTimeout fires regardless of paint.
-  setTimeout(function(){
+  var pending=[].slice.call(document.querySelectorAll(".reveal")); if(!pending.length) return;
+  function reveal(el){ el.classList.add("in"); }
+  function check(){
+    if(!pending.length) return;
     var vh=window.innerHeight||document.documentElement.clientHeight;
-    els.forEach(function(el){ var r=el.getBoundingClientRect(); if(r.top<vh+40 && r.bottom>-40){ show(el); rev.unobserve(el); } });
-  },60);
+    pending=pending.filter(function(el){
+      var r=el.getBoundingClientRect();
+      if(r.top<vh-40 && r.bottom>-40){ reveal(el); return false; }
+      return true;
+    });
+    if(!pending.length){ window.removeEventListener("scroll",onScroll); window.removeEventListener("resize",onScroll); }
+  }
+  var ticking=false;
+  function onScroll(){ if(ticking) return; ticking=true; requestAnimationFrame(function(){ ticking=false; check(); }); }
+  window.addEventListener("scroll",onScroll,{passive:true});
+  window.addEventListener("resize",onScroll,{passive:true});
+  // Initial passes as fonts/layout settle.
+  requestAnimationFrame(check); setTimeout(check,120); setTimeout(check,500);
+  // Final guard: never leave .reveal content stuck hidden, whatever happens.
+  setTimeout(function(){ pending.forEach(reveal); pending=[]; },4000);
 })();
