@@ -132,30 +132,34 @@
       </div>
     </section>
 
-    <section class="sec alt" id="problem"><div class="wrap">
-      <div class="center reveal"><span class="eye" data-es="El problema">The problem</span><h2 data-es="Por qué grabar la pantalla es el enfoque equivocado">Why screen recording is the wrong approach</h2></div>
-      <div class="prose reveal">
-        <p data-es="La idea de «recordar todo lo que hiciste» suena bien. El problema es que la mayoría de las herramientas que lo intentan lo hacen grabando vídeo continuo de tu pantalla — y eso trae consecuencias que rara vez se mencionan en las páginas de marketing.">The idea of "remember everything you did" sounds great. The problem is that most tools that attempt it do so by recording continuous video of your screen — and that comes with consequences that rarely appear on marketing pages.</p>
-        <p data-es="&lt;strong&gt;Privacidad.&lt;/strong&gt; Tu pantalla captura contraseñas visibles, mensajes privados, documentos financieros, datos de clientes — todo. Incluso con cifrado local, estás almacenando un archivo permanente de información que nunca quisiste archivar."><strong>Privacy.</strong> Your screen captures visible passwords, private messages, financial documents, client data — everything. Even with local encryption, you're storing a permanent record of information you never intended to archive.</p>
-        <p data-es="&lt;strong&gt;Rendimiento.&lt;/strong&gt; Grabar vídeo 24/7 consume CPU y RAM de forma constante. Screenpipe y herramientas similares son conocidas por ralentizar equipos y agotar la batería. No es un fallo de implementación — es el coste inherente de capturar píxeles continuamente."><strong>Performance.</strong> Recording video 24/7 consumes constant CPU and RAM. Screenpipe and similar tools are known to slow down machines and drain laptop batteries. That's not an implementation bug — it's the inherent cost of continuously capturing pixels.</p>
-        <p data-es="&lt;strong&gt;Uso en el trabajo.&lt;/strong&gt; La mayoría de las empresas tienen políticas de seguridad que prohibirían una app de grabación de pantalla corriendo en segundo plano en un PC de trabajo."><strong>Work use.</strong> Most companies have security policies that would prohibit a screen-recording app running in the background on a work machine. The tool becomes a compliance problem before you even install it.</p>
-        <p data-es="Hay un enfoque mejor: capturar solo las señales semánticas que importan, no los píxeles. Eso es lo que hace Trace.">There's a better approach: capture only the semantic signals that matter, not the pixels. That's what Trace does.</p>
+    <section class="sec alt" id="usecases"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-es="Casos de uso">Use cases</span><h2 data-es="Quién necesita memoria personal sin grabación de pantalla">Who needs personal memory without screen recording</h2></div>
+      <div class="cards">
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg></div><h3 data-es="Profesionales en empresas">Enterprise employees</h3><p data-es="Las políticas de seguridad de TI a menudo prohíben las herramientas de grabación de pantalla. Trace no graba nada visual, por lo que no activa esos controles.">IT security policies often ban screen-recording tools. Trace doesn't record anything visual, so it doesn't trigger those controls — you can have activity memory without violating company policy.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3 data-es="Usuarios conscientes de su privacidad">Privacy-conscious users</h3><p data-es="Si te preocupa almacenar vídeo de tu actividad en disco — contraseñas visibles, mensajes privados, documentos confidenciales — Trace captura lo semántico, no los píxeles.">If you're uncomfortable storing video of your activity on disk — visible passwords, private messages, confidential documents — Trace captures semantics, not pixels.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></div><h3 data-es="Portátiles con batería limitada">Battery-constrained laptops</h3><p data-es="La grabación de pantalla continua agota la batería. Los tres colectores de Trace son operaciones de E/S ligeras que apenas afectan a la duración de la batería.">Continuous screen recording drains batteries. Trace's three collectors are light I/O operations that barely affect battery life.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><h3 data-es="Desarrolladores">Developers</h3><p data-es="¿Qué función estabas editando el miércoles? ¿Qué URL de la documentación leíste antes de escribir ese snippet? El historial de ventana + historial del navegador son suficientes — sin vídeo.">What function were you editing on Wednesday? What docs URL did you read before writing that snippet? Active window history + browser history are enough to answer those questions — no video needed.</p></div>
       </div>
     </div></section>
 
-    <section class="sec" id="how"><div class="wrap">
-      <div class="center reveal"><span class="eye" data-es="El enfoque">The approach</span><h2 data-es="Señales ligeras, no píxeles">Lightweight signals, not pixels</h2><p class="desc" data-es="Trace captura las tres cosas que realmente necesitas para reconstruir tu día — sin grabar ni un fotograma.">Trace captures the three things you actually need to reconstruct your day — without recording a single frame.</p></div>
-      <div class="steps">
-        <div class="glass step reveal"><div class="n mono">01</div><h3 data-es="Historial de navegador">Browser history</h3><p data-es="Trace copia tu historial de Chrome, Edge, Firefox y otros navegadores Chromium. No hace capturas — solo los metadatos de URL y título que el navegador ya guarda, en un almacén unificado y buscable.">Trace copies your history from Chrome, Edge, Firefox and other Chromium browsers. No screenshots — just the URL and title metadata your browser already stores, in a unified, full-text searchable store.</p></div>
-        <div class="glass step reveal"><div class="n mono">02</div><h3 data-es="Ventana activa">Active window</h3><p data-es="Cada vez que cambias de aplicación, Trace registra el nombre y título de la ventana. Esto te permite buscar «¿en qué app estaba el martes?» sin necesidad de capturas de pantalla.">Every time you switch applications, Trace records the app name and window title. This lets you search "what app was I in on Tuesday?" without needing any screenshots.</p></div>
-        <div class="glass step reveal"><div class="n mono">03</div><h3 data-es="Portapapeles (opt-in)">Clipboard (opt-in)</h3><p data-es="Si activas el colector de portapapeles, Trace guarda el texto que copias. Está desactivado por defecto porque los portapapeles a menudo contienen secretos. Tú eliges si lo activas.">If you enable the clipboard collector, Trace saves the text you copy so you can search it later. It's off by default because clipboards often contain secrets. Your call.</p></div>
-      </div>
-      <div class="prose reveal s-O8o58g3l">
-        <p data-es="Ninguno de estos tres colectores hace capturas de pantalla ni graba vídeo. Las capturas con OCR están previstas como un extra opcional — y cuando lleguen, estarán &lt;em&gt;desactivadas por defecto&lt;/em&gt; y nunca saldrán de tu máquina.">None of these three collectors takes screenshots or records video. Screenshot OCR is planned as an optional extra — and when it arrives, it will be <em>off by default</em> and will never leave your machine.</p>
+    <section class="sec"><div class="wrap stats">
+      <div class="reveal"><div class="v grad">0</div><div class="l" data-es="capturas de pantalla por defecto">screenshots by default</div></div>
+      <div class="reveal"><div class="v grad">0</div><div class="l" data-es="datos a la nube">data to the cloud</div></div>
+      <div class="reveal"><div class="v grad">3</div><div class="l" data-es="plataformas compatibles">platforms supported</div></div>
+      <div class="reveal"><div class="v grad">$39</div><div class="l" data-es="pago único lifetime">one-time lifetime</div></div>
+    </div></section>
+
+    <section class="sec alt" id="pricing"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-es="Precio">Pricing</span><h2 data-es="Pago único. Tuyo para siempre.">Pay once. Yours forever.</h2><p class="desc" data-es="$39 early-bird (luego $59). Sin suscripción, sin nube.">$39 early-bird (then $59). No subscription, no cloud.</p>
+        <div class="row reveal s-0syaN8w1">
+          <a class="btn btn-fire" href="https://buy.polar.sh/polar_cl_uQFZh6NjMqG5zp0RVGHSjITzIJVn1CPA2uB4N0DUmNc" data-es="Comprar — $39">Buy — $39</a>
+          <a class="btn btn-ghost" href="#waitlist" data-es="Únete a la lista">Join the waitlist</a>
+        </div>
+        <p class="pfoot reveal" data-es="Reembolso total hasta el lanzamiento · Pago seguro con Polar">Full refund anytime before launch · Secure checkout by Polar</p>
       </div>
     </div></section>
 
-    <section class="sec alt" id="compare"><div class="wrap">
+    <section class="sec" id="compare"><div class="wrap">
       <div class="center reveal"><span class="eye" data-es="Comparativa">Comparison</span><h2 data-es="Trace vs Screenpipe vs Microsoft Recall">Trace vs Screenpipe vs Microsoft Recall</h2><p class="desc" data-es="Cómo captura cada herramienta tu actividad — y lo que eso implica.">How each tool captures your activity — and what that means.</p></div>
       <div class="glass reveal s-oxNvOtru">
         <div class="s-Gx11RS-7"><table>
@@ -203,24 +207,7 @@
       </div>
     </div></section>
 
-    <section class="sec" id="usecases"><div class="wrap">
-      <div class="center reveal"><span class="eye" data-es="Casos de uso">Use cases</span><h2 data-es="Quién necesita memoria personal sin grabación de pantalla">Who needs personal memory without screen recording</h2></div>
-      <div class="cards">
-        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg></div><h3 data-es="Profesionales en empresas">Enterprise employees</h3><p data-es="Las políticas de seguridad de TI a menudo prohíben las herramientas de grabación de pantalla. Trace no graba nada visual, por lo que no activa esos controles.">IT security policies often ban screen-recording tools. Trace doesn't record anything visual, so it doesn't trigger those controls — you can have activity memory without violating company policy.</p></div>
-        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3 data-es="Usuarios conscientes de su privacidad">Privacy-conscious users</h3><p data-es="Si te preocupa almacenar vídeo de tu actividad en disco — contraseñas visibles, mensajes privados, documentos confidenciales — Trace captura lo semántico, no los píxeles.">If you're uncomfortable storing video of your activity on disk — visible passwords, private messages, confidential documents — Trace captures semantics, not pixels.</p></div>
-        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"/></svg></div><h3 data-es="Portátiles con batería limitada">Battery-constrained laptops</h3><p data-es="La grabación de pantalla continua agota la batería. Los tres colectores de Trace son operaciones de E/S ligeras que apenas afectan a la duración de la batería.">Continuous screen recording drains batteries. Trace's three collectors are light I/O operations that barely affect battery life.</p></div>
-        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></div><h3 data-es="Desarrolladores">Developers</h3><p data-es="¿Qué función estabas editando el miércoles? ¿Qué URL de la documentación leíste antes de escribir ese snippet? El historial de ventana + historial del navegador son suficientes — sin vídeo.">What function were you editing on Wednesday? What docs URL did you read before writing that snippet? Active window history + browser history are enough to answer those questions — no video needed.</p></div>
-      </div>
-    </div></section>
-
-    <section class="sec alt"><div class="wrap stats">
-      <div class="reveal"><div class="v grad">0</div><div class="l" data-es="capturas de pantalla por defecto">screenshots by default</div></div>
-      <div class="reveal"><div class="v grad">0</div><div class="l" data-es="datos a la nube">data to the cloud</div></div>
-      <div class="reveal"><div class="v grad">3</div><div class="l" data-es="plataformas compatibles">platforms supported</div></div>
-      <div class="reveal"><div class="v grad">$39</div><div class="l" data-es="pago único lifetime">one-time lifetime</div></div>
-    </div></section>
-
-    <section class="sec" id="waitlist"><div class="wrap">
+    <section class="sec alt" id="waitlist"><div class="wrap">
       <div class="center reveal"><span class="eye" data-es="Lista de espera">Waitlist</span><h2 data-es="Únete a la beta privada">Join the private beta</h2><p class="desc" data-es="Trace está en beta. Únete a la lista para ser de los primeros — y fijar el precio early-bird de $39 lifetime.">Trace is in beta. Join the waitlist to be among the first — and lock in the $39 lifetime early-bird price.</p></div>
       <div class="row reveal s-0syaN8w1">
         <a class="btn btn-fire" href="https://buy.polar.sh/polar_cl_uQFZh6NjMqG5zp0RVGHSjITzIJVn1CPA2uB4N0DUmNc" data-es="Comprar — $39">Buy — $39</a>
@@ -240,7 +227,7 @@
       </form>
     </div></section>
 
-    <section class="sec alt" id="faq"><div class="wrap">
+    <section class="sec" id="faq"><div class="wrap">
       <div class="center reveal"><span class="eye">FAQ</span><h2 data-es="Preguntas frecuentes">Frequently asked questions</h2></div>
       <div class="faq reveal">
         <details><summary data-es="¿Hay una app de memoria personal que no grabe la pantalla?">Is there a personal memory app that doesn't record your screen?</summary><p data-es="Sí. Trace by Fervon captura señales ligeras — historial de navegador, la app o ventana activa y el texto del portapapeles — en lugar de grabar un vídeo continuo. Obtienes un historial buscable de todo lo que hiciste sin que se almacene ninguna grabación de pantalla.">Yes. Trace by Fervon captures lightweight signals — browser history, the active app or window, and clipboard text — instead of recording a continuous video. You get a searchable record of everything you did without any screen recording stored.</p></details>
@@ -248,16 +235,6 @@
         <details><summary data-es="¿Qué captura Trace en su lugar?">What does Trace capture instead?</summary><p data-es="Trace captura tres señales ligeras: (1) historial de navegador de Chrome, Edge y Firefox; (2) el nombre de la aplicación o ventana activa; y (3) el texto del portapapeles cuando copias algo (opt-in, desactivado por defecto). Sin píxeles, sin vídeo, sin capturas.">Trace captures three lightweight signals: (1) browser history from Chrome, Edge and Firefox; (2) the name of the active application or window; and (3) clipboard text when you copy something (opt-in, off by default). No pixels, no video, no screenshots.</p></details>
         <details><summary data-es="¿En qué se diferencia Trace de Screenpipe?">How is Trace different from Screenpipe?</summary><p data-es="Screenpipe graba vídeo continuo de pantalla y usa OCR sobre él. Trace deliberadamente evita este enfoque: captura solo metadatos (URLs, títulos de ventana, fragmentos del portapapeles). Esto hace que Trace sea mucho más ligero y seguro para usar en equipos de trabajo.">Screenpipe records continuous screen video and runs OCR over it. Trace deliberately avoids this: it captures only metadata (URLs, window titles, clipboard snippets) — not pixels. This makes Trace far lighter and safe to use on work machines.</p></details>
         <details><summary data-es="¿Es Trace seguro para usar en un ordenador de trabajo?">Is Trace safe to use on a work computer?</summary><p data-es="Trace está diseñado con este caso de uso en mente. Nunca graba vídeo de pantalla ni hace capturas por defecto. La lista de exclusiones te permite bloquear apps, dominios o ventanas específicas. Todo se queda en tu máquina — nada se sube a ningún servidor.">Trace is designed with this use case in mind. It never records screen video or takes screenshots by default. The exclusion list lets you block specific apps, domains or windows. Everything stays on your machine — nothing is uploaded to any server.</p></details>
-      </div>
-    </div></section>
-
-    <section class="sec" id="more"><div class="wrap">
-      <div class="center reveal"><span class="eye" data-es="Ver más">See more</span><h2 data-es="¿Investigando el campo a fondo?">Researching the field more broadly?</h2></div>
-      <div class="links reveal">
-        <a class="glass lcard" href="/trace/screenpipe-alternative"><span class="lt"><span class="arr">→</span> <span data-es="Alternativa a Screenpipe">Screenpipe alternative</span></span><span class="ld" data-es="Señales ligeras en vez de grabación de pantalla pesada.">Light signals instead of heavy, continuous screen recording.</span></a>
-        <a class="glass lcard" href="/trace/microsoft-recall-alternative"><span class="lt"><span class="arr">→</span> <span data-es="Alternativa a Microsoft Recall">Microsoft Recall alternative</span></span><span class="ld" data-es="Sin requisito de PC Copilot+ y sin capturas constantes.">No Copilot+ PC requirement and no constant screen snapshots.</span></a>
-        <a class="glass lcard" href="/trace/rewind-alternative-windows"><span class="lt"><span class="arr">→</span> <span data-es="Alternativa a Rewind para Windows">Rewind alternative for Windows</span></span><span class="ld" data-es="Rewind era solo Mac y Meta lo cerró. Trace corre en Windows.">Rewind was Mac-only and Meta shut it down. Trace runs on Windows.</span></a>
-        <a class="glass lcard" href="/trace/"><span class="lt"><span class="arr">→</span> <span data-es="Inicio de Trace">Trace home</span></span><span class="ld" data-es="La historia completa: cómo funciona, privacidad, precio y FAQ.">The full story: how it works, privacy, pricing and FAQ.</span></a>
       </div>
     </div></section>
 

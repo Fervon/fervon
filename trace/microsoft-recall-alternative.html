@@ -65,7 +65,6 @@
       <span aria-current="page" data-es="Alternativa a Recall">Recall alternative</span>
     </nav>
     <nav class="menu">
-      <a href="#problem" data-es="El problema">The problem</a>
       <a href="#different" data-es="En qué se diferencia">How it differs</a>
       <a href="#compare" data-es="Comparativa">Comparison</a>
       <a href="#pricing" data-es="Precio">Pricing</a>
@@ -121,39 +120,15 @@
       </div>
     </section>
 
-    <!-- PROBLEM: Recall's catch -->
-    <section class="sec alt" id="problem"><div class="wrap">
-      <div class="center reveal"><span class="eye" data-es="El problema">The problem</span><h2 data-es="El truco de Recall: solo Copilot+ PC">Recall's catch: Copilot+ PC only</h2><p class="desc" data-es="Antes de poder usarlo, te topas con un muro de hardware.">Before you can use it, you hit a wall of hardware.</p></div>
-      <div class="prose reveal">
-        <p data-es="Cuando la mayoría busca una &lt;b&gt;alternativa a Microsoft Recall&lt;/b&gt;, el primer muro que encuentra es el hardware. Recall no es una función que simplemente actives en Windows: viene con los &lt;b&gt;Copilot+ PC&lt;/b&gt;, una categoría de equipos que Microsoft define por una unidad de procesamiento neuronal (NPU) de 40+ TOPS, además de mínimos de RAM y almacenamiento. Si tu portátil o sobremesa actual es anterior a esa especificación, Recall queda descartado, por muy capaz que sea el resto de la máquina.">When most people search for a <b>Microsoft Recall alternative</b>, the first wall they hit is hardware. Recall isn't a feature you can simply switch on in Windows — it ships with <b>Copilot+ PCs</b>, a class of machines that Microsoft defines by a dedicated neural processing unit (NPU) rated at 40+ TOPS, plus minimum RAM and storage. If your current laptop or desktop predates that spec, Recall is off the table, no matter how capable the rest of the machine is.</p>
-        <p data-es="Es mucho pedir para una herramienta de memoria. Lo que de verdad quieres —escribir «esa página de precios que leí el martes» y recuperarla— no necesita en el fondo una NPU nueva. Necesita una captura ligera y una buena búsqueda local. Recall ata la función a un silicio concreto porque se apoya en capturas constantes y análisis de imagen en el equipo; Trace, deliberadamente, no, y por eso funciona en hardware que ya tienes.">That's a steep ask for a memory tool. The thing you actually want — to type "that pricing page I read on Tuesday" and get it back — doesn't fundamentally need a brand-new NPU. It needs a lightweight capture pipeline and good local search. Recall couples the feature to specific silicon because it leans on constant on-device snapshotting and image analysis; Trace deliberately doesn't, which is why it runs on hardware you already own.</p>
-        <p data-es="También hay un límite de plataforma: Recall es una función exclusiva de Windows para equipos Windows. Si vives entre un Mac en casa y un portátil Windows en el trabajo, o estás en Linux, Recall no te puede seguir. Una app de memoria multiplataforma sí.">There's also a platform limit: Recall is a Windows-only feature for Windows machines. If you live across a Mac at home and a Windows laptop at work, or you're on Linux, Recall can't follow you. A cross-platform memory app can.</p>
-      </div>
-    </div></section>
-
-    <!-- PRIVACY concerns explained -->
-    <section class="sec" id="privacy"><div class="wrap">
-      <div class="center reveal"><span class="eye" data-es="Privacidad">Privacy</span><h2 data-es="Las dudas de privacidad, explicadas">The privacy concerns, explained</h2><p class="desc" data-es="La versión justa y factual — ni acusaciones ni exageraciones.">The fair, factual version — no accusations, no hype.</p></div>
-      <div class="prose reveal">
-        <p data-es="La otra razón por la que la gente busca una alternativa privada es el historial de Recall. Cuando se presentó por primera vez en 2024, su diseño —capturar periódicamente casi todo lo que hay en pantalla y guardarlo en una base de datos local— recibió críticas serias y muy difundidas de investigadores de seguridad. Los primeros análisis prácticos señalaron que otros procesos del mismo equipo podían leer esa base de datos de capturas y que contenido sensible mostrado en pantalla, incluidas contraseñas y datos financieros, podía acabar capturado.">The other reason people look for a private alternative is Recall's track record. When Recall was first previewed in 2024, the design — periodically capturing screenshots of nearly everything on screen and storing them in a local database — drew serious, widely reported criticism from security researchers. Early hands-on analyses noted that the snapshot database could be read by other processes on the same machine and that sensitive content shown on screen, including passwords and financial details, could end up captured.</p>
-        <p data-es="Hay que reconocer que Microsoft respondió. Antes de la disponibilidad general, cambió Recall para que sea opcional en lugar de estar activado por defecto, exigió inicio de sesión con Windows Hello para abrir la línea de tiempo, añadió cifrado al almacén de capturas e incorporó filtrado para cosas como campos de contraseña y navegación privada. Fueron mejoras reales y significativas, y es justo decir que el Recall de hoy está más blindado que la versión que se criticó al principio.">To Microsoft's credit, it responded. Before general availability the company changed Recall so it is opt-in rather than on by default, required Windows Hello sign-in to open the timeline, added encryption around the snapshot store, and built in filtering for things like password fields and private browsing. Those were real, meaningful improvements, and it's fair to say Recall today is more locked-down than the version that was first criticised.</p>
-        <p data-es="Aun así, el modelo de fondo —sacar fotos periódicas de tu pantalla— es intrínsecamente amplio. Captura lo que haya visible en el momento de la captura, que es mucha superficie en la que confiar, y los investigadores de seguridad han seguido escrutándolo. Nada de esto es una acusación de que Recall sea malicioso; es simplemente que «capturar todo y luego filtrarlo y protegerlo» es una postura de privacidad más pesada de la que mucha gente está cómoda para una herramienta de memoria. Si esa es tu preocupación, la solución más limpia es un enfoque que capture mucho menos desde el principio.">Even so, the core model — taking regular pictures of your screen — is inherently broad. It captures whatever happens to be visible at snapshot time, which is a lot of surface area to trust, and security researchers have continued to scrutinise it. None of this is an accusation that Recall is malicious; it's simply that "screenshot everything, then filter and protect it" is a heavier privacy posture than many people are comfortable with for a memory tool. If that's your concern, the cleanest fix is an approach that captures far less in the first place.</p>
-      </div>
-    </div></section>
-
     <!-- HOW TRACE IS DIFFERENT -->
     <section class="sec alt" id="different"><div class="wrap">
       <div class="center reveal"><span class="eye" data-es="Por qué Trace">Why Trace</span><h2 data-es="En qué se diferencia Trace">How Trace is different</h2><p class="desc" data-es="Empieza por el extremo opuesto: capturar lo mínimo y seguir siendo útil de verdad.">It starts from the opposite end: capture the least it can while still being genuinely useful.</p></div>
-      <div class="prose reveal">
-        <p data-es="En lugar de fotografiar tu pantalla, Trace anota señales ligeras —tu historial de navegador, la app o ventana activa y el texto del portapapeles— y las indexa para que puedas buscar y recorrer una línea de tiempo de tu día. Hay muchos menos datos crudos y sensibles en el disco porque la pantalla en sí nunca se grabó.">Instead of photographing your screen, Trace notes lightweight signals — your browser history, the active app or window, and clipboard text — and indexes them so you can search and scroll a timeline of your day. There's far less raw, sensitive data sitting on disk because the screen itself was never recorded.</p>
-      </div>
       <div class="cards">
         <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg></div><h3 data-es="Sin hardware especial">No special hardware</h3><p data-es="Sin Copilot+ PC, sin NPU. Trace funciona en cualquier PC moderno con Windows, Mac o Linux — el que ya tienes.">No Copilot+ PC, no NPU requirement. Trace runs on any reasonably modern Windows, Mac or Linux machine — the one you already have.</p></div>
         <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.67 19a2 2 0 0 0 1.416-.588l6.154-6.172a6 6 0 0 0-8.49-8.49L5.586 9.914A2 2 0 0 0 5 11.328V18a1 1 0 0 0 1 1z"/><path d="M16 8 2 22"/><path d="M17.5 15H9"/></svg></div><h3 data-es="Captura ligera, no capturas">Light capture, not snapshots</h3><p data-es="Historial, ventana activa y portapapeles — no capturas constantes de pantalla. El OCR sobre capturas se prevé como extra opcional, no como predeterminado.">Browser history, active window and clipboard text — not constant screen captures. Screenshots with OCR are planned as an opt-in extra, not the default.</p></div>
         <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"/><path d="M22 21H7"/><path d="m5 11 9 9"/></svg></div><h3 data-es="Exclusiones antes de capturar">Exclusions before capture</h3><p data-es="Bloquea apps, dominios y ventanas privadas/incógnito. El filtro de exclusión corre &lt;em&gt;antes&lt;/em&gt; de escribir nada en disco, así que la actividad excluida nunca se guarda.">Block apps, domains and private/incognito windows. The exclusion filter runs <em>before</em> anything is written to disk, so excluded activity is never stored.</p></div>
         <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h.01"/><path d="M8.5 16.429a5 5 0 0 1 7 0"/><path d="M5 12.859a10 10 0 0 1 5.17-2.69"/><path d="M19 12.859a10 10 0 0 0-2.007-1.523"/><path d="M2 8.82a15 15 0 0 1 4.177-2.643"/><path d="M22 8.82a15 15 0 0 0-11.288-3.764"/><path d="m2 2 20 20"/></svg></div><h3 data-es="Totalmente en tu equipo">Fully on-device</h3><p data-es="Sin servidores, sin cuentas, sin sincronización. Trace está hecho para funcionar con el firewall cerrado, y su motor open-core te deja verificar que no hay actividad de red.">No servers, no accounts, no sync. Trace is built to run with your firewall closed, and its open-core engine lets you verify there's no network activity.</p></div>
       </div>
-      <p class="desc center reveal s-KeNgmcD1" data-es="¿Quieres el desglose completo del modelo de captura y el diseño de privacidad? Mira &lt;a href=&quot;/trace/#how&quot; class=&quot;s-fECGTzLQ&quot;&gt;cómo funciona Trace&lt;/a&gt; y la &lt;a href=&quot;/trace/#privacy&quot; class=&quot;s-fECGTzLQ&quot;&gt;sección de privacidad&lt;/a&gt; en la página principal.">Want the full breakdown of the capture model and the privacy design? See <a href="/trace/#how" class="s-fECGTzLQ">how Trace works</a> and the <a href="/trace/#privacy" class="s-fECGTzLQ">privacy section</a> on the home page.</p>
     </div></section>
 
     <!-- STATS -->
@@ -219,7 +194,7 @@
 
     <!-- PRICING -->
     <section class="sec" id="pricing"><div class="wrap">
-      <div class="center reveal"><span class="eye" data-es="Precio">Pricing</span><h2 data-es="Precio y plataformas">Pricing &amp; platforms</h2><p class="desc" data-es="Recall es «gratis» en el sentido de que viene con un Copilot+ PC — pero eso significa comprar una categoría de hardware Windows más nueva. Trace es lo contrario: un pequeño pago único sobre el equipo que ya tienes.">Recall comes "free" in the sense that it's bundled with a Copilot+ PC — but that means buying into a specific, newer class of Windows hardware. Trace is the opposite: a small one-time payment on hardware you already own.</p></div>
+      <div class="center reveal"><span class="eye" data-es="Precio">Pricing</span><h2 data-es="Precio y plataformas">Pricing &amp; platforms</h2><p class="desc" data-es="Un pago único, sobre el equipo que ya tienes.">One payment, on hardware you already own.</p></div>
       <div class="prices">
         <div class="glass price feat-card reveal">
           <span class="pbadge" data-es="Early-bird">Early-bird</span>
@@ -250,7 +225,6 @@
           <p class="pfoot" data-es="Tras lanzar la app de escritorio.">After the desktop app ships.</p>
         </div>
       </div>
-      <p class="desc center reveal s-KeNgmcD1" data-es="Una nota honesta: &lt;b class=&quot;s-7zm8I-3n&quot;&gt;Trace está ahora en fase de lista de espera y beta, y aún no se puede descargar.&lt;/b&gt; El botón te apunta a la lista para que recibas la beta primero y conserves el precio early-bird.">One honest note: <b class="s-7zm8I-3n">Trace is currently in a waitlist and beta phase and isn't available to download yet.</b> The button adds you to the list so you get the beta first and keep the early-bird price.</p>
     </div></section>
 
     <!-- WAITLIST CTA -->
@@ -297,17 +271,6 @@
       </div>
     </div></section>
 
-    <!-- MORE ALTERNATIVES -->
-    <section class="sec"><div class="wrap">
-      <div class="center reveal"><span class="eye" data-es="Más alternativas">More alternatives</span><h2 data-es="¿Comparas otras herramientas de memoria?">Weighing other memory tools?</h2><p class="desc" data-es="Mira cómo se compara Trace — y lee la historia completa en la página principal.">See how Trace stacks up — and read the full story on the home page.</p></div>
-      <div class="morelinks reveal">
-        <a href="/trace/rewind-alternative-windows" data-es="Alternativa a Rewind para Windows">Rewind alternative for Windows</a>
-        <a href="/trace/limitless-alternative" data-es="Alternativa a Limitless">Limitless alternative</a>
-        <a href="/trace/screenpipe-alternative" data-es="Alternativa a Screenpipe">Screenpipe alternative</a>
-        <a href="/trace/personal-memory-tool-without-screen-recording" data-es="Memoria sin grabar pantalla">Memory without screen recording</a>
-        <a href="/trace/" data-es="Inicio de Trace">Trace home</a>
-      </div>
-    </div></section>
   </main>
 
   <footer><div class="wrap foot">
