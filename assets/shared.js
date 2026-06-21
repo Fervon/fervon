@@ -106,3 +106,18 @@
   // Final guard: never leave .reveal content stuck hidden, whatever happens.
   setTimeout(function(){ pending.forEach(reveal); pending=[]; },4000);
 })();
+
+/* Count-up — stat numbers tick from 0 to their value as they enter view.
+   Parses an optional prefix ($) and suffix (×) around the integer. Respects
+   reduced-motion (shows the final value immediately). No-ops if no .stats. */
+(function(){
+  var els=[].slice.call(document.querySelectorAll(".stats .v")); if(!els.length) return;
+  var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function parse(t){ var m=/^(\D*?)(\d[\d.,]*)(.*)$/.exec((t||"").trim()); if(!m) return null; return {pre:m[1],num:parseFloat(m[2].replace(/,/g,"")),suf:m[3],raw:(t||"").trim()}; }
+  els.forEach(function(el){ var p=parse(el.textContent); if(!p) return; el._cu=p; if(!reduce) el.textContent=p.pre+"0"+p.suf; });
+  function run(el){ var p=el._cu; if(!p) return; if(reduce){ el.textContent=p.raw; return; }
+    var dur=1000,t0=null; (function step(ts){ if(!t0)t0=ts; var k=Math.min(1,(ts-t0)/dur); var e=1-Math.pow(1-k,3); el.textContent=p.pre+Math.round(p.num*e)+p.suf; if(k<1) requestAnimationFrame(step); else el.textContent=p.raw; })(); }
+  if(!("IntersectionObserver" in window)){ els.forEach(function(el){ if(el._cu) el.textContent=el._cu.raw; }); return; }
+  var io=new IntersectionObserver(function(ents){ ents.forEach(function(en){ if(en.isIntersecting){ run(en.target); io.unobserve(en.target); } }); },{threshold:.6});
+  els.forEach(function(el){ if(el._cu) io.observe(el); });
+})();
