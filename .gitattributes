@@ -1,0 +1,3 @@
+# Los scripts de shell DEBEN tener saltos LF o fallan en Linux (CF Pages / CI):
+# "bad interpreter: /usr/bin/env bash^M".
+*.sh text eol=lf
