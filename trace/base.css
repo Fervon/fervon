@@ -125,7 +125,7 @@
     .fp .fpval{position:absolute;top:0;height:100%;display:flex;align-items:center;font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
     .fp.trace{--w:5%}
     .fp.trace .fpbar{background:linear-gradient(90deg,var(--ember),var(--amber))}
-    .fp.trace .fpval{left:14px;color:var(--amber)}
+    .fp.trace .fpval{left:calc(var(--w) + 14px);color:var(--amber)}
     .fp.heavy{--w:100%}
     .fp.heavy .fpbar{background:linear-gradient(90deg,#3A2C22,#6b4429)}
     .fp.heavy .fpval{right:14px;color:var(--bone)}
