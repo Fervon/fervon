@@ -1,5 +1,5 @@
 /* Fervon — Trace shared base (design system + sections). Per-page files keep only their .s-* utilities. */
-:root{--bg:#0E0B0A;--bg2:#16110E;--panel:#1A1310;--line:#2C211B;--line2:#3A2C22;--ember:#FF6A00;--brasa:#E0480F;--amber:#FFB02E;--spark:#FFD37A;--bone:#EFE7DC;--ash:#A89A8E;--dim:#94867A}
+:root{--bg:#0E0B0A;--bg2:#16110E;--panel:#1A1310;--line:#2C211B;--line2:#3A2C22;--ember:#FF6A00;--brasa:#E0480F;--amber:#FFB02E;--spark:#FFD37A;--bone:#EFE7DC;--ash:#A89A8E;--dim:#B0A296}
     /* nav */
     .crumb .mark{vertical-align:-3px;margin-right:2px}
     .crumb a:hover{color:var(--amber)}
@@ -33,7 +33,7 @@
     .feat .ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(255,106,0,.1);color:var(--ember);font-size:22px}
     .feat p em{color:var(--bone);font-style:italic}
     .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
-    .step{padding:24px}
+    .step{padding:24px;box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 1px 2px rgba(0,0,0,.4)}
     .step h3,.step h4{margin-top:8px;font-weight:700;font-size:16px}
     .step p{font-size:14px;color:var(--ash);margin-top:8px}
     .step p em{color:var(--bone);font-style:italic}
@@ -60,7 +60,7 @@
     .frow input:focus{outline:none;border-color:var(--ember);box-shadow:0 0 0 3px rgba(255,106,0,.14)}
     .fmsg{min-height:20px;font-size:14px;margin-top:12px;text-align:center}
     .fmsg.ok{color:#9FC979}
-    .fmsg.err{color:var(--brasa)}
+    .fmsg.err{color:#FF7A4D}
     .ffine{font-size:12px;color:var(--dim);text-align:center;margin-top:8px}
     .vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
     /* faq */
@@ -76,8 +76,8 @@
     /* footer */
     .prices{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:840px;margin:44px auto 0}
     @media(max-width:760px){.prices{grid-template-columns:1fr}}
-    .price{position:relative;padding:28px}
-    .price.feat-card{border-color:var(--line2);box-shadow:0 0 0 1px rgba(255,106,0,.25),0 18px 50px rgba(0,0,0,.35)}
+    .price{position:relative;padding:28px;box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 1px 2px rgba(0,0,0,.4)}
+    .price.feat-card{border-color:var(--line2);box-shadow:0 0 0 1px rgba(255,106,0,.25),0 18px 50px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.05), 0 1px 2px rgba(0,0,0,.4)}
     .pbadge{position:absolute;top:-12px;left:24px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;border-radius:20px;padding:5px 12px;background:linear-gradient(180deg,var(--ember),var(--brasa));color:#1A0E06}
     .pbadge.soon{background:transparent;border:1px solid var(--line2);color:var(--ash)}
     .pname{font-size:18px;font-weight:700;margin-top:6px}
@@ -122,7 +122,7 @@
     .fp .fptrack{position:relative;height:38px;border-radius:10px;background:rgba(255,255,255,.045);overflow:hidden;border:1px solid var(--line)}
     .fp .fpbar{height:100%;width:0;border-radius:10px;transition:width 1.3s cubic-bezier(.22,1,.36,1)}
     .fp.in .fpbar{width:var(--w)}
-    .fp .fpval{position:absolute;top:0;height:100%;display:flex;align-items:center;font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+    .fp .fpval{position:absolute;top:0;height:100%;display:flex;align-items:center;font-size:12.5px;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;color:var(--bone)}
     .fp.trace{--w:5%}
     .fp.trace .fpbar{background:linear-gradient(90deg,var(--ember),var(--amber))}
     .fp.trace .fpval{left:calc(var(--w) + 14px);color:var(--amber)}

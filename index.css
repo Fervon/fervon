@@ -1,4 +1,4 @@
-:root{--carbon:#0E0B0A;--carbon-2:#16110E;--card:#1A1310;--line:#2C211B;--line2:#3A2C22;--ember:#FF6A00;--brasa:#E0480F;--amber:#FFB02E;--bone:#EFE7DC;--ash:#A89A8E;--dim:#B0A296}
+:root{--carbon:#0E0B0A;--carbon-2:#16110E;--card:#1A1310;--line:#2C211B;--line2:#3A2C22;--ember:#FF6A00;--brasa:#E0480F;--amber:#FFB02E;--bone:#EFE7DC;--ash:#A89A8E;--dim:#B0A296;--spark:#FFD37A}
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
     body{background:var(--carbon);color:var(--bone);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
@@ -35,7 +35,7 @@
 
     /* Buttons */
     .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:11px;font-size:15px;font-weight:600;cursor:pointer;border:0;transition:.16s}
-    .btn-fire{background:linear-gradient(180deg,var(--ember),var(--brasa));color:#1A0E06;box-shadow:0 8px 26px rgba(255,106,0,.3)}
+    .btn-fire{background:linear-gradient(180deg,var(--ember),var(--brasa));color:#1A0E06;box-shadow:inset 0 1px 0 rgba(255,255,255,.25), 0 8px 26px rgba(255,106,0,.3)}
     .btn-fire:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(255,106,0,.42)}
     .btn-fire{position:relative;overflow:hidden}
     .btn-fire::after{content:"";position:absolute;top:0;left:-120%;width:55%;height:100%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.32),transparent);transform:skewX(-18deg);transition:left .55s ease}
@@ -48,6 +48,14 @@
     .reveal.in{opacity:1;transform:none}
     @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
 
+    /* Strike-sheen: a one-shot amber sweep when a proof/why card reveals.
+       Pseudo sits off-screen by default so it never covers content (incl. reduced-motion). */
+    .proofcard,.whycard{position:relative;overflow:hidden}
+    .proofcard::after,.whycard::after{content:"";position:absolute;top:0;left:-150%;width:60%;height:100%;background:linear-gradient(105deg,transparent,rgba(255,176,46,.22),transparent);transform:skewX(-18deg);pointer-events:none;z-index:1}
+    @keyframes strikesheen{0%{left:-150%}100%{left:160%}}
+    @media(prefers-reduced-motion:no-preference){
+      .proofcard.reveal.in::after,.whycard.reveal.in::after{animation:strikesheen .9s ease-out .15s 1}
+    }
     /* Product/star icons animate only on hover — quieter by default */
     .pcard .ic *,.star .ic *{animation-play-state:paused}
     .pcard:hover .ic *,.star:hover .ic *{animation-play-state:running}
@@ -59,10 +67,10 @@
     .proof{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
     @media(max-width:860px){.proof{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:520px){.proof{grid-template-columns:1fr}}
-    .proofcard{background:linear-gradient(165deg,rgba(255,255,255,.022),transparent),var(--card);border:1px solid var(--line);border-radius:13px;padding:18px 18px}
-    .proofcard .pf-h{display:flex;align-items:center;gap:9px;font-size:14.5px;font-weight:700;color:var(--bone)}
+    .proofcard{background:linear-gradient(165deg,rgba(255,255,255,.022),transparent),var(--card);border:1px solid var(--line);border-radius:13px;padding:18px 18px;box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 1px 2px rgba(0,0,0,.4)}
+    .proofcard .pf-h{display:flex;align-items:center;gap:9px;font-size:14.5px;font-weight:700;color:var(--bone);position:relative;z-index:2}
     .proofcard .pf-h svg{width:18px;height:18px;flex:none;color:var(--ember)}
-    .proofcard p{margin-top:7px;color:var(--ash);font-size:13px;line-height:1.5}
+    .proofcard p{margin-top:7px;color:var(--ash);font-size:13px;line-height:1.5;position:relative;z-index:2}
 
     /* Whole-card stretched link (so the card stays clickable without nesting anchors) */
     .pcard .card-link{position:absolute;inset:0;z-index:3;border-radius:inherit}
@@ -83,6 +91,10 @@
     .hero{position:relative;text-align:center;padding:84px 24px 52px;overflow:hidden;background:linear-gradient(rgba(14,11,10,.74),rgba(14,11,10,.93)),url(/assets/textura-forja.png) center/cover no-repeat}
     .hero::before{content:"";position:absolute;top:-120px;left:50%;width:760px;height:520px;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(255,106,0,.2),rgba(224,72,15,.08) 38%,transparent 70%);pointer-events:none;animation:breathe 6s ease-in-out infinite}
     @keyframes breathe{0%,100%{opacity:.8}50%{opacity:1}}
+    /* Heat-shimmer: low-opacity ember layer drifting upward. Hidden by default; only shown when motion is allowed. */
+    .hero::after{content:"";position:absolute;left:50%;bottom:-40px;width:680px;height:420px;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(255,106,0,.10),transparent 64%);pointer-events:none;z-index:0;opacity:0}
+    @keyframes heatshimmer{0%{transform:translateX(-50%) translateY(20px) scale(1);opacity:.18}50%{opacity:.32}100%{transform:translateX(-50%) translateY(-40px) scale(1.08);opacity:0}}
+    @media(prefers-reduced-motion:no-preference){.hero::after{animation:heatshimmer 7s ease-in-out infinite}}
     .hero .logo{position:relative;width:100%;max-width:440px;margin:0 auto 6px}
     .hero .logo svg{width:100%;height:auto;display:block}
     .lead{position:relative;max-width:640px;margin:22px auto 0;font-size:19px;color:var(--ash)}
@@ -129,7 +141,7 @@
 
     /* Grid de productos */
     .products{display:grid;grid-template-columns:repeat(auto-fit,minmax(214px,1fr));gap:14px}
-    .pcard{position:relative;display:flex;flex-direction:column;background:linear-gradient(165deg,rgba(255,255,255,.025),transparent),var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 18px 18px;overflow:hidden;transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
+    .pcard{position:relative;display:flex;flex-direction:column;background:linear-gradient(165deg,rgba(255,255,255,.025),transparent),var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 18px 18px;overflow:hidden;box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 1px 2px rgba(0,0,0,.4);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease}
     .pcard::before{content:"";position:absolute;top:-34px;left:-34px;width:150px;height:150px;background:radial-gradient(circle,color-mix(in srgb,var(--ac) 15%,transparent),transparent 66%);opacity:.5;transition:opacity .25s;pointer-events:none}
     .pcard:hover{transform:translateY(-4px);border-color:color-mix(in srgb,var(--ac) 48%,var(--line));box-shadow:0 16px 34px rgba(0,0,0,.45)}
     .pcard:hover::before{opacity:1}
@@ -209,7 +221,7 @@
     .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
     @media(max-width:860px){.steps{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:520px){.steps{grid-template-columns:1fr}}
-    .step{background:linear-gradient(165deg,rgba(255,255,255,.022),transparent),var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 20px}
+    .step{background:linear-gradient(165deg,rgba(255,255,255,.022),transparent),var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 1px 2px rgba(0,0,0,.4)}
     .step .n{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:10px;font-weight:800;font-size:15px;color:#1A0E06;background:linear-gradient(180deg,var(--ember),var(--brasa));box-shadow:0 4px 14px rgba(255,106,0,.3)}
     .step h4{margin-top:14px;font-size:16px;font-weight:700;color:var(--bone)}
     .step p{margin-top:7px;color:var(--ash);font-size:13.6px;line-height:1.55}
@@ -218,11 +230,11 @@
     .why{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
     @media(max-width:860px){.why{grid-template-columns:repeat(2,1fr)}}
     @media(max-width:520px){.why{grid-template-columns:1fr}}
-    .whycard{background:linear-gradient(165deg,rgba(255,255,255,.022),transparent),var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 20px;transition:border-color .16s ease,transform .16s ease}
+    .whycard{background:linear-gradient(165deg,rgba(255,255,255,.022),transparent),var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 20px;box-shadow:inset 0 1px 0 rgba(255,255,255,.05), 0 1px 2px rgba(0,0,0,.4);transition:border-color .16s ease,transform .16s ease}
     .whycard:hover{border-color:color-mix(in srgb,var(--ember) 40%,var(--line));transform:translateY(-3px)}
-    .whycard h4{font-size:16px;font-weight:700;color:var(--bone);display:flex;align-items:center;gap:10px}
+    .whycard h4{font-size:16px;font-weight:700;color:var(--bone);display:flex;align-items:center;gap:10px;position:relative;z-index:2}
     .whycard h4::before{content:"";width:9px;height:9px;border-radius:50%;background:var(--ember);box-shadow:0 0 10px var(--ember);flex:none}
-    .whycard p{margin-top:9px;color:var(--ash);font-size:13.8px;line-height:1.55}
+    .whycard p{margin-top:9px;color:var(--ash);font-size:13.8px;line-height:1.55;position:relative;z-index:2}
 
     /* FAQ */
     .faq{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
@@ -242,7 +254,7 @@
     footer .flinks{margin:16px 0 10px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap}
     footer .flinks a{color:var(--ash);font-size:14px}
     footer .flinks a:hover{color:var(--amber)}
-    footer .copy{color:#94867A;font-size:13px}
+    footer .copy{color:var(--dim);font-size:13px}
 
     @media(max-width:560px){.hero{padding:60px 20px 44px}.lead{font-size:17px}.hero .logo{max-width:300px}.star,.services,.about{padding:26px 22px}}
 /* === utility classes extracted from style="" attributes === */
