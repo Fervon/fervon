@@ -121,3 +121,77 @@
   var io=new IntersectionObserver(function(ents){ ents.forEach(function(en){ if(en.isIntersecting){ run(en.target); io.unobserve(en.target); } }); },{threshold:.6});
   els.forEach(function(el){ if(el._cu) io.observe(el); });
 })();
+
+/* Ember particles — shared animated forge background.
+   Self-injects a fixed canvas behind all content (the static gradient backdrop
+   lives in shared.css as body::before). Sprite-based glow + sparks with trails.
+   Honors reduced-motion (canvas skipped, CSS backdrop remains) and pauses while
+   the tab is hidden so it costs nothing in the background. */
+(function(){
+  if(!document.body || document.getElementById("fv-embers")) return;
+  if(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  var cv=document.createElement("canvas");
+  cv.id="fv-embers"; cv.setAttribute("aria-hidden","true");
+  document.body.insertBefore(cv, document.body.firstChild);
+  var ctx=cv.getContext("2d");
+  var W,H,DPR=1,TAU=Math.PI*2,embers=[],sparks=[],running=true,i;
+
+  function resize(){ W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;cv.style.width=W+"px";cv.style.height=H+"px";ctx.setTransform(DPR,0,0,DPR,0,0); }
+  resize(); addEventListener("resize",resize);
+
+  // depth: 0 = far (small, slow, dim) .. 1 = near (big, fast, bright)
+  function spawn(reset){ var d=Math.random(); return {x:Math.random()*W,y:reset?H+Math.random()*60:Math.random()*H,depth:d,r:d*2.6+0.5,vy:d*1.4+0.25,vx:(Math.random()-0.5)*0.4,sway:Math.random()*TAU,swaySpeed:Math.random()*0.02+0.005,swayAmp:d*0.7+0.15,life:Math.random()*0.5+0.5,flick:Math.random()*TAU,hue:16+Math.random()*30}; }
+  function spawnSpark(){ return {x:Math.random()*W,y:H+Math.random()*30,px:0,py:0,vy:Math.random()*3.5+2.2,vx:(Math.random()-0.5)*0.8,r:Math.random()*1.2+0.7,life:1,decay:Math.random()*0.008+0.004,hue:30+Math.random()*22}; }
+
+  // pre-rendered glowing ember sprite (radial gradient) — cheap to draw many times
+  function makeSprite(h){ var size=64,c=document.createElement("canvas");c.width=c.height=size;var g=c.getContext("2d");var rad=g.createRadialGradient(size/2,size/2,0,size/2,size/2,size/2);rad.addColorStop(0,"hsla("+(h+12)+",100%,88%,1)");rad.addColorStop(0.18,"hsla("+(h+6)+",100%,70%,0.95)");rad.addColorStop(0.45,"hsla("+h+",100%,55%,0.5)");rad.addColorStop(1,"hsla("+h+",100%,50%,0)");g.fillStyle=rad;g.fillRect(0,0,size,size);return c; }
+  var SPRITES=[]; for(var sh=14;sh<=46;sh+=4) SPRITES.push(makeSprite(sh));
+  function spriteFor(hue){ return SPRITES[Math.min(SPRITES.length-1,Math.max(0,Math.round((hue-14)/4)))]; }
+
+  var big=innerWidth>=720, COUNT=big?150:75, NSP=big?12:6;
+  for(i=0;i<COUNT;i++){ var e=spawn(false); e.img=spriteFor(e.hue); embers.push(e); }
+  for(i=0;i<NSP;i++){ var s=spawnSpark(); s.y=Math.random()*H; sparks.push(s); }
+
+  document.addEventListener("visibilitychange",function(){
+    if(document.hidden){ running=false; }
+    else if(!running){ running=true; requestAnimationFrame(tick); }
+  });
+
+  function tick(){
+    if(!running) return;
+    ctx.clearRect(0,0,W,H);
+    ctx.globalCompositeOperation="lighter";
+
+    // soft heat glow rising from the base
+    var glow=ctx.createLinearGradient(0,H,0,H*0.5);
+    glow.addColorStop(0,"rgba(255,106,0,0.12)"); glow.addColorStop(1,"rgba(255,106,0,0)");
+    ctx.fillStyle=glow; ctx.fillRect(0,H*0.5,W,H*0.5);
+
+    // embers (sprite-based glow — no per-particle shadowBlur)
+    for(var k=0;k<embers.length;k++){
+      var em=embers[k];
+      em.sway+=em.swaySpeed; em.x+=em.vx+Math.sin(em.sway)*em.swayAmp*0.5; em.y-=em.vy; em.flick+=0.15;
+      if(em.y<-12||em.x<-20||em.x>W+20){ Object.assign(em,spawn(true)); em.img=spriteFor(em.hue); }
+      var fade=Math.min(1,em.y/H+0.15), flicker=0.72+Math.sin(em.flick)*0.28;
+      ctx.globalAlpha=em.life*fade*flicker*(0.35+em.depth*0.65);
+      var sz=em.r*(3.5+em.depth*3);
+      ctx.drawImage(em.img,em.x-sz/2,em.y-sz/2,sz,sz);
+    }
+    ctx.globalAlpha=1;
+
+    // sparks with streak trail
+    for(var j=0;j<sparks.length;j++){
+      var sp=sparks[j];
+      if(sp.life<=0||sp.y<-10){ Object.assign(sp,spawnSpark()); continue; }
+      sp.px=sp.x; sp.py=sp.y; sp.x+=sp.vx; sp.y-=sp.vy; sp.vy*=0.992; sp.life-=sp.decay;
+      ctx.strokeStyle="hsla("+sp.hue+",100%,68%,"+(sp.life*0.9)+")"; ctx.lineWidth=sp.r; ctx.lineCap="round";
+      ctx.beginPath(); ctx.moveTo(sp.px,sp.py); ctx.lineTo(sp.x,sp.y); ctx.stroke();
+      ctx.beginPath(); ctx.fillStyle="hsla("+(sp.hue+8)+",100%,80%,"+sp.life+")"; ctx.arc(sp.x,sp.y,sp.r*0.9,0,TAU); ctx.fill();
+    }
+
+    ctx.globalCompositeOperation="source-over";
+    requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+})();

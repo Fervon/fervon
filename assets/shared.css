@@ -6,6 +6,22 @@
 
 :root{color-scheme:dark}
 
+/* ── Ember particle background — shared across every Fervon page ──────────
+   The animated canvas (#fv-embers) is self-injected by shared.js at a
+   negative z-index, so it sits BEHIND in-flow content automatically without
+   any per-page markup. body::before is the static forge backdrop and renders
+   even with JS disabled or reduced-motion (when the canvas is hidden). */
+html{background:#0E0B0A}
+body{background:transparent}
+body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
+  background:
+    radial-gradient(1200px 720px at 80% -10%, rgba(255,106,0,.13), transparent 60%),
+    radial-gradient(900px 600px at 8% 6%, rgba(224,72,15,.09), transparent 55%),
+    radial-gradient(1000px 900px at 50% 120%, rgba(255,140,43,.07), transparent 60%),
+    linear-gradient(180deg,#0E0B0A,#16110E 58%,#0E0B0A)}
+#fv-embers{position:fixed;inset:0;z-index:-1;pointer-events:none}
+@media(prefers-reduced-motion:reduce){#fv-embers{display:none}}
+
 /* Brand typeface — Inter Variable, self-hosted (CSP font-src 'self'). */
 @font-face{font-family:"Inter Variable";font-style:normal;font-weight:100 900;font-display:swap;src:url("/assets/fonts/inter-var.woff2") format("woff2")}
 
