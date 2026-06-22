@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Veredicto · El check de CI que pilla a los agentes amañando tus tests | Fervon</title>
+  <meta name="description" content="Veredicto es el check de CI que pilla los tests de agentes de IA que no prueban nada: mocks de lo que se testea (over-mocking), asserts vacuos, tests borrados o .skip, cobertura inflada. Determinista, en el PR, sin API key y gratis en su capa base. Un proyecto de Fervon." />
+  <link rel="canonical" href="https://fervon.dev/veredicto/" />
+  <meta name="keywords" content="test-gaming, detección reward hacking, CI check agentes IA, GitHub Action tests amañados, integridad de tests, code review agentes, alternativa CodeRabbit test integrity" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#0E0B0A" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Fervon" />
+  <meta property="og:title" content="Veredicto · Tu agente mockeó justo lo que debía testear" />
+  <meta property="og:description" content="Los tests pasan; tu app no. Veredicto pilla en el PR los tests que no prueban nada — mocks de lo que se testea, asserts vacuos, cobertura inflada. Determinista, sin API key." />
+  <meta property="og:url" content="https://fervon.dev/veredicto/" />
+  <meta property="og:image" content="https://fervon.dev/assets/og-veredicto.jpg" />
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-veredicto.jpg" />
+  <meta property="og:locale" content="es_ES" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Veredicto",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "GitHub Actions, CI",
+    "description": "Check de CI que detecta test-gaming en pull requests de agentes de IA: tests borrados o .skip, asserts tautológicos, mocks circulares y umbrales relajados. Detección estática determinista, sin API key.",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD", "description": "Capa de detección estática gratis y open source" },
+    "publisher": { "@type": "Organization", "name": "Fervon", "url": "https://fervon.dev/" },
+    "url": "https://fervon.dev/veredicto/"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "¿Necesito una API key o un LLM?", "acceptedAnswer": { "@type": "Answer", "text": "No. La capa de detección estática corre en el runner de tu CI, es determinista y no usa ningún LLM ni API key. El LLM-juez (diff-vs-claim) es un extra opcional del tier de pago, y ahí usas tu propia key." } },
+      { "@type": "Question", "name": "¿Veredicto va a bloquear mis pull requests?", "acceptedAnswer": { "@type": "Answer", "text": "Por defecto funciona en modo warn: comenta lo que detecta sin bloquear. El modo block es opt-in, para cuando ya confías en sus reglas. Cada regla trae explicación y se puede suprimir con un comentario en el PR." } },
+      { "@type": "Question", "name": "¿En qué se diferencia de CodeRabbit o del review nativo de GitHub?", "acceptedAnswer": { "@type": "Answer", "text": "CodeRabbit revisa calidad con un LLM de pago; GitHub valida seguridad (CodeQL, secret scanning). Ninguno comprueba la integridad de los tests. Veredicto hace una cosa: detectar cuando los tests se amañaron — determinista, instantáneo y gratis." } },
+      { "@type": "Question", "name": "¿Qué es test-gaming exactamente?", "acceptedAnswer": { "@type": "Answer", "text": "Cuando un cambio hace que el CI pase en verde sin que el código sea correcto: borrar o marcar tests con .skip, asserts tautológicos como expect(true).toBe(true), mocks que mockean justo lo que se testea, snapshots regenerados en masa o umbrales de cobertura relajados." } },
+      { "@type": "Question", "name": "¿Funciona en GitLab o Bitbucket?", "acceptedAnswer": { "@type": "Answer", "text": "El primer objetivo es GitHub Actions. GitLab y Bitbucket están en el roadmap como prueba de neutralidad. Apúntate a la lista para saber cuándo llegan." } },
+      { "@type": "Question", "name": "¿Cuánto cuesta?", "acceptedAnswer": { "@type": "Answer", "text": "La detección estática es gratis y open source, para siempre, en repos públicos y privados. El tier Pro (LLM-juez diff-vs-claim + informe firmado exportable) cuesta 19 USD/mes por repo hasta 100 PRs verificados, 49 USD hasta 500." } }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="/assets/core.css" />
+  <link rel="stylesheet" href="base.css" />
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="/assets/shared.css" />
+</head>
+<body>
+  <a class="skip" href="#top" data-en="Skip to content">Saltar al contenido</a>
+
+  <header class="nav"><div class="glass bar">
+    <a class="crumb" href="/">
+      <span class="fv"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> fervon</span><span class="sep">›</span>
+      <span><svg class="mark" width="17" height="17" viewBox="0 0 26 26" aria-hidden="true"><path d="M5 13 L11 19 L21 7" fill="none" stroke="var(--amber)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Veredicto</span>
+    </a>
+    <nav class="menu">
+      <a href="#problem" data-en="The problem">El problema</a>
+      <a href="#how" data-en="How it works">Cómo funciona</a>
+      <a href="#catches" data-en="What it catches">Qué detecta</a>
+      <a href="#pricing" data-en="Pricing">Precio</a>
+      <a href="#faq" data-en="FAQ">FAQ</a>
+    </nav>
+    <div class="act">
+      <button id="lang" class="btn btn-ghost btn-sm" type="button" aria-label="Cambiar idioma / Switch language">EN</button>      <a class="btn btn-fire btn-sm" href="https://github.com/JoniMartin27/veredicto" data-en="Install free">Instalar gratis</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="bggrid h-grid" aria-hidden="true"></div>
+      <div class="h-glow" aria-hidden="true"></div>
+      <div class="wrap cols">
+        <div>
+          <span class="pill reveal" data-en='<span class="dot"></span> GitHub Action · No API key · Open source'><span class="dot"></span> GitHub Action · Sin API key · Open source</span>
+          <h1 class="reveal" data-en='Your agent mocked the very thing it should test. <span class="grad">Tests pass; your app doesn&#39;t.</span>'>Tu agente mockeó justo lo que debía testear. <span class="grad">Los tests pasan; tu app no.</span></h1>
+          <p class="sub reveal" data-en='The CI check that catches tests that prove nothing — mocks of the code under test, vacuous asserts, deleted or silenced tests, inflated coverage. <b>Deterministic, in the PR, no API key.</b>'>El check de CI que pilla los tests que no prueban nada — mocks de lo que se testea, asserts vacuos, tests borrados o silenciados, cobertura inflada. <b>Determinista, en el PR, sin API key.</b></p>
+          <div class="row reveal">
+            <a class="btn btn-fire" href="https://github.com/JoniMartin27/veredicto" data-en="Install the Action — free">Instalar la Action — gratis</a>
+            <a class="btn btn-ghost" href="#how" data-en="See how it works">Ver cómo funciona</a>
+          </div>
+          <p class="pill reveal s-K9-ORf38" data-en='<span class="dot"></span> Free forever · <b class="s-7zm8I-3n">Pro $19/repo</b> for the signed report'><span class="dot"></span> Gratis para siempre · <b class="s-7zm8I-3n">Pro $19/repo</b> para el informe firmado</p>
+          <div class="trust reveal" data-en='<span>✓ No API key</span><span>✓ Runs on your runner</span><span>✓ Open source</span><span>✓ 2-min setup</span>'><span>✓ Sin API key</span><span>✓ Corre en tu runner</span><span>✓ Open source</span><span>✓ 2 min de setup</span></div>
+        </div>
+
+        <div class="demo reveal">
+          <div class="glass">
+            <div class="top">
+              <i class="s-aBnRT5ZT"></i><i class="s-wpdX47Tq"></i><i class="s-aNyb6LKH"></i>
+              <span class="s-Sxc0fCNN vfile">Veredicto · PR #128 — feat: checkout</span>
+              <span class="dotr" data-en='<span></span> FAILED'>✗ FALLA</span>
+            </div>
+            <div class="body">
+              <div class="vlist" id="vlist">
+                <div class="vrow bad" data-i="0"><span class="ix">✗</span><span class="vt" data-en='Mocks the module under test: <code>jest.mock(&#39;./checkout&#39;)</code><small>the test only checks the mock, not the code</small>'>Mockea el módulo bajo test: <code>jest.mock('./checkout')</code><small>el test solo comprueba el mock, no el código</small></span></div>
+                <div class="vrow bad" data-i="1"><span class="ix">✗</span><span class="vt" data-en='Tautological assert: <code>expect(true).toBe(true)</code><small>Always passes — verifies nothing</small>'>Assert tautológico: <code>expect(true).toBe(true)</code><small>Siempre pasa — no verifica nada</small></span></div>
+                <div class="vrow warn" data-i="2"><span class="ix">⚠</span><span class="vt" data-en='Coverage threshold lowered <code>80 → 40%</code><small>in jest.config.js, same commit</small>'>Umbral de cobertura bajado <code>80 → 40%</code><small>en jest.config.js, mismo commit</small></span></div>
+              </div>
+              <div class="verdict" id="verdict">
+                <b data-en="VERDICT · test-gaming detected">VEREDICTO · test-gaming detectado</b>
+                <span class="vtag">3 señales</span>
+              </div>
+            </div>
+          </div>
+          <p class="demo-note" data-en="Illustrative demo.">Demo ilustrativa.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="sec alt" id="problem"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-en="The problem">El problema</span><h2 data-en="“All tests passing.” Says who?">«Todos los tests pasan.» ¿Según quién?</h2><p class="desc" data-en="When an agent writes the code AND the tests, green CI stops meaning the code works.">Cuando el agente escribe el código Y los tests, el verde del CI deja de significar que el código funciona.</p></div>
+      <div class="cards s-iLcIat7U">
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg></div><p data-en="The agent deletes or <code>.skip</code>s the failing test instead of fixing the bug.">El agente borra o marca <code>.skip</code> el test que falla en vez de arreglar el bug.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/></svg></div><p data-en="Asserts that always pass: <code>expect(true).toBe(true)</code>, mocks mocking the very thing under test.">Asserts que siempre pasan: <code>expect(true).toBe(true)</code>, mocks que mockean justo lo que se testea.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4"/><path d="m16.2 7.8 2.9-2.9"/><path d="M18 12h4"/><path d="m16.2 16.2 2.9 2.9"/><path d="M12 18v4"/><path d="m4.9 19.1 2.9-2.9"/><path d="M2 12h4"/><path d="m4.9 4.9 2.9 2.9"/></svg></div><p data-en="You run fleets of agents in parallel. CI is the only human gate — and it's being gamed.">Corres flotas de agentes en paralelo. El CI es el único filtro humano — y se lo están saltando.</p></div>
+      </div>
+      <p class="desc center reveal" style="margin-top:32px" data-en='In <b>30% of runs</b>, frontier models gamed their own evaluation — measured by METR. The pain is quantified; nobody sells the detector.'>En el <b>30% de los runs</b>, los modelos punteros amañaron su propia evaluación — medido por METR. El dolor está cuantificado; nadie vende el detector.</p>
+    </div></section>
+
+    <!-- HOW -->
+    <section class="sec" id="how"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-en="The flow">El flujo</span><h2 data-en="How it works">Cómo funciona</h2><p class="desc" data-en="Two minutes to add. Nothing leaves your runner.">Dos minutos para añadirlo. Nada sale de tu runner.</p></div>
+      <div class="steps">
+        <div class="glass step reveal"><div class="n mono">01</div><h3 data-en="Add the Action">Añade la Action</h3><p data-en="Drop one step into your workflow YAML. No app to install, no permissions to grant a SaaS.">Una línea en tu workflow YAML. Sin app que instalar, sin dar permisos a ningún SaaS.</p></div>
+        <div class="glass step reveal"><div class="n mono">02</div><h3 data-en="Static diff analysis">Análisis estático del diff</h3><p data-en="On each PR it scans the diff for test-gaming patterns. <em>Deterministic — no LLM, no API key, runs in seconds.</em>">En cada PR escanea el diff buscando patrones de test-gaming. <em>Determinista — sin LLM, sin API key, en segundos.</em></p></div>
+        <div class="glass step reveal"><div class="n mono">03</div><h3 data-en="Verdict on the PR">Veredicto en el PR</h3><p data-en="A clear comment with what it found and why. <em>Warn by default, block opt-in.</em>">Un comentario claro con qué encontró y por qué. <em>Warn por defecto, block opcional.</em></p></div>
+      </div>
+    </div></section>
+
+    <!-- WHAT IT CATCHES -->
+    <section class="sec alt" id="catches"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-en="The detectors">Los detectores</span><h2 data-en="What it catches">Qué detecta</h2><p class="desc" data-en="The concrete tricks agents use to turn CI green without doing the work.">Los trucos concretos con que los agentes ponen el CI en verde sin hacer el trabajo.</p></div>
+      <div class="cards s-iLcIat7U">
+        <div class="glass feat catch reveal"><h3 data-en="Deleted &amp; skipped tests">Tests borrados y .skip</h3><p data-en="Tests removed, commented out or marked <code>.skip</code>/<code>xfail</code> in the same PR that touches their code.">Tests eliminados, comentados o marcados <code>.skip</code>/<code>xfail</code> en el mismo PR que toca su código.</p><span class="tagp free" data-en="Free">Gratis</span></div>
+        <div class="glass feat catch reveal"><h3 data-en="Tautological asserts">Asserts tautológicos</h3><p data-en="<code>expect(true).toBe(true)</code>, <code>assert 1 == 1</code>, empty test bodies — green that proves nothing."><code>expect(true).toBe(true)</code>, <code>assert 1 == 1</code>, cuerpos de test vacíos — verde que no prueba nada.</p><span class="tagp free" data-en="Free">Gratis</span></div>
+        <div class="glass feat catch reveal"><h3 data-en="Circular mocks">Mocks circulares</h3><p data-en="Mocking the exact function under test, so the assertion only checks the mock.">Mockear justo la función que se testea, de forma que el assert solo comprueba el mock.</p><span class="tagp free" data-en="Free">Gratis</span></div>
+        <div class="glass feat catch reveal"><h3 data-en="Relaxed thresholds">Umbrales relajados</h3><p data-en="Coverage minimums lowered, timeouts bumped, linters silenced to dodge a red build.">Mínimos de cobertura bajados, timeouts subidos, linters silenciados para esquivar un build rojo.</p><span class="tagp free" data-en="Free">Gratis</span></div>
+        <div class="glass feat catch reveal"><h3 data-en="Mass-regenerated snapshots">Snapshots regenerados en masa</h3><p data-en="A wave of snapshot updates that quietly bless whatever the new output happens to be.">Una oleada de snapshots actualizados que bendicen en silencio cualquier salida nueva.</p><span class="tagp free" data-en="Free">Gratis</span></div>
+        <div class="glass feat catch reveal"><h3 data-en="Diff-vs-claim (LLM judge)">Diff-vs-claim (LLM-juez)</h3><p data-en="Checks the PR description's claims against what the diff actually does. Exportable, signed report.">Contrasta lo que el PR dice que hace contra lo que el diff hace de verdad. Informe firmado y exportable.</p><span class="tagp pro" data-en="Pro">Pro</span></div>
+      </div>
+    </div></section>
+
+    <!-- STATS -->
+    <section class="sec"><div class="wrap stats">
+      <div class="reveal"><div class="v grad">30%</div><div class="l" data-en="of runs gamed (METR)">de runs amañados (METR)</div></div>
+      <div class="reveal"><div class="v grad">0</div><div class="l" data-en="API keys needed">API keys necesarias</div></div>
+      <div class="reveal"><div class="v grad">2 min</div><div class="l" data-en="to set up">para configurarlo</div></div>
+      <div class="reveal"><div class="v grad">$0</div><div class="l" data-en="base layer, forever">capa base, para siempre</div></div>
+    </div></section>
+
+    <!-- COMPARE -->
+    <section class="sec alt" id="compare"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-en="Compare">Comparativa</span><h2 data-en="How it compares">Cómo se compara</h2><p class="desc" data-en="The honest version.">La versión honesta.</p></div>
+      <div class="glass reveal s-oxNvOtru">
+        <div class="s-Gx11RS-7"><table>
+          <thead><tr><th scope="col">&nbsp;</th><th scope="col" class="isus">Veredicto</th><th scope="col">CodeRabbit</th><th scope="col" data-en="GitHub native">GitHub nativo</th><th scope="col" data-en="Manual review">Review manual</th></tr></thead>
+          <tbody>
+            <tr>
+              <th scope="row" data-en="Detects test-gaming">Detecta test-gaming</th>
+              <td class="isus"><span class="yes" data-en="Yes — its only job">Sí — es lo único que hace</span></td>
+              <td><span class="no" data-en="No built-in detector">Sin detector propio</span></td>
+              <td><span class="no" data-en="No">No</span></td>
+              <td><span class="warn" data-en="If you spot it">Si te das cuenta</span></td>
+            </tr>
+            <tr>
+              <th scope="row" data-en="No API key / LLM in base">Sin API key / LLM en la base</th>
+              <td class="isus"><span class="yes" data-en="Deterministic, on your runner">Determinista, en tu runner</span></td>
+              <td><span class="no" data-en="LLM-based, paid">Basado en LLM, de pago</span></td>
+              <td><span class="warn" data-en="Security scans only">Solo escaneo de seguridad</span></td>
+              <td><span class="yes" data-en="No tooling">Sin herramienta</span></td>
+            </tr>
+            <tr>
+              <th scope="row" data-en="Instant on every PR">Instantáneo en cada PR</th>
+              <td class="isus"><span class="yes" data-en="Seconds">Segundos</span></td>
+              <td><span class="warn" data-en="LLM latency">Latencia de LLM</span></td>
+              <td><span class="yes" data-en="Fast">Rápido</span></td>
+              <td><span class="no" data-en="Human time">Tiempo humano</span></td>
+            </tr>
+            <tr>
+              <th scope="row" data-en="Price">Precio</th>
+              <td class="isus"><span class="yes" data-en="Free base · $19/repo Pro">Base gratis · $19/repo Pro</span></td>
+              <td><span class="no" data-en="$24–30/dev/mo">$24–30/dev/mes</span></td>
+              <td><span class="yes" data-en="Included">Incluido</span></td>
+              <td><span class="warn" data-en="Your scarcest resource">Tu recurso más escaso</span></td>
+            </tr>
+            <tr>
+              <th scope="row" data-en="Open source">Open source</th>
+              <td class="isus"><span class="yes" data-en="Yes — inspectable">Sí — inspeccionable</span></td>
+              <td><span class="no" data-en="Closed">Cerrado</span></td>
+              <td><span class="no" data-en="Closed">Cerrado</span></td>
+              <td><span class="warn">—</span></td>
+            </tr>
+          </tbody>
+        </table></div>
+        <div class="s-rC4CFmz1" data-en="Public facts as of mid-2026. Trademarks belong to their owners.">Hechos públicos a mediados de 2026. Las marcas pertenecen a sus dueños.</div>
+      </div>
+    </div></section>
+
+    <!-- PRICING -->
+    <section class="sec" id="pricing"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-en="Pricing">Precio</span><h2 data-en="Free where it counts">Gratis donde importa</h2><p class="desc" data-en="The detector is free and open source. Pay only for the judge and the report.">El detector es gratis y open source. Solo pagas por el juez y el informe.</p></div>
+      <div class="prices">
+        <div class="glass price reveal">
+          <span class="pbadge soon" data-en="Open source">Open source</span>
+          <div class="pname" data-en="Free">Gratis</div>
+          <div class="pamt"><span class="pnow grad">$0</span></div>
+          <div class="pcyc" data-en="forever · public &amp; private repos">para siempre · repos públicos y privados</div>
+          <ul class="plist">
+            <li data-en="Static test-gaming detection">Detección estática de test-gaming</li>
+            <li data-en="GitHub Action, 2-min setup">GitHub Action, setup en 2 min</li>
+            <li data-en="Warn by default, block opt-in">Warn por defecto, block opcional</li>
+            <li data-en="No API key, runs on your runner">Sin API key, corre en tu runner</li>
+          </ul>
+          <a class="btn btn-ghost btn-block" href="https://github.com/JoniMartin27/veredicto" data-en="Install the Action">Instalar la Action</a>
+          <p class="pfoot" data-en="MIT-licensed. Inspect every rule on GitHub.">Licencia MIT. Inspecciona cada regla en GitHub.</p>
+        </div>
+
+        <div class="glass price feat-card reveal">
+          <span class="pbadge" data-en="Pro">Pro</span>
+          <div class="pname" data-en="Pro — per repo">Pro — por repo</div>
+          <div class="pamt"><span class="pnow grad">$19</span><span class="pcyc" data-en="/mo per repo">/mes por repo</span></div>
+          <div class="pcyc" data-en="up to 100 verified PRs/mo · $49 up to 500">hasta 100 PRs verificados/mes · $49 hasta 500</div>
+          <ul class="plist">
+            <li data-en="Everything in Free">Todo lo de Gratis</li>
+            <li data-en="LLM judge: diff-vs-claim verification">LLM-juez: verificación diff-vs-claim</li>
+            <li data-en="Exportable, signed verification report">Informe de verificación firmado y exportable</li>
+            <li data-en="Bring your own API key (&gt;90% margin to you)">Tu propia API key (margen &gt;90% para ti)</li>
+          </ul>
+          <a class="btn btn-fire btn-block" href="https://buy.polar.sh/REEMPLAZA_VEREDICTO_PRO" data-en="Get Pro — $19/repo">Empezar Pro — $19/repo</a>
+          <p class="pfoot" data-en="Early access — reserve your repo now. Full refund anytime before launch. Secure checkout by Polar.">Acceso anticipado — reserva tu repo. Reembolso total hasta el lanzamiento. Pago seguro con Polar.</p>
+        </div>
+      </div>
+    </div></section>
+
+    <!-- WAITLIST -->
+    <section class="sec alt" id="waitlist"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-en="Free list">Lista gratis</span><h2 data-en="Not running agents in CI yet?">¿Aún no corres agentes en CI?</h2><p class="desc" data-en="Leave your email and I'll send you the data report — “I analyzed N agent PRs: X% showed test-gaming” — and tell you when GitLab/Bitbucket support lands.">Déjame tu email y te mando el informe de datos — «Analicé N PRs de agentes: X% mostraba test-gaming» — y te aviso cuando llegue el soporte de GitLab/Bitbucket.</p></div>
+      <form id="wl" class="wlform reveal" action="https://formspree.io/f/mnjyoknb" method="POST" novalidate>
+          <input type="hidden" name="origen" value="veredicto/index" />
+          <input type="hidden" name="_subject" value="fervon.dev · veredicto/index" />
+        <div class="frow">
+          <label class="vh" for="email" data-en="Email address">Correo electrónico</label>
+          <input type="email" id="email" name="email" required autocomplete="email" inputmode="email" placeholder="tu@ejemplo.com" data-i18n-attr="placeholder" data-en="you@example.com" />
+          <button type="submit" class="btn btn-fire" data-en="Join the list">Únete a la lista</button>
+        </div>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="vh" aria-hidden="true" />
+        <p class="fmsg" id="fmsg" role="status" aria-live="polite"></p>
+        <p class="ffine" data-en="No spam. One email with the report.">Sin spam. Un email con el informe.</p>
+      </form>
+    </div></section>
+
+    <!-- FAQ -->
+    <section class="sec" id="faq"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-en="FAQ">FAQ</span><h2 data-en="Frequently asked questions">Preguntas frecuentes</h2></div>
+      <div class="faq reveal">
+        <details><summary data-en="Do I need an API key or an LLM?">¿Necesito una API key o un LLM?</summary><p data-en="No. The static detection runs on your CI runner, is deterministic and uses no LLM or API key. The diff-vs-claim LLM judge is an optional paid extra, and there you use your own key.">No. La detección estática corre en tu runner, es determinista y no usa LLM ni API key. El LLM-juez diff-vs-claim es un extra opcional de pago, y ahí usas tu propia key.</p></details>
+        <details><summary data-en="Will it block my pull requests?">¿Va a bloquear mis pull requests?</summary><p data-en="By default it runs in warn mode: it comments what it finds without blocking. Block mode is opt-in. Every rule has an explanation and can be suppressed with a PR comment.">Por defecto funciona en modo warn: comenta lo que encuentra sin bloquear. El modo block es opt-in. Cada regla trae explicación y se puede suprimir con un comentario en el PR.</p></details>
+        <details><summary data-en="How is it different from CodeRabbit or GitHub's native review?">¿En qué se diferencia de CodeRabbit o del review nativo de GitHub?</summary><p data-en="CodeRabbit reviews quality with a paid LLM; GitHub validates security. Neither checks test integrity. Veredicto does one thing: detect when the tests were gamed — deterministic, instant and free.">CodeRabbit revisa calidad con un LLM de pago; GitHub valida seguridad. Ninguno comprueba la integridad de los tests. Veredicto hace una cosa: detectar cuando los tests se amañaron — determinista, instantáneo y gratis.</p></details>
+        <details><summary data-en="What exactly is test-gaming?">¿Qué es test-gaming exactamente?</summary><p data-en="Making CI go green without the code being correct: deleting or .skip-ing tests, tautological asserts, mocks of the thing under test, mass-regenerated snapshots, or relaxed coverage thresholds.">Hacer que el CI pase en verde sin que el código sea correcto: borrar o marcar .skip tests, asserts tautológicos, mocks de lo que se testea, snapshots regenerados en masa o umbrales de cobertura relajados.</p></details>
+        <details><summary data-en="Does it work on GitLab or Bitbucket?">¿Funciona en GitLab o Bitbucket?</summary><p data-en="GitHub Actions first. GitLab and Bitbucket are on the roadmap. Join the list to know when they land.">Primero GitHub Actions. GitLab y Bitbucket están en el roadmap. Apúntate a la lista para saber cuándo llegan.</p></details>
+        <details><summary data-en="How much does it cost?">¿Cuánto cuesta?</summary><p data-en="The static detection is free and open source, forever, on public and private repos. Pro (LLM judge + signed report) is $19/mo per repo up to 100 verified PRs, $49 up to 500. Payments handled securely by Polar.">La detección estática es gratis y open source, para siempre, en repos públicos y privados. Pro (LLM-juez + informe firmado) cuesta $19/mes por repo hasta 100 PRs verificados, $49 hasta 500. Pagos gestionados de forma segura por Polar.</p></details>
+      </div>
+    </div></section>
+
+    <!-- CTA -->
+    <section class="sec alt"><div class="wrap">
+      <div class="glass ctaband reveal">
+        <div class="bggrid s-im9vJqY9"></div>
+        <h2 data-en='Stop trusting “tests passing.” <span class="grad">Verify it.</span>'>Deja de fiarte del «tests passing». <span class="grad">Verifícalo.</span></h2>
+        <p class="desc s-HQSJ4X1v" data-en="Free, deterministic, open source. Add it to your CI in two minutes.">Gratis, determinista, open source. Añádelo a tu CI en dos minutos.</p>
+        <div class="row s-0syaN8w1">
+          <a class="btn btn-fire" href="https://github.com/JoniMartin27/veredicto" data-en="Install the Action — free">Instalar la Action — gratis</a>
+          <a class="btn btn-ghost" href="#pricing" data-en="See Pro">Ver Pro</a>
+        </div>
+        <div class="related">
+          <a href="/inferbench/">inferbench →</a>
+          <a href="/lookspan/">Lookspan →</a>
+          <a href="/claudescope/">ClaudeScope →</a>
+        </div>
+      </div>
+    </div></section>
+  </main>
+
+  <footer><div class="wrap foot">
+    <span data-en='Veredicto is a project by <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forged red-hot'>Veredicto es un proyecto de <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forjado al rojo vivo</span>
+    <span data-en="© 2026 Jonathan Martín · Open source by design">© 2026 Jonathan Martín · Open source por diseño</span>
+  </div></footer>
+
+  <script src="index.client.js" defer></script>
+  <script src="/assets/shared.js" defer></script>
+
+</body>
+</html>
