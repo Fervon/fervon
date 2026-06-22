@@ -30,6 +30,17 @@
 .tagp.free{background:rgba(159,201,121,.14);color:#9FC979;border:1px solid rgba(159,201,121,.4)}
 .tagp.pro{background:rgba(255,106,0,.12);color:var(--ember);border:1px solid rgba(255,106,0,.4)}
 
+/* how-it-works step icons */
+.step .stephead{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.step .stephead .ic{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;background:rgba(255,106,0,.1);color:var(--ember)}
+.step .stephead .ic svg{width:22px;height:22px}
+.step .stephead .n{font-size:13px;color:var(--amber)}
+@media (prefers-reduced-motion:no-preference){
+  .step .stephead .ic svg{animation:icfloat 3.8s ease-in-out infinite}
+  .step:nth-child(2) .stephead .ic svg{animation-delay:.5s}
+  .step:nth-child(3) .stephead .ic svg{animation-delay:1s}
+}
+
 /* problem section: METR line + report link (external classes — CSP forbids inline style) */
 .metr-line{margin-top:32px}
 .report-link{margin-top:14px}
