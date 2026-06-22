@@ -96,6 +96,10 @@
     .hero::after{content:"";position:absolute;left:50%;bottom:-40px;width:680px;height:420px;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(255,106,0,.10),transparent 64%);pointer-events:none;z-index:0;opacity:0}
     @keyframes heatshimmer{0%{transform:translateX(-50%) translateY(20px) scale(1);opacity:.18}50%{opacity:.32}100%{transform:translateX(-50%) translateY(-40px) scale(1.08);opacity:0}}
     @media(prefers-reduced-motion:no-preference){.hero::after{animation:heatshimmer 7s ease-in-out infinite}}
+    /* Forge sparks — real particle emitter anchored to the hot ingot (see index.client.js).
+       Canvas sits above the hero background but below the hero content. */
+    .hero #forge-sparks{position:absolute;inset:0;z-index:1;pointer-events:none}
+    .hero .logo,.hero .lead,.hero .root,.hero .cta-row{z-index:2}
     .hero .logo{position:relative;width:100%;max-width:440px;margin:0 auto 6px}
     .hero .logo svg{width:100%;height:auto;display:block}
     .lead{position:relative;max-width:640px;margin:22px auto 0;font-size:19px;color:var(--ash)}
