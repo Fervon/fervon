@@ -6,6 +6,9 @@
 
 :root{color-scheme:dark}
 
+/* Brand typeface — Inter Variable, self-hosted (CSP font-src 'self'). */
+@font-face{font-family:"Inter Variable";font-style:normal;font-weight:100 900;font-display:swap;src:url("/assets/fonts/inter-var.woff2") format("woff2")}
+
 /* Keyboard focus */
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--amber,#FFB02E);outline-offset:2px;border-radius:6px}
 
