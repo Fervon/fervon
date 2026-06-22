@@ -78,7 +78,10 @@
   function resize(){ W=hero.clientWidth; H=hero.clientHeight; cv.width=W*DPR; cv.height=H*DPR; cv.style.width=W+'px'; cv.style.height=H+'px'; ctx.setTransform(DPR,0,0,DPR,0,0); }
 
   // project the ingot point: PNG fraction → hero px (cover scale, X aligned right, Y centred)
-  function forge(){ var s=Math.max(W/SRC_W, H/SRC_H), dw=SRC_W*s, dh=SRC_H*s; var ox=W-dw, oy=(H-dh)/2; return { x:ox+FORGE.x*dw, y:oy+FORGE.y*dh, w:FORGE.w*dw }; }
+  function forge(){ var s=Math.max(W/SRC_W, H/SRC_H), dw=SRC_W*s, dh=SRC_H*s; var ox=W-dw, oy=(H-dh)/2;
+    var r={ x:ox+FORGE.x*dw, y:oy+FORGE.y*dh, w:FORGE.w*dw };
+    window.__fvForgeX=r.x;   // publish the ingot X so the page-wide ember field aligns its heat halo
+    return r; }
 
   function spawn(n){ var o=forge();
     for(var i=0;i<n;i++){
@@ -150,7 +153,7 @@
     raf=requestAnimationFrame(frame);
   }
 
-  function start(){ if(running||!DESKTOP.matches) return; running=true; resize(); raf=requestAnimationFrame(frame); }
+  function start(){ if(running||!DESKTOP.matches) return; running=true; resize(); forge(); raf=requestAnimationFrame(frame); }
   function stop(){ running=false; if(raf){ cancelAnimationFrame(raf); raf=null; } parts=[]; if(W) ctx.clearRect(0,0,W,H); }
 
   window.addEventListener('resize', function(){ if(running) resize(); else start(); });

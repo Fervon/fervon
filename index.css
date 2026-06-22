@@ -89,7 +89,7 @@
     .endcta .cta-row{position:relative;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 
     /* Hero */
-    .hero{position:relative;text-align:center;padding:84px 24px 52px;overflow:hidden;background:linear-gradient(180deg,transparent 46%,rgba(14,11,10,.72) 78%,#0E0B0A 100%),linear-gradient(rgba(14,11,10,.74),rgba(14,11,10,.9)),url(/assets/textura-forja.png) center/cover no-repeat}
+    .hero{position:relative;text-align:center;padding:84px 24px 52px;overflow:hidden;background:linear-gradient(180deg,transparent 46%,rgba(14,11,10,.55) 74%,rgba(14,11,10,.18) 92%,rgba(14,11,10,0) 100%),linear-gradient(rgba(14,11,10,.74),rgba(14,11,10,.9)),url(/assets/textura-forja.png) center/cover no-repeat}
     .hero::before{content:"";position:absolute;top:-120px;left:50%;width:760px;height:520px;transform:translateX(-50%);background:radial-gradient(ellipse at center,rgba(255,106,0,.2),rgba(224,72,15,.08) 38%,transparent 70%);pointer-events:none;animation:breathe 6s ease-in-out infinite}
     @keyframes breathe{0%,100%{opacity:.8}50%{opacity:1}}
     /* Heat-shimmer: low-opacity ember layer drifting upward. Hidden by default; only shown when motion is allowed. */
@@ -107,7 +107,7 @@
     .root{position:relative;margin-top:14px;font-size:14px;font-style:italic;color:var(--dim)}
     .cta-row{position:relative;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:32px}
     @media(min-width:900px){
-      .hero{text-align:left;min-height:600px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:104px 24px 92px;padding-left:max(24px,calc((100% - 1080px)/2 + 24px));background:linear-gradient(180deg,transparent 44%,rgba(14,11,10,.55) 74%,#0E0B0A 100%),linear-gradient(90deg,rgba(14,11,10,.97) 0%,rgba(14,11,10,.85) 32%,rgba(14,11,10,.42) 60%,rgba(14,11,10,.16) 100%),url(/assets/hero-home.png?v=2) center right / cover no-repeat}
+      .hero{text-align:left;min-height:600px;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:104px 24px 92px;padding-left:max(24px,calc((100% - 1080px)/2 + 24px));background:linear-gradient(180deg,transparent 44%,rgba(14,11,10,.42) 72%,rgba(14,11,10,.14) 90%,rgba(14,11,10,0) 100%),linear-gradient(90deg,rgba(14,11,10,.97) 0%,rgba(14,11,10,.85) 32%,rgba(14,11,10,.42) 60%,rgba(14,11,10,.16) 100%),url(/assets/hero-home.png?v=2) center right / cover no-repeat}
       .hero::before{left:32%;top:-160px}
       .hero .logo{margin:0 0 10px;max-width:380px;width:380px}
       .lead{max-width:540px;margin:20px 0 0}

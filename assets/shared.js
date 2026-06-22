@@ -135,61 +135,123 @@
   cv.id="fv-embers"; cv.setAttribute("aria-hidden","true");
   document.body.insertBefore(cv, document.body.firstChild);
   var ctx=cv.getContext("2d");
-  var W,H,DPR=1,TAU=Math.PI*2,embers=[],sparks=[],running=true,i;
+  var W,H,DPR=1,TAU=Math.PI*2,running=true;
 
   function resize(){ W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;cv.style.width=W+"px";cv.style.height=H+"px";ctx.setTransform(DPR,0,0,DPR,0,0); }
   resize(); addEventListener("resize",resize);
 
-  // depth: 0 = far (small, slow, dim) .. 1 = near (big, fast, bright)
-  function spawn(reset){ var d=Math.random(); return {x:Math.random()*W,y:reset?H+Math.random()*60:Math.random()*H,depth:d,r:d*2.6+0.5,vy:d*1.4+0.25,vx:(Math.random()-0.5)*0.4,sway:Math.random()*TAU,swaySpeed:Math.random()*0.02+0.005,swayAmp:d*0.7+0.15,life:Math.random()*0.5+0.5,flick:Math.random()*TAU,hue:16+Math.random()*30}; }
-  function spawnSpark(){ return {x:Math.random()*W,y:H+Math.random()*30,px:0,py:0,vy:Math.random()*3.5+2.2,vx:(Math.random()-0.5)*0.8,r:Math.random()*1.2+0.7,life:1,decay:Math.random()*0.008+0.004,hue:30+Math.random()*22}; }
+  // 4 temperature-tinted sprites — IDENTICAL to the hero forge emitter, so the
+  // page-wide field reads as the same fire. Centres aren't pure alpha-1 (except
+  // white) so additive 'lighter' accumulates heat without blowing out.
+  var SPR_R=32;
+  var SPRITES=(function(){
+    function make(c0,c1,c2,out){ var s=document.createElement("canvas"); s.width=s.height=SPR_R*2;
+      var g=s.getContext("2d"); var rad=g.createRadialGradient(SPR_R,SPR_R,0,SPR_R,SPR_R,SPR_R);
+      rad.addColorStop(0,c0); rad.addColorStop(0.22,c1); rad.addColorStop(0.55,c2); rad.addColorStop(1,out);
+      g.fillStyle=rad; g.fillRect(0,0,SPR_R*2,SPR_R*2); return s; }
+    return [
+      make("rgba(255,255,255,1)",   "rgba(255,244,214,.95)", "rgba(255,196,120,.45)", "rgba(255,150,80,0)"), // 0 white-hot
+      make("rgba(255,248,224,.98)", "rgba(255,214,120,.92)", "rgba(255,150,40,.42)",  "rgba(255,120,30,0)"), // 1 yellow
+      make("rgba(255,226,170,.96)", "rgba(255,150,54,.88)",  "rgba(232,86,16,.38)",   "rgba(210,60,12,0)"),  // 2 orange
+      make("rgba(255,180,120,.92)", "rgba(240,92,24,.78)",   "rgba(150,30,6,.34)",    "rgba(120,20,0,0)")    // 3 red ember
+    ];
+  })();
+  var TEMP_CAP=[0.50,0.62,0.74,0.85];
 
-  // pre-rendered glowing ember sprite (radial gradient) — cheap to draw many times
-  function makeSprite(h){ var size=64,c=document.createElement("canvas");c.width=c.height=size;var g=c.getContext("2d");var rad=g.createRadialGradient(size/2,size/2,0,size/2,size/2,size/2);rad.addColorStop(0,"hsla("+(h+12)+",100%,88%,1)");rad.addColorStop(0.18,"hsla("+(h+6)+",100%,70%,0.95)");rad.addColorStop(0.45,"hsla("+h+",100%,55%,0.5)");rad.addColorStop(1,"hsla("+h+",100%,50%,0)");g.fillStyle=rad;g.fillRect(0,0,size,size);return c; }
-  var SPRITES=[]; for(var sh=14;sh<=46;sh+=4) SPRITES.push(makeSprite(sh));
-  function spriteFor(hue){ return SPRITES[Math.min(SPRITES.length-1,Math.max(0,Math.round((hue-14)/4)))]; }
+  // Forge heat glow (a dome anchored to the TOP, near the hero ingot).
+  var GLOW_SPRITE=(function(){ var s=document.createElement("canvas"); s.width=s.height=256;
+    var g=s.getContext("2d"); var rad=g.createRadialGradient(128,128,0,128,128,128);
+    rad.addColorStop(0,"rgba(255,232,190,.52)"); rad.addColorStop(0.20,"rgba(255,168,72,.28)");
+    rad.addColorStop(0.50,"rgba(232,84,16,.11)"); rad.addColorStop(0.78,"rgba(200,52,10,.04)");
+    rad.addColorStop(1,"rgba(180,40,6,0)");
+    g.fillStyle=rad; g.fillRect(0,0,256,256); return s; })();
 
-  var big=innerWidth>=720, COUNT=big?150:75, NSP=big?12:6;
-  for(i=0;i<COUNT;i++){ var e=spawn(false); e.img=spriteFor(e.hue); embers.push(e); }
-  for(i=0;i<NSP;i++){ var s=spawnSpark(); s.y=Math.random()*H; sparks.push(s); }
+  // spawn: slow convection + temperature by age + density falloff.
+  // reset=true → recycled: re-enters from below and rises. reset=false → seed:
+  // quadratic bias to small y (dense near the forge at the top).
+  function spawn(reset){
+    var rs=Math.random();
+    var size=0.4 + rs*rs*rs*4.6;                    // power-law: ~75% micro-embers
+    var d=Math.random();                            // depth: 0 far/dim .. 1 near/bright
+    var by=reset ? (H+Math.random()*60)             // enters from below and rises
+                 : (Math.random()*Math.random()*H); // quadratic → visual weight UP (the forge)
+    var ang=-Math.PI/2 + (Math.random()-0.5)*0.55;  // narrow upward fan
+    var sp=0.15 + Math.random()*0.40;               // slow launch 0.15..0.55 px/frame
+    return { x:Math.random()*W, y:by, depth:d, size:size, big:size>2.2?1:0,
+      vx:Math.cos(ang)*sp*0.45, vy:Math.sin(ang)*sp,
+      buoy:(0.018+Math.random()*0.016)/(0.6+size*0.7),
+      life:1, decay:(0.0024+Math.random()*0.0034)/(0.7+size*0.25),  // ~2-4.5s
+      lum:0.40+size*0.10,
+      flick:Math.random()*TAU, fspd:0.10+Math.random()*0.12,
+      sway:Math.random()*TAU, swaySp:0.012+Math.random()*0.020, swayAmp:0.05+Math.random()*0.10,
+      px:0, py:0 };
+  }
+
+  var COUNT=(window.innerWidth>=720)?130:60;       // <=150
+  var embers=[];
+  for(var _i=0;_i<COUNT;_i++) embers.push(spawn(false));
 
   document.addEventListener("visibilitychange",function(){
     if(document.hidden){ running=false; }
     else if(!running){ running=true; requestAnimationFrame(tick); }
   });
 
+  var glowPhase=0;
   function tick(){
     if(!running) return;
     ctx.clearRect(0,0,W,H);
     ctx.globalCompositeOperation="lighter";
 
-    // soft heat glow rising from the base
-    var glow=ctx.createLinearGradient(0,H,0,H*0.5);
-    glow.addColorStop(0,"rgba(255,106,0,0.12)"); glow.addColorStop(1,"rgba(255,106,0,0)");
-    ctx.fillStyle=glow; ctx.fillRect(0,H*0.5,W,H*0.5);
+    // Forge heat glow: a dome in the upper third + a halo aligned with the hero
+    // ingot's X, fading out as you scroll (one fire, one source — not per viewport).
+    var sy=(window.pageYOffset||document.documentElement.scrollTop||0);
+    var heat=1 - sy/Math.max(1,H*0.9); if(heat<0) heat=0;
+    if(heat>0.001){
+      glowPhase+=0.018;
+      var pulse=0.84 + Math.sin(glowPhase)*0.12 + Math.sin(glowPhase*2.3)*0.04;
+      var top=ctx.createLinearGradient(0,0,0,H*0.42);          // the heat falls FROM the top
+      top.addColorStop(0,"rgba(255,120,40,"+(0.10*pulse*heat).toFixed(3)+")");
+      top.addColorStop(1,"rgba(255,120,40,0)");
+      ctx.fillStyle=top; ctx.fillRect(0,0,W,H*0.42);
+      var bigv=W>=720;
+      var fx=(typeof window.__fvForgeX==="number")?window.__fvForgeX:(bigv?W*0.78:W*0.5);
+      var hy=H*0.10, hw=Math.max(W*0.9,720), hh=hw*0.62;
+      ctx.globalAlpha=0.5*pulse*heat;
+      ctx.drawImage(GLOW_SPRITE, fx-hw/2, hy-hh*0.35, hw, hh);
+      ctx.globalAlpha=1;
+    }
 
-    // embers (sprite-based glow — no per-particle shadowBlur)
+    // Embers: convection / temperature / alpha-ceiling identical to #forge-sparks.
     for(var k=0;k<embers.length;k++){
-      var em=embers[k];
-      em.sway+=em.swaySpeed; em.x+=em.vx+Math.sin(em.sway)*em.swayAmp*0.5; em.y-=em.vy; em.flick+=0.15;
-      if(em.y<-12||em.x<-20||em.x>W+20){ Object.assign(em,spawn(true)); em.img=spriteFor(em.hue); }
-      var fade=Math.min(1,em.y/H+0.15), flicker=0.72+Math.sin(em.flick)*0.28;
-      ctx.globalAlpha=em.life*fade*flicker*(0.35+em.depth*0.65);
-      var sz=em.r*(3.5+em.depth*3);
-      ctx.drawImage(em.img,em.x-sz/2,em.y-sz/2,sz,sz);
+      var p=embers[k];
+      p.vy-=p.buoy; p.vy*=0.96; p.vx*=0.94;                    // buoyancy + drag → convection, not a projectile
+      p.sway+=p.swaySp; var swayX=Math.cos(p.sway)*p.swayAmp;
+      p.px=p.x; p.py=p.y;
+      p.x+=p.vx+swayX; p.y+=p.vy;
+      p.life-=p.decay; p.flick+=p.fspd;
+      if(p.life<=0||p.y<-25||p.x<-30||p.x>W+30){ Object.assign(p,spawn(true)); continue; }
+
+      var life=p.life;
+      var idx = life>0.80?0 : life>0.55?1 : life>0.30?2 : 3;   // temperature by age
+      var spr=SPRITES[idx];
+      var env = (life>0.88) ? (1-life)/0.12 : (life/0.88);     // fade-in 12% + fade-out
+      if(env>1) env=1;
+      var flick=0.82+Math.sin(p.flick)*0.18;
+      var sizeDamp=1/(1+p.size*0.18);
+      var depthDim=0.45+p.depth*0.55;                          // falloff: far embers dimmer
+      var a=env*p.lum*flick*TEMP_CAP[idx]*sizeDamp*depthDim;
+      if(a<=0) continue;
+
+      var sz=p.size*4.4*(0.6+life*0.5)*(0.7+p.depth*0.6);
+
+      if(p.big){ var dx=p.x-p.px, dy=p.y-p.py;                 // subtle motion-blur (not lines)
+        ctx.globalAlpha=a*0.28; ctx.drawImage(spr, p.x-dx*1.6-sz/2, p.y-dy*1.6-sz/2, sz*0.90, sz*0.90);
+        ctx.globalAlpha=a*0.50; ctx.drawImage(spr, p.x-dx*0.8-sz/2, p.y-dy*0.8-sz/2, sz*0.95, sz*0.95);
+      }
+      ctx.globalAlpha=a; ctx.drawImage(spr, p.x-sz/2, p.y-sz/2, sz, sz);
     }
+
     ctx.globalAlpha=1;
-
-    // sparks with streak trail
-    for(var j=0;j<sparks.length;j++){
-      var sp=sparks[j];
-      if(sp.life<=0||sp.y<-10){ Object.assign(sp,spawnSpark()); continue; }
-      sp.px=sp.x; sp.py=sp.y; sp.x+=sp.vx; sp.y-=sp.vy; sp.vy*=0.992; sp.life-=sp.decay;
-      ctx.strokeStyle="hsla("+sp.hue+",100%,68%,"+(sp.life*0.9)+")"; ctx.lineWidth=sp.r; ctx.lineCap="round";
-      ctx.beginPath(); ctx.moveTo(sp.px,sp.py); ctx.lineTo(sp.x,sp.y); ctx.stroke();
-      ctx.beginPath(); ctx.fillStyle="hsla("+(sp.hue+8)+",100%,80%,"+sp.life+")"; ctx.arc(sp.x,sp.y,sp.r*0.9,0,TAU); ctx.fill();
-    }
-
     ctx.globalCompositeOperation="source-over";
     requestAnimationFrame(tick);
   }
