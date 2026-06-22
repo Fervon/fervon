@@ -1,0 +1,36 @@
+/* Veredicto — page-specific utilities (hero verdict card, catch list). Primitives live in /assets/core.css + base.css. */
+
+/* hero grid background mask */
+.h-grid{position:absolute;inset:0;z-index:-1;mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000,transparent)}
+.h-glow{position:absolute;inset:0;z-index:-1;background:radial-gradient(ellipse 60% 50% at 70% 20%,rgba(255,106,0,.10),transparent)}
+
+/* hero demo: a CI check verdict on a PR */
+.demo .top .dotr{margin-left:auto;color:var(--no,#FF7A4D);display:inline-flex;align-items:center;gap:6px;font-weight:600}
+.vfile{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;font-size:12.5px;color:var(--bone)}
+.vlist{display:flex;flex-direction:column;gap:8px;margin-top:4px}
+.vrow{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--line);background:rgba(14,11,10,.45);border-radius:10px;padding:10px 12px;opacity:0;transform:translateY(6px);transition:opacity .45s ease,transform .45s ease}
+.vrow.in{opacity:1;transform:none}
+.vrow .ix{flex:0 0 auto;font-weight:800;font-size:13px;line-height:1.5}
+.vrow.bad .ix{color:#FF7A4D}
+.vrow.warn .ix{color:var(--amber)}
+.vrow .vt{font-size:13px;color:var(--bone)}
+.vrow .vt code{font-family:ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;font-size:12px;background:rgba(110,118,129,.18);padding:1px 5px;border-radius:5px;color:var(--spark)}
+.vrow .vt small{display:block;color:var(--dim);font-size:11.5px;margin-top:2px}
+.verdict{margin-top:14px;display:flex;align-items:center;gap:10px;border-radius:10px;padding:11px 13px;background:rgba(248,81,73,.10);border:1px solid rgba(248,81,73,.4);opacity:0;transform:translateY(6px);transition:opacity .45s ease,transform .45s ease}
+.verdict.in{opacity:1;transform:none}
+.verdict b{color:#FF7A4D;font-size:13px;letter-spacing:.3px}
+.verdict .vtag{margin-left:auto;font-size:11px;color:var(--dim);font-variant-numeric:tabular-nums}
+.demo-note{text-align:center;font-size:11px;color:var(--dim);margin-top:8px}
+
+/* "what it catches" grid uses .cards/.feat from core.css + base.css */
+.catch h3{font-size:15px;font-weight:700;margin:12px 0 6px;color:var(--bone)}
+.catch p{font-size:13.5px;color:var(--ash)}
+.catch p code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12px;background:rgba(110,118,129,.18);padding:1px 5px;border-radius:5px;color:var(--spark)}
+.catch .tagp{display:inline-block;margin-top:10px;font-size:10.5px;letter-spacing:.4px;text-transform:uppercase;font-weight:700;border-radius:6px;padding:2px 8px}
+.tagp.free{background:rgba(159,201,121,.14);color:#9FC979;border:1px solid rgba(159,201,121,.4)}
+.tagp.pro{background:rgba(255,106,0,.12);color:var(--ember);border:1px solid rgba(255,106,0,.4)}
+
+/* related products row */
+.related{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:30px}
+.related a{border:1px solid var(--line2);background:rgba(26,19,16,.6);border-radius:20px;padding:8px 15px;font-size:13px;color:var(--ash);transition:.16s}
+.related a:hover{border-color:var(--ember);color:var(--amber)}
