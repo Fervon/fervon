@@ -30,6 +30,12 @@
 .tagp.free{background:rgba(159,201,121,.14);color:#9FC979;border:1px solid rgba(159,201,121,.4)}
 .tagp.pro{background:rgba(255,106,0,.12);color:var(--ember);border:1px solid rgba(255,106,0,.4)}
 
+/* problem section: METR line + report link (external classes — CSP forbids inline style) */
+.metr-line{margin-top:32px}
+.report-link{margin-top:14px}
+.report-link a{color:var(--amber);text-decoration:underline;text-underline-offset:2px}
+.report-link a:hover{color:var(--spark)}
+
 /* related products row */
 .related{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:30px}
 .related a{border:1px solid var(--line2);background:rgba(26,19,16,.6);border-radius:20px;padding:8px 15px;font-size:13px;color:var(--ash);transition:.16s}

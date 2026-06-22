@@ -38,35 +38,8 @@
 
   <link rel="stylesheet" href="/assets/core.css" />
   <link rel="stylesheet" href="base.css" />
+  <link rel="stylesheet" href="report.css" />
   <link rel="stylesheet" href="/assets/shared.css" />
-  <style>
-    .post{max-width:760px;margin:0 auto;padding:120px 24px 40px}
-    .post .eyebrow{font-size:13px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--amber)}
-    .post h1{font-size:clamp(28px,4.4vw,44px);line-height:1.08;letter-spacing:-1px;font-weight:800;margin:14px 0 10px}
-    .post .meta{color:var(--dim);font-size:14px;margin-bottom:8px}
-    .post h2{font-size:clamp(21px,3vw,28px);letter-spacing:-.4px;font-weight:800;margin:42px 0 6px}
-    .post h3{font-size:17px;font-weight:700;margin:26px 0 4px;color:var(--bone)}
-    .post p{color:var(--ash);margin-top:14px;font-size:16.5px;line-height:1.7}
-    .post p b,.post p strong{color:var(--bone)}
-    .post a{color:var(--amber);text-decoration:underline;text-underline-offset:2px}
-    .post a:hover{color:var(--spark)}
-    .post code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:.88em;background:rgba(110,118,129,.18);padding:1px 6px;border-radius:5px;color:var(--spark)}
-    .post ul{margin:14px 0 0 0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:10px}
-    .post ul li{position:relative;padding-left:26px;color:var(--ash);font-size:16px}
-    .post ul li::before{content:"›";position:absolute;left:6px;color:var(--ember);font-weight:700;font-size:18px}
-    .post blockquote{border-left:3px solid var(--ember);margin:20px 0;padding:6px 18px;color:var(--bone);font-style:italic;background:rgba(255,106,0,.05)}
-    .bignum{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0}
-    @media(max-width:560px){.bignum{grid-template-columns:1fr}}
-    .bignum .b{border:1px solid var(--line);background:rgba(26,19,16,.5);border-radius:14px;padding:20px}
-    .bignum .v{font-size:34px;font-weight:800;letter-spacing:-1px;background:linear-gradient(90deg,var(--ember),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
-    .bignum .l{color:var(--ash);font-size:13.5px;margin-top:4px}
-    .post table{width:100%;border-collapse:collapse;font-size:14.5px;margin:18px 0}
-    .post th,.post td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line)}
-    .post th{color:var(--dim);font-size:12px;text-transform:uppercase;letter-spacing:.5px}
-    .post td:last-child,.post th:last-child{text-align:right;font-variant-numeric:tabular-nums}
-    .endcta{border:1px solid var(--line2);background:rgba(26,19,16,.6);border-radius:16px;padding:26px;margin-top:40px;text-align:center}
-    .endcta .btnrow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px}
-  </style>
 </head>
 <body>
   <a class="skip" href="#top">Skip to content</a>
@@ -126,7 +99,7 @@
     <p>Everything is open source and deterministic: the seeded modules, the solver harness, and the scorers live in the <a href="https://github.com/JoniMartin27/veredicto">Veredicto repo</a> (<code>scripts/score-experiment-b.mjs</code>, reports under <code>reports/</code>). Run it against your own model of choice — I'd genuinely like to see the rate for the agent you ship with.</p>
 
     <div class="endcta">
-      <p style="color:var(--bone);font-weight:600;margin:0">Catch the blatant test-gaming in your own PRs — free, deterministic, no API key.</p>
+      <p class="lead">Catch the blatant test-gaming in your own PRs — free, deterministic, no API key.</p>
       <div class="btnrow">
         <a class="btn btn-fire" href="https://github.com/JoniMartin27/veredicto">Install the Action — free</a>
         <a class="btn btn-ghost" href="/veredicto/">How Veredicto works</a>
