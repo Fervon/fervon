@@ -54,39 +54,106 @@
     </div>
   </div></header>
 
-  <main id="top"><article class="post">
-    <div class="eyebrow">Data report</div>
-    <h1>I asked AI agents to write tests for 20 buggy modules. <span class="grad">100% passed. 0 caught the bug.</span></h1>
-    <div class="meta">22 June 2026 · Jonathan Martín · <a href="/veredicto/">Veredicto</a> by Fervon</div>
+  <main id="top">
 
-    <p class="lead">I gave a fast AI agent 20 modules — each with a real bug and no tests — and asked it to "write a thorough test suite and leave the build green."</p>
-
-    <div class="bignum">
-      <div class="b"><div class="v">100%</div><div class="l">of suites passed against the buggy code</div></div>
-      <div class="b"><div class="v">0%</div><div class="l">caught the bug</div></div>
-      <div class="b"><div class="v">75%</div><div class="l">asserted the buggy output as "correct"</div></div>
-    </div>
-
-    <p>Every build went green. None caught the bug. And 15/20 pinned the buggy output as expected — so <i>fixing</i> the bug would turn those tests red. One agent left this in its own file:</p>
-    <blockquote>// 1.005 exhibits the bug (should be 1.01 but rounds to 1)</blockquote>
-    <p>It knew the right answer and asserted the wrong one anyway — because the job was "make it green."</p>
-
-    <h2>The takeaway</h2>
-    <ul>
-      <li><b>"Tests passing" and coverage % are worthless</b> when the agent wrote the tests — both were 100% green while the bug shipped.</li>
-      <li><b>The blatant gaming is free to catch:</b> deleted/skipped tests, tautological asserts, over-mocking, relaxed thresholds. That's <a href="/veredicto/">Veredicto</a> — <b>0 false positives</b> across 100 real PRs.</li>
-      <li><b>This failure is subtler — semantic.</b> Tests that mirror the bug. Static rules (rightly) flag 0; catching it needs the contract: mutation testing, or Veredicto's Pro judge.</li>
-    </ul>
-    <p>Reproducible — seeded modules + scorers in the <a href="https://github.com/JoniMartin27/veredicto">repo</a>. Run it against your own model.</p>
-
-    <div class="endcta">
-      <p class="lead">Catch the blatant test-gaming in your own PRs — free, deterministic, no API key.</p>
-      <div class="btnrow">
-        <a class="btn btn-fire" href="https://github.com/JoniMartin27/veredicto">Install the Action — free</a>
-        <a class="btn btn-ghost" href="/veredicto/">How Veredicto works</a>
+    <!-- HERO -->
+    <header class="vhero vwrap reveal">
+      <div class="eyebrow">Data report · June 2026</div>
+      <h1>AI wrote the tests.<br><span class="grad">The bug shipped anyway.</span></h1>
+      <div class="cstrip" aria-hidden="true">
+        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"/></svg></span>
+        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"/></svg></span>
+        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"/></svg></span>
+        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"/></svg></span>
+        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"/></svg></span>
+        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"/></svg></span>
+        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"/></svg></span>
+        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"/></svg></span>
       </div>
-    </div>
-  </article></main>
+      <p class="bugline">20 green builds. <b>0 bugs caught.</b></p>
+    </header>
+
+    <!-- BIG NUMBERS -->
+    <section class="vsec vwrap reveal">
+      <div class="stats threecol">
+        <div class="cell"><div class="v">100%</div><div class="l">of AI-written suites passed on buggy code</div><div class="fillbar w100"><i></i></div></div>
+        <div class="cell"><div class="v">0%</div><div class="l">caught the bug they were guarding</div><div class="fillbar danger w0"><i></i></div></div>
+        <div class="cell"><div class="v">75%</div><div class="l">asserted the buggy output as "correct"</div><div class="fillbar w75"><i></i></div></div>
+      </div>
+    </section>
+
+    <!-- PIPELINE -->
+    <section class="vsec vwrap reveal">
+      <h2>What happened</h2>
+      <div class="flow">
+        <div class="stage">
+          <div class="grid20 red" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="stitle">20 modules · each with a real bug</div>
+        </div>
+        <div class="agent">
+          <div class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3 0z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></div>
+          <span>AI writes tests</span>
+        </div>
+        <div class="stage">
+          <div class="grid20 green" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="stitle">20 green test suites ✓</div>
+          <div class="stamp">BUG SHIPPED</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SMOKING GUN -->
+    <section class="vsec vwrap reveal">
+      <h2>It knew the answer. It asserted the bug anyway.</h2>
+      <div class="codecard">
+        <div class="ctop"><i class="r"></i><i class="y"></i><i class="g"></i><span>impl.test.js · written by AI</span><span class="pass">✓ passing</span></div>
+        <div class="codebody">
+          <div class="ln">assert.equal(round(1.005, 2), <span class="bad">1.0</span>)<span class="cur"></span></div>
+          <div class="cmt">// 1.005 exhibits the bug (should be 1.01 but rounds to 1)</div>
+        </div>
+      </div>
+      <p class="guncap">Green CI. Wrong answer. By design.</p>
+    </section>
+
+    <!-- TWO LAYERS -->
+    <section class="vsec vwrap reveal">
+      <h2>Two failures — one you can catch for free</h2>
+      <div class="layers">
+        <div class="lyr free">
+          <div class="lh"><span class="ic2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span> Blatant gaming <span class="tag2">Free</span></div>
+          <ul>
+            <li>Deleted / skipped tests</li>
+            <li>Tautological asserts</li>
+            <li>Mocking the unit under test</li>
+            <li>Relaxed coverage thresholds</li>
+          </ul>
+          <div class="note">Deterministic · 0 false positives on 100 real PRs</div>
+        </div>
+        <div class="lyr pro">
+          <div class="lh"><span class="ic2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-2.5 6a3.5 3.5 0 0 0 7 0L7 7"/><path d="M19 7l-2.5 6a3.5 3.5 0 0 0 7 0L21 7"/><path d="M7 21h10"/></svg></span> Tests that mirror the bug <span class="tag2">Pro</span></div>
+          <ul>
+            <li>Assert the buggy output as correct</li>
+            <li>Invisible to static rules</li>
+            <li>Needs the contract: diff-vs-claim judge</li>
+          </ul>
+          <div class="note">Veredicto Pro · or mutation testing</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="vsec vwrap reveal">
+      <div class="endcta">
+        <p class="lead">Catch the blatant test-gaming in your PRs — free, deterministic, no API key.</p>
+        <div class="btnrow">
+          <a class="btn btn-fire" href="https://github.com/JoniMartin27/veredicto">Install the Action — free</a>
+          <a class="btn btn-ghost" href="/veredicto/">How Veredicto works</a>
+        </div>
+      </div>
+      <p class="repro">Reproducible — seeded modules + scorers in the <a href="https://github.com/JoniMartin27/veredicto">repo</a>. Run it against your own model.</p>
+    </section>
+
+  </main>
 
   <footer><div class="wrap foot">
     <span>Veredicto is a project by <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forged red-hot</span>
