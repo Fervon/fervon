@@ -24,9 +24,9 @@
 .cstrip{display:flex;gap:9px;justify-content:center;flex-wrap:wrap;margin:30px 0 14px}
 .cstrip .ck{width:28px;height:28px}
 .cstrip .ck svg{width:100%;height:100%}
-.cstrip .ck path{stroke:#9FC979;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:0}
+.cstrip .ck path{stroke:#8FD06B;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:40;stroke-dashoffset:0}
 .bugline{color:var(--ash);font-size:clamp(16px,2.4vw,21px);font-weight:600;margin-top:6px}
-.bugline b{color:#FF7A4D}
+.bugline b{color:var(--brasa)}
 
 /* ---------- section frame ---------- */
 .vsec{padding:54px 0}
@@ -38,12 +38,12 @@
 .stats.threecol .cell{border:1px solid var(--line);background:rgba(26,19,16,.5);border-radius:18px;padding:26px 22px;box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 1px 2px rgba(0,0,0,.4)}
 .stats.threecol .v{font-size:clamp(42px,7.5vw,62px);font-weight:800;letter-spacing:-2px;line-height:1}
 .stats.threecol .cell:nth-child(1) .v{background:linear-gradient(90deg,var(--ember),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}
-.stats.threecol .cell:nth-child(2) .v{color:#FF7A4D}
+.stats.threecol .cell:nth-child(2) .v{color:var(--brasa)}
 .stats.threecol .cell:nth-child(3) .v{color:var(--amber)}
 .stats.threecol .l{color:var(--ash);font-size:13.5px;margin-top:12px;min-height:34px}
 .fillbar{height:8px;border-radius:6px;background:rgba(255,255,255,.06);margin-top:16px;overflow:hidden}
 .fillbar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--ember),var(--amber))}
-.fillbar.danger i{background:#FF7A4D}
+.fillbar.danger i{background:var(--brasa)}
 .fillbar.w100 i{width:100%}
 .fillbar.w75 i{width:75%}
 .fillbar.w0 i{width:5%}
@@ -55,24 +55,24 @@
 .stage .stitle{font-size:12.5px;color:var(--ash);margin-top:12px}
 .grid20{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}
 .grid20 i{aspect-ratio:1;border-radius:5px;display:block}
-.grid20.red i{background:rgba(248,81,73,.16);border:1px solid rgba(248,81,73,.5)}
-.grid20.green i{background:rgba(159,201,121,.16);border:1px solid rgba(159,201,121,.55)}
+.grid20.red i{background:rgba(224,72,15,.16);border:1px solid rgba(224,72,15,.5)}
+.grid20.green i{background:rgba(143,208,107,.16);border:1px solid rgba(143,208,107,.55)}
 .agent{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--ash);font-size:12px}
 .agent .ring{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:rgba(255,106,0,.12);border:1px solid rgba(255,106,0,.5);color:var(--ember)}
 .agent svg{width:24px;height:24px}
 @media(max-width:760px){.agent .ring{transform:rotate(90deg)}}
-.stamp{position:absolute;right:-8px;bottom:-16px;background:rgba(14,11,10,.9);border:2px solid #FF7A4D;color:#FF7A4D;font-weight:800;letter-spacing:1px;padding:6px 13px;border-radius:8px;transform:rotate(-7deg);font-size:13.5px;white-space:nowrap}
+.stamp{position:absolute;right:-8px;bottom:-16px;background:rgba(14,11,10,.9);border:2px solid var(--brasa);color:var(--brasa);font-weight:800;letter-spacing:1px;padding:6px 13px;border-radius:8px;transform:rotate(-7deg);font-size:13.5px;white-space:nowrap}
 
 /* ---------- smoking-gun code card ---------- */
 .codecard{max-width:680px;margin:0 auto;border:1px solid var(--line2);border-radius:14px;overflow:hidden;background:rgba(14,11,10,.72);font-family:ui-monospace,Menlo,Consolas,monospace}
 .codecard .ctop{display:flex;align-items:center;gap:7px;padding:11px 14px;border-bottom:1px solid var(--line);font-size:12px;color:var(--dim)}
 .codecard .ctop i{width:11px;height:11px;border-radius:50%}
-.codecard .ctop .r{background:#E0480F}.codecard .ctop .y{background:#FFB02E}.codecard .ctop .g{background:#9FC979}
+.codecard .ctop .r{background:#E0480F}.codecard .ctop .y{background:#FFB02E}.codecard .ctop .g{background:#8FD06B}
 .codecard .ctop span{margin-left:6px}
-.codecard .ctop .pass{margin-left:auto;color:#9FC979;font-weight:600}
+.codecard .ctop .pass{margin-left:auto;color:#8FD06B;font-weight:600}
 .codebody{padding:18px;font-size:14px;line-height:2}
 .codebody .ln{color:var(--bone)}
-.codebody .bad{color:#FF7A4D;font-weight:700;background:rgba(248,81,73,.14);padding:0 5px;border-radius:4px}
+.codebody .bad{color:var(--brasa);font-weight:700;background:rgba(224,72,15,.14);padding:0 5px;border-radius:4px}
 .codebody .cmt{color:var(--amber);background:rgba(255,176,46,.12);border-radius:4px;padding:0 5px}
 .cur{display:inline-block;width:8px;height:16px;background:var(--amber);vertical-align:-3px;margin-left:2px}
 .guncap{text-align:center;color:var(--bone);font-weight:700;margin-top:22px;font-size:clamp(16px,2.4vw,20px)}
@@ -85,14 +85,14 @@
 .lyr .lh{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15.5px;color:var(--bone)}
 .lyr .ic2{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;flex:0 0 auto}
 .lyr .ic2 svg{width:22px;height:22px}
-.lyr.free .ic2{background:rgba(159,201,121,.14);color:#9FC979}
+.lyr.free .ic2{background:rgba(143,208,107,.14);color:#8FD06B}
 .lyr.pro .ic2{background:rgba(255,106,0,.12);color:var(--ember)}
 .lyr .tag2{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;border-radius:6px;padding:3px 9px;margin-left:auto}
-.lyr.free .tag2{background:rgba(159,201,121,.14);color:#9FC979}
+.lyr.free .tag2{background:rgba(143,208,107,.14);color:#8FD06B}
 .lyr.pro .tag2{background:rgba(255,106,0,.12);color:var(--ember)}
 .lyr ul{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:9px}
 .lyr li{font-size:13.5px;color:var(--ash);padding-left:24px;position:relative}
-.lyr.free li::before{content:"✓";position:absolute;left:2px;color:#9FC979;font-weight:700}
+.lyr.free li::before{content:"✓";position:absolute;left:2px;color:#8FD06B;font-weight:700}
 .lyr.pro li::before{content:"⚖";position:absolute;left:0;color:var(--ember)}
 .lyr .note{font-size:12px;color:var(--dim);margin-top:16px;border-top:1px solid var(--line);padding-top:12px}
 
