@@ -77,3 +77,50 @@ cerrado si falta algo.**)
   `trace/index.html` → cambia el hash de la CSP (re-correr `build-csp.mjs` +
   actualizar la Transform Rule de Cloudflare). Por eso no se tocó el JSON-LD.
 - El tier "Pro IA" sigue "Próximamente" (no se vende aún).
+
+---
+
+# Pagos — Veredicto (prueba de humo: ¿alguien paga el Pro?)
+
+Estado: **landing publicable en `fervon.dev/veredicto/`**. Es una **prueba de humo
+de willingness-to-pay**: el producto (la Action) aún NO está construido — primero
+validamos que alguien instala y que alguien reserva el Pro, y SOLO entonces se
+construye. Mismo patrón visual que Trace, mismo merchant of record (Polar).
+
+Modelo (del análisis `Desktop\veredicto-analisis\index.html`):
+- **Capa base GRATIS y open source** — GitHub Action de detección estática de
+  test-gaming (sin LLM, sin API key). CTA "Instalar la Action — gratis".
+- **Pro $19/repo/mes** (hasta 100 PRs verificados; $49 hasta 500) — LLM-juez
+  diff-vs-claim + informe firmado, BYO API key. CTA "Empezar Pro".
+
+## Cómo está montado (todo en el repo fervon, carpeta `veredicto/`)
+- `index.html` + `base.css` + `index.css` + `index.client.js` clonando el tema
+  Fervon (core.css + shared.css/js globales). Bilingüe ES/EN, JSON-LD, sitemap.
+- **Waitlist** reusa el Formspree de Trace (`/f/mnjyoknb`) con `origen=veredicto/index`
+  → te llega a tu email, sin montar nada nuevo.
+- Enlazado desde la home (`index.html`: mega-menú + grid "IA local & agentes") y `sitemap.xml`.
+
+## Pendiente HUMANO para cerrar la prueba de humo (en orden)
+1. ~~**Repo de la Action** `JoniMartin27/veredicto`~~ **HECHO (2026-06-22):** repo
+   PÚBLICO vivo en https://github.com/JoniMartin27/veredicto con una GitHub Action
+   v0 REAL y funcional (Node 20, 0 deps): detecta tests borrados/.skip, asserts
+   tautológicos, umbrales de cobertura bajados y snapshots regenerados en masa en
+   el diff del PR (`src/detectors.js`, 6 tests verdes, CI verde, tags `v0`/`v0.1.0`,
+   se dogfoodea a sí mismo). Los botones "Instalar la Action" del landing ya
+   resuelven; el snippet `uses: JoniMartin27/veredicto@v0` funciona.
+2. **Producto Pro en Polar** ($19/mes, recurrente por repo): crea el producto y
+   **pega su checkout link** en lugar del placeholder
+   `https://buy.polar.sh/REEMPLAZA_VEREDICTO_PRO` (3 sitios en `veredicto/index.html`:
+   pricing + nada más; busca el placeholder). El resto de la entrega (worker de
+   licencia, webhook, idempotencia) se reutiliza del montaje de Trace cuando haya GO.
+3. **Definir el criterio GO/NO-GO ANTES de difundir** (del plan): en 2 semanas,
+   ≥10 instalaciones de la Action y/o ≥1 reserva de Pro con tarjeta → GO (construir
+   la Action de verdad). Si nadie pasa de "qué interesante" → NO-GO, archivar.
+4. **Difusión** (canal del ICP, no venta): Show HN, r/ClaudeAI, r/ChatGPTCoding,
+   awesome-claude-code. El gancho es el **informe de datos** ("Analicé N PRs de
+   agentes: X% mostraba test-gaming"), no el "instala mi tool".
+
+## Verificar
+- `fervon.dev/veredicto/` carga con el tema Fervon, 0 errores de consola, EN/ES OK.
+- "Empezar Pro — $19/repo" abre el checkout de Polar (tras pegar el link real).
+- La waitlist envía a Formspree (te llega el email con `origen=veredicto/index`).
