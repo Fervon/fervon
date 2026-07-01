@@ -6,3 +6,9 @@ build/
 .env
 .env.local
 .DS_Store
+.claude/
+
+# render-og.mjs test output (not shipped assets)
+og-test-*.png
+og-test-*.svg
+og-zoom-*.png

@@ -27,8 +27,8 @@
     th,td{padding:11px 14px;text-align:center;vertical-align:middle}
     th.isus{color:var(--amber)}
     td.isus{background:rgba(255,106,0,.07) !important}
-    .yes{color:#9FC979;font-weight:600}
-    .no{color:#FF7A4D;font-weight:600}
+    .yes{color:#8FD06B;font-weight:600}
+    .no{color:var(--brasa);font-weight:600}
     .warn{color:var(--amber)}
     /* waitlist */
     .wlform{max-width:560px;margin:34px auto 0}
@@ -38,7 +38,7 @@
     .frow input::placeholder{color:var(--dim)}
     .frow input:focus{outline:none;border-color:var(--ember);box-shadow:0 0 0 3px rgba(255,106,0,.14)}
     .fmsg{min-height:20px;font-size:14px;margin-top:12px;text-align:center}
-    .fmsg.ok{color:#9FC979}
+    .fmsg.ok{color:#8FD06B}
     .fmsg.err{color:var(--brasa)}
     .ffine{font-size:12px;color:var(--dim);text-align:center;margin-top:8px}
     .vh{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
@@ -56,7 +56,7 @@
     @media(max-width:760px){.prices{grid-template-columns:1fr}}
     .price{position:relative;padding:28px}
     .price.feat-card{border-color:var(--line2);box-shadow:0 0 0 1px rgba(255,106,0,.25),0 18px 50px rgba(0,0,0,.35)}
-    .pbadge{position:absolute;top:-12px;left:24px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;border-radius:20px;padding:5px 12px;background:linear-gradient(180deg,var(--ember),var(--brasa));color:#1A0E06}
+    .pbadge{position:absolute;top:-12px;left:24px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;border-radius:20px;padding:5px 12px;background:linear-gradient(180deg,var(--ember),var(--brasa));color:#2A1402}
     .pbadge.soon{background:transparent;border:1px solid var(--line2);color:var(--ash)}
     .pname{font-size:18px;font-weight:700;margin-top:6px}
     .pamt{display:flex;align-items:baseline;gap:10px;margin-top:14px}
