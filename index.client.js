@@ -105,7 +105,14 @@
     }
   }
 
-  function frame(){ if(!running) return;
+  // Physics is tuned per-frame at 60fps; gate the loop so high-refresh
+  // displays don't run the spark stream at 2-3x speed. Accumulator, not a
+  // vsync snap, so 75/90/144Hz average ~60fps; the clamp resyncs after gaps.
+  var FRAME_MS=1000/62, lastTs=0;
+  function frame(ts){ if(!running) return;
+    raf=requestAnimationFrame(frame);
+    if(ts-lastTs<FRAME_MS) return;
+    lastTs+=FRAME_MS; if(ts-lastTs>200) lastTs=ts;
     ctx.clearRect(0,0,W,H);
     ctx.globalCompositeOperation='lighter';
 
@@ -150,7 +157,6 @@
 
     ctx.globalAlpha=1;
     parts=parts.filter(function(p){ return p.life>0 && p.y>-25; });
-    raf=requestAnimationFrame(frame);
   }
 
   function start(){ if(running||!DESKTOP.matches) return; running=true; resize(); forge(); raf=requestAnimationFrame(frame); }

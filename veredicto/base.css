@@ -1,5 +1,5 @@
 /* Fervon — Veredicto shared base (design system + sections). Derived from the Trace base. */
-:root{--bg:#0E0B0A;--bg2:#16110E;--panel:#1A1310;--line:#2C211B;--line2:#3A2C22;--ember:#FF6A00;--brasa:#E0480F;--amber:#FFB02E;--spark:#FFD37A;--bone:#EFE7DC;--ash:#A89A8E;--dim:#94867A}
+:root{--bg:#0E0B0A;--bg2:#16110E;--panel:#1A1310;--line:#2C211B;--line2:#3A2C22;--ember:#FF6A00;--brasa:#E0480F;--amber:#FFB02E;--spark:#FFD37A;--bone:#EFE7DC;--ash:#A89A8E;--dim:#A0917F}
     /* nav */
     .crumb .mark{vertical-align:-3px;margin-right:2px}
     .crumb a:hover{color:var(--amber)}

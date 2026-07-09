@@ -35,7 +35,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 section[id]{scroll-margin-top:84px}
 /* ES / EN segmented language toggle (built by shared.js, replaces the old single button) */
 .langseg{display:inline-flex;align-items:center;gap:2px;padding:3px;border:1px solid var(--line2,#3A2C22);border-radius:10px;background:rgba(0,0,0,.22)}
-.langseg .langopt{font-family:inherit;font-size:12.5px;font-weight:700;letter-spacing:.4px;color:var(--dim,#94867A);background:transparent;border:0;border-radius:7px;padding:5px 9px;cursor:pointer;line-height:1;transition:color .14s,background .14s,box-shadow .14s}
+.langseg .langopt{font-family:inherit;font-size:12.5px;font-weight:700;letter-spacing:.4px;color:var(--dim,#A0917F);background:transparent;border:0;border-radius:7px;padding:5px 9px;cursor:pointer;line-height:1;transition:color .14s,background .14s,box-shadow .14s}
 .langseg .langopt:hover{color:var(--bone,#EFE7DC)}
 .langseg .langopt.on{color:#1A0E06;background:linear-gradient(180deg,var(--ember,#FF6A00),var(--brasa,#E0480F));box-shadow:0 4px 14px rgba(255,106,0,.35)}
 .langseg .langopt.on:hover{color:#1A0E06}
