@@ -52,8 +52,11 @@
     details[open] summary::after{transform:rotate(45deg)}
     details p{font-size:14px;color:var(--ash);padding:0 0 16px}
     /* pricing */
-    .prices{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:840px;margin:44px auto 0}
-    @media(max-width:760px){.prices{grid-template-columns:1fr}}
+    /* Un solo producto = una sola columna. Esto era 1fr 1fr de cuando había
+       Gratis + Pro, y dejaba la tarjeta pegada a la izquierda con la mitad
+       derecha vacía. El ancho es el que tenía cada columna antes, así que la
+       tarjeta se ve igual: solo cambia que ahora está centrada. */
+    .prices{display:grid;grid-template-columns:1fr;gap:18px;max-width:412px;margin:44px auto 0}
     .price{position:relative;padding:28px}
     .price.feat-card{border-color:var(--line2);box-shadow:0 0 0 1px rgba(255,106,0,.25),0 18px 50px rgba(0,0,0,.35)}
     .pbadge{position:absolute;top:-12px;left:24px;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;border-radius:20px;padding:5px 12px;background:linear-gradient(180deg,var(--ember),var(--brasa));color:#2A1402}
