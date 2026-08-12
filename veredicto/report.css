@@ -86,19 +86,19 @@
 .layers{display:grid;grid-template-columns:1fr 1fr;gap:18px;max-width:800px;margin:0 auto}
 @media(max-width:680px){.layers{grid-template-columns:1fr}}
 .lyr{border:1px solid var(--line);border-radius:18px;padding:24px;background:rgba(26,19,16,.5);box-shadow:inset 0 1px 0 rgba(255,255,255,.04)}
-.lyr.pro{border-color:var(--line2);box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 0 0 1px rgba(255,106,0,.18)}
+.lyr.beyond{border-color:var(--line2);box-shadow:inset 0 1px 0 rgba(255,255,255,.04),0 0 0 1px rgba(255,106,0,.18)}
 .lyr .lh{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15.5px;color:var(--bone)}
 .lyr .ic2{width:40px;height:40px;border-radius:11px;display:grid;place-items:center;flex:0 0 auto}
 .lyr .ic2 svg{width:22px;height:22px}
-.lyr.free .ic2{background:rgba(143,208,107,.14);color:#8FD06B}
-.lyr.pro .ic2{background:rgba(255,106,0,.12);color:var(--ember)}
+.lyr.caught .ic2{background:rgba(143,208,107,.14);color:#8FD06B}
+.lyr.beyond .ic2{background:rgba(255,106,0,.12);color:var(--ember)}
 .lyr .tag2{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;border-radius:6px;padding:3px 9px;margin-left:auto}
-.lyr.free .tag2{background:rgba(143,208,107,.14);color:#8FD06B}
-.lyr.pro .tag2{background:rgba(255,106,0,.12);color:var(--ember)}
+.lyr.caught .tag2{background:rgba(143,208,107,.14);color:#8FD06B}
+.lyr.beyond .tag2{background:rgba(255,106,0,.12);color:var(--ember)}
 .lyr ul{list-style:none;margin:16px 0 0;padding:0;display:flex;flex-direction:column;gap:9px}
 .lyr li{font-size:13.5px;color:var(--ash);padding-left:24px;position:relative}
-.lyr.free li::before{content:"✓";position:absolute;left:2px;color:#8FD06B;font-weight:700}
-.lyr.pro li::before{content:"⚖";position:absolute;left:0;color:var(--ember)}
+.lyr.caught li::before{content:"✓";position:absolute;left:2px;color:#8FD06B;font-weight:700}
+.lyr.beyond li::before{content:"⚖";position:absolute;left:0;color:var(--ember)}
 .lyr .note{font-size:12px;color:var(--dim);margin-top:16px;border-top:1px solid var(--line);padding-top:12px}
 
 /* ---------- cta ---------- */
