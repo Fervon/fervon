@@ -1,9 +1,25 @@
 # Pagos — Veredicto
 
-Estado: **producto terminado y de pago**. La GitHub Action existe, funciona y está
-verificada en PRs reales; el landing vende a `$19/repo/mes` sin capa gratis. Lo único
-que falta para poder cobrar es **la tienda**: crear el producto en Polar y pegar su
-checkout link. Merchant of record: Polar (el mismo que Trace).
+Estado: **la tienda está montada y cobrando**. Producto creado en Polar, campo del
+repositorio obligatorio en el checkout y enlace ya publicado en el landing. Merchant of
+record: Polar (el mismo que Trace).
+
+## Datos fijos (2026-08-12)
+
+| | |
+|---|---|
+| Producto | `Veredicto — repository licence` · id `5da2a1b2-2e5d-48f1-9419-b0c807dc2931` |
+| Precio | **19 USD** y **19 EUR** al mes, recurrente, por repositorio |
+| Checkout | `https://buy.polar.sh/polar_cl_ir1Idm0ddrPHPDUqy6bEP7cIpXA8ls1cWAP3f09bDie` |
+| Campo obligatorio | `GitHub repository` · slug `github-repository` · llega como `custom_field_data.github-repository` |
+| Success URL | vacía (no hay worker todavía) |
+
+**Ojo con el IVA:** Polar cobra con impuestos INCLUIDOS. En España el checkout muestra
+19 € de los cuales 15,70 € son tuyos y 3,30 € son IVA. Si querías 19 € netos, hay que
+subir el precio.
+
+**Ojo con las dos monedas:** cada moneda tiene su propio precio y **la nueva empieza en
+0,00**. Si algún día añades otra (GBP…), pon el importe o la regalas.
 
 > Este fichero describía hasta 2026-08-12 una "prueba de humo" con capa gratis + Pro.
 > Ese modelo murió: hoy es **un solo producto de pago** con licencia firmada.
@@ -35,7 +51,7 @@ antes de poder emitir la clave.**
 | Worker de licencias reutilizable (Polar → email) | `Desktop\proyects\trace\services\license-worker\` |
 | Guía paso a paso del worker de Trace | `Desktop\proyects\trace\services\license-worker\SETUP-CHECKLIST.md` |
 
-## Paso 1 — Crear el producto en Polar
+## ~~Paso 1 — Crear el producto en Polar~~ HECHO 2026-08-12
 
 En <https://polar.sh> → tu organización → **Products → New product**:
 
@@ -50,7 +66,7 @@ En <https://polar.sh> → tu organización → **Products → New product**:
 Ese campo es lo que hace que la venta sea de verdad self-serve: sin él tienes que
 escribir al comprador para preguntárselo, y ahí se te va la entrega instantánea.
 
-## Paso 2 — Pegar el checkout link
+## ~~Paso 2 — Pegar el checkout link~~ HECHO 2026-08-12
 
 Copia el link del producto (`https://buy.polar.sh/polar_cl_…`) y sustituye el
 placeholder:
