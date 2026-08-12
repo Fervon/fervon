@@ -22,6 +22,10 @@
 .verdict .vtag{margin-left:auto;font-size:11px;color:var(--dim);font-variant-numeric:tabular-nums}
 .demo-note{text-align:center;font-size:11px;color:var(--dim);margin-top:8px}
 
+/* Comparison table: 554px of columns don't fit a 390px phone. Let the table
+   scroll inside its own box instead of dragging the whole page sideways. */
+.cmp-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+
 /* "what it catches" grid uses .cards/.feat from core.css + base.css */
 .catch h3{font-size:15px;font-weight:700;margin:12px 0 6px;color:var(--bone)}
 .catch p{font-size:13.5px;color:var(--ash)}
