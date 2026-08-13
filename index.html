@@ -27,16 +27,77 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Fervon",
-    "alternateName": "Fervon Studio",
-    "url": "https://fervon.dev/",
-    "logo": "https://fervon.dev/assets/favicon-512.png",
-    "description": "Estudio de software autónomo: productos, herramientas open source y desarrollo a medida con flotas de agentes de IA. Local-first.",
-    "slogan": "Forjado al rojo vivo",
-    "foundingDate": "2026",
-    "founder": { "@type": "Person", "name": "Jonathan Martín" },
-    "sameAs": ["https://github.com/Fervon"]
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://fervon.dev/#organization",
+        "name": "Fervon",
+        "alternateName": ["Fervon Studio", "Fervon.dev"],
+        "url": "https://fervon.dev/",
+        "logo": {
+          "@type": "ImageObject",
+          "@id": "https://fervon.dev/#logo",
+          "url": "https://fervon.dev/assets/favicon-512.png",
+          "width": 512,
+          "height": 512,
+          "caption": "Fervon"
+        },
+        "image": { "@id": "https://fervon.dev/#logo" },
+        "description": "Estudio de software autónomo: productos, herramientas open source y desarrollo a medida con flotas de agentes de IA. Local-first.",
+        "slogan": "Forjado al rojo vivo",
+        "foundingDate": "2026",
+        "knowsLanguage": ["es", "en"],
+        "founder": { "@id": "https://fervon.dev/#jonathan" },
+        "employee": { "@id": "https://fervon.dev/#jonathan" },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "url": "https://fervon.dev/contacto/",
+          "availableLanguage": ["es", "en"]
+        },
+        "sameAs": [
+          "https://github.com/Fervon",
+          "https://www.npmjs.com/package/fervon",
+          "https://dev.to/jonimatiin",
+          "https://bsky.app/profile/jonimartin.bsky.social",
+          "https://mastodon.social/@jonimartin"
+        ]
+      },
+      {
+        "@type": "Person",
+        "@id": "https://fervon.dev/#jonathan",
+        "name": "Jonathan Martín",
+        "jobTitle": "Fundador de Fervon",
+        "url": "https://fervon.dev/",
+        "worksFor": { "@id": "https://fervon.dev/#organization" },
+        "sameAs": [
+          "https://github.com/JoniMartin27",
+          "https://dev.to/jonimatiin",
+          "https://bsky.app/profile/jonimartin.bsky.social",
+          "https://mastodon.social/@jonimartin"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://fervon.dev/#website",
+        "url": "https://fervon.dev/",
+        "name": "Fervon",
+        "alternateName": "Fervon — estudio de software autónomo",
+        "inLanguage": "es",
+        "publisher": { "@id": "https://fervon.dev/#organization" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://fervon.dev/#webpage",
+        "url": "https://fervon.dev/",
+        "name": "Fervon · Estudio de software autónomo",
+        "description": "Fervon es el estudio de software autónomo de Jonathan Martín: productos como Trace, herramientas open source (Lookspan, inferbench, ClaudeScope) y desarrollo a medida con flotas de agentes de IA.",
+        "isPartOf": { "@id": "https://fervon.dev/#website" },
+        "about": { "@id": "https://fervon.dev/#organization" },
+        "primaryImageOfPage": { "@id": "https://fervon.dev/#logo" },
+        "inLanguage": "es"
+      }
+    ]
   }
   </script>
 
@@ -95,7 +156,7 @@
 
     <!-- TESIS + PRUEBA -->
     <section class="sec thesis" id="estudio">
-      <p class="tline reveal" data-en="Not an agency. One person directs &lt;strong&gt;fleets of AI agents&lt;/strong&gt; that work around the clock — and every tool below was forged with that same method.">No es una agencia. Una persona dirige <strong>flotas de agentes de IA</strong> que trabajan sin pausa — y cada herramienta de aquí abajo nació de ese mismo método.</p>
+      <p class="tline reveal" data-en="&lt;strong&gt;Fervon&lt;/strong&gt; is the autonomous software studio of Jonathan Martín. Not an agency: one person directs &lt;strong&gt;fleets of AI agents&lt;/strong&gt; that work around the clock — and every tool below was forged with that same method."><strong>Fervon</strong> es el estudio de software autónomo de Jonathan Martín. No es una agencia: una persona dirige <strong>flotas de agentes de IA</strong> que trabajan sin pausa — y cada herramienta de aquí abajo nació de ese mismo método.</p>
       <div class="proof">
         <div class="proofcard reveal" style="--i:0">
           <div class="pf-h"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/></svg><span data-en="One person behind it">Una persona detrás</span></div>
