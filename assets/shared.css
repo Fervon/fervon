@@ -112,3 +112,8 @@ nav .bar,.nav .bar{position:relative}
 /* Content images cover their box cleanly, never stretch */
 .hero img,figure img,.pcard img{object-fit:cover}
 .demo,.glass{max-width:100%}
+/* Una imagen que declara sus medidas intrínsecas manda con su proporción. Sin esto, el
+   alto del atributo se quedaba fijo mientras el ancho crecía al 100%, y `object-fit:cover`
+   RECORTABA el GIF: medido en /inferbench/, 22 px arriba y abajo con la demo a 800x500 en
+   una caja de 870. Afecta a las tres páginas de producto que enseñan un GIF. */
+figure img[width][height]{height:auto}
