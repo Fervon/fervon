@@ -30,6 +30,21 @@ Estudio de software **autónomo** de un solo desarrollador. Una forja donde flot
 
 🔥 **https://fervon.dev**
 
+### CSP
+
+La cabecera `Content-Security-Policy` la sirve una Transform Rule de Cloudflare y
+es estricta: `default-src 'none'`, `style-src 'self'`, `script-src 'self'` + los
+hashes de los bloques JSON-LD. **No hay `'unsafe-inline'`**, así que cualquier
+`style=""` o `<script>` suelto que se cuele en el HTML lo bloquea el navegador en
+silencio: el estilo no se aplica y solo se ve en la consola del visitante.
+
+```bash
+npm run csp:check   # sirve el sitio con la CSP real de producción y recorre todas las páginas con Chrome
+```
+
+`npm run csp:build` extrae `<style>`/`<script>` a ficheros externos, recalcula los
+hashes JSON-LD e imprime el valor de la CSP para pegar en la Transform Rule.
+
 ## Licencia
 
 MIT © Jonathan Martín

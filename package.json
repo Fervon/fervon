@@ -22,7 +22,12 @@
     "index.js",
     "README.md"
   ],
+  "scripts": {
+    "csp:build": "node scripts/build-csp.mjs",
+    "csp:check": "node scripts/csp-check.mjs"
+  },
   "devDependencies": {
-    "@resvg/resvg-js": "^2.6.2"
+    "@resvg/resvg-js": "^2.6.2",
+    "puppeteer-core": "^23.11.1"
   }
 }
