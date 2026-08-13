@@ -68,8 +68,13 @@ for (const file of walk(ROOT)) {
   html = html.replace(SCRIPT_RE, (m, attrs, body) => {
     if (hasSrc(attrs)) return m; // external <script src=...>, leave alone
     if (isJsonLd(attrs)) {
-      // hash and keep inline
-      const hash = createHash('sha256').update(body, 'utf8').digest('base64');
+      // Hash and keep inline. The bytes must match what the origin serves, and
+      // that is the LF blob from git: a Windows checkout has CRLF, so hashing
+      // the working copy verbatim yields a hash the browser never matches and
+      // the block gets refused in production. Normalise before digesting.
+      const hash = createHash('sha256')
+        .update(body.replace(/\r\n/g, '\n'), 'utf8')
+        .digest('base64');
       jsonLdHashes.add(`'sha256-${hash}'`);
       return m;
     }
