@@ -1,0 +1,139 @@
+/* ============================================================================
+   scripts/seo-check.mjs
+   ----------------------------------------------------------------------------
+   Audita las 18 páginas de fervon.dev contra el checklist de 26 puntos de SEO
+   on-page y dice, punto por punto y página por página, qué cumple y qué no.
+
+   No adivina: cada comprobación mira el HTML servido. Los puntos que NO se
+   pueden comprobar desde el fichero (5 intención de búsqueda, 24/26 Search
+   Console) se marcan como MANUAL y se explica por qué.
+
+   Uso:  node scripts/seo-check.mjs
+   Salida: tabla por punto + detalle de los fallos. Código 1 si algo falla.
+   ========================================================================== */
+
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const rd = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8').replace(/\r\n/g, '\n');
+
+const PAGES = [];
+(function walk(dir) {
+  for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (['node_modules', '.git', '.claude'].includes(e.name)) continue;
+    const p = path.join(dir, e.name);
+    if (e.isDirectory()) walk(p);
+    else if (e.name.endsWith('.html')) PAGES.push(path.relative(ROOT, p).split(path.sep).join('/'));
+  }
+})(ROOT);
+PAGES.sort();
+
+const docs = PAGES.map((p) => ({ p, h: rd(p) }));
+
+/* Helpers ---------------------------------------------------------------- */
+const one = (h, re) => { const m = h.match(re); return m ? m[1].trim() : null; };
+const strip = (s) => (s || '').replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;/g, ' ').replace(/\s+/g, ' ').trim();
+const ld = (h) => [...h.matchAll(/<script[^>]+application\/ld\+json[^>]*>([\s\S]*?)<\/script>/g)]
+  .map((m) => { try { return JSON.parse(m[1]); } catch { return null; } }).filter(Boolean);
+const ldTypes = (h) => { const out = []; const rec = (o) => { if (Array.isArray(o)) return o.forEach(rec); if (o && typeof o === 'object') { if (o['@type']) out.push(...[].concat(o['@type'])); Object.values(o).forEach(rec); } }; ld(h).forEach(rec); return out; };
+/* Sólo el <body>: el <head> lleva rutas de css/js que no son enlaces internos. */
+const body = (h) => h.slice(h.indexOf('<body'));
+const internalLinks = (h) => [...new Set([...body(h).matchAll(/href="(\/[^"#]*)"/g)].map((m) => m[1])
+  .filter((u) => !/\.(css|js|png|jpe?g|svg|xml|txt|ico|webp|gif|woff2?)$/i.test(u)))];
+
+const site = {
+  robots: fs.existsSync(path.join(ROOT, 'robots.txt')) ? rd('robots.txt') : null,
+  llms: fs.existsSync(path.join(ROOT, 'llms.txt')) ? rd('llms.txt') : null,
+  sitemap: fs.existsSync(path.join(ROOT, 'sitemap.xml')) ? rd('sitemap.xml') : null,
+};
+const sitemapUrls = site.sitemap ? [...site.sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].replace('https://fervon.dev', '')) : [];
+const urlOf = (p) => '/' + p.replace(/index\.html$/, '').replace(/\.html$/, '');
+
+const titles = docs.map((d) => one(d.h, /<title>([\s\S]*?)<\/title>/));
+const descs = docs.map((d) => one(d.h, /<meta name="description" content="([\s\S]*?)"/));
+const dup = (arr) => { const c = {}; arr.forEach((x) => (c[x] = (c[x] || 0) + 1)); return arr.filter((x) => c[x] > 1); };
+
+/* Los 26 puntos ---------------------------------------------------------- */
+const CHECKS = [
+  { n: 1, name: 'Metatítulos distintos', per: (d, i) => titles[i] && !dup(titles).includes(titles[i]) },
+  { n: 2, name: 'Metadescripciones distintas', per: (d, i) => descs[i] && !dup(descs).includes(descs[i]) },
+  { n: 3, name: 'Un solo H1', per: (d) => (d.h.match(/<h1[\s>]/g) || []).length === 1 },
+  { n: 4, name: 'H1 distinto del metatítulo', per: (d, i) => {
+      const h1 = strip(one(d.h, /<h1[^>]*>([\s\S]*?)<\/h1>/));
+      return !!h1 && h1.toLowerCase() !== (titles[i] || '').toLowerCase();
+    } },
+  { n: 5, name: 'Intención de búsqueda', manual: 'juicio editorial: el H1 y la entradilla deben responder a la consulta objetivo' },
+  { n: 6, name: 'TL;DR / key takeaways', per: (d) => d.h.includes('<!-- seo:tldr -->') },
+  { n: 7, name: 'TL;DR va DESPUÉS del hero', per: (d) => {
+      const t = d.h.indexOf('<!-- seo:tldr -->');
+      const h1 = d.h.search(/<h1[\s>]/);
+      return t > 0 && h1 > 0 && t > h1;               // el titular (intención) va antes
+    } },
+  { n: 8, name: 'CTA tras el primer bloque', per: (d) => {
+      const h1 = d.h.search(/<h1[\s>]/);
+      if (h1 < 0) return false;
+      // debe haber un CTA principal entre el H1 y el final del TL;DR
+      const end = d.h.indexOf('</section>', d.h.indexOf('<!-- seo:tldr -->'));
+      return /class="btn btn-fire"/.test(d.h.slice(h1, end > 0 ? end : h1 + 6000));
+    } },
+  { n: 9, name: 'Jerarquía H1>H2>H3 sin saltos', per: (d) => {
+      const lv = [...d.h.matchAll(/<(h[1-6])[\s>]/g)].map((m) => +m[1][1]);
+      return lv.every((v, i) => i === 0 || v - lv[i - 1] <= 1);
+    } },
+  { n: 10, name: 'Interlinkado y clústeres', per: (d) => internalLinks(d.h).filter((u) => u !== urlOf(d.p)).length >= 3 },
+  { n: 11, name: 'Tablas y listas', per: (d) => /<table[\s>]/.test(d.h) && /<(ul|ol)[\s>]/.test(d.h) },
+  { n: 12, name: 'FAQ visible', per: (d) => /<details/.test(d.h) && /id="faq"/.test(d.h) },
+  { n: 13, name: 'Schema FAQPage', per: (d) => ldTypes(d.h).includes('FAQPage') },
+  { n: 14, name: 'Nombres de imagen descriptivos', per: (d) => {
+      const srcs = [...d.h.matchAll(/<img[^>]+src="([^"]+)"/g)].map((m) => m[1]);
+      const bad = srcs.filter((s) => /\/(IMG|DSC|image|img|photo|untitled|screenshot)[-_ ]?\d*\.\w+$/i.test(s) || /\/\d+\.\w+$/.test(s));
+      return bad.length === 0;
+    } },
+  { n: 15, name: 'Alt text en todas las imágenes', per: (d) => !(d.h.match(/<img\b(?![^>]*\balt=)[^>]*>/g) || []).length },
+  { n: 16, name: 'Schema de negocio (enlazado)', per: (d) => {
+      const t = ldTypes(d.h);
+      // o define el negocio, o enlaza al @id del negocio de la home
+      return t.includes('ProfessionalService') || t.includes('LocalBusiness')
+        || /#localbusiness|#organization/.test(d.h);
+    } },
+  { n: 17, name: 'robots.txt', site: () => !!site.robots },
+  { n: 18, name: 'URL sin números ni conectores', per: (d) => {
+      const slug = urlOf(d.p).replace(/^\/|\/$/g, '').split('/').pop() || '';
+      if (!slug) return true;
+      if (/\d/.test(slug)) return false;
+      return !/(^|-)(y|o|de|del|la|el|los|las|un|una|para|con|sin|que|and|or|the|a|of|for|with|to|what|without|in|on)(-|$)/.test(slug);
+    } },
+  { n: 19, name: 'Subcarpeta /page/ desindexada', site: () => /Disallow:\s*\/page\//.test(site.robots || '') },
+  { n: 20, name: 'llms.txt', site: () => !!site.llms },
+  { n: 21, name: 'CTA fijo en móvil', per: (d) => /class="stickycta"/.test(d.h) },
+  { n: 22, name: 'Botón de compartir', per: (d) => /class="sharebtn"/.test(d.h) },
+  { n: 23, name: 'GA4', site: () => docs.every((d) => /googletagmanager\.com\/gtag|gtag\(/.test(d.h)) },
+  { n: 24, name: 'Search Console verificado', manual: 'TXT google-site-verification en el DNS de fervon.dev — comprobado vivo' },
+  { n: 25, name: 'Sitemap con todas las páginas', site: () => docs.every((d) => sitemapUrls.includes(urlOf(d.p))) },
+  { n: 26, name: 'Sitemap enviado a GSC', manual: 'se hace en la interfaz de Search Console, no deja rastro en el repo' },
+];
+
+/* Ejecución -------------------------------------------------------------- */
+let failures = 0;
+const rows = [];
+for (const c of CHECKS) {
+  if (c.manual) { rows.push([c.n, c.name, 'MANUAL', c.manual]); continue; }
+  if (c.site) { const ok = c.site(); if (!ok) failures++; rows.push([c.n, c.name, ok ? 'OK' : 'FALLA', 'nivel de sitio']); continue; }
+  const bad = docs.filter((d, i) => !c.per(d, i)).map((d) => d.p);
+  if (bad.length) failures++;
+  rows.push([c.n, c.name, bad.length ? `${docs.length - bad.length}/${docs.length}` : `${docs.length}/${docs.length}`, bad.length ? bad.join(', ') : '']);
+}
+
+const w = (s, n) => String(s).padEnd(n);
+console.log(`\n${docs.length} páginas auditadas\n`);
+console.log(w('#', 4) + w('Punto', 34) + w('Estado', 9) + 'Detalle');
+console.log('─'.repeat(110));
+for (const [n, name, st, det] of rows) {
+  const mark = st === 'OK' || /^(\d+)\/\1$/.test(st) ? '✔' : st === 'MANUAL' ? '·' : '✗';
+  console.log(`${w(mark + ' ' + n, 4)}${w(name, 34)}${w(st, 9)}${det.length > 60 ? det.slice(0, 57) + '…' : det}`);
+}
+console.log('─'.repeat(110));
+console.log(failures ? `\n${failures} punto(s) con fallos.\n` : '\nTodos los puntos comprobables automáticamente pasan.\n');
+process.exit(failures ? 1 : 0);
