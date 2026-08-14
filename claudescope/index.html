@@ -36,6 +36,47 @@
   }
   </script>
 
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿ClaudeScope sube mis sesiones a algún sitio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Lee los ficheros de sesión que Claude Code ya guarda en tu disco y monta el índice y el panel en tu propia máquina. No hay servidor, no hay cuenta y no hay API key."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Hay que instalar algo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No hace falta instalación permanente: con npx claudescope-cli se ejecuta directamente. Solo necesitas Node.js."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué puedo buscar exactamente?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "El texto completo de las conversaciones: tus mensajes, las respuestas y las llamadas a herramientas. Sirve justo para lo que uno hace a mano y mal: recordar en qué sesión resolviste un problema concreto."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto cuesta?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nada. Es gratis y open source, sin tier de pago ni límite de uso. El código está en GitHub."
+      }
+    }
+  ]
+}
+  </script>
+
   <link rel="stylesheet" href="/assets/core.css" />
   <link rel="stylesheet" href="/assets/product.css" />
   <link rel="stylesheet" href="index.css" />
@@ -120,6 +161,24 @@
     </section>
 
     <!-- DEMO REAL -->
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h" data-en="In 30 seconds">En 30 segundos</h2>
+          <ul>
+        <li data-en="<b>ClaudeScope</b> gives full-text search across <b>every</b> Claude Code session you have run."><b>ClaudeScope</b> da búsqueda full-text sobre <b>todas</b> las sesiones de Claude Code que has corrido.</li>
+        <li data-en="It adds the <b>usage dashboard</b> your subscription does not show: tokens, cost and what the cache saved you.">Añade el <b>panel de uso</b> que la suscripción no te enseña: tokens, coste y lo que te ahorró la caché.</li>
+        <li data-en="<b>100% local</b>: it reads the session files on your disk. Nothing is uploaded, no API key needed."><b>100% local</b>: lee los ficheros de sesión de tu disco. No sube nada y no pide API key.</li>
+        <li data-en="One command and <b>free</b>: <code>npx claudescope-cli</code>. Open source.">Un solo comando y <b>gratis</b>: <code>npx claudescope-cli</code>. Open source.</li>
+          </ul>
+      <div class="cta-row s-tldrcta">
+        <a class="btn btn-fire" href="#empezar" data-en="How to start">Cómo empezar</a>
+      </div>
+        </div>
+      </div>
+    </section>
     <section class="sec alt" id="demo">
       <div class="wrap center reveal">
         <span class="eye" data-en="Demo">Demo</span>
@@ -242,7 +301,105 @@
         </div>
       </div>
     </div></section>
+
+    <!-- seo:faq -->
+    <section class="sec seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-en="FAQ">FAQ</span>
+          <h2 id="faq-h" data-en="Frequently asked questions">Preguntas frecuentes</h2>
+        </div>
+        <div class="faq reveal">
+        <details>
+          <summary data-en="Does ClaudeScope upload my sessions anywhere?">¿ClaudeScope sube mis sesiones a algún sitio?</summary>
+          <p data-en="No. It reads the session files Claude Code already stores on your disk and builds the index and dashboard on your own machine. There is no server, no account and no API key.">No. Lee los ficheros de sesión que Claude Code ya guarda en tu disco y monta el índice y el panel en tu propia máquina. No hay servidor, no hay cuenta y no hay API key.</p>
+        </details>
+        <details>
+          <summary data-en="Do I have to install anything?">¿Hay que instalar algo?</summary>
+          <p data-en="No permanent install is needed: <code>npx claudescope-cli</code> runs it directly. All you need is Node.js.">No hace falta instalación permanente: con <code>npx claudescope-cli</code> se ejecuta directamente. Solo necesitas Node.js.</p>
+        </details>
+        <details>
+          <summary data-en="What can I actually search?">¿Qué puedo buscar exactamente?</summary>
+          <p data-en="The full text of your conversations: your messages, the replies and the tool calls. Exactly what people otherwise do badly by hand: remembering which session solved a given problem.">El texto completo de las conversaciones: tus mensajes, las respuestas y las llamadas a herramientas. Sirve justo para lo que uno hace a mano y mal: recordar en qué sesión resolviste un problema concreto.</p>
+        </details>
+        <details>
+          <summary data-en="How much does it cost?">¿Cuánto cuesta?</summary>
+          <p data-en="Nothing. It is free and open source, with no paid tier and no usage limit. The code is on GitHub.">Nada. Es gratis y open source, sin tier de pago ni límite de uso. El código está en GitHub.</p>
+        </details>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- seo:table -->
+    <section class="sec seosec" id="ficha" aria-labelledby="ficha-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-en="Spec sheet">Ficha</span>
+          <h2 id="ficha-h" data-en="ClaudeScope at a glance">ClaudeScope de un vistazo</h2>
+        </div>
+        <div class="tablewrap reveal">
+          <table class="seotable">
+            <caption class="vh" data-en="ClaudeScope price, licence, requirements and data handling.">Precio, licencia, requisitos y tratamiento de datos de ClaudeScope.</caption>
+            <thead>
+          <tr><th data-en="Item">Dato</th><th data-en="Value">Valor</th></tr>
+            </thead>
+            <tbody>
+          <tr><th data-en="Price">Precio</th><td data-en="Free, with no paid tier">Gratis, sin tier de pago</td></tr>
+          <tr><th data-en="Licence">Licencia</th><td>MIT (open source)</td></tr>
+          <tr><th data-en="How you run it">Cómo se ejecuta</th><td><code>npx claudescope-cli</code></td></tr>
+          <tr><th data-en="Requirements">Requisitos</th><td>Node.js</td></tr>
+          <tr><th data-en="Platforms">Plataformas</th><td>Windows · macOS · Linux</td></tr>
+          <tr><th data-en="Where it runs">Dónde corre</th><td data-en="On your machine, over the session files on your disk">En tu máquina, sobre los ficheros de sesión de tu disco</td></tr>
+          <tr><th data-en="Account or API key">Cuenta o API key</th><td data-en="Neither is needed">No hace falta ninguna</td></tr>
+          <tr><th data-en="Telemetry">Telemetría</th><td data-en="None: nothing is uploaded">Ninguna: no sube nada</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-en="More from Fervon">Más de Fervon</span>
+          <h2 id="mas-h" data-en="Keep exploring">Sigue explorando</h2>
+        </div>
+        <div class="related reveal">
+        <a class="relcard" href="/lookspan/">
+          <span class="rt">Lookspan</span>
+          <span class="rd" data-en="Local-first observability for your AI agents. Free.">Observabilidad local-first para tus agentes de IA. Gratis.</span>
+        </a>
+        <a class="relcard" href="/launchpad/">
+          <span class="rt">Mission Control</span>
+          <span class="rd" data-en="Start every repo at once, with no port clashes.">Arranca todos tus repos a la vez, sin choques de puerto.</span>
+        </a>
+        <a class="relcard" href="/veredicto/">
+          <span class="rt">Veredicto</span>
+          <span class="rd" data-en="The CI check that catches agent tests proving nothing.">El check de CI que pilla los tests de agentes que no prueban nada.</span>
+        </a>
+        </div>
+      <div class="fv-share">
+        <button type="button" class="sharebtn" aria-label="Compartir esta página">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+          <span data-en="Share">Compartir</span>
+        </button>
+        <span class="sharemsg" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+    </section>
   </main>
+
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b data-en="ClaudeScope">ClaudeScope</b>
+      <span data-en="Free and open source">Gratis y open source</span>
+    </div>
+    <a class="btn btn-fire" href="#empezar" data-en="Get started">Empezar</a>
+  </div>
 
   <footer><div class="wrap foot">
     <span data-en="ClaudeScope is a project by &lt;a href=&quot;https://fervon.dev&quot;&gt;&lt;img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forged red-hot">ClaudeScope es un proyecto de <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forjado al rojo vivo</span>

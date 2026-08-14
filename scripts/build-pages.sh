@@ -29,6 +29,11 @@ rsync -a ./ "$OUT"/ \
   --exclude 'package-lock.json' \
   --exclude 'index.js' \
   --exclude 'wrangler.toml' \
+  --exclude 'LANZAMIENTO-VEREDICTO.md' \
+  --exclude 'LICENSE' \
+  --exclude 'og-test-*' \
+  --exclude 'og-zoom-*' \
+  --exclude 'PAYMENTS.md' \
   --exclude 'build'
 
 # Salvaguarda: aborta el build si algún fichero de dev se ha colado en la salida.

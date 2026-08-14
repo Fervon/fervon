@@ -37,6 +37,47 @@
   }
   </script>
 
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Cómo evita los choques de puerto?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Reserva a cada proyecto un puerto propio dentro de un rango dedicado y se lo pasa al arrancarlo, en vez de dejar que todos intenten ocupar el 3000. Así puedes tener doce servicios levantados a la vez."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Tengo que configurar cada repo a mano?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Escanea la carpeta, reconoce el tipo de proyecto y deduce el comando de arranque. Solo tocas la configuración si quieres cambiar algo concreto."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Sirve para desplegar en producción?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, y es deliberado. Es una herramienta de desarrollo local: levanta tu entorno de trabajo en una pantalla. No abre puertos al exterior ni gestiona servidores."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto cuesta?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nada. Gratis y open source, sin cuenta ni registro."
+      }
+    }
+  ]
+}
+  </script>
+
   <link rel="stylesheet" href="/assets/core.css" />
   <link rel="stylesheet" href="/assets/product.css" />
   <link rel="stylesheet" href="index.css" />
@@ -105,6 +146,24 @@
     </section>
 
     <!-- DEMO REAL -->
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h" data-en="In 30 seconds">En 30 segundos</h2>
+          <ul>
+        <li data-en="<b>Mission Control</b> discovers every project in a folder on its own and starts them all at once."><b>Mission Control</b> descubre solo todos los proyectos de una carpeta y los arranca a la vez.</li>
+        <li data-en="It assigns <b>non-colliding ports</b>, so a dozen repos coexist without fighting over port 3000.">Asigna <b>puertos sin colisión</b>, así que doce repos conviven sin pelearse por el 3000.</li>
+        <li data-en="One screen with <b>live logs, git status and health</b> for every service.">Una pantalla con <b>logs en vivo, estado de git y salud</b> de cada servicio.</li>
+        <li data-en="<b>Local-only</b>, free and open source. Nothing leaves your machine."><b>Solo local</b>, gratis y open source. Nada sale de tu máquina.</li>
+          </ul>
+      <div class="cta-row s-tldrcta">
+        <a class="btn btn-fire" href="#start" data-en="How to install it">Cómo instalarlo</a>
+      </div>
+        </div>
+      </div>
+    </section>
     <section class="sec alt" id="demo">
       <div class="wrap center reveal">
         <span class="eye" data-en="Demo">Demo</span>
@@ -230,7 +289,76 @@
         </div>
       </div>
     </div></section>
+
+    <!-- seo:faq -->
+    <section class="sec seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-en="FAQ">FAQ</span>
+          <h2 id="faq-h" data-en="Frequently asked questions">Preguntas frecuentes</h2>
+        </div>
+        <div class="faq reveal">
+        <details>
+          <summary data-en="How does it avoid port clashes?">¿Cómo evita los choques de puerto?</summary>
+          <p data-en="It reserves a dedicated port per project inside a dedicated range and passes it in at launch, instead of letting everything grab port 3000. That is how a dozen services can run at once.">Reserva a cada proyecto un puerto propio dentro de un rango dedicado y se lo pasa al arrancarlo, en vez de dejar que todos intenten ocupar el 3000. Así puedes tener doce servicios levantados a la vez.</p>
+        </details>
+        <details>
+          <summary data-en="Do I have to configure each repo by hand?">¿Tengo que configurar cada repo a mano?</summary>
+          <p data-en="No. It scans the folder, recognises the project type and infers the start command. You only touch the config if you want to change something specific.">No. Escanea la carpeta, reconoce el tipo de proyecto y deduce el comando de arranque. Solo tocas la configuración si quieres cambiar algo concreto.</p>
+        </details>
+        <details>
+          <summary data-en="Is it for deploying to production?">¿Sirve para desplegar en producción?</summary>
+          <p data-en="No, and that is deliberate. It is a local development tool: it brings your working environment up on one screen. It does not open ports to the outside or manage servers.">No, y es deliberado. Es una herramienta de desarrollo local: levanta tu entorno de trabajo en una pantalla. No abre puertos al exterior ni gestiona servidores.</p>
+        </details>
+        <details>
+          <summary data-en="How much does it cost?">¿Cuánto cuesta?</summary>
+          <p data-en="Nothing. Free and open source, with no account and no sign-up.">Nada. Gratis y open source, sin cuenta ni registro.</p>
+        </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-en="More from Fervon">Más de Fervon</span>
+          <h2 id="mas-h" data-en="Keep exploring">Sigue explorando</h2>
+        </div>
+        <div class="related reveal">
+        <a class="relcard" href="/claudescope/">
+          <span class="rt">ClaudeScope</span>
+          <span class="rd" data-en="Search every Claude Code session you have run. Free.">Busca en todas tus sesiones de Claude Code. Gratis.</span>
+        </a>
+        <a class="relcard" href="/lookspan/">
+          <span class="rt">Lookspan</span>
+          <span class="rd" data-en="Local-first observability for your AI agents. Free.">Observabilidad local-first para tus agentes de IA. Gratis.</span>
+        </a>
+        <a class="relcard" href="/pregon/">
+          <span class="rt">Pregón</span>
+          <span class="rd" data-en="Compose once, announce it on fourteen channels.">Compón una vez, anúncialo en catorce canales.</span>
+        </a>
+        </div>
+      <div class="fv-share">
+        <button type="button" class="sharebtn" aria-label="Compartir esta página">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+          <span data-en="Share">Compartir</span>
+        </button>
+        <span class="sharemsg" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+    </section>
   </main>
+
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b data-en="Mission Control">Mission Control</b>
+      <span data-en="Free and open source">Gratis y open source</span>
+    </div>
+    <a class="btn btn-fire" href="#start" data-en="Install">Instalar</a>
+  </div>
 
   <footer><div class="wrap foot">
     <span data-en="launchpad is a project by &lt;a href=&quot;https://fervon.dev&quot;&gt;&lt;img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> fervon&lt;/a&gt; · Forged red-hot">launchpad es un proyecto de <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forjado al rojo vivo</span>

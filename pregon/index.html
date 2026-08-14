@@ -36,6 +36,47 @@
   }
   </script>
 
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿A qué plataformas publica automáticamente?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Publica por API a los canales que tengan credenciales conectadas —entre ellos Bluesky, Mastodon y DEV.to—. Para las redes sin API abierta genera el texto adaptado listo para pegar."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Publica el mismo texto en todas partes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, y ese es el punto. Se escribe un mensaje canónico y Pregón lo adapta al formato, la longitud y las convenciones de cada red antes de publicarlo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Dónde se guardan mis credenciales?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "En tu propia instalación. Pregón corre donde tú lo pongas y no hay un servicio central de terceros que las custodie."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué mide el tracking de tracción?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cifras reales tiradas de las APIs públicas: descargas de npm y PyPI y estrellas de GitHub, agrupadas por proyecto, para ver si un anuncio movió algo."
+      }
+    }
+  ]
+}
+  </script>
+
   <link rel="stylesheet" href="/assets/core.css" />
   <link rel="stylesheet" href="/assets/product.css" />
   <link rel="stylesheet" href="index.css" />
@@ -104,6 +145,24 @@
     </section>
 
     <!-- STATS -->
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h" data-en="In 30 seconds">En 30 segundos</h2>
+          <ul>
+        <li data-en="<b>Pregón</b> is a cross-poster: you compose the message <b>once</b> and it is published adapted to each platform."><b>Pregón</b> es un cross-poster: compones el mensaje <b>una vez</b> y se publica adaptado a cada plataforma.</li>
+        <li data-en="Fourteen channels, published <b>via API</b>, respecting each network thread format and limits.">Catorce canales, publicados <b>por API</b>, con el hilo y los límites de cada red respetados.</li>
+        <li data-en="It includes <b>traction tracking</b>: a per-project hub with real npm, PyPI and GitHub numbers.">Incluye <b>tracking de tracción</b>: un hub por proyecto con las cifras reales de npm, PyPI y GitHub.</li>
+        <li data-en="<b>Free and open source</b>, with your credentials stored in your own installation."><b>Gratis y open source</b>, con tus credenciales guardadas en tu propia instalación.</li>
+          </ul>
+      <div class="cta-row s-tldrcta">
+        <a class="btn btn-fire" href="https://github.com/JoniMartin27/pregon" data-en="View on GitHub">Ver en GitHub</a>
+      </div>
+        </div>
+      </div>
+    </section>
     <section class="sec"><div class="wrap stats">
       <div class="reveal"><div class="v grad">1</div><div class="l" data-en="canonical message">mensaje canónico</div></div>
       <div class="reveal"><div class="v grad">14</div><div class="l" data-en="connectable channels">canales conectables</div></div>
@@ -264,7 +323,76 @@
         </div>
       </div>
     </div></section>
+
+    <!-- seo:faq -->
+    <section class="sec seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-en="FAQ">FAQ</span>
+          <h2 id="faq-h" data-en="Frequently asked questions">Preguntas frecuentes</h2>
+        </div>
+        <div class="faq reveal">
+        <details>
+          <summary data-en="Which platforms does it post to automatically?">¿A qué plataformas publica automáticamente?</summary>
+          <p data-en="It posts via API to whichever channels have credentials connected —among them Bluesky, Mastodon and DEV.to—. For networks without an open API it generates the adapted text ready to paste.">Publica por API a los canales que tengan credenciales conectadas —entre ellos Bluesky, Mastodon y DEV.to—. Para las redes sin API abierta genera el texto adaptado listo para pegar.</p>
+        </details>
+        <details>
+          <summary data-en="Does it post the same text everywhere?">¿Publica el mismo texto en todas partes?</summary>
+          <p data-en="No, and that is the point. You write one canonical message and Pregón adapts it to each network format, length and conventions before posting.">No, y ese es el punto. Se escribe un mensaje canónico y Pregón lo adapta al formato, la longitud y las convenciones de cada red antes de publicarlo.</p>
+        </details>
+        <details>
+          <summary data-en="Where are my credentials stored?">¿Dónde se guardan mis credenciales?</summary>
+          <p data-en="In your own installation. Pregón runs wherever you put it and there is no central third-party service holding them.">En tu propia instalación. Pregón corre donde tú lo pongas y no hay un servicio central de terceros que las custodie.</p>
+        </details>
+        <details>
+          <summary data-en="What does the traction tracking measure?">¿Qué mide el tracking de tracción?</summary>
+          <p data-en="Real numbers pulled from public APIs: npm and PyPI downloads and GitHub stars, grouped per project, so you can see whether an announcement moved anything.">Cifras reales tiradas de las APIs públicas: descargas de npm y PyPI y estrellas de GitHub, agrupadas por proyecto, para ver si un anuncio movió algo.</p>
+        </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-en="More from Fervon">Más de Fervon</span>
+          <h2 id="mas-h" data-en="Keep exploring">Sigue explorando</h2>
+        </div>
+        <div class="related reveal">
+        <a class="relcard" href="/launchpad/">
+          <span class="rt">Mission Control</span>
+          <span class="rd" data-en="Start every repo at once, with no port clashes.">Arranca todos tus repos a la vez, sin choques de puerto.</span>
+        </a>
+        <a class="relcard" href="/claudescope/">
+          <span class="rt">ClaudeScope</span>
+          <span class="rd" data-en="Search every Claude Code session you have run. Free.">Busca en todas tus sesiones de Claude Code. Gratis.</span>
+        </a>
+        <a class="relcard" href="/">
+          <span class="rt">Fervon</span>
+          <span class="rd" data-en="The studio and the whole portfolio, on one page.">El estudio y todo el portfolio, en una página.</span>
+        </a>
+        </div>
+      <div class="fv-share">
+        <button type="button" class="sharebtn" aria-label="Compartir esta página">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+          <span data-en="Share">Compartir</span>
+        </button>
+        <span class="sharemsg" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+    </section>
   </main>
+
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b data-en="Pregón">Pregón</b>
+      <span data-en="Free and open source">Gratis y open source</span>
+    </div>
+    <a class="btn btn-fire" href="https://github.com/JoniMartin27/pregon" data-en="GitHub">GitHub</a>
+  </div>
 
   <footer><div class="wrap foot">
     <span data-en="Pregón is a project by &lt;a href=&quot;https://fervon.dev&quot;&gt;&lt;img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forged red-hot">Pregón es un proyecto de <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forjado al rojo vivo</span>

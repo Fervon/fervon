@@ -36,6 +36,55 @@
   }
   </script>
 
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": ""
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": ""
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": ""
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": ""
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": ""
+      }
+    }
+  ]
+}
+  </script>
+
   <link rel="stylesheet" href="/assets/core.css" />
   <link rel="stylesheet" href="base.css" />
   <link rel="stylesheet" href="report.css?v=20260622c" />
@@ -72,6 +121,24 @@
       </div>
       <p class="bugline">20 green builds. <b>0 bugs caught.</b></p>
     </header>
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h">In 30 seconds</h2>
+          <ul>
+        <li>Fast AI agents were asked to write <b>thorough unit tests</b> for 20 modules that each contained a real bug.</li>
+        <li><b>100% of the suites passed.</b> Every single one went green against buggy code.</li>
+        <li><b>0% caught the bug</b> they were supposed to guard, and 75% asserted the buggy output as correct.</li>
+        <li>The method, the seeded modules and the scorers are <b>reproducible</b> — you can run it against your own model.</li>
+          </ul>
+      <div class="cta-row s-tldrcta">
+        <a class="btn btn-fire" href="/veredicto/">How Veredicto catches this</a>
+      </div>
+        </div>
+      </div>
+    </section>
 
     <!-- BIG NUMBERS -->
     <section class="vsec vwrap">
@@ -153,7 +220,107 @@
       <p class="repro">Reproducible — seeded modules + scorers in the <a href="https://github.com/JoniMartin27/veredicto">repo</a>. Run it against your own model.</p>
     </section>
 
+
+    <!-- seo:faq -->
+    <section class="sec seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">FAQ</span>
+          <h2 id="faq-h">Frequently asked questions</h2>
+        </div>
+        <div class="faq reveal">
+        <details>
+          <summary>How was the experiment run?</summary>
+          <p>Twenty modules were seeded with a real, behaviour-changing bug each. Fast AI agents were then asked to write thorough unit tests for every module, without being told a bug was present. The resulting suites were run against the buggy code.</p>
+        </details>
+        <details>
+          <summary>What does "0% caught the bug" mean exactly?</summary>
+          <p>It means no suite produced a failing test that exposed the seeded bug. All twenty went green against code that was known to be wrong.</p>
+        </details>
+        <details>
+          <summary>Does this mean AI should not write tests?</summary>
+          <p>No. It means a green suite written by the same agent that wrote the code is not evidence the code works. The tests still have value as regression scaffolding; they just cannot be the thing that verifies correctness.</p>
+        </details>
+        <details>
+          <summary>Can I reproduce this myself?</summary>
+          <p>Yes. The seeded modules and the scorers are in the public repository, so you can run the same experiment against your own model and compare.</p>
+        </details>
+        <details>
+          <summary>What catches this in a real pull request?</summary>
+          <p>A human reviewer, mutation testing, or a deterministic check like Veredicto that flags the specific patterns — over-mocking, tautological asserts, mocking the unit under test — before the pull request is merged.</p>
+        </details>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- seo:table -->
+    <section class="sec seosec" id="numbers" aria-labelledby="numbers-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">The numbers</span>
+          <h2 id="numbers-h">The experiment in one table</h2>
+        </div>
+        <div class="tablewrap reveal">
+          <table class="seotable">
+            <caption class="vh">Setup and results of the AI-written test experiment.</caption>
+            <thead>
+          <tr><th>Measure</th><th>Result</th></tr>
+            </thead>
+            <tbody>
+          <tr><th>Modules under test</th><td>20, each seeded with one real bug</td></tr>
+          <tr><th>Test suites written by AI agents</th><td>20</td></tr>
+          <tr><th>Suites that passed against buggy code</th><td><b>100%</b></td></tr>
+          <tr><th>Suites that caught the seeded bug</th><td><b>0%</b></td></tr>
+          <tr><th>Suites that asserted the buggy output as correct</th><td><b>75%</b></td></tr>
+          <tr><th>Reproducible</th><td>Yes — seeded modules and scorers are in the public repo</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">More from Fervon</span>
+          <h2 id="mas-h">Keep exploring</h2>
+        </div>
+        <div class="related reveal">
+        <a class="relcard" href="/veredicto/">
+          <span class="rt">Veredicto</span>
+          <span class="rd">The CI check that catches agent tests proving nothing.</span>
+        </a>
+        <a class="relcard" href="/lookspan/">
+          <span class="rt">Lookspan</span>
+          <span class="rd">Local-first observability for your AI agents. Free.</span>
+        </a>
+        <a class="relcard" href="/">
+          <span class="rt">Fervon</span>
+          <span class="rd">The studio and the whole portfolio, on one page.</span>
+        </a>
+        </div>
+      <div class="fv-share">
+        <button type="button" class="sharebtn" aria-label="Compartir esta página">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+          <span>Share</span>
+        </button>
+        <span class="sharemsg" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+    </section>
   </main>
+
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>Veredicto</b>
+      <span>$19 per repository</span>
+    </div>
+    <a class="btn btn-fire" href="/veredicto/#pricing">Get a licence</a>
+  </div>
 
   <footer><div class="wrap foot">
     <span>Veredicto is a project by <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forged red-hot</span>

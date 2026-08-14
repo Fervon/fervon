@@ -36,6 +36,47 @@
   }
   </script>
 
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Mis trazas se van a algún servicio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Lookspan levanta el colector y el dashboard en 127.0.0.1 y guarda todo en local. No hay cuenta, no hay API key y no hay servidor al que enviar nada."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué frameworks soporta?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trae integración directa para LangGraph, CrewAI y agentes MCP. Para cualquier otro, basta con que pueda hacer un POST al colector: el formato está documentado."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto código hay que tocar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Una línea en el caso habitual. Se instrumenta el agente al importar y a partir de ahí los spans aparecen solos en el dashboard."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Calcula el coste de verdad o lo estima?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cuenta los tokens reales de cada llamada y les aplica el precio del modelo usado, así que sabes qué agente concreto se está comiendo el presupuesto."
+      }
+    }
+  ]
+}
+  </script>
+
   <link rel="stylesheet" href="/assets/core.css" />
   <link rel="stylesheet" href="/assets/product.css" />
   <link rel="stylesheet" href="index.css" />
@@ -116,6 +157,24 @@
     </section>
 
     <!-- FRAMEWORKS STRIP -->
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h" data-en="In 30 seconds">En 30 segundos</h2>
+          <ul>
+        <li data-en="<b>Lookspan</b> captures every LLM call, every MCP tool and every cost token from your agents."><b>Lookspan</b> captura cada llamada LLM, cada herramienta MCP y cada token de coste de tus agentes.</li>
+        <li data-en="It works with <b>LangGraph, CrewAI and any MCP agent</b> — or anything that can make a POST.">Funciona con <b>LangGraph, CrewAI y cualquier agente MCP</b> — o cualquiera que pueda hacer un POST.</li>
+        <li data-en="A <b>local-first</b> dashboard on 127.0.0.1:3100 with one command: <code>npx lookspan</code>.">Dashboard <b>local-first</b> en 127.0.0.1:3100 con un comando: <code>npx lookspan</code>.</li>
+        <li data-en="No cloud and no API keys: <b>your traces never leave your machine</b>. Free and open source.">Sin nube y sin API keys: <b>tus trazas nunca salen de tu máquina</b>. Gratis y open source.</li>
+          </ul>
+      <div class="cta-row s-tldrcta">
+        <a class="btn btn-fire" href="#integraciones" data-en="Instrument my agent">Instrumentar mi agente</a>
+      </div>
+        </div>
+      </div>
+    </section>
     <section class="sec s-susUGvFy"><div class="wrap center reveal">
       <p class="s-ZzFqkr25" data-en="Works with your stack">Funciona con tu stack</p>
       <div class="chips s-mbm6U6qU">
@@ -320,7 +379,106 @@ curl -X POST http://127.0.0.1:3100/api/ingest \
         </div>
       </div>
     </div></section>
+
+    <!-- seo:faq -->
+    <section class="sec seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-en="FAQ">FAQ</span>
+          <h2 id="faq-h" data-en="Frequently asked questions">Preguntas frecuentes</h2>
+        </div>
+        <div class="faq reveal">
+        <details>
+          <summary data-en="Do my traces go to some service?">¿Mis trazas se van a algún servicio?</summary>
+          <p data-en="No. Lookspan runs the collector and dashboard on 127.0.0.1 and stores everything locally. There is no account, no API key and no server to send anything to.">No. Lookspan levanta el colector y el dashboard en 127.0.0.1 y guarda todo en local. No hay cuenta, no hay API key y no hay servidor al que enviar nada.</p>
+        </details>
+        <details>
+          <summary data-en="Which frameworks does it support?">¿Qué frameworks soporta?</summary>
+          <p data-en="It ships direct integrations for LangGraph, CrewAI and MCP agents. For anything else, it just needs to be able to POST to the collector: the format is documented.">Trae integración directa para LangGraph, CrewAI y agentes MCP. Para cualquier otro, basta con que pueda hacer un POST al colector: el formato está documentado.</p>
+        </details>
+        <details>
+          <summary data-en="How much code do I have to touch?">¿Cuánto código hay que tocar?</summary>
+          <p data-en="One line in the usual case. You instrument the agent at import time and from then on spans show up in the dashboard by themselves.">Una línea en el caso habitual. Se instrumenta el agente al importar y a partir de ahí los spans aparecen solos en el dashboard.</p>
+        </details>
+        <details>
+          <summary data-en="Does it compute real cost or estimate it?">¿Calcula el coste de verdad o lo estima?</summary>
+          <p data-en="It counts the real tokens of each call and applies the price of the model used, so you can see which specific agent is eating the budget.">Cuenta los tokens reales de cada llamada y les aplica el precio del modelo usado, así que sabes qué agente concreto se está comiendo el presupuesto.</p>
+        </details>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- seo:table -->
+    <section class="sec seosec" id="ficha" aria-labelledby="ficha-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-en="Spec sheet">Ficha</span>
+          <h2 id="ficha-h" data-en="Lookspan at a glance">Lookspan de un vistazo</h2>
+        </div>
+        <div class="tablewrap reveal">
+          <table class="seotable">
+            <caption class="vh" data-en="Lookspan price, licence, integrations and data handling.">Precio, licencia, integraciones y tratamiento de datos de Lookspan.</caption>
+            <thead>
+          <tr><th data-en="Item">Dato</th><th data-en="Value">Valor</th></tr>
+            </thead>
+            <tbody>
+          <tr><th data-en="Price">Precio</th><td data-en="Free, with no paid tier">Gratis, sin tier de pago</td></tr>
+          <tr><th data-en="Licence">Licencia</th><td>MIT (open source)</td></tr>
+          <tr><th data-en="How you run it">Cómo se ejecuta</th><td><code>npx lookspan</code></td></tr>
+          <tr><th data-en="Dashboard">Dashboard</th><td>127.0.0.1:3100</td></tr>
+          <tr><th data-en="Platforms">Plataformas</th><td>Windows · macOS · Linux</td></tr>
+          <tr><th data-en="Integrations">Integraciones</th><td data-en="LangGraph, CrewAI, MCP agents, and anything that can POST">LangGraph, CrewAI, agentes MCP y cualquiera que pueda hacer un POST</td></tr>
+          <tr><th data-en="What it captures">Qué captura</th><td data-en="LLM calls, MCP tools and per-token cost">Llamadas LLM, herramientas MCP y coste por tokens</td></tr>
+          <tr><th data-en="Account or API key">Cuenta o API key</th><td data-en="Neither is needed">No hace falta ninguna</td></tr>
+          <tr><th data-en="Your traces">Tus trazas</th><td data-en="Never leave your machine">Nunca salen de tu máquina</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-en="More from Fervon">Más de Fervon</span>
+          <h2 id="mas-h" data-en="Keep exploring">Sigue explorando</h2>
+        </div>
+        <div class="related reveal">
+        <a class="relcard" href="/inferbench/">
+          <span class="rt">inferbench</span>
+          <span class="rd" data-en="Which LLM fits your GPU, and at how many tok/s. Free.">Qué LLM cabe en tu GPU y a cuántos tok/s. Gratis.</span>
+        </a>
+        <a class="relcard" href="/claudescope/">
+          <span class="rt">ClaudeScope</span>
+          <span class="rd" data-en="Search every Claude Code session you have run. Free.">Busca en todas tus sesiones de Claude Code. Gratis.</span>
+        </a>
+        <a class="relcard" href="/veredicto/">
+          <span class="rt">Veredicto</span>
+          <span class="rd" data-en="The CI check that catches agent tests proving nothing.">El check de CI que pilla los tests de agentes que no prueban nada.</span>
+        </a>
+        </div>
+      <div class="fv-share">
+        <button type="button" class="sharebtn" aria-label="Compartir esta página">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+          <span data-en="Share">Compartir</span>
+        </button>
+        <span class="sharemsg" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+    </section>
   </main>
+
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b data-en="Lookspan">Lookspan</b>
+      <span data-en="Free and open source">Gratis y open source</span>
+    </div>
+    <a class="btn btn-fire" href="#empezar" data-en="Get started">Empezar</a>
+  </div>
 
   <footer><div class="wrap foot">
     <span data-en="Lookspan is a project by <a href=&quot;https://fervon.dev&quot;><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forged red-hot">Lookspan es un proyecto de <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forjado al rojo vivo</span>

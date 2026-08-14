@@ -96,9 +96,109 @@
         "about": { "@id": "https://fervon.dev/#organization" },
         "primaryImageOfPage": { "@id": "https://fervon.dev/#logo" },
         "inLanguage": "es"
+      },
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://fervon.dev/#localbusiness",
+        "name": "Fervon",
+        "legalName": "Fervon",
+        "url": "https://fervon.dev/",
+        "image": { "@id": "https://fervon.dev/#logo" },
+        "logo": { "@id": "https://fervon.dev/#logo" },
+        "description": "Estudio de software autónomo. Desarrollo a medida dirigiendo flotas de agentes de IA, y productos propios local-first. Trabajo en remoto desde España, con clientes en cualquier zona horaria.",
+        "slogan": "Forjado al rojo vivo",
+        "parentOrganization": { "@id": "https://fervon.dev/#organization" },
+        "founder": { "@id": "https://fervon.dev/#jonathan" },
+        "address": {
+          "@type": "PostalAddress",
+          "addressCountry": "ES"
+        },
+        "areaServed": { "@type": "Place", "name": "Worldwide" },
+        "availableLanguage": ["es", "en"],
+        "priceRange": "$19–$39",
+        "currenciesAccepted": "USD, EUR",
+        "serviceType": [
+          "Desarrollo de software a medida",
+          "Automatización con agentes de IA",
+          "Integración de LLM",
+          "Software local-first"
+        ],
+        "knowsAbout": [
+          "Agentes de IA",
+          "Modelos de lenguaje locales",
+          "Observabilidad de agentes",
+          "Integración continua",
+          "Software local-first"
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Productos y servicios de Fervon",
+          "itemListElement": [
+            { "@type": "Offer", "url": "https://fervon.dev/trace/", "price": "39", "priceCurrency": "USD", "itemOffered": { "@type": "SoftwareApplication", "name": "Trace", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Windows, macOS, Linux" } },
+            { "@type": "Offer", "url": "https://fervon.dev/veredicto/", "price": "19", "priceCurrency": "USD", "itemOffered": { "@type": "SoftwareApplication", "name": "Veredicto", "applicationCategory": "DeveloperApplication", "operatingSystem": "GitHub Actions" } },
+            { "@type": "Offer", "url": "https://fervon.dev/contacto/", "itemOffered": { "@type": "Service", "name": "Desarrollo de software a medida con flotas de agentes de IA" } }
+          ]
+        },
+        "contactPoint": { "@type": "ContactPoint", "contactType": "sales", "url": "https://fervon.dev/contacto/", "availableLanguage": ["es", "en"] },
+        "sameAs": [
+          "https://github.com/Fervon",
+          "https://www.npmjs.com/package/fervon",
+          "https://dev.to/jonimatiin",
+          "https://bsky.app/profile/jonimartin.bsky.social",
+          "https://mastodon.social/@jonimartin"
+        ]
       }
     ]
   }
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Qué es exactamente Fervon?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un estudio de software de una sola persona. Jonathan Martín dirige flotas de agentes de IA que construyen, prueban y despliegan; el resultado son productos propios y herramientas open source, no horas facturadas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué productos hay y cuáles son gratis?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "De pago: Trace (memoria personal local, $39 de pago único) y Veredicto (check de CI contra tests amañados, $19 por repositorio). Gratis y open source: inferbench, Lookspan, ClaudeScope, Mission Control y Pregón."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Se puede comprar sin hablar con nadie?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, y es lo normal. Todo es self-serve: se compra o se descarga desde la web, sin demo, sin llamada de ventas y sin dejar el correo para «que te contacten»."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Mis datos salen de mi máquina?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Las herramientas corren en local y no envían telemetría por defecto. Las open source son inspeccionables en GitHub, así que no hace falta creerse la promesa."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Aceptas encargos de desarrollo a medida?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Aplico el mismo motor de agentes a los retos de tu empresa, por proyecto y con alcance y precio cerrados de antemano, no por horas. El código entregado es tuyo."
+      }
+    }
+  ]
+}
   </script>
 
   <link rel="stylesheet" href="index.css?v=20260813" />
@@ -153,6 +253,24 @@
   </header>
 
   <main class="wrap">
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h" data-en="In 30 seconds">En 30 segundos</h2>
+          <ul>
+        <li data-en="<b>Fervon</b> is the autonomous software studio of Jonathan Martín: one person directing fleets of AI agents."><b>Fervon</b> es el estudio de software autónomo de Jonathan Martín: una persona dirigiendo flotas de agentes de IA.</li>
+        <li data-en="Two paid products —<b>Trace</b> ($39, pay once) and <b>Veredicto</b> ($19/repo)— plus five <b>free, open-source</b> tools.">Dos productos de pago —<b>Trace</b> ($39, pago único) y <b>Veredicto</b> ($19/repo)— y cinco herramientas <b>open source y gratis</b>.</li>
+        <li data-en="Everything is <b>local-first</b>: no mandatory cloud, no subscription, no telemetry by default.">Todo es <b>local-first</b>: sin nube obligatoria, sin suscripción y sin telemetría por defecto.</li>
+        <li data-en="I also take on <b>bespoke development</b> with the same method. You talk to me, not to a salesperson.">También hago <b>desarrollo a medida</b> con el mismo método. Hablas conmigo, no con un comercial.</li>
+          </ul>
+      <div class="cta-row s-tldrcta">
+        <a class="btn btn-fire" href="/contacto/" data-en="Tell me about your project">Cuéntame tu proyecto</a>
+      </div>
+        </div>
+      </div>
+    </section>
 
     <!-- TESIS + PRUEBA -->
     <section class="sec thesis" id="estudio">
@@ -300,7 +418,109 @@
       </div>
     </section>
 
+
+    <!-- seo:faq -->
+    <section class="sec seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-en="FAQ">FAQ</span>
+          <h2 id="faq-h" data-en="Frequently asked questions">Preguntas frecuentes</h2>
+        </div>
+        <div class="faq reveal">
+        <details>
+          <summary data-en="What exactly is Fervon?">¿Qué es exactamente Fervon?</summary>
+          <p data-en="A one-person software studio. Jonathan Martín directs fleets of AI agents that build, test and ship; the output is products and open-source tools, not billable hours.">Un estudio de software de una sola persona. Jonathan Martín dirige flotas de agentes de IA que construyen, prueban y despliegan; el resultado son productos propios y herramientas open source, no horas facturadas.</p>
+        </details>
+        <details>
+          <summary data-en="Which products are there, and which are free?">¿Qué productos hay y cuáles son gratis?</summary>
+          <p data-en="Paid: Trace (local personal memory, $39 one-time) and Veredicto (a CI check against gamed tests, $19 per repository). Free and open source: inferbench, Lookspan, ClaudeScope, Mission Control and Pregón.">De pago: Trace (memoria personal local, $39 de pago único) y Veredicto (check de CI contra tests amañados, $19 por repositorio). Gratis y open source: inferbench, Lookspan, ClaudeScope, Mission Control y Pregón.</p>
+        </details>
+        <details>
+          <summary data-en="Can I buy without talking to anyone?">¿Se puede comprar sin hablar con nadie?</summary>
+          <p data-en="Yes, and that is the normal path. Everything is self-serve: buy or download from the site, with no demo, no sales call and no email-gate.">Sí, y es lo normal. Todo es self-serve: se compra o se descarga desde la web, sin demo, sin llamada de ventas y sin dejar el correo para «que te contacten».</p>
+        </details>
+        <details>
+          <summary data-en="Does my data leave my machine?">¿Mis datos salen de mi máquina?</summary>
+          <p data-en="No. The tools run locally and send no telemetry by default. The open-source ones are inspectable on GitHub, so you do not have to take the promise on faith.">No. Las herramientas corren en local y no envían telemetría por defecto. Las open source son inspeccionables en GitHub, así que no hace falta creerse la promesa.</p>
+        </details>
+        <details>
+          <summary data-en="Do you take on bespoke development work?">¿Aceptas encargos de desarrollo a medida?</summary>
+          <p data-en="Yes. I apply the same agent engine to your company challenges, per project, with scope and price agreed up front rather than by the hour. The delivered code is yours.">Sí. Aplico el mismo motor de agentes a los retos de tu empresa, por proyecto y con alcance y precio cerrados de antemano, no por horas. El código entregado es tuyo.</p>
+        </details>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- seo:table -->
+    <section class="sec seosec" id="comparativa" aria-labelledby="comparativa-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-en="At a glance">De un vistazo</span>
+          <h2 id="comparativa-h" data-en="The whole portfolio, compared">Todo el portfolio, comparado</h2>
+        </div>
+        <div class="tablewrap reveal">
+          <table class="seotable">
+            <caption class="vh" data-en="Fervon products and tools with their price, licence and platforms.">Productos y herramientas de Fervon con su precio, licencia y plataformas.</caption>
+            <thead>
+          <tr><th data-en="Product">Producto</th><th data-en="What for">Para qué</th><th data-en="Price">Precio</th><th data-en="Licence">Licencia</th><th data-en="Platforms">Plataformas</th></tr>
+            </thead>
+            <tbody>
+          <tr><th data-en="<a href=&quot;/trace/&quot;>Trace</a>"><a href="/trace/">Trace</a></th><td data-en="Searchable personal memory">Memoria personal buscable</td><td data-en="$39 once">$39 pago único</td><td data-en="Commercial">Comercial</td><td>Windows · macOS · Linux</td></tr>
+          <tr><th data-en="<a href=&quot;/veredicto/&quot;>Veredicto</a>"><a href="/veredicto/">Veredicto</a></th><td data-en="Catch gamed tests in CI">Pillar tests amañados en CI</td><td data-en="$19 per repo">$19 por repo</td><td data-en="Commercial">Comercial</td><td>GitHub Actions</td></tr>
+          <tr><th data-en="<a href=&quot;/inferbench/&quot;>inferbench</a>"><a href="/inferbench/">inferbench</a></th><td data-en="Local LLM benchmarking">Benchmark de LLM locales</td><td data-en="Free">Gratis</td><td>MIT</td><td>Windows · macOS · Linux</td></tr>
+          <tr><th data-en="<a href=&quot;/lookspan/&quot;>Lookspan</a>"><a href="/lookspan/">Lookspan</a></th><td data-en="Agent observability">Observabilidad de agentes</td><td data-en="Free">Gratis</td><td>MIT</td><td>Windows · macOS · Linux</td></tr>
+          <tr><th data-en="<a href=&quot;/claudescope/&quot;>ClaudeScope</a>"><a href="/claudescope/">ClaudeScope</a></th><td data-en="Search Claude Code sessions">Buscar sesiones de Claude Code</td><td data-en="Free">Gratis</td><td>MIT</td><td>Windows · macOS · Linux</td></tr>
+          <tr><th data-en="<a href=&quot;/launchpad/&quot;>Mission Control</a>"><a href="/launchpad/">Mission Control</a></th><td data-en="Start every repo at once">Arrancar todos tus repos</td><td data-en="Free">Gratis</td><td>MIT</td><td>Windows · macOS · Linux</td></tr>
+          <tr><th data-en="<a href=&quot;/pregon/&quot;>Pregón</a>"><a href="/pregon/">Pregón</a></th><td data-en="Post to 14 channels">Publicar en 14 canales</td><td data-en="Free">Gratis</td><td>MIT</td><td data-en="Web (self-hosted)">Web (autoalojado)</td></tr>
+          <tr><th data-en="<a href=&quot;/regenta/&quot;>Regenta</a>"><a href="/regenta/">Regenta</a></th><td data-en="Govern agent fleets">Gobernar flotas de agentes</td><td data-en="By request">Por solicitud</td><td data-en="Commercial">Comercial</td><td>Web</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-en="More from Fervon">Más de Fervon</span>
+          <h2 id="mas-h" data-en="Keep exploring">Sigue explorando</h2>
+        </div>
+        <div class="related reveal">
+        <a class="relcard" href="/trace/">
+          <span class="rt">Trace</span>
+          <span class="rd" data-en="Your personal memory: local-first, pay once.">Tu memoria personal, local-first y de pago único.</span>
+        </a>
+        <a class="relcard" href="/veredicto/">
+          <span class="rt">Veredicto</span>
+          <span class="rd" data-en="The CI check that catches agent tests proving nothing.">El check de CI que pilla los tests de agentes que no prueban nada.</span>
+        </a>
+        <a class="relcard" href="/contacto/">
+          <span class="rt">Contacto</span>
+          <span class="rd" data-en="Bespoke development with agent fleets.">Desarrollo a medida con flotas de agentes.</span>
+        </a>
+        </div>
+      <div class="fv-share">
+        <button type="button" class="sharebtn" aria-label="Compartir esta página">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+          <span data-en="Share">Compartir</span>
+        </button>
+        <span class="sharemsg" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+    </section>
   </main>
+
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b data-en="Fervon">Fervon</b>
+      <span data-en="Bespoke software with agents">Software a medida con agentes</span>
+    </div>
+    <a class="btn btn-fire" href="/contacto/" data-en="Let's talk">Hablemos</a>
+  </div>
 
   <footer><div class="wrap">
     <div class="mark"><svg class="blogo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="fv-foot-g" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#E0480F"/><stop offset="0.5" stop-color="#FF6A00"/><stop offset="1" stop-color="#FFB02E"/></linearGradient></defs><path d="M18 94 L18 60 L6 60 L6 44 L18 44 L18 32 A24 24 0 0 1 42 8 L63.24 8 L54 24 L42 24 A8 8 0 0 0 34 32 L34 44 C52 43.2 74 42.2 92.62 41 L88 49 C70 52.2 52 55.6 34 60 L34 94 Z" fill="url(#fv-foot-g)"/></svg> fervon</div>

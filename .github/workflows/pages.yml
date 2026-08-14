@@ -49,7 +49,12 @@ jobs:
             --exclude 'BRAND-IMAGE-PROMPTS.md' \
             --exclude 'package.json' \
             --exclude 'package-lock.json' \
-            --exclude 'index.js'
+            --exclude 'index.js' \
+            --exclude 'LANZAMIENTO-VEREDICTO.md' \
+            --exclude 'LICENSE' \
+            --exclude 'og-test-*' \
+            --exclude 'og-zoom-*' \
+            --exclude 'wrangler.toml'
           echo "Published files:"; find _site -maxdepth 1 | sort
 
       - uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5

@@ -36,6 +36,47 @@
   }
   </script>
 
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Qué mide inferbench exactamente?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tokens por segundo, tiempo hasta el primer token (TTFT) y VRAM ocupada, medidos en tu propio equipo con tu propia GPU. Son cifras reproducibles de tu hardware, no estimaciones."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Necesito saber de cuantización o de llama.cpp?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. inferbench se encarga de descargar el modelo, elegir el motor y arrancarlo. Tú eliges el modelo del catálogo y lees los resultados."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Los modelos del catálogo son reales?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, y es una regla dura del proyecto: cada entrada del catálogo apunta a un repositorio GGUF verificado en Hugging Face. No hay modelos inventados ni enlaces muertos."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Envía algo a internet aparte de descargar el modelo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Fuera de la descarga del modelo que tú pides, todo el benchmark corre en local y no se manda telemetría."
+      }
+    }
+  ]
+}
+  </script>
+
   <link rel="stylesheet" href="/assets/core.css" />
   <link rel="stylesheet" href="/assets/product.css" />
   <link rel="stylesheet" href="index.css" />
@@ -106,6 +147,24 @@
     </section>
 
     <!-- DEMO REAL -->
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h" data-en="In 30 seconds">En 30 segundos</h2>
+          <ul>
+        <li data-en="<b>inferbench</b> downloads, launches and benchmarks local LLM inference engines in one click."><b>inferbench</b> descarga, arranca y mide motores de inferencia LLM locales con un solo click.</li>
+        <li data-en="It gives you real numbers from your machine: <b>tok/s, TTFT and VRAM</b>, not a model card headline.">Te da números reales de tu máquina: <b>tok/s, TTFT y VRAM</b>, no las cifras de marketing de un modelo.</li>
+        <li data-en="It answers the one question that matters before a 40 GB download: <b>will this fit and run on my GPU?</b>">Responde la única pregunta que importa antes de bajar 40 GB: <b>¿esto cabe y corre en mi GPU?</b></li>
+        <li data-en="<b>Free and open source</b>, for Windows, macOS and Linux."><b>Gratis y open source</b>, para Windows, macOS y Linux.</li>
+          </ul>
+      <div class="cta-row s-tldrcta">
+        <a class="btn btn-fire" href="#download" data-en="Download free">Descargar gratis</a>
+      </div>
+        </div>
+      </div>
+    </section>
     <section class="sec alt" id="demo">
       <div class="wrap center reveal">
         <span class="eye" data-en="Demo">Demo</span>
@@ -224,7 +283,76 @@
         </div>
       </div>
     </div></section>
+
+    <!-- seo:faq -->
+    <section class="sec seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-en="FAQ">FAQ</span>
+          <h2 id="faq-h" data-en="Frequently asked questions">Preguntas frecuentes</h2>
+        </div>
+        <div class="faq reveal">
+        <details>
+          <summary data-en="What does inferbench actually measure?">¿Qué mide inferbench exactamente?</summary>
+          <p data-en="Tokens per second, time to first token (TTFT) and VRAM used, measured on your own machine with your own GPU. They are reproducible numbers from your hardware, not estimates.">Tokens por segundo, tiempo hasta el primer token (TTFT) y VRAM ocupada, medidos en tu propio equipo con tu propia GPU. Son cifras reproducibles de tu hardware, no estimaciones.</p>
+        </details>
+        <details>
+          <summary data-en="Do I need to know about quantisation or llama.cpp?">¿Necesito saber de cuantización o de llama.cpp?</summary>
+          <p data-en="No. inferbench handles downloading the model, picking the engine and starting it. You pick a model from the catalogue and read the results.">No. inferbench se encarga de descargar el modelo, elegir el motor y arrancarlo. Tú eliges el modelo del catálogo y lees los resultados.</p>
+        </details>
+        <details>
+          <summary data-en="Are the catalogue models real?">¿Los modelos del catálogo son reales?</summary>
+          <p data-en="Yes, and it is a hard rule of the project: every catalogue entry points to a GGUF repository verified on Hugging Face. There are no invented models and no dead links.">Sí, y es una regla dura del proyecto: cada entrada del catálogo apunta a un repositorio GGUF verificado en Hugging Face. No hay modelos inventados ni enlaces muertos.</p>
+        </details>
+        <details>
+          <summary data-en="Does it send anything online beyond downloading the model?">¿Envía algo a internet aparte de descargar el modelo?</summary>
+          <p data-en="No. Apart from downloading the model you asked for, the whole benchmark runs locally and no telemetry is sent.">No. Fuera de la descarga del modelo que tú pides, todo el benchmark corre en local y no se manda telemetría.</p>
+        </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-en="More from Fervon">Más de Fervon</span>
+          <h2 id="mas-h" data-en="Keep exploring">Sigue explorando</h2>
+        </div>
+        <div class="related reveal">
+        <a class="relcard" href="/lookspan/">
+          <span class="rt">Lookspan</span>
+          <span class="rd" data-en="Local-first observability for your AI agents. Free.">Observabilidad local-first para tus agentes de IA. Gratis.</span>
+        </a>
+        <a class="relcard" href="/claudescope/">
+          <span class="rt">ClaudeScope</span>
+          <span class="rd" data-en="Search every Claude Code session you have run. Free.">Busca en todas tus sesiones de Claude Code. Gratis.</span>
+        </a>
+        <a class="relcard" href="/trace/">
+          <span class="rt">Trace</span>
+          <span class="rd" data-en="Your personal memory: local-first, pay once.">Tu memoria personal, local-first y de pago único.</span>
+        </a>
+        </div>
+      <div class="fv-share">
+        <button type="button" class="sharebtn" aria-label="Compartir esta página">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+          <span data-en="Share">Compartir</span>
+        </button>
+        <span class="sharemsg" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+    </section>
   </main>
+
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b data-en="inferbench">inferbench</b>
+      <span data-en="Free and open source">Gratis y open source</span>
+    </div>
+    <a class="btn btn-fire" href="#download" data-en="Download">Descargar</a>
+  </div>
 
   <footer><div class="wrap foot">
     <span data-en="inferbench is a project by &lt;a href=&quot;https://fervon.dev&quot;&gt;&lt;img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forged red-hot">inferbench es un proyecto de <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forjado al rojo vivo</span>

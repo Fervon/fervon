@@ -414,3 +414,74 @@
   }
   rafId=requestAnimationFrame(tick);   // store the id: a hide/show before the first tick must not fork a second chain
 })();
+
+/* ============================================================
+   Botón de compartir (punto 22 del checklist SEO).
+   Progresivo: navigator.share donde exista (móvil y Safari),
+   copia al portapapeles como respaldo. Sin dependencias y sin
+   ninguna red social embebida — no cargamos scripts de terceros
+   porque la CSP del sitio es `script-src 'self'`.
+   ============================================================ */
+(function(){
+  var boxes=document.querySelectorAll('.fv-share');
+  if(!boxes.length) return;
+  var isEN=function(){ return document.documentElement.lang==='en'; };
+  [].forEach.call(boxes,function(box){
+    var btn=box.querySelector('.sharebtn');
+    var msg=box.querySelector('.sharemsg');
+    if(!btn) return;
+    btn.addEventListener('click',function(){
+      var url=(document.querySelector('link[rel=canonical]')||{}).href||location.href;
+      var title=document.title;
+      var say=function(t){ if(!msg) return; msg.textContent=t; msg.classList.add('on');
+        clearTimeout(msg._t); msg._t=setTimeout(function(){ msg.classList.remove('on'); },2600); };
+      if(navigator.share){
+        navigator.share({title:title,url:url}).catch(function(){ /* el usuario canceló */ });
+        return;
+      }
+      var done=function(){ say(isEN()?'Link copied':'Enlace copiado'); };
+      var fail=function(){ say(isEN()?'Copy it from the address bar':'Cópialo de la barra de direcciones'); };
+      /* Respaldo con textarea + execCommand. Sigue haciendo falta: la API
+         moderna `clipboard.writeText` rechaza con NotAllowedError en más
+         situaciones de las que parece (permiso denegado, iframes sin
+         allow="clipboard-write", contextos automatizados). Medido: en ese
+         mismo caso execCommand('copy') SÍ copia, así que se intenta después
+         del rechazo, no sólo cuando la API no existe. */
+      var legacy=function(){
+        try{
+          var ta=document.createElement('textarea');
+          ta.value=url; ta.setAttribute('readonly',''); ta.className='vh';
+          document.body.appendChild(ta);
+          ta.select(); ta.setSelectionRange(0,ta.value.length);
+          var ok=document.execCommand('copy');
+          document.body.removeChild(ta);
+          ok?done():fail();
+        }catch(e){ fail(); }
+      };
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(url).then(done,legacy);
+      }else{
+        legacy();
+      }
+    });
+  });
+})();
+
+/* ============================================================
+   CTA fijo en móvil (punto 21).
+   La barra ya viene en el HTML de cada página (para que exista
+   sin JS); aquí sólo la ocultamos mientras el CTA principal del
+   hero está a la vista, para no duplicar el mismo botón en
+   pantalla, y la devolvemos al hacer scroll.
+   ============================================================ */
+(function(){
+  var bar=document.querySelector('.stickycta');
+  if(!bar) return;
+  var heroCta=document.querySelector('.hero .btn-fire');
+  if(!heroCta||!('IntersectionObserver' in window)) return;
+  var io=new IntersectionObserver(function(entries){
+    bar.style.transform=entries[0].isIntersecting?'translateY(110%)':'translateY(0)';
+  },{threshold:0});
+  bar.style.transition='transform .22s ease';
+  io.observe(heroCta);
+})();
