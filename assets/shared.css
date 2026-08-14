@@ -117,3 +117,158 @@ nav .bar,.nav .bar{position:relative}
    RECORTABA el GIF: medido en /inferbench/, 22 px arriba y abajo con la demo a 800x500 en
    una caja de 870. Afecta a las tres páginas de producto que enseñan un GIF. */
 figure img[width][height]{height:auto}
+
+/* ============================================================
+   SEO / conversión — bloques compartidos por todas las páginas
+   (TL;DR, clúster de enlaces, compartir, CTA fijo en móvil).
+   Añadido en la pasada de los 26 puntos de SEO.
+   ============================================================ */
+
+/* ── TL;DR / Key takeaways ───────────────────────────────────
+   Va SIEMPRE justo después del hero: primero la intención de
+   búsqueda (el h1 + el subtítulo), después el resumen. */
+.tldr{border:1px solid var(--line2,#3A2C22);border-left:3px solid var(--ember,#FF6A00);
+  background:linear-gradient(180deg,rgba(26,19,16,.72),rgba(14,11,10,.55));
+  border-radius:14px;padding:22px 24px;max-width:860px;margin:0 auto;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 1px 2px rgba(0,0,0,.4)}
+.tldr h2{font-size:13px;letter-spacing:1.6px;text-transform:uppercase;
+  color:var(--amber,#FFB02E);font-weight:700;margin-bottom:14px}
+.tldr ul{list-style:none;display:grid;gap:10px}
+.tldr li{position:relative;padding-left:26px;font-size:16px;line-height:1.62;
+  color:var(--bone,#EFE7DC)}
+.tldr li::before{content:"";position:absolute;left:6px;top:.62em;width:7px;height:7px;
+  border-radius:2px;transform:rotate(45deg);
+  background:linear-gradient(135deg,var(--ember,#FF6A00),var(--amber,#FFB02E))}
+.tldr li b,.tldr li strong{color:#fff;font-weight:650}
+@media(max-width:600px){.tldr{padding:18px 18px;border-radius:12px}.tldr li{font-size:15px}}
+
+/* ── Clúster de enlaces internos ─────────────────────────────
+   Cada página enlaza a sus hermanas: reparte autoridad y da a
+   Google la estructura del portfolio. */
+.related{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:26px}
+.relcard{display:block;border:1px solid var(--line2,#3A2C22);border-radius:12px;
+  padding:15px 17px;background:rgba(26,19,16,.5);transition:.16s;color:inherit;text-decoration:none}
+.relcard:hover{border-color:var(--ember,#FF6A00);transform:translateY(-2px);
+  background:rgba(26,19,16,.78)}
+.relcard .rt{display:block;font-weight:650;font-size:15.5px;color:var(--bone,#EFE7DC);margin-bottom:5px}
+.relcard .rd{display:block;font-size:13.5px;line-height:1.5;color:var(--dim,#A0917F)}
+.relcard:hover .rt{color:var(--amber,#FFB02E)}
+
+/* ── Botón de compartir ──────────────────────────────────────
+   Usa navigator.share en móvil y copia al portapapeles en
+   escritorio. shared.js le pone el comportamiento. */
+.fv-share{display:inline-flex;align-items:center;gap:9px;margin-top:8px}
+.fv-share .sharebtn{display:inline-flex;align-items:center;gap:8px;font-family:inherit;
+  font-size:14px;font-weight:600;padding:9px 15px;border-radius:11px;cursor:pointer;
+  border:1px solid var(--line2,#3A2C22);background:rgba(26,19,16,.55);
+  color:var(--bone,#EFE7DC);transition:.16s}
+.fv-share .sharebtn:hover{border-color:var(--ember,#FF6A00);color:var(--amber,#FFB02E)}
+.fv-share .sharebtn svg{width:16px;height:16px;flex:none}
+.fv-share .sharemsg{font-size:13px;color:var(--amber,#FFB02E);opacity:0;transition:opacity .18s}
+.fv-share .sharemsg.on{opacity:1}
+
+/* ── CTA fijo en móvil ───────────────────────────────────────
+   Barra inferior que sólo existe por debajo de 760px. El
+   padding del body evita que tape el pie. */
+.stickycta{display:none}
+@media(max-width:760px){
+  .stickycta{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:90;
+    align-items:center;gap:12px;padding:10px 14px calc(10px + env(safe-area-inset-bottom,0px));
+    background:rgba(14,11,10,.93);backdrop-filter:blur(12px);
+    border-top:1px solid var(--line2,#3A2C22);
+    box-shadow:0 -8px 28px rgba(0,0,0,.5)}
+  .stickycta .sct{flex:1;min-width:0;font-size:13px;line-height:1.35;color:var(--dim,#A0917F)}
+  .stickycta .sct b{display:block;font-size:14.5px;color:var(--bone,#EFE7DC);font-weight:650;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .stickycta .btn{flex:none;padding:11px 17px;font-size:14.5px}
+  body{padding-bottom:78px}
+  /* El CTA fijo no debe animarse: es un elemento de interfaz permanente. */
+  .stickycta .btn-fire{animation:none}
+}
+@media(max-width:380px){
+  .stickycta{gap:9px;padding-left:11px;padding-right:11px}
+  .stickycta .sct{font-size:12px}
+  .stickycta .btn{padding:10px 13px;font-size:13.5px}
+}
+
+/* ── Respaldos de cero especificidad ─────────────────────────────────────
+   Los bloques nuevos (TL;DR, FAQ, clúster) se insertan en 18 páginas que NO
+   comparten la misma hoja: `.faq` sólo estaba definido en index.css,
+   trace/base.css, veredicto/base.css y regenta/index.css, y `.eye`/`.cta-row`
+   sólo en core.css/index.css. Aquí van los respaldos envueltos en `:where()`
+   para que su especificidad sea 0 y la hoja propia de cada página SIEMPRE
+   gane, aunque shared.css se cargue después. */
+
+:where(.faq){max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+:where(.faq) details{background:var(--card,var(--panel,#1A1310));border:1px solid var(--line,#2C211B);border-radius:12px;padding:2px 18px;transition:border-color .16s ease}
+:where(.faq) details[open]{border-color:var(--line2,#3A2C22)}
+:where(.faq) summary{cursor:pointer;list-style:none;padding:15px 0;font-weight:600;font-size:15px;color:var(--bone,#EFE7DC);display:flex;justify-content:space-between;align-items:center;gap:14px}
+:where(.faq) summary::-webkit-details-marker{display:none}
+:where(.faq) summary::after{content:"+";color:var(--ember,#FF6A00);font-size:22px;font-weight:300;line-height:1;transition:transform .2s ease}
+:where(.faq) details[open] summary::after{transform:rotate(45deg)}
+:where(.faq) details p{color:var(--ash,#A89A8E);font-size:14px;line-height:1.6;margin:0;padding:0 0 16px}
+:where(.eye){font-size:13px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--amber,#FFB02E);display:block}
+:where(.cta-row){display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+/* El bloque nuevo trae su propio `.wrap`; en la home y en /contacto el <main>
+   ya es `.wrap`, así que el anidado duplicaría el padding lateral. */
+.wrap .wrap{max-width:none;padding:0}
+
+/* Detalles del TL;DR */
+.tldr .cta-row{margin-top:20px;justify-content:flex-start}
+.tldr code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em;
+  background:rgba(255,106,0,.10);border:1px solid var(--line,#2C211B);border-radius:6px;padding:1px 6px;color:var(--amber,#FFB02E)}
+
+/* ── Tablas de datos insertadas por scripts/seo-tables.mjs ───────────────
+   Clases propias (.tablewrap/.seotable) para no chocar con las tablas que
+   cada página ya tenía. Scroll lateral propio: la página nunca debe
+   desplazarse en horizontal. */
+/* `contain:inline-size` hace que el ancho del contenedor NO dependa de su
+   contenido. Sin esto, el `min-width:520px` de la tabla se propagaba hacia
+   arriba como ancho mínimo: en /contacto/ (cuyo <body> es flex) estiraba el
+   <main> a 570px con el viewport a 375 y la página se desplazaba en
+   horizontal. Medido con Chrome headless en la pasada de los 26 puntos. */
+.tablewrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:34px;
+  contain:inline-size;max-width:100%;
+  border:1px solid var(--line,#2C211B);border-radius:14px;background:rgba(22,17,14,.5)}
+.tablewrap::-webkit-scrollbar{height:6px}
+.tablewrap::-webkit-scrollbar-thumb{background:var(--line2,#3A2C22);border-radius:3px}
+.seotable{width:100%;border-collapse:collapse;font-size:14.5px;min-width:520px}
+.seotable th,.seotable td{text-align:left;padding:13px 18px;
+  border-bottom:1px solid var(--line,#2C211B);vertical-align:top;line-height:1.55}
+.seotable thead th{font-size:12px;letter-spacing:1.4px;text-transform:uppercase;
+  color:var(--amber,#FFB02E);font-weight:700;background:rgba(255,106,0,.06);white-space:nowrap}
+.seotable tbody th{font-weight:650;color:var(--bone,#EFE7DC);white-space:nowrap}
+.seotable tbody td{color:var(--ash,#A89A8E)}
+.seotable tbody tr:last-child th,.seotable tbody tr:last-child td{border-bottom:0}
+.seotable tbody tr:hover{background:rgba(255,106,0,.035)}
+.seotable a{color:var(--amber,#FFB02E);text-decoration:none;font-weight:650}
+.seotable a:hover{text-decoration:underline}
+.seotable b{color:var(--bone,#EFE7DC)}
+.seotable code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.92em;
+  background:rgba(255,106,0,.10);border:1px solid var(--line,#2C211B);border-radius:6px;padding:1px 6px;color:var(--amber,#FFB02E)}
+@media(max-width:600px){.seotable{font-size:13.5px}.seotable th,.seotable td{padding:11px 14px}}
+
+/* Un <main> hijo directo de un <body> en flex (caso de /contacto/) hereda
+   `min-width:auto` como ítem flex y NO encoge por debajo del ancho mínimo de
+   su contenido: la tabla de datos (min-width 520px) estiraba el main a 569px
+   a 375px de ancho y la página se desplazaba en horizontal. Medido en la
+   pasada de los 26 puntos. `min-width:0` es inocuo en los bodies no-flex. */
+body > main{min-width:0}
+
+/* ── Secciones insertadas por los scripts de SEO ─────────────────────────
+   Van marcadas con `.seosec` porque las 18 páginas NO comparten hoja: la
+   home y /contacto/ no cargan `core.css`, así que allí `.center` no
+   centraba y `h2` heredaba el estilo de etiqueta de `index.css` (13px,
+   mayúsculas, letter-spacing 4px). Con una definición propia, estos
+   bloques se ven igual en todo el sitio. */
+.seosec{padding:72px 0}
+.seosec .center{text-align:center;max-width:680px;margin-left:auto;margin-right:auto}
+.seosec .center .eye{display:block;font-size:13px;font-weight:600;letter-spacing:3px;
+  text-transform:uppercase;color:var(--amber,#FFB02E);margin-bottom:10px}
+.seosec h2{font-size:clamp(28px,4vw,38px);font-weight:800;letter-spacing:-.8px;
+  text-transform:none;line-height:1.15;color:var(--bone,#EFE7DC)}
+/* El h2 del TL;DR es el rótulo pequeño del propio recuadro, no un titular. */
+.seosec .tldr h2{font-size:13px;font-weight:700;letter-spacing:1.6px;
+  text-transform:uppercase;color:var(--amber,#FFB02E)}
+@media(max-width:600px){.seosec{padding:52px 0}}

@@ -1,15 +1,52 @@
 User-agent: *
 Allow: /
 
-# Block AI training and scraping crawlers (we want the content indexed by
-# regular search engines, not absorbed into model training corpora).
-User-agent: GPTBot
-Disallow: /
+# Paginación: nunca debe indexarse (contenido duplicado / thin).
+# No existe hoy, queda bloqueada de forma preventiva.
+Disallow: /page/
+
+# ---------------------------------------------------------------------------
+# Rastreadores de IA
+#
+# Distinguimos dos cosas que a menudo se confunden:
+#
+#   1) BÚSQUEDA y CITAS  — el bot lee la página para poder RESPONDER y CITAR
+#      fervon.dev en ChatGPT, Perplexity, Claude o las AI Overviews de Google.
+#      Esto es tráfico y visibilidad: SE PERMITE.
+#
+#   2) ENTRENAMIENTO      — el bot absorbe el contenido en un corpus de
+#      entrenamiento sin devolver nada. SE BLOQUEA.
+# ---------------------------------------------------------------------------
+
+# --- Búsqueda y citas: PERMITIDOS -----------------------------------------
+# OpenAI: índice de búsqueda de ChatGPT y navegación a petición del usuario.
+User-agent: OAI-SearchBot
+Allow: /
 
 User-agent: ChatGPT-User
-Disallow: /
+Allow: /
 
-User-agent: OAI-SearchBot
+# Anthropic: índice de búsqueda y navegación a petición del usuario.
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+# Perplexity: índice de respuestas y navegación a petición del usuario.
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# Google: grounding de Gemini y AI Overviews. No afecta al ranking clásico,
+# pero sin él fervon.dev no puede aparecer citado en las respuestas de IA.
+User-agent: Google-Extended
+Allow: /
+
+# --- Entrenamiento y scraping masivo: BLOQUEADOS --------------------------
+User-agent: GPTBot
 Disallow: /
 
 User-agent: CCBot
@@ -24,13 +61,7 @@ Disallow: /
 User-agent: ClaudeBot
 Disallow: /
 
-User-agent: Google-Extended
-Disallow: /
-
 User-agent: Applebot-Extended
-Disallow: /
-
-User-agent: PerplexityBot
 Disallow: /
 
 User-agent: cohere-ai
