@@ -1,8 +1,29 @@
 #!/usr/bin/env node
 /**
- * Extracts inline <style> and non-JSON-LD <script> blocks to external files,
- * computes sha256 hashes of every remaining inline <script> (JSON-LD),
- * and prints the final strict CSP value ready for the Cloudflare Transform Rule.
+ * Extrae los <style> y los <script> ejecutables inline a ficheros externos, y
+ * escribe la CSP lista para la Transform Rule de Cloudflare.
+ *
+ * ═══ LOS HASHES DE JSON-LD NO HACEN FALTA (medido el 2026-08-14) ═══
+ *
+ * Durante meses este script generó un hash sha256 por cada bloque
+ * <script type="application/ld+json"> — llegaron a ser 88 — y cada cambio de
+ * contenido obligaba a volver a pegar a mano una cabecera de 5 KB en
+ * Cloudflare. Todo ese trabajo era innecesario.
+ *
+ * Un <script> con un tipo que no es JavaScript es un DATA BLOCK: el navegador
+ * nunca lo "prepara" como script, así que la comprobación de CSP ni siquiera
+ * llega a ejecutarse sobre él. COMPROBADO en Chrome con tres políticas
+ * (`script-src 'self'` sin hashes, `default-src 'none'` a secas, y sin CSP):
+ * en las tres el JSON-LD seguía en el DOM y se parseaba entero, y las únicas
+ * violaciones eran de JavaScript ejecutable de verdad. Verificado después
+ * sirviendo las 35 páginas reales con la política corta: CSS aplicado,
+ * JSON-LD válido, canvas y selector de idioma funcionando, cero errores.
+ *
+ * Condición para que esto siga siendo cierto: que NO haya JavaScript inline
+ * ejecutable. Este script lo comprueba y avisa si aparece alguno.
+ *
+ * Resultado: la CSP pasa de 5.085 a 333 caracteres y deja de necesitar
+ * mantenimiento cada vez que cambia el contenido.
  *
  * Usage: node scripts/build-csp.mjs
  */
@@ -14,7 +35,7 @@ const ROOT = process.cwd();
 
 function walk(dir, out = []) {
   for (const f of readdirSync(dir)) {
-    if (f === 'node_modules' || f === '.git' || f === '.wrangler' || f === 'scripts') continue;
+    if (f === 'node_modules' || f === '.git' || f === '.wrangler' || f === 'scripts' || f === 'src-i18n' || f === '.claude') continue;
     const p = join(dir, f);
     const s = statSync(p);
     if (s.isDirectory()) walk(p, out);
@@ -102,14 +123,27 @@ for (const file of walk(ROOT)) {
 const CF_INSIGHTS_SCRIPT = 'https://static.cloudflareinsights.com';
 const CF_INSIGHTS_CONNECT = 'https://cloudflareinsights.com';
 
+/* Salvaguarda: la política corta sólo es válida mientras no haya JavaScript
+   inline ejecutable. Si aparece alguno, hay que externalizarlo o hashearlo. */
+let inlineJsRestante = 0;
+for (const f of walk(ROOT)) {
+  const h = readFileSync(f, 'utf8');
+  for (const m of h.matchAll(SCRIPT_RE)) {
+    if (hasSrc(m[1]) || isJsonLd(m[1])) continue;
+    if (m[2].trim()) inlineJsRestante++;
+  }
+}
+
 const hashesArr = [...jsonLdHashes].sort();
-// Mirrors the live CSP served by the Cloudflare Transform Rule on fervon.dev.
-// style-src-attr 'unsafe-inline' was dropped — there are no inline style=""
-// attributes left in the HTML (all moved to utility classes), so the policy
-// is now fully strict. Paste the output below into the Cloudflare rule.
+// Refleja la CSP que sirve la Transform Rule de Cloudflare en fervon.dev.
+// `style-src-attr 'unsafe-inline'` se quitó (ya no hay style="" en el HTML) y
+// los hashes de JSON-LD también: ver la explicación de la cabecera — son data
+// blocks y la CSP nunca los evalúa. La política es estricta y CONSTANTE, así
+// que sólo hay que pegarla cuando cambien los ORÍGENES permitidos, no cuando
+// cambie el contenido.
 const csp = [
   "default-src 'none'",
-  `script-src 'self' ${hashesArr.join(' ')} ${CF_INSIGHTS_SCRIPT}`.replace(/\s+/g, ' ').trim(),
+  `script-src 'self' ${CF_INSIGHTS_SCRIPT}`.replace(/\s+/g, ' ').trim(),
   "style-src 'self'",
   "img-src 'self' data:",
   "font-src 'self'",
@@ -123,7 +157,10 @@ const csp = [
 
 console.log('\n=== Summary ===');
 for (const s of summary) console.log('  ' + s);
-console.log(`\nJSON-LD hashes: ${hashesArr.length}`);
+console.log(`\nBloques JSON-LD encontrados: ${hashesArr.length} — NO se hashean (son data blocks; la CSP no los evalúa).`);
+if (inlineJsRestante) {
+  console.error(`\n⚠ HAY ${inlineJsRestante} SCRIPT(S) INLINE EJECUTABLES. Eso SÍ necesita hash o hay que externalizarlo.`);
+}
 console.log('\n=== CSP value for Cloudflare Transform Rule ===\n');
 console.log(csp);
 console.log();
