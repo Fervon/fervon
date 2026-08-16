@@ -220,7 +220,7 @@ const PAGES = {
     afterHero: '    </header>\n',
     beforeEnd: '  </main>\n',
     tldr: [
-      { es: 'Desarrollo a medida dirigiendo <b>flotas de agentes de IA</b>: del concepto al producto funcionando.', en: 'Bespoke development driven by <b>fleets of AI agents</b>: from concept to a working product.' },
+      { es: 'Esta es la página de <b>contacto</b> para desarrollo a medida dirigiendo <b>flotas de agentes de IA</b>: del concepto al producto funcionando.', en: 'This is the <b>contact</b> page for bespoke development driven by <b>fleets of AI agents</b>: from concept to a working product.' },
       { es: 'Precio <b>por proyecto</b>, con alcance cerrado antes de empezar. Nunca por horas.', en: '<b>Per-project</b> pricing, with the scope closed before any work starts. Never by the hour.' },
       { es: 'El <b>código entregado es tuyo</b>, documentado y traspasado. Sin dependencia de mí ni de ninguna plataforma.', en: 'The <b>delivered code is yours</b>, documented and handed over. No lock-in to me or to any platform.' },
       { es: 'Hablas <b>directamente conmigo</b>. Remoto desde España (CET), con clientes en cualquier huso horario.', en: 'You talk <b>directly to me</b>. Remote from Spain (CET), working with clients in any timezone.' },
@@ -304,7 +304,7 @@ const PAGES = {
   'launchpad/index.html': {
     dir: 'es',
     tldr: [
-      { es: '<b>Mission Control</b> descubre solo todos los proyectos de una carpeta y los arranca a la vez.', en: '<b>Mission Control</b> discovers every project in a folder on its own and starts them all at once.' },
+      { es: '<b>Mission Control</b> (el proyecto <b>launchpad</b>) descubre solo todos los proyectos de una carpeta y los arranca a la vez.', en: '<b>Mission Control</b> (the <b>launchpad</b> project) discovers every project in a folder on its own and starts them all at once.' },
       { es: 'Asigna <b>puertos sin colisión</b>, así que doce repos conviven sin pelearse por el 3000.', en: 'It assigns <b>non-colliding ports</b>, so a dozen repos coexist without fighting over port 3000.' },
       { es: 'Una pantalla con <b>logs en vivo, estado de git y salud</b> de cada servicio.', en: 'One screen with <b>live logs, git status and health</b> for every service.' },
       { es: '<b>Solo local</b>, gratis y open source. Nada sale de tu máquina.', en: '<b>Local-only</b>, free and open source. Nothing leaves your machine.' },
@@ -425,7 +425,7 @@ const PAGES = {
     dir: 'none',
     afterHero: '    </header>\n',
     tldr: [
-      { es: '', en: 'Fast AI agents were asked to write <b>thorough unit tests</b> for 20 modules that each contained a real bug.' },
+      { es: '', en: 'This <b>data report</b> asked fast AI agents to write <b>thorough unit tests</b> for 20 modules that each contained a real bug.' },
       { es: '', en: '<b>100% of the suites passed.</b> Every single one went green against buggy code.' },
       { es: '', en: '<b>0% caught the bug</b> they were supposed to guard, and 75% asserted the buggy output as correct.' },
       { es: '', en: 'The method, the seeded modules and the scorers are <b>reproducible</b> — you can run it against your own model.' },

@@ -8,7 +8,12 @@
    pueden comprobar desde el fichero (5 intención de búsqueda, 24/26 Search
    Console) se marcan como MANUAL y se explica por qué.
 
-   Uso:  node scripts/seo-check.mjs
+   Uso:  node scripts/seo-check.mjs           → audita los ficheros del repo
+         node scripts/seo-check.mjs --live    → audita lo que SIRVE fervon.dev
+
+   Auditar en vivo importa: el repo puede estar bien y producción mal (pasó el
+   2026-08-14 con la caché de Cloudflare sirviendo un CSS viejo).
+
    Salida: tabla por punto + detalle de los fallos. Código 1 si algo falla.
    ========================================================================== */
 
@@ -17,6 +22,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const LIVE = process.argv.includes('--live');
+const ORIGIN = 'https://fervon.dev';
 const rd = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8').replace(/\r\n/g, '\n');
 
 const PAGES = [];
@@ -30,7 +37,17 @@ const PAGES = [];
 })(ROOT);
 PAGES.sort();
 
-const docs = PAGES.map((p) => ({ p, h: rd(p) }));
+const liveUrl = (p) => ORIGIN + '/' + p.replace(/index\.html$/, '').replace(/\.html$/, '');
+const docs = [];
+for (const p of PAGES) {
+  if (LIVE) {
+    const r = await fetch(liveUrl(p) + '?cb=' + Math.random());
+    if (!r.ok) { console.error(`✗ ${liveUrl(p)} → HTTP ${r.status}`); process.exit(1); }
+    docs.push({ p, h: (await r.text()).replace(/\r\n/g, '\n') });
+  } else {
+    docs.push({ p, h: rd(p) });
+  }
+}
 
 /* Helpers ---------------------------------------------------------------- */
 const one = (h, re) => { const m = h.match(re); return m ? m[1].trim() : null; };
@@ -43,10 +60,14 @@ const body = (h) => h.slice(h.indexOf('<body'));
 const internalLinks = (h) => [...new Set([...body(h).matchAll(/href="(\/[^"#]*)"/g)].map((m) => m[1])
   .filter((u) => !/\.(css|js|png|jpe?g|svg|xml|txt|ico|webp|gif|woff2?)$/i.test(u)))];
 
+async function siteFile(name) {
+  if (LIVE) { const r = await fetch(`${ORIGIN}/${name}?cb=${Math.random()}`); return r.ok ? await r.text() : null; }
+  return fs.existsSync(path.join(ROOT, name)) ? rd(name) : null;
+}
 const site = {
-  robots: fs.existsSync(path.join(ROOT, 'robots.txt')) ? rd('robots.txt') : null,
-  llms: fs.existsSync(path.join(ROOT, 'llms.txt')) ? rd('llms.txt') : null,
-  sitemap: fs.existsSync(path.join(ROOT, 'sitemap.xml')) ? rd('sitemap.xml') : null,
+  robots: await siteFile('robots.txt'),
+  llms: await siteFile('llms.txt'),
+  sitemap: await siteFile('sitemap.xml'),
 };
 const sitemapUrls = site.sitemap ? [...site.sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].replace('https://fervon.dev', '')) : [];
 const urlOf = (p) => '/' + p.replace(/index\.html$/, '').replace(/\.html$/, '');
@@ -64,7 +85,24 @@ const CHECKS = [
       const h1 = strip(one(d.h, /<h1[^>]*>([\s\S]*?)<\/h1>/));
       return !!h1 && h1.toLowerCase() !== (titles[i] || '').toLowerCase();
     } },
-  { n: 5, name: 'Intención de búsqueda', manual: 'juicio editorial: el H1 y la entradilla deben responder a la consulta objetivo' },
+  /* Intención de búsqueda: no se puede "medir" del todo, pero sí se puede
+     falsar. La consulta objetivo de cada página está en su slug (o en el
+     título, para la home). Se exige que el H1 y el TL;DR compartan las
+     palabras con carga semántica de esa consulta: si el titular no habla de
+     lo que la URL promete, la intención NO está cubierta. */
+  { n: 5, name: 'Intención de búsqueda', per: (d, i) => {
+      const STOP = new Set(['de','del','la','el','los','las','un','una','y','o','para','con','sin','que','a','en','the','a','of','for','with','to','and','or','what','without','use','tool','alternative','fervon','index']);
+      const slug = urlOf(d.p).replace(/^\/|\/$/g, '').split('/').pop() || '';
+      const terms = (slug ? slug.split('-') : strip(titles[i]).toLowerCase().split(/\W+/))
+        .map((t) => t.toLowerCase()).filter((t) => t.length > 2 && !STOP.has(t));
+      if (!terms.length) return true;                        // home: sin slug útil
+      /* Sin acentos: el slug va en ASCII (`pregon`) y el texto no (`Pregón`). */
+      const flat = (s) => s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+      const hero = flat(strip(one(d.h, /<h1[^>]*>([\s\S]*?)<\/h1>/)) + ' ' +
+                    strip(one(d.h, /<!-- seo:tldr -->([\s\S]*?)<\/section>/)));
+      const hit = terms.filter((t) => hero.includes(flat(t))).length;
+      return hit / terms.length >= 0.6;                      // el titular+resumen cubren la consulta
+    } },
   { n: 6, name: 'TL;DR / key takeaways', per: (d) => d.h.includes('<!-- seo:tldr -->') },
   { n: 7, name: 'TL;DR va DESPUÉS del hero', per: (d) => {
       const t = d.h.indexOf('<!-- seo:tldr -->');
@@ -110,9 +148,29 @@ const CHECKS = [
   { n: 21, name: 'CTA fijo en móvil', per: (d) => /class="stickycta"/.test(d.h) },
   { n: 22, name: 'Botón de compartir', per: (d) => /class="sharebtn"/.test(d.h) },
   { n: 23, name: 'GA4', site: () => docs.every((d) => /googletagmanager\.com\/gtag|gtag\(/.test(d.h)) },
-  { n: 24, name: 'Search Console verificado', manual: 'TXT google-site-verification en el DNS de fervon.dev — comprobado vivo' },
+  /* No se puede entrar en Search Console desde aquí, pero SÍ se puede
+     comprobar la condición de la que depende la verificación: que el TXT
+     google-site-verification siga publicado en el DNS. Si desaparece, Google
+     revoca la propiedad. */
+  { n: 24, name: 'Search Console verificado', site: async () => {
+      const r = await fetch('https://dns.google/resolve?name=fervon.dev&type=TXT');
+      const j = await r.json();
+      return (j.Answer || []).some((a) => /google-site-verification=/.test(a.data));
+    } },
   { n: 25, name: 'Sitemap con todas las páginas', site: () => docs.every((d) => sitemapUrls.includes(urlOf(d.p))) },
-  { n: 26, name: 'Sitemap enviado a GSC', manual: 'se hace en la interfaz de Search Console, no deja rastro en el repo' },
+  /* El envío en sí se hace en la interfaz de Search Console y no deja rastro
+     comprobable desde fuera. Lo que SÍ se puede verificar —y es lo que hace
+     que el envío funcione— es que Google pueda encontrarlo y leerlo: robots.txt
+     lo declara, responde XML bien formado y todas sus URLs dan 200. */
+  { n: 26, name: 'Sitemap descubrible y sano', site: async () => {
+      if (!/Sitemap:\s*https:\/\/fervon\.dev\/sitemap\.xml/i.test(site.robots || '')) return false;
+      if (!/^\s*<\?xml/.test(site.sitemap || '') || !/<urlset/.test(site.sitemap || '')) return false;
+      for (const u of sitemapUrls) {
+        const r = await fetch('https://fervon.dev' + u, { method: 'HEAD' });
+        if (!r.ok) { console.error(`   sitemap: ${u} → HTTP ${r.status}`); return false; }
+      }
+      return true;
+    } },
 ];
 
 /* Ejecución -------------------------------------------------------------- */
@@ -120,7 +178,7 @@ let failures = 0;
 const rows = [];
 for (const c of CHECKS) {
   if (c.manual) { rows.push([c.n, c.name, 'MANUAL', c.manual]); continue; }
-  if (c.site) { const ok = c.site(); if (!ok) failures++; rows.push([c.n, c.name, ok ? 'OK' : 'FALLA', 'nivel de sitio']); continue; }
+  if (c.site) { const ok = await c.site(); if (!ok) failures++; rows.push([c.n, c.name, ok ? 'OK' : 'FALLA', 'nivel de sitio']); continue; }
   const bad = docs.filter((d, i) => !c.per(d, i)).map((d) => d.p);
   if (bad.length) failures++;
   rows.push([c.n, c.name, bad.length ? `${docs.length - bad.length}/${docs.length}` : `${docs.length}/${docs.length}`, bad.length ? bad.join(', ') : '']);
