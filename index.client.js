@@ -15,7 +15,7 @@
 })();
 
 /* Forge sparks — real particles emitted from the hot ingot on the home hero.
-   The emitter is anchored to the ingot's position INSIDE hero-home.png and
+   The emitter is anchored to the ingot's position INSIDE hero-home.webp and
    re-projected with the same math as background:cover (right-aligned X, centred
    Y), so it tracks the responsive crop at any width. Desktop only — the mobile
    hero swaps to a textured image with no anvil. Additive glow so the sparks
@@ -25,9 +25,9 @@
   var hero=document.querySelector('.hero'); if(!hero) return;
   if(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-  var SRC_W=1672, SRC_H=941;             // hero-home.png natural size
+  var SRC_W=1672, SRC_H=941;             // hero-home.webp natural size
   var FORGE={x:0.74, y:0.43, w:0.15};    // ingot: bright-mass centre X, top-surface Y, mouth width
-                                          // (measured from hero-home.png's glowing pixels)
+                                          // (measured from hero-home.webp's glowing pixels)
   var DESKTOP=window.matchMedia('(min-width:900px)');
 
   var cv=document.createElement('canvas');

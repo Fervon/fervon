@@ -23,8 +23,10 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 
-/* Assets compartidos cuyo enlace lleva cache-buster. */
-const ASSETS = ['shared.css', 'shared.js', 'index.css', 'core.css', 'product.css', 'base.css'];
+/* Se refresca TODO css/js propio del sitio, no una lista fija de nombres: la
+   lista fija se dejaba fuera los CSS por artículo (trace/*.css) y el
+   index.client.js, que también cambian y también los cachea Cloudflare. */
+const ASSET_RE = /((?:href|src)="(?:\/|\.{0,2}\/)?[^":]*?\.(?:css|js))(\?v=[^"]*)?"/g;
 
 const V = process.argv[2] || (() => {
   const d = new Date();
@@ -50,14 +52,8 @@ for (const rel of PAGES) {
   let h = raw.replace(/\r\n/g, '\n');
   const before = h;
 
-  for (const asset of ASSETS) {
-    const esc = asset.replace('.', '\\.');
-    // Captura href/src que terminen en el asset, con o sin ?v= previo.
-    h = h.replace(
-      new RegExp(`((?:href|src)="[^"]*?${esc})(\\?v=[^"]*)?"`, 'g'),
-      `$1?v=${V}"`,
-    );
-  }
+  /* Sólo assets propios: un href a otro dominio no se toca. */
+  h = h.replace(ASSET_RE, (m, ref, old) => (/^(?:href|src)="https?:/.test(ref) ? m : `${ref}?v=${V}"`));
 
   if (h !== before) {
     fs.writeFileSync(file, crlf ? h.replace(/\n/g, '\r\n') : h);
