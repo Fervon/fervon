@@ -1,0 +1,141 @@
+{
+  "_comentario": "title/description/og por URL y por idioma. Los <title> y las descripciones NO viven en atributos data-*, así que sin esta tabla las páginas generadas heredaban el meta del idioma original — que es el peor error posible, porque el título es lo que Google muestra. Límites: título <=60 caracteres, descripción <=160.",
+
+  "/": {
+    "en": {
+      "title": "Fervon · Autonomous software studio",
+      "desc": "Jonathan Martín's autonomous software studio: Trace, Veredicto and free local-first open-source tools, built with fleets of AI agents.",
+      "ogTitle": "Fervon · Autonomous software studio",
+      "ogDesc": "One person directing fleets of AI agents. Local-first products and open-source developer tools. Forged red-hot."
+    }
+  },
+  "/contacto/": {
+    "en": {
+      "title": "Contact · Fervon",
+      "desc": "A product, a service or just to say hello? Write to me directly. You get me, with no middlemen. Fervon — autonomous software studio.",
+      "ogTitle": "Contact · Fervon",
+      "ogDesc": "Bespoke development driven by fleets of AI agents. Per-project pricing, closed scope, and the code is yours."
+    }
+  },
+  "/claudescope/": {
+    "en": {
+      "title": "ClaudeScope · Search your Claude Code sessions",
+      "desc": "Full-text search across every Claude Code session, plus the usage dashboard your subscription hides. One command, 100% local. Free and open source.",
+      "ogTitle": "ClaudeScope · Search every Claude Code session",
+      "ogDesc": "Which session did you fix that bug in? Full-text search plus a Claude Code usage dashboard, 100% local, one command. Free and open source."
+    }
+  },
+  "/inferbench/": {
+    "en": {
+      "title": "inferbench · Benchmark local LLMs on your GPU",
+      "desc": "Download, launch and benchmark local LLM engines in one click. Real tok/s, TTFT and VRAM from your GPU. 100% local. Free and open source.",
+      "ogTitle": "inferbench · Which LLM runs on your GPU, and how fast",
+      "ogDesc": "Download, launch and benchmark local LLMs in one click. Real tok/s, TTFT and VRAM. Free and open source."
+    }
+  },
+  "/launchpad/": {
+    "en": {
+      "title": "Mission Control · Start every repo, no port clashes",
+      "desc": "Discovers the projects in a folder and starts them all at once on non-colliding ports, with live logs, git and health. Local-only. Free and open source.",
+      "ogTitle": "Mission Control · One folder, twelve repos, one screen",
+      "ogDesc": "Discover and start all your projects at once on non-colliding ports, with live logs, git and health. Local-only. Free and open source."
+    }
+  },
+  "/lookspan/": {
+    "en": {
+      "title": "Lookspan · Local-first AI agent observability",
+      "desc": "Capture every LLM call, MCP tool and cost token from your LangGraph, CrewAI and MCP agents. Local dashboard with npx lookspan. Free.",
+      "ogTitle": "Lookspan · See every span your agents emit",
+      "ogDesc": "Local-first observability for AI agents. Capture every LLM call, MCP tool and cost. One command: npx lookspan. Free and open source."
+    }
+  },
+  "/pregon/": {
+    "en": {
+      "title": "Pregón · Compose once, announce on 14 channels",
+      "desc": "Open-source cross-poster: write one message and publish it adapted to 14 channels, with real traction from npm, PyPI and GitHub. Self-host, free.",
+      "ogTitle": "Pregón · One shout. Fourteen echoes.",
+      "ogDesc": "Centralised cross-poster plus traction tracking. One canonical message, adapted to each platform and published by API. Free and open source."
+    }
+  },
+  "/regenta/": {
+    "en": {
+      "title": "Regenta · Govern your fleet of AI agents",
+      "desc": "The agentic control layer: orchestrate, audit and delegate a fleet of AI agents with the discipline of an engineering team. A Fervon product.",
+      "ogTitle": "Regenta · Govern your fleet of AI agents",
+      "ogDesc": "The agentic control layer: orchestrate, audit and delegate a fleet of AI agents with total control. Not magic. Control."
+    }
+  },
+  "/trace/": {
+    "en": {
+      "title": "Trace · Your personal memory, on your machine",
+      "desc": "Find anything you saw, read or did, without recording your screen or uploading anything. The alternative to Rewind and Recall. Pay once, $39.",
+      "ogTitle": "Trace · Your personal memory, on your machine",
+      "ogDesc": "Find anything you saw, read or did — no screen recording, no cloud, no subscription. The private, local-first alternative to Rewind, Limitless and Microsoft Recall."
+    }
+  },
+  "/veredicto/": {
+    "en": {
+      "title": "Veredicto · The CI check that catches gamed tests",
+      "desc": "The CI check that spots agent tests proving nothing: over-mocking, vacuous asserts and .skip. Deterministic, in the PR, no API key.",
+      "ogTitle": "Veredicto · Catch agents gaming your tests",
+      "ogDesc": "The CI check that catches AI-agent tests that prove nothing: over-mocking, vacuous asserts, deleted tests. Deterministic, in the pull request."
+    }
+  },
+
+  "/trace/limitless-alternative": {
+    "es": {
+      "title": "Alternativa a Limitless, local-first | Trace",
+      "desc": "Meta compró Limitless y cerró la app de escritorio. Trace es la alternativa independiente y en tu dispositivo: sin pulsera, sin nube, pago único.",
+      "ogTitle": "La alternativa independiente a Limitless",
+      "ogDesc": "Tras la compra de Limitless por Meta no quedó ninguna app local. Trace es la alternativa independiente: local-first, sin nube y de pago único."
+    }
+  },
+  "/trace/microsoft-recall-alternative": {
+    "es": {
+      "title": "Alternativa a Microsoft Recall para cualquier PC | Trace",
+      "desc": "La memoria buscable de Recall sin exigir un PC Copilot+ ni los problemas de privacidad. Todo en el dispositivo, en Windows, Mac y Linux. Pago único, $39.",
+      "ogTitle": "Una alternativa privada a Microsoft Recall",
+      "ogDesc": "La memoria buscable de Recall sin el bloqueo a PCs Copilot+ ni las capturas continuas. Local-first en cualquier PC. Pago único."
+    }
+  },
+  "/trace/personal-memory-tool-without-screen-recording": {
+    "es": {
+      "title": "Memoria personal sin grabar la pantalla | Trace",
+      "desc": "Historial de navegador, ventana activa y portapapeles: sin vídeo 24/7 ni capturas almacenadas. Memoria local-first para Windows, Mac y Linux. Pago único.",
+      "ogTitle": "Memoria personal sin grabar la pantalla",
+      "ogDesc": "Trace captura historial de navegador, ventana activa y portapapeles: sin vídeo 24/7, sin capturas guardadas y sin riesgo de privacidad."
+    }
+  },
+  "/trace/rewind-ai-alternative": {
+    "es": {
+      "title": "Alternativa a Rewind AI, local y de pago único | Trace",
+      "desc": "Rewind AI cerró tras la compra por Meta. Trace es la alternativa local-first: busca en navegador, ventana y portapapeles. Sin nube, pago único.",
+      "ogTitle": "Rewind cerró. Esta es la alternativa más parecida.",
+      "ogDesc": "Rewind AI fue adquirida por Meta y cerró en diciembre de 2025. Trace es la alternativa local-first y multiplataforma, de pago único."
+    }
+  },
+  "/trace/rewind-alternative-windows": {
+    "es": {
+      "title": "Alternativa a Rewind para Windows | Trace",
+      "desc": "Rewind era solo para Mac y Meta la cerró. Trace es la alternativa local-first y de pago único para Windows. Sin grabar la pantalla y sin nube.",
+      "ogTitle": "¿Buscas una alternativa a Rewind en Windows?",
+      "ogDesc": "Rewind AI era solo para Mac y Meta lo cerró. Trace es la alternativa local-first y de pago único para Windows, sin grabar tu pantalla."
+    }
+  },
+  "/trace/rewind-shut-down-what-to-use": {
+    "es": {
+      "title": "Rewind cerró: qué usar ahora (2026) | Trace",
+      "desc": "La app de escritorio de Rewind cerró el 19 de diciembre de 2025. Repaso honesto de las opciones que quedaron y por qué Trace es la sustituta independiente.",
+      "ogTitle": "Rewind cerró. Esto es lo que puedes usar ahora.",
+      "ogDesc": "Repaso honesto de las opciones que quedaron tras el cierre de Rewind, y por qué Trace es la sustituta independiente y local-first."
+    }
+  },
+  "/trace/screenpipe-alternative": {
+    "es": {
+      "title": "Alternativa a Screenpipe, más ligera y sin nube | Trace",
+      "desc": "La idea de Screenpipe sin el consumo ni la suscripción en la nube. Señales ligeras en vez de vídeo 24/7, de verdad local y de pago único, $39.",
+      "ogTitle": "Una alternativa ligera a Screenpipe",
+      "ogDesc": "Te gusta la idea de Screenpipe pero no su consumo ni su nube de pago. Trace es la opción ligera y local-first, de pago único."
+    }
+  }
+}

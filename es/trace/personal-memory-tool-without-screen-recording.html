@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Memoria personal sin grabar la pantalla | Trace</title>
+  <meta name="description" content="Historial de navegador, ventana activa y portapapeles: sin vídeo 24/7 ni capturas almacenadas. Memoria local-first para Windows, Mac y Linux. Pago único.">
+  <link rel="canonical" href="https://fervon.dev/es/trace/personal-memory-tool-without-screen-recording"><link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/personal-memory-tool-without-screen-recording"><link rel="alternate" hreflang="en" href="https://fervon.dev/trace/personal-memory-tool-without-screen-recording"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/es/trace/personal-memory-tool-without-screen-recording">
+  <meta name="keywords" content="personal memory app no screen recording, activity history without video, local memory tool no screen capture, privacy memory app, lightweight personal memory, screenpipe alternative no recording">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#0E0B0A">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Fervon">
+  <meta property="og:title" content="Memoria personal sin grabar la pantalla">
+  <meta property="og:description" content="Trace captura historial de navegador, ventana activa y portapapeles: sin vídeo 24/7, sin capturas guardadas y sin riesgo de privacidad.">
+  <meta property="og:url" content="https://fervon.dev/es/trace/personal-memory-tool-without-screen-recording">
+  <meta property="og:image" content="https://fervon.dev/assets/og-trace.jpg">
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-trace.jpg">
+  <meta property="og:locale" content="es_ES">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://fervon.dev/" },
+      { "@type": "ListItem", "position": 2, "name": "Trace", "item": "https://fervon.dev/trace/" },
+      { "@type": "ListItem", "position": 3, "name": "Personal memory without screen recording", "item": "https://fervon.dev/trace/personal-memory-tool-without-screen-recording" }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is there a personal memory app that doesn't record your screen?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Trace by Fervon captures lightweight signals — browser history, the active app or window, and clipboard text — instead of recording continuous video. You get a searchable record of everything you did without any screen footage ever being stored." }
+      },
+      {
+        "@type": "Question",
+        "name": "Why avoid screen recording for personal memory?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Screen recording creates large files, consumes significant CPU and RAM, and stores sensitive information like passwords, private messages and financial documents you never intended to archive. It also violates IT security policies in most workplaces, limiting where you can use it." }
+      },
+      {
+        "@type": "Question",
+        "name": "What does Trace capture instead of screen recordings?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Trace captures three lightweight signals: (1) browser history from Chrome, Edge, Firefox and other Chromium browsers; (2) the name of the active application or window; and (3) clipboard text when you copy something (opt-in, off by default). No pixels, no video, no screenshots." }
+      },
+      {
+        "@type": "Question",
+        "name": "How is Trace different from Screenpipe or Microsoft Recall?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Both Screenpipe and Microsoft Recall rely on continuous screen recording or constant snapshots. Trace deliberately avoids this: it captures only metadata (URLs, window titles, clipboard snippets) — not pixels. This makes Trace far lighter on system resources and safe to run on work machines." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Trace safe to use on a work computer?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Trace is designed with this use case in mind. It never records screen video or takes screenshots by default. The exclusion list lets you block specific apps, domains or windows from being logged. Everything stays on your machine — nothing is uploaded to any server." }
+      }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://fervon.dev/#organization",
+  "name": "Fervon",
+  "url": "https://fervon.dev/",
+  "logo": "https://fervon.dev/assets/favicon-512.png",
+  "description": "Estudio de software autónomo: productos local-first y herramientas open source construidas con flotas de agentes de IA.",
+  "sameAs": [
+    "https://github.com/Fervon",
+    "https://www.npmjs.com/package/fervon",
+    "https://dev.to/jonimatiin",
+    "https://bsky.app/profile/jonimartin.bsky.social",
+    "https://mastodon.social/@jonimartin"
+  ]
+}
+  </script>
+
+  <link rel="stylesheet" href="/assets/core.css?v=20260814d">
+  <link rel="stylesheet" href="/trace/base.css?v=20260814d">
+  <link rel="stylesheet" href="/trace/personal-memory-tool-without-screen-recording.css?v=20260814d">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260814d">
+</head>
+<body data-fv-calm="">
+  <a class="skip" href="#top">Skip to content</a>
+
+  <header class="nav"><div class="glass bar">
+    <nav class="crumb" aria-label="Ruta de navegación">
+      <a href="/"><span class="fv"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> fervon</span></a><span class="sep">›</span>
+      <a href="/trace/"><svg class="mark" width="17" height="17" viewBox="0 0 120 120" aria-hidden="true"><path d="M15.5 76 L15.5 88 L7.07 88 L14 76 Z" fill="#FF6A00"></path><path d="M14 82 C28 82 32 60 48 60 C62 60 60 74 72 74 C83 74 90 59.59 99 44" fill="none" stroke="#FF6A00" stroke-width="12" stroke-linecap="butt" stroke-linejoin="round"></path><circle cx="99" cy="44" r="6" fill="#FFB02E"></circle></svg>Trace</a><span class="sep">›</span>
+      <span aria-current="page">Sin grabar pantalla</span>
+    </nav>
+    <div class="act">
+      <nav class="langseg" id="lang" aria-label="Idioma"><span class="langopt on" aria-current="true">ES</span><a class="langopt" href="/trace/personal-memory-tool-without-screen-recording" hreflang="en" lang="en">EN</a></nav>      <a class="btn btn-fire btn-sm" href="/trace/#waitlist">Únete a la lista</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+    <section class="hero">
+      <div aria-hidden="true" class="s-2gTo6UOz"></div>
+      <div class="bggrid s-9EC6gkuB"></div>
+      <div class="wrap cols">
+        <div>
+          <span class="pill reveal"><span class="dot"></span> <span>Local-first · Windows · macOS · Linux</span></span>
+          <h1 class="reveal">Memoria personal <span class="grad">sin grabar la pantalla</span></h1>
+          <p class="sub reveal">Trace captura señales ligeras — historial de navegador, ventana activa, portapapeles — <b>sin vídeo 24/7, sin imágenes almacenadas, sin riesgo de privacidad.</b></p>
+          <div class="row reveal">
+            <a class="btn btn-fire" href="https://buy.polar.sh/polar_cl_uQFZh6NjMqG5zp0RVGHSjITzIJVn1CPA2uB4N0DUmNc">Comprar — $39</a>
+            <a class="btn btn-ghost" href="#waitlist">Únete a la beta</a>
+          </div>
+          <p class="pfoot reveal">Reembolso total hasta el lanzamiento · Pago seguro con Polar</p>
+          <p class="pill reveal s-K9-ORf38"><span class="dot"></span> <span>Pago único · <b class="s-7zm8I-3n">$39</b> early-bird <span class="s-sEVcIw8j">(luego $59)</span></span></p>
+          <div class="trust reveal"><span>✓ Sin grabar pantalla</span><span>✓ Firewall cerrado</span><span>✓ Seguro en el trabajo</span></div>
+        </div>
+
+        <div class="demo reveal">
+          <div class="glass">
+            <div class="top">
+              <i class="s-aBnRT5ZT"></i><i class="s-wpdX47Tq"></i><i class="s-aNyb6LKH"></i>
+              <span class="s-Sxc0fCNN">Trace · Tu línea de tiempo</span>
+              <span class="s-cXQOUgJA"><span class="dot"></span> LOCAL</span>
+            </div>
+            <div class="body">
+              <div class="srch">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+                <span class="q" id="q"></span><span class="car"></span>
+              </div>
+              <div class="res" id="res">
+                <div class="rrow" data-i="0"><span class="t">16:11</span><span class="k k-web">web</span><span class="x">Documentación de API — referencia de endpoints</span></div>
+                <div class="rrow" data-i="1"><span class="t">14:28</span><span class="k k-app">app</span><span class="x">VS Code — auth-service.ts</span></div>
+                <div class="rrow" data-i="2"><span class="t">11:03</span><span class="k k-doc">clip</span><span class="x">Portapapeles: «token de acceso Bearer…»</span></div>
+              </div>
+            </div>
+          </div>
+          <p class="s-HOKjOaN8">Demo ilustrativa. Sin capturas de pantalla.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h">En 30 segundos</h2>
+          <ul>
+        <li>Casi todas las apps de memoria personal graban tu pantalla en vídeo o en capturas continuas.</li>
+        <li><b>Trace</b> no graba nada: usa <b>historial de navegador, ventana activa y portapapeles</b>.</li>
+        <li>Sin vídeo 24/7 ni capturas almacenadas, el riesgo si te roban el portátil <b>cae en picado</b>.</li>
+        <li>Local-first, multiplataforma y de <b>pago único, $39</b>.</li>
+          </ul>
+      <div class="cta-row s-tldrcta">
+        <a class="btn btn-fire" href="#pricing">Ver Trace</a>
+      </div>
+        </div>
+      </div>
+    </section>
+    <section class="sec alt" id="usecases"><div class="wrap">
+      <div class="center reveal"><span class="eye">Casos de uso</span><h2>Quién necesita memoria personal sin grabación de pantalla</h2></div>
+      <div class="cards">
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="16" height="20" x="4" y="2" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M12 6h.01"></path><path d="M12 10h.01"></path><path d="M12 14h.01"></path><path d="M16 10h.01"></path><path d="M16 14h.01"></path><path d="M8 10h.01"></path><path d="M8 14h.01"></path></svg></div><h3>Profesionales en empresas</h3><p>No activa controles de TI.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div><h3>Usuarios conscientes de su privacidad</h3><p>Semántica, no píxeles.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg></div><h3>Portátiles con batería limitada</h3><p>Apenas toca la batería.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg></div><h3>Desarrolladores</h3><p>Recupera tu contexto al instante.</p></div>
+      </div>
+    </div></section>
+
+    <!-- FOOTPRINT (dynamic visual) -->
+    <section class="sec" id="footprint"><div class="wrap">
+      <div class="center reveal"><span class="eye">La diferencia</span><h2>El peso en tu disco</h2></div>
+      <div class="fpwrap">
+        <div class="fp trace reveal"><div class="fpl">Trace</div><div class="fptrack"><div class="fpbar"></div><div class="fpval">≈ unos KB al día</div></div></div>
+        <div class="fp heavy reveal"><div class="fpl">Grabación de pantalla</div><div class="fptrack"><div class="fpbar"></div><div class="fpval">~11 GB al mes</div></div></div>
+      </div>
+    </div></section>
+
+    <section class="sec"><div class="wrap stats">
+      <div class="reveal"><div class="v grad">0</div><div class="l">capturas de pantalla por defecto</div></div>
+      <div class="reveal"><div class="v grad">0</div><div class="l">datos a la nube</div></div>
+      <div class="reveal"><div class="v grad">3</div><div class="l">plataformas compatibles</div></div>
+      <div class="reveal"><div class="v grad">$39</div><div class="l">pago único lifetime</div></div>
+    </div></section>
+
+    <section class="sec alt" id="pricing"><div class="wrap">
+      <div class="center reveal"><span class="eye">Precio</span><h2>Pago único. Tuyo para siempre.</h2><p class="desc">$39 early-bird (luego $59). Sin suscripción, sin nube.</p>
+        <div class="row reveal s-0syaN8w1">
+          <a class="btn btn-fire" href="https://buy.polar.sh/polar_cl_uQFZh6NjMqG5zp0RVGHSjITzIJVn1CPA2uB4N0DUmNc">Comprar — $39</a>
+          <a class="btn btn-ghost" href="#waitlist">Únete a la lista</a>
+        </div>
+        <p class="pfoot reveal">Reembolso total hasta el lanzamiento · Pago seguro con Polar</p>
+      </div>
+    </div></section>
+
+    <section class="sec" id="compare"><div class="wrap">
+      <div class="center reveal"><span class="eye">Comparativa</span><h2>Trace vs Screenpipe vs Microsoft Recall</h2><p class="desc">Cómo captura cada herramienta tu actividad — y lo que eso implica.</p></div>
+      <div class="glass reveal s-oxNvOtru">
+        <div class="s-Gx11RS-7"><table>
+          <thead><tr><th scope="col">&nbsp;</th><th scope="col" class="isus">Trace</th><th scope="col">Screenpipe</th><th scope="col">Microsoft Recall</th></tr></thead>
+          <tbody>
+            <tr>
+              <th scope="row">Método de captura</th>
+              <td class="isus"><span class="yes">Señales ligeras (historial, ventana, portapapeles)</span></td>
+              <td><span class="no">Grabación continua de pantalla</span></td>
+              <td><span class="no">Capturas constantes de pantalla completa</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Almacena píxeles</th>
+              <td class="isus"><span class="yes">No — solo metadatos</span></td>
+              <td><span class="no">Sí — vídeo + OCR</span></td>
+              <td><span class="no">Sí — capturas JPEG</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Impacto en rendimiento</th>
+              <td class="isus"><span class="yes">Ligero — sin codec de vídeo</span></td>
+              <td><span class="no">Pesado (alta CPU/RAM)</span></td>
+              <td><span class="warn">Moderado (capturas periódicas)</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Seguro en entorno laboral</th>
+              <td class="isus"><span class="yes">Sí — sin vídeo, sin cloud</span></td>
+              <td><span class="no">Arriesgado — graba toda la pantalla</span></td>
+              <td><span class="no">Arriesgado — sin soporte empresarial</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Contraseñas/datos sensibles visibles</th>
+              <td class="isus"><span class="yes">No (sin píxeles)</span></td>
+              <td><span class="no">Sí, en el vídeo</span></td>
+              <td><span class="no">Sí, en las capturas</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Precio</th>
+              <td class="isus"><span class="yes">Pago único $39 (early-bird)</span></td>
+              <td><span class="warn">Suscripción para nube</span></td>
+              <td><span class="warn">Gratuito, pero requiere PC Copilot+</span></td>
+            </tr>
+          </tbody>
+        </table></div>
+        <div class="s-rC4CFmz1">Comparativa basada en datos públicos a mediados de 2026.</div>
+      </div>
+    </div></section>
+
+    <section class="sec alt" id="waitlist"><div class="wrap">
+      <div class="center reveal"><span class="eye">Lista de espera</span><h2>Únete a la beta privada</h2><p class="desc">Trace está en beta. Únete a la lista para ser de los primeros — y fijar el precio early-bird de $39 lifetime.</p></div>
+      <div class="row reveal s-0syaN8w1">
+        <a class="btn btn-fire" href="https://buy.polar.sh/polar_cl_uQFZh6NjMqG5zp0RVGHSjITzIJVn1CPA2uB4N0DUmNc">Comprar — $39</a>
+      </div>
+      <p class="pfoot reveal">Reembolso total hasta el lanzamiento · Pago seguro con Polar</p>
+      <form id="wl" class="wlform reveal" action="https://formspree.io/f/mnjyoknb" method="POST" novalidate="">
+          <input type="hidden" name="origen" value="trace/personal-memory-tool-without-screen-recording">
+          <input type="hidden" name="_subject" value="fervon.dev · trace/personal-memory-tool-without-screen-recording">
+        <div class="frow">
+          <label class="vh" for="email">Correo electrónico</label>
+          <input type="email" id="email" name="email" required="" autocomplete="email" inputmode="email" placeholder="tu@ejemplo.com">
+          <button type="submit" class="btn btn-ghost">Únete a la lista</button>
+        </div>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="vh" aria-hidden="true">
+        <p class="fmsg" id="fmsg" role="status" aria-live="polite"></p>
+        <p class="ffine">Sin spam. Un solo email cuando abra la beta.</p>
+      </form>
+    </div></section>
+
+    <section class="sec" id="faq"><div class="wrap">
+      <div class="center reveal"><span class="eye">FAQ</span><h2>Preguntas frecuentes</h2></div>
+      <div class="faq reveal">
+        <details><summary>¿Hay una app de memoria personal que no grabe la pantalla?</summary><p>Sí. Trace by Fervon captura señales ligeras — historial de navegador, la app o ventana activa y el texto del portapapeles — en lugar de grabar un vídeo continuo. Obtienes un historial buscable de todo lo que hiciste sin que se almacene ninguna grabación de pantalla.</p></details>
+        <details><summary>¿Por qué evitar la grabación de pantalla para la memoria personal?</summary><p>La grabación de pantalla almacena todo: contraseñas visibles, mensajes privados, documentos financieros. Consume alta CPU y RAM, agota la batería y suele infringir las políticas de seguridad de TI. No es el enfoque correcto cuando solo necesitas recordar lo que hacías.</p></details>
+        <details><summary>¿Qué captura Trace en su lugar?</summary><p>Trace captura tres señales ligeras: (1) historial de navegador de Chrome, Edge y Firefox; (2) el nombre de la aplicación o ventana activa; y (3) el texto del portapapeles cuando copias algo (opt-in, desactivado por defecto). Sin píxeles, sin vídeo, sin capturas.</p></details>
+        <details><summary>¿En qué se diferencia Trace de Screenpipe?</summary><p>Screenpipe graba vídeo continuo de pantalla y usa OCR sobre él. Trace deliberadamente evita este enfoque: captura solo metadatos (URLs, títulos de ventana, fragmentos del portapapeles). Esto hace que Trace sea mucho más ligero y seguro para usar en equipos de trabajo.</p></details>
+        <details><summary>¿Es Trace seguro para usar en un ordenador de trabajo?</summary><p>Trace está diseñado con este caso de uso en mente. Nunca graba vídeo de pantalla ni hace capturas por defecto. La lista de exclusiones te permite bloquear apps, dominios o ventanas específicas. Todo se queda en tu máquina — nada se sube a ningún servidor.</p></details>
+      </div>
+    </div></section>
+
+    <section class="sec alt"><div class="wrap">
+      <div class="glass ctaband reveal">
+        <div class="bggrid s-im9vJqY9"></div>
+        <h2>Memoria sin vigilancia. <span class="grad">Tuya y de nadie más.</span></h2>
+        <p class="desc s-HQSJ4X1v">Sin grabación de pantalla. Sin nube. Sin suscripción. Pago único de $39.</p>
+        <div class="row s-0syaN8w1">
+          <a class="btn btn-fire" href="https://buy.polar.sh/polar_cl_uQFZh6NjMqG5zp0RVGHSjITzIJVn1CPA2uB4N0DUmNc">Comprar — $39</a>
+          <a class="btn btn-ghost" href="#waitlist">Únete a la lista</a>
+        </div>
+        <p class="pfoot">Reembolso total hasta el lanzamiento · Pago seguro con Polar</p>
+      </div>
+    </div></section>
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">Más de Fervon</span>
+          <h2 id="mas-h">Sigue explorando</h2>
+        </div>
+        <div class="related reveal">
+        <a class="relcard" href="/es/trace/microsoft-recall-alternative">
+          <span class="rt">Alternativa a Microsoft Recall</span>
+          <span class="rd">Sin PC Copilot+ y sin los problemas de privacidad.</span>
+        </a>
+        <a class="relcard" href="/es/trace/screenpipe-alternative">
+          <span class="rt">Alternativa a Screenpipe</span>
+          <span class="rd">La misma idea, sin el consumo ni la suscripción.</span>
+        </a>
+        <a class="relcard" href="/trace/">
+          <span class="rt">Trace</span>
+          <span class="rd">Tu memoria personal, local-first y de pago único.</span>
+        </a>
+        <a class="relcard" href="/es/trace/limitless-alternative">
+          <span class="rt">Limitless alternative</span>
+          <span class="rd">Meta compró Limitless. La opción independiente.</span>
+        </a>
+        <a class="relcard" href="/es/trace/rewind-shut-down-what-to-use">
+          <span class="rt">Rewind shut down: what to use now</span>
+          <span class="rd">Repaso honesto de lo que quedó en pie.</span>
+        </a>
+        </div>
+      <div class="fv-share">
+        <button type="button" class="sharebtn" aria-label="Compartir esta página">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
+          <span>Compartir</span>
+        </button>
+        <span class="sharemsg" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>Trace</b>
+      <span>Pago único · $39</span>
+    </div>
+    <a class="btn btn-fire" href="#pricing">Comprar</a>
+  </div>
+
+  <footer><div class="wrap foot">
+    <span assets="" logo-icon.svg"="" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh">Trace es un proyecto de <a href="https://fervon.dev"></a></span>
+    <span>© 2026 Jonathan Martín · Local-first por diseño</span>
+  </div></footer>
+
+  <script src="/trace/personal-memory-tool-without-screen-recording.client.js?v=20260814d" defer=""></script>
+  <script src="/assets/shared.js?v=20260814d" defer=""></script>
+
+
+</body></html>

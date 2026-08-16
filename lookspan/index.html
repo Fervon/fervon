@@ -1,26 +1,27 @@
-﻿<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!DOCTYPE html>
+<html lang="es"><head></head><body>﻿
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Lookspan · Observabilidad local-first de agentes IA | Fervon</title>
-  <meta name="description" content="Captura cada llamada LLM, herramienta MCP y token de coste de tus agentes LangGraph, CrewAI y MCP. Dashboard local con npx lookspan. Gratis." />
-  <link rel="canonical" href="https://fervon.dev/lookspan/" />
-  <meta name="robots" content="index, follow, max-image-preview:large" />
-  <meta name="theme-color" content="#0E0B0A" />
-  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
-  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png" />
+  <meta name="description" content="Captura cada llamada LLM, herramienta MCP y token de coste de tus agentes LangGraph, CrewAI y MCP. Dashboard local con npx lookspan. Gratis.">
+  <link rel="canonical" href="https://fervon.dev/lookspan/"><link rel="alternate" hreflang="es" href="https://fervon.dev/lookspan/"><link rel="alternate" hreflang="en" href="https://fervon.dev/en/lookspan/"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/lookspan/">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#0E0B0A">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
 
-  <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="Fervon" />
-  <meta property="og:title" content="Lookspan · Mira cada span que emiten tus agentes de IA" />
-  <meta property="og:description" content="Observabilidad local-first para agentes de IA. Captura cada llamada LLM, herramienta MCP y coste. Un comando: npx lookspan. Gratis y open source." />
-  <meta property="og:url" content="https://fervon.dev/lookspan/" />
-  <meta property="og:image" content="https://fervon.dev/assets/og-lookspan.jpg" />
-  <meta name="twitter:image" content="https://fervon.dev/assets/og-lookspan.jpg" />
-  <meta property="og:locale" content="es_ES" />
-  <meta name="twitter:card" content="summary_large_image" />
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Fervon">
+  <meta property="og:title" content="Lookspan · Mira cada span que emiten tus agentes de IA">
+  <meta property="og:description" content="Observabilidad local-first para agentes de IA. Captura cada llamada LLM, herramienta MCP y coste. Un comando: npx lookspan. Gratis y open source.">
+  <meta property="og:url" content="https://fervon.dev/lookspan/">
+  <meta property="og:image" content="https://fervon.dev/assets/og-lookspan.jpg">
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-lookspan.jpg">
+  <meta property="og:locale" content="es_ES">
+  <meta name="twitter:card" content="summary_large_image">
 
   <script type="application/ld+json">
   {
@@ -77,27 +78,27 @@
 }
   </script>
 
-  <link rel="stylesheet" href="/assets/core.css?v=20260814c" />
-  <link rel="stylesheet" href="/assets/product.css?v=20260814c" />
-  <link rel="stylesheet" href="index.css?v=20260814c" />
-  <link rel="stylesheet" href="/assets/shared.css?v=20260814c" />
-</head>
-<body>
-  <a class="skip" href="#top" data-en="Skip to content">Saltar al contenido</a>
+  <link rel="stylesheet" href="/assets/core.css?v=20260814d">
+  <link rel="stylesheet" href="/assets/product.css?v=20260814d">
+  <link rel="stylesheet" href="/lookspan/index.css?v=20260814d">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260814d">
+
+
+  <a class="skip" href="#top">Saltar al contenido</a>
 
   <header class="nav"><div class="glass bar">
     <a class="crumb" href="/"><span class="fv"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> fervon</span><span class="sep">›</span><span>lookspan</span></a>
     <nav class="menu">
-      <a href="#features" data-en="Features">Características</a>
-      <a href="#how" data-en="How it works">Cómo funciona</a>
-      <a href="#integraciones" data-en="Integrations">Integraciones</a>
-      <a href="#costes" data-en="Costs">Costes</a>
-      <a href="#empezar" data-en="Get started">Empezar</a>
+      <a href="#features">Características</a>
+      <a href="#how">Cómo funciona</a>
+      <a href="#integraciones">Integraciones</a>
+      <a href="#costes">Costes</a>
+      <a href="#empezar">Empezar</a>
     </nav>
     <div class="act">
-      <button id="lang" class="btn btn-ghost btn-sm" type="button" aria-label="Cambiar idioma / Switch language">EN</button>
+      <nav class="langseg" id="lang" aria-label="Idioma"><span class="langopt on" aria-current="true">ES</span><a class="langopt" href="/en/lookspan/" hreflang="en" lang="en">EN</a></nav>
       <a class="btn btn-ghost btn-sm" href="https://github.com/JoniMartin27/lookspan">GitHub</a>
-      <a class="btn btn-fire btn-sm" href="#empezar" data-en="Get started">Empezar</a>
+      <a class="btn btn-fire btn-sm" href="#empezar">Empezar</a>
     </div>
   </div></header>
 
@@ -108,24 +109,24 @@
       <div class="bggrid s-9EC6gkuB"></div>
       <div class="wrap cols">
         <div>
-          <span class="pill reveal" data-en="<span class=&quot;dot&quot;></span> Local-first observability · MCP-native"><span class="dot"></span> Observabilidad local-first · Nativo para MCP</span>
-          <h1 class="reveal" data-en="See every <span class=&quot;grad&quot;>span</span> from your agents.">Mira cada <span class="grad">span</span> de tus agentes.</h1>
-          <p class="sub reveal" data-en="Every LLM call, MCP tool and cost token. <b>No cloud, no API keys.</b>">Cada llamada LLM, herramienta MCP y token de coste. <b>Sin nube, sin API keys.</b></p>
+          <span class="pill reveal"><span class="dot"></span> Observabilidad local-first · Nativo para MCP</span>
+          <h1 class="reveal">Mira cada <span class="grad">span</span> de tus agentes.</h1>
+          <p class="sub reveal">Cada llamada LLM, herramienta MCP y token de coste. <b>Sin nube, sin API keys.</b></p>
 
           <div class="cmd reveal" id="empezar">
             <code><span class="pr">$</span>npx lookspan</code>
             <button class="copy" data-copy="npx lookspan" aria-label="Copiar comando">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
               <span class="lbl">Copiar</span>
             </button>
           </div>
-          <p class="cmd-hint reveal" data-en="Dashboard at <code>http://127.0.0.1:3100</code>.">Dashboard en <code>http://127.0.0.1:3100</code>.</p>
+          <p class="cmd-hint reveal">Dashboard en <code>http://127.0.0.1:3100</code>.</p>
 
           <div class="row reveal">
-            <a class="btn btn-fire" href="#integraciones" data-en="Instrument my agent">Instrumentar mi agente</a>
-            <a class="btn btn-ghost" href="https://github.com/JoniMartin27/lookspan" data-en="View on GitHub">Ver en GitHub</a>
+            <a class="btn btn-fire" href="#integraciones">Instrumentar mi agente</a>
+            <a class="btn btn-ghost" href="https://github.com/JoniMartin27/lookspan">Ver en GitHub</a>
           </div>
-          <div class="trust reveal"><span data-en="✓ 100% local data">✓ Datos 100% en local</span><span data-en="✓ Zero infra">✓ Infra cero</span><span data-en="✓ Open source · MIT">✓ Open source · MIT</span></div>
+          <div class="trust reveal"><span>✓ Datos 100% en local</span><span>✓ Infra cero</span><span>✓ Open source · MIT</span></div>
         </div>
 
         <div class="demo reveal">
@@ -139,8 +140,8 @@
               <div class="meta-row">
                 <span class="tg tg-fw">langgraph</span>
                 <span class="tg tg-ok">● ok</span>
-                <span><span class="meta-k" data-en="duration">duración</span> <span class="mono" id="d-dur">0</span>&nbsp;ms</span>
-                <span><span class="meta-k" data-en="cost">coste</span> <span class="mono" id="d-cost">$0.0000</span></span>
+                <span><span class="meta-k">duración</span> <span class="mono" id="d-dur">0</span>&nbsp;ms</span>
+                <span><span class="meta-k">coste</span> <span class="mono" id="d-cost">$0.0000</span></span>
               </div>
               <ul class="wf">
                 <li><span class="nm">planner</span><span class="ty">agent_step</span><span class="tr"><span data-w="100" class="c-agent s-i0k6o7rj"></span></span><span class="ms">1284</span></li>
@@ -151,7 +152,7 @@
               </ul>
             </div>
           </div>
-          <p class="s-HOKjOaN8" data-en="Trace view (span waterfall).">Vista de traza (waterfall de spans).</p>
+          <p class="s-HOKjOaN8">Vista de traza (waterfall de spans).</p>
         </div>
       </div>
     </section>
@@ -162,21 +163,21 @@
     <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
       <div class="wrap">
         <div class="tldr reveal">
-          <h2 id="resumen-h" data-en="In 30 seconds">En 30 segundos</h2>
+          <h2 id="resumen-h">En 30 segundos</h2>
           <ul>
-        <li data-en="<b>Lookspan</b> captures every LLM call, every MCP tool and every cost token from your agents."><b>Lookspan</b> captura cada llamada LLM, cada herramienta MCP y cada token de coste de tus agentes.</li>
-        <li data-en="It works with <b>LangGraph, CrewAI and any MCP agent</b> — or anything that can make a POST.">Funciona con <b>LangGraph, CrewAI y cualquier agente MCP</b> — o cualquiera que pueda hacer un POST.</li>
-        <li data-en="A <b>local-first</b> dashboard on 127.0.0.1:3100 with one command: <code>npx lookspan</code>.">Dashboard <b>local-first</b> en 127.0.0.1:3100 con un comando: <code>npx lookspan</code>.</li>
-        <li data-en="No cloud and no API keys: <b>your traces never leave your machine</b>. Free and open source.">Sin nube y sin API keys: <b>tus trazas nunca salen de tu máquina</b>. Gratis y open source.</li>
+        <li><b>Lookspan</b> captura cada llamada LLM, cada herramienta MCP y cada token de coste de tus agentes.</li>
+        <li>Funciona con <b>LangGraph, CrewAI y cualquier agente MCP</b> — o cualquiera que pueda hacer un POST.</li>
+        <li>Dashboard <b>local-first</b> en 127.0.0.1:3100 con un comando: <code>npx lookspan</code>.</li>
+        <li>Sin nube y sin API keys: <b>tus trazas nunca salen de tu máquina</b>. Gratis y open source.</li>
           </ul>
       <div class="cta-row s-tldrcta">
-        <a class="btn btn-fire" href="#integraciones" data-en="Instrument my agent">Instrumentar mi agente</a>
+        <a class="btn btn-fire" href="#integraciones">Instrumentar mi agente</a>
       </div>
         </div>
       </div>
     </section>
     <section class="sec s-susUGvFy"><div class="wrap center reveal">
-      <p class="s-ZzFqkr25" data-en="Works with your stack">Funciona con tu stack</p>
+      <p class="s-ZzFqkr25">Funciona con tu stack</p>
       <div class="chips s-mbm6U6qU">
         <span class="chip">MCP</span><span class="chip">LangGraph</span><span class="chip">LangChain</span><span class="chip">CrewAI</span><span class="chip">OpenAI Agents</span><span class="chip">OpenTelemetry</span><span class="chip">AGENT-OS</span>
       </div>
@@ -185,76 +186,76 @@
     <!-- PROBLEM / SOLUTION -->
     <section class="sec alt"><div class="wrap two">
       <div class="reveal">
-        <span class="eye" data-en="The problem">El problema</span>
-        <h2 data-en="When an agent fails, you're flying blind.">Cuando un agente falla, te quedas a ciegas.</h2>
-        <p class="desc" data-en="Classic tools demand a cloud account, API keys and your data on someone else's servers.">Las herramientas clásicas exigen cuenta en la nube, claves de API y tus datos en servidores ajenos.</p>
+        <span class="eye">El problema</span>
+        <h2>Cuando un agente falla, te quedas a ciegas.</h2>
+        <p class="desc">Las herramientas clásicas exigen cuenta en la nube, claves de API y tus datos en servidores ajenos.</p>
         <ul class="chips s-bhlYP9PC">
-          <span class="chip" data-en="Account + billing + API keys">Cuenta + facturación + API keys</span>
-          <span class="chip" data-en="Your prompts leave your machine">Tus prompts salen fuera</span>
-          <span class="chip" data-en="Cost per event or GB">Coste por evento o GB</span>
-          <span class="chip" data-en="Network latency">Latencia de red</span>
+          <span class="chip">Cuenta + facturación + API keys</span>
+          <span class="chip">Tus prompts salen fuera</span>
+          <span class="chip">Coste por evento o GB</span>
+          <span class="chip">Latencia de red</span>
         </ul>
       </div>
       <div class="glass feat reveal s-RUgE6qBe">
         <span class="tg tg-fw s-fR8icsdG">Lookspan</span>
-        <h3 class="s-YD9SVnci" data-en="Local-first observability">Observabilidad local-first</h3>
+        <h3 class="s-YD9SVnci">Observabilidad local-first</h3>
         <ul class="checks s-ksGPa9rB">
-          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span data-en="<strong>Everything on your machine</strong>, data never leaves"><strong>Todo en tu máquina</strong>, los datos nunca salen</span></li>
-          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span data-en="SQLite at <code>~/.lookspan/lookspan.db</code>">SQLite en <code>~/.lookspan/lookspan.db</code></span></li>
-          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span data-en="<strong>Zero</strong> infrastructure">Infraestructura <strong>cero</strong></span></li>
-          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span data-en="One command: <code>npx lookspan</code>">Un comando: <code>npx lookspan</code></span></li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg> <span><strong>Todo en tu máquina</strong>, los datos nunca salen</span></li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg> <span>SQLite en <code>~/.lookspan/lookspan.db</code></span></li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg> <span>Infraestructura <strong>cero</strong></span></li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg> <span>Un comando: <code>npx lookspan</code></span></li>
         </ul>
       </div>
     </div></section>
 
     <!-- STATS -->
     <section class="sec"><div class="wrap stats">
-      <div class="reveal"><div class="v grad">1</div><div class="l" data-en="command to start">comando para arrancar</div></div>
-      <div class="reveal"><div class="v grad">3100</div><div class="l" data-en="dashboard on 127.0.0.1">dashboard en 127.0.0.1</div></div>
-      <div class="reveal"><div class="v grad">5+</div><div class="l" data-en="frameworks you can instrument">frameworks instrumentables</div></div>
-      <div class="reveal"><div class="v grad">0</div><div class="l" data-en="data sent to the cloud">datos enviados a la nube</div></div>
+      <div class="reveal"><div class="v grad">1</div><div class="l">comando para arrancar</div></div>
+      <div class="reveal"><div class="v grad">3100</div><div class="l">dashboard en 127.0.0.1</div></div>
+      <div class="reveal"><div class="v grad">5+</div><div class="l">frameworks instrumentables</div></div>
+      <div class="reveal"><div class="v grad">0</div><div class="l">datos enviados a la nube</div></div>
     </div></section>
 
     <!-- FEATURES -->
     <section class="sec alt" id="features"><div class="wrap">
-      <div class="center reveal"><span class="eye" data-en="Features">Características</span><h2 data-en="Everything to debug agents, locally">Todo para depurar agentes, en local</h2><p class="desc" data-en="Traces, span graph, costs and alerts.">Trazas, grafo de spans, costes y alertas.</p></div>
+      <div class="center reveal"><span class="eye">Características</span><h2>Todo para depurar agentes, en local</h2><p class="desc">Trazas, grafo de spans, costes y alertas.</p></div>
       <div class="cards">
-        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/></svg></div><h3 data-en="MCP-native">Nativo para MCP</h3><p data-en="<code>@lookspan/mcp</code> emits one span per call."><code>@lookspan/mcp</code> emite un span por llamada.</p></div>
-        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/></svg></div><h3 data-en="Real-time streaming">Streaming en tiempo real</h3><p data-en="SSE at <code>/api/stream</code>: live traces, no polling.">SSE en <code>/api/stream</code>: trazas en vivo, sin polling.</p></div>
-        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="12" cy="18" r="2.5"/><path d="M8 7.5 16 7.5M7.5 8l3.5 7.8M16.5 8 13 15.8"/></svg></div><h3 data-en="Interactive span graph">Grafo de spans interactivo</h3><p data-en="Every trace as a navigable graph: hierarchy, durations, statuses.">Cada traza como grafo navegable: jerarquía, duraciones, estados.</p></div>
-        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M9.5 9.5h4a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3h4"/></svg></div><h3 data-en="Cost tracking">Seguimiento de costes</h3><p data-en="<code>cost_usd</code> per trace, with a per-model breakdown."><code>cost_usd</code> por traza, con desglose por modelo.</p></div>
-        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg></div><h3 data-en="Local SQLite">SQLite local</h3><p data-en="<code>~/.lookspan/lookspan.db</code>. Your data, your disk."><code>~/.lookspan/lookspan.db</code>. Tus datos, tu disco.</p></div>
-        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="16" rx="2"/><path d="m6 9 3 3-3 3M12.5 15h4"/></svg></div><h3 data-en="One-line CLI">CLI en una línea</h3><p data-en="<code>npx lookspan</code> starts the server and dashboard."><code>npx lookspan</code> arranca servidor y dashboard.</p></div>
-        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div><h3 data-en="Configurable alerts">Alertas configurables</h3><p data-en="Get notified when a trace fails, costs too much or runs too long.">Avísate cuando una traza falla, cuesta o tarda de más.</p></div>
-        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.5 8 11 4.6-2.5 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg></div><h3 data-en="Private by default">Privado por defecto</h3><p data-en="Listens on <code>127.0.0.1</code> and redacts credentials.">Escucha en <code>127.0.0.1</code> y redacta credenciales.</p></div>
-        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 7.5h18M5.5 7.5 8 12M18.5 7.5 16 12M9.5 7.5 12 12l2.5-4.5"/></svg></div><h3 data-en="OpenTelemetry (OTLP)">OpenTelemetry (OTLP)</h3><p data-en="Receiver at <code>/v1/traces</code>. <code>gen_ai.*</code> attributes map themselves.">Receptor en <code>/v1/traces</code>. Los <code>gen_ai.*</code> se mapean solos.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect></svg></div><h3>Nativo para MCP</h3><p><code>@lookspan/mcp</code> emite un span por llamada.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"></path></svg></div><h3>Streaming en tiempo real</h3><p>SSE en <code>/api/stream</code>: trazas en vivo, sin polling.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"></circle><circle cx="18" cy="6" r="2.5"></circle><circle cx="12" cy="18" r="2.5"></circle><path d="M8 7.5 16 7.5M7.5 8l3.5 7.8M16.5 8 13 15.8"></path></svg></div><h3>Grafo de spans interactivo</h3><p>Cada traza como grafo navegable: jerarquía, duraciones, estados.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v10M9.5 9.5h4a1.5 1.5 0 0 1 0 3h-3a1.5 1.5 0 0 0 0 3h4"></path></svg></div><h3>Seguimiento de costes</h3><p><code>cost_usd</code> por traza, con desglose por modelo.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"></ellipse><path d="M4 5v6c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 11v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"></path></svg></div><h3>SQLite local</h3><p><code>~/.lookspan/lookspan.db</code>. Tus datos, tu disco.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="4" width="19" height="16" rx="2"></rect><path d="m6 9 3 3-3 3M12.5 15h4"></path></svg></div><h3>CLI en una línea</h3><p><code>npx lookspan</code> arranca servidor y dashboard.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.7 21a2 2 0 0 1-3.4 0"></path></svg></div><h3>Alertas configurables</h3><p>Avísate cuando una traza falla, cuesta o tarda de más.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 4 5v6c0 5 3.4 8.5 8 11 4.6-2.5 8-6 8-11V5l-8-3z"></path><path d="m9 12 2 2 4-4"></path></svg></div><h3>Privado por defecto</h3><p>Escucha en <code>127.0.0.1</code> y redacta credenciales.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 7.5h18M5.5 7.5 8 12M18.5 7.5 16 12M9.5 7.5 12 12l2.5-4.5"></path></svg></div><h3>OpenTelemetry (OTLP)</h3><p>Receptor en <code>/v1/traces</code>. Los <code>gen_ai.*</code> se mapean solos.</p></div>
       </div>
     </div></section>
 
     <!-- HOW IT WORKS -->
     <section class="sec" id="how"><div class="wrap">
-      <div class="center reveal"><span class="eye" data-en="How it works">Cómo funciona</span><h2 data-en="From your agent to the dashboard in three steps">De tu agente al dashboard en tres pasos</h2><p class="desc" data-en="Instrument, start and observe.">Instrumenta, arranca y observa.</p></div>
+      <div class="center reveal"><span class="eye">Cómo funciona</span><h2>De tu agente al dashboard en tres pasos</h2><p class="desc">Instrumenta, arranca y observa.</p></div>
 
       <div class="flow reveal">
-        <div class="glass fnode"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8V4H8"/><rect x="4" y="8" width="16" height="12" rx="2"/><path d="M2 14h2"/><path d="M20 14h2"/><path d="M15 13v2"/><path d="M9 13v2"/></svg></span><strong data-en="Agent">Agente</strong><small>MCP · LangGraph · CrewAI · HTTP</small></div>
-        <span class="farr"><code>POST /api/ingest</code><svg viewBox="0 0 40 12" width="40" height="12"><path d="M0 6h34M30 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <div class="glass fnode"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg></span><strong>Collector</strong><small data-en="validates · normalizes · redacts">valida · normaliza · redacta</small></div>
-        <span class="farr"><svg viewBox="0 0 40 12" width="40" height="12"><path d="M0 6h34M30 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <div class="glass fnode"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></span><strong>SQLite</strong><small>~/.lookspan/lookspan.db</small></div>
-        <span class="farr"><code>SSE /api/stream</code><svg viewBox="0 0 40 12" width="40" height="12"><path d="M0 6h34M30 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-        <div class="glass fnode acc"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span><strong>Dashboard</strong><small data-en="traces · graph · costs">trazas · grafo · costes</small></div>
+        <div class="glass fnode"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 8V4H8"></path><rect x="4" y="8" width="16" height="12" rx="2"></rect><path d="M2 14h2"></path><path d="M20 14h2"></path><path d="M15 13v2"></path><path d="M9 13v2"></path></svg></span><strong>Agente</strong><small>MCP · LangGraph · CrewAI · HTTP</small></div>
+        <span class="farr"><code>POST /api/ingest</code><svg viewBox="0 0 40 12" width="40" height="12"><path d="M0 6h34M30 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+        <div class="glass fnode"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg></span><strong>Collector</strong><small>valida · normaliza · redacta</small></div>
+        <span class="farr"><svg viewBox="0 0 40 12" width="40" height="12"><path d="M0 6h34M30 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+        <div class="glass fnode"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 5v14a9 3 0 0 0 18 0V5"></path><path d="M3 12a9 3 0 0 0 18 0"></path></svg></span><strong>SQLite</strong><small>~/.lookspan/lookspan.db</small></div>
+        <span class="farr"><code>SSE /api/stream</code><svg viewBox="0 0 40 12" width="40" height="12"><path d="M0 6h34M30 2l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg></span>
+        <div class="glass fnode acc"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="M18 17V9"></path><path d="M13 17V5"></path><path d="M8 17v-3"></path></svg></span><strong>Dashboard</strong><small>trazas · grafo · costes</small></div>
       </div>
 
       <div class="steps">
-        <div class="glass step reveal"><div class="n mono">01</div><h3 data-en="Instrument">Instrumenta</h3><p data-en="Wrap your MCP client or add the callback. One line.">Envuelve tu cliente MCP o añade el callback. Una línea.</p></div>
-        <div class="glass step reveal"><div class="n mono">02</div><h3 data-en="Start">Arranca</h3><p data-en="<code>npx lookspan</code> listens on <code>:3100</code> and serves the dashboard."><code>npx lookspan</code> escucha en <code>:3100</code> y sirve el dashboard.</p></div>
-        <div class="glass step reveal"><div class="n mono">03</div><h3 data-en="Observe">Observa</h3><p data-en="Every span live: durations, statuses, tokens and cost.">Cada span en vivo: duraciones, estados, tokens y coste.</p></div>
+        <div class="glass step reveal"><div class="n mono">01</div><h3>Instrumenta</h3><p>Envuelve tu cliente MCP o añade el callback. Una línea.</p></div>
+        <div class="glass step reveal"><div class="n mono">02</div><h3>Arranca</h3><p><code>npx lookspan</code> escucha en <code>:3100</code> y sirve el dashboard.</p></div>
+        <div class="glass step reveal"><div class="n mono">03</div><h3>Observa</h3><p>Cada span en vivo: duraciones, estados, tokens y coste.</p></div>
       </div>
     </div></section>
 
     <!-- INTEGRATIONS / CODE -->
     <section class="sec alt" id="integraciones"><div class="wrap">
-      <div class="center reveal"><span class="eye" data-en="Integrations">Integraciones</span><h2 data-en="Instrumenting your agent is one line">Instrumentar tu agente es una línea</h2><p class="desc" data-en="Pick your framework. Or any agent that can make a POST.">Elige tu framework. O cualquier agente que pueda hacer un POST.</p></div>
+      <div class="center reveal"><span class="eye">Integraciones</span><h2>Instrumentar tu agente es una línea</h2><p class="desc">Elige tu framework. O cualquier agente que pueda hacer un POST.</p></div>
 
       <div class="glass codecard reveal">
         <div class="tabs" role="tablist">
@@ -333,19 +334,19 @@ curl -X POST http://127.0.0.1:3100/api/ingest \
     <!-- COSTS -->
     <section class="sec" id="costes"><div class="wrap two">
       <div class="reveal">
-        <span class="eye" data-en="Costs">Costes</span>
-        <h2 data-en="Know what each agent costs">Sabe cuánto cuesta cada agente</h2>
-        <p class="desc" data-en="Cost in USD per trace, per model. No invoice will catch you off guard.">Coste en USD por traza, por modelo. Ninguna factura te pillará por sorpresa.</p>
+        <span class="eye">Costes</span>
+        <h2>Sabe cuánto cuesta cada agente</h2>
+        <p class="desc">Coste en USD por traza, por modelo. Ninguna factura te pillará por sorpresa.</p>
         <ul class="checks">
-          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span data-en="<code>cost_usd</code> per span and per trace"><code>cost_usd</code> por span y por traza</span></li>
-          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span data-en="Breakdown by model and provider">Desglose por modelo y proveedor</span></li>
-          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span data-en="p50 / p95 / p99 latency and error rate">Latencia p50 / p95 / p99 y tasa de error</span></li>
-          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg> <span data-en="Automatic alert when you exceed your threshold">Alerta automática al superar tu umbral</span></li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg> <span><code>cost_usd</code> por span y por traza</span></li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg> <span>Desglose por modelo y proveedor</span></li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg> <span>Latencia p50 / p95 / p99 y tasa de error</span></li>
+          <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg> <span>Alerta automática al superar tu umbral</span></li>
         </ul>
       </div>
 
       <div class="glass cpanel reveal">
-        <div class="chead"><span data-en="Cost by model">Coste por modelo</span><span class="ctot">$2.84 <small>/ 7d</small></span></div>
+        <div class="chead"><span>Coste por modelo</span><span class="ctot">$2.84 <small>/ 7d</small></span></div>
         <ul class="cbars">
           <li><span class="cbl">claude-sonnet-4-6</span><span class="cbt"><span class="cbf" data-w="82"></span></span><span class="cbv">$1.42</span></li>
           <li><span class="cbl">gpt-4o</span><span class="cbt"><span class="cbf" data-w="54"></span></span><span class="cbv">$0.93</span></li>
@@ -353,8 +354,8 @@ curl -X POST http://127.0.0.1:3100/api/ingest \
           <li><span class="cbl">claude-haiku-4-5</span><span class="cbt"><span class="cbf" data-w="11"></span></span><span class="cbv">$0.18</span></li>
         </ul>
         <div class="cstats">
-          <div><div class="sv">12.4k</div><div class="sk" data-en="traces">trazas</div></div>
-          <div><div class="sv">1.8%</div><div class="sk" data-en="errors">errores</div></div>
+          <div><div class="sv">12.4k</div><div class="sk">trazas</div></div>
+          <div><div class="sv">1.8%</div><div class="sk">errores</div></div>
           <div><div class="sv">840ms</div><div class="sk">p95</div></div>
         </div>
       </div>
@@ -364,18 +365,18 @@ curl -X POST http://127.0.0.1:3100/api/ingest \
     <section class="sec"><div class="wrap">
       <div class="glass ctaband reveal">
         <div class="bggrid s-im9vJqY9"></div>
-        <h2 data-en="See your agents <span class=&quot;grad&quot;>in 30 seconds.</span>">Ve tus agentes <span class="grad">en 30 segundos.</span></h2>
-        <p class="desc s-HQSJ4X1v" data-en="No account, no keys, no cloud.">Sin cuenta, sin claves, sin nube.</p>
+        <h2>Ve tus agentes <span class="grad">en 30 segundos.</span></h2>
+        <p class="desc s-HQSJ4X1v">Sin cuenta, sin claves, sin nube.</p>
         <div class="cmd">
           <code><span class="pr">$</span>npx lookspan</code>
           <button class="copy" data-copy="npx lookspan" aria-label="Copiar comando">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
             <span class="lbl">Copiar</span>
           </button>
         </div>
         <div class="row s-MIV9b9l8">
-          <a class="btn btn-ghost" href="https://github.com/JoniMartin27/lookspan" data-en="⭐ View on GitHub">⭐ Ver en GitHub</a>
-          <a class="btn btn-ghost" href="https://github.com/JoniMartin27/lookspan#readme" data-en="Read the docs">Leer la documentación</a>
+          <a class="btn btn-ghost" href="https://github.com/JoniMartin27/lookspan">⭐ Ver en GitHub</a>
+          <a class="btn btn-ghost" href="https://github.com/JoniMartin27/lookspan#readme">Leer la documentación</a>
         </div>
       </div>
     </div></section>
@@ -384,25 +385,25 @@ curl -X POST http://127.0.0.1:3100/api/ingest \
     <section class="sec seosec" id="faq" aria-labelledby="faq-h">
       <div class="wrap">
         <div class="center reveal">
-          <span class="eye" data-en="FAQ">FAQ</span>
-          <h2 id="faq-h" data-en="Frequently asked questions">Preguntas frecuentes</h2>
+          <span class="eye">FAQ</span>
+          <h2 id="faq-h">Preguntas frecuentes</h2>
         </div>
         <div class="faq reveal">
         <details>
-          <summary data-en="Do my traces go to some service?">¿Mis trazas se van a algún servicio?</summary>
-          <p data-en="No. Lookspan runs the collector and dashboard on 127.0.0.1 and stores everything locally. There is no account, no API key and no server to send anything to.">No. Lookspan levanta el colector y el dashboard en 127.0.0.1 y guarda todo en local. No hay cuenta, no hay API key y no hay servidor al que enviar nada.</p>
+          <summary>¿Mis trazas se van a algún servicio?</summary>
+          <p>No. Lookspan levanta el colector y el dashboard en 127.0.0.1 y guarda todo en local. No hay cuenta, no hay API key y no hay servidor al que enviar nada.</p>
         </details>
         <details>
-          <summary data-en="Which frameworks does it support?">¿Qué frameworks soporta?</summary>
-          <p data-en="It ships direct integrations for LangGraph, CrewAI and MCP agents. For anything else, it just needs to be able to POST to the collector: the format is documented.">Trae integración directa para LangGraph, CrewAI y agentes MCP. Para cualquier otro, basta con que pueda hacer un POST al colector: el formato está documentado.</p>
+          <summary>¿Qué frameworks soporta?</summary>
+          <p>Trae integración directa para LangGraph, CrewAI y agentes MCP. Para cualquier otro, basta con que pueda hacer un POST al colector: el formato está documentado.</p>
         </details>
         <details>
-          <summary data-en="How much code do I have to touch?">¿Cuánto código hay que tocar?</summary>
-          <p data-en="One line in the usual case. You instrument the agent at import time and from then on spans show up in the dashboard by themselves.">Una línea en el caso habitual. Se instrumenta el agente al importar y a partir de ahí los spans aparecen solos en el dashboard.</p>
+          <summary>¿Cuánto código hay que tocar?</summary>
+          <p>Una línea en el caso habitual. Se instrumenta el agente al importar y a partir de ahí los spans aparecen solos en el dashboard.</p>
         </details>
         <details>
-          <summary data-en="Does it compute real cost or estimate it?">¿Calcula el coste de verdad o lo estima?</summary>
-          <p data-en="It counts the real tokens of each call and applies the price of the model used, so you can see which specific agent is eating the budget.">Cuenta los tokens reales de cada llamada y les aplica el precio del modelo usado, así que sabes qué agente concreto se está comiendo el presupuesto.</p>
+          <summary>¿Calcula el coste de verdad o lo estima?</summary>
+          <p>Cuenta los tokens reales de cada llamada y les aplica el precio del modelo usado, así que sabes qué agente concreto se está comiendo el presupuesto.</p>
         </details>
         </div>
       </div>
@@ -413,25 +414,25 @@ curl -X POST http://127.0.0.1:3100/api/ingest \
     <section class="sec seosec" id="ficha" aria-labelledby="ficha-h">
       <div class="wrap">
         <div class="center reveal">
-          <span class="eye" data-en="Spec sheet">Ficha</span>
-          <h2 id="ficha-h" data-en="Lookspan at a glance">Lookspan de un vistazo</h2>
+          <span class="eye">Ficha</span>
+          <h2 id="ficha-h">Lookspan de un vistazo</h2>
         </div>
         <div class="tablewrap reveal">
           <table class="seotable">
-            <caption class="vh" data-en="Lookspan price, licence, integrations and data handling.">Precio, licencia, integraciones y tratamiento de datos de Lookspan.</caption>
+            <caption class="vh">Precio, licencia, integraciones y tratamiento de datos de Lookspan.</caption>
             <thead>
-          <tr><th data-en="Item">Dato</th><th data-en="Value">Valor</th></tr>
+          <tr><th>Dato</th><th>Valor</th></tr>
             </thead>
             <tbody>
-          <tr><th data-en="Price">Precio</th><td data-en="Free, with no paid tier">Gratis, sin tier de pago</td></tr>
-          <tr><th data-en="Licence">Licencia</th><td>MIT (open source)</td></tr>
-          <tr><th data-en="How you run it">Cómo se ejecuta</th><td><code>npx lookspan</code></td></tr>
-          <tr><th data-en="Dashboard">Dashboard</th><td>127.0.0.1:3100</td></tr>
-          <tr><th data-en="Platforms">Plataformas</th><td>Windows · macOS · Linux</td></tr>
-          <tr><th data-en="Integrations">Integraciones</th><td data-en="LangGraph, CrewAI, MCP agents, and anything that can POST">LangGraph, CrewAI, agentes MCP y cualquiera que pueda hacer un POST</td></tr>
-          <tr><th data-en="What it captures">Qué captura</th><td data-en="LLM calls, MCP tools and per-token cost">Llamadas LLM, herramientas MCP y coste por tokens</td></tr>
-          <tr><th data-en="Account or API key">Cuenta o API key</th><td data-en="Neither is needed">No hace falta ninguna</td></tr>
-          <tr><th data-en="Your traces">Tus trazas</th><td data-en="Never leave your machine">Nunca salen de tu máquina</td></tr>
+          <tr><th>Precio</th><td>Gratis, sin tier de pago</td></tr>
+          <tr><th>Licencia</th><td>MIT (open source)</td></tr>
+          <tr><th>Cómo se ejecuta</th><td><code>npx lookspan</code></td></tr>
+          <tr><th>Dashboard</th><td>127.0.0.1:3100</td></tr>
+          <tr><th>Plataformas</th><td>Windows · macOS · Linux</td></tr>
+          <tr><th>Integraciones</th><td>LangGraph, CrewAI, agentes MCP y cualquiera que pueda hacer un POST</td></tr>
+          <tr><th>Qué captura</th><td>Llamadas LLM, herramientas MCP y coste por tokens</td></tr>
+          <tr><th>Cuenta o API key</th><td>No hace falta ninguna</td></tr>
+          <tr><th>Tus trazas</th><td>Nunca salen de tu máquina</td></tr>
             </tbody>
           </table>
         </div>
@@ -442,31 +443,31 @@ curl -X POST http://127.0.0.1:3100/api/ingest \
     <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
       <div class="wrap">
         <div class="center reveal">
-          <span class="eye" data-en="More from Fervon">Más de Fervon</span>
-          <h2 id="mas-h" data-en="Keep exploring">Sigue explorando</h2>
+          <span class="eye">Más de Fervon</span>
+          <h2 id="mas-h">Sigue explorando</h2>
         </div>
         <div class="related reveal">
         <a class="relcard" href="/inferbench/">
           <span class="rt">inferbench</span>
-          <span class="rd" data-en="Which LLM fits your GPU, and at how many tok/s. Free.">Qué LLM cabe en tu GPU y a cuántos tok/s. Gratis.</span>
+          <span class="rd">Qué LLM cabe en tu GPU y a cuántos tok/s. Gratis.</span>
         </a>
         <a class="relcard" href="/claudescope/">
           <span class="rt">ClaudeScope</span>
-          <span class="rd" data-en="Search every Claude Code session you have run. Free.">Busca en todas tus sesiones de Claude Code. Gratis.</span>
+          <span class="rd">Busca en todas tus sesiones de Claude Code. Gratis.</span>
         </a>
         <a class="relcard" href="/veredicto/">
           <span class="rt">Veredicto</span>
-          <span class="rd" data-en="The CI check that catches agent tests proving nothing.">El check de CI que pilla los tests de agentes que no prueban nada.</span>
+          <span class="rd">El check de CI que pilla los tests de agentes que no prueban nada.</span>
         </a>
         <a class="relcard" href="/regenta/">
           <span class="rt">Regenta</span>
-          <span class="rd" data-en="Govern your fleet of AI agents.">Gobierna tu flota de agentes de IA.</span>
+          <span class="rd">Gobierna tu flota de agentes de IA.</span>
         </a>
         </div>
       <div class="fv-share">
         <button type="button" class="sharebtn" aria-label="Compartir esta página">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
-          <span data-en="Share">Compartir</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
+          <span>Compartir</span>
         </button>
         <span class="sharemsg" role="status" aria-live="polite"></span>
       </div>
@@ -478,19 +479,20 @@ curl -X POST http://127.0.0.1:3100/api/ingest \
   <!-- seo:sticky -->
   <div class="stickycta">
     <div class="sct">
-      <b data-en="Lookspan">Lookspan</b>
-      <span data-en="Free and open source">Gratis y open source</span>
+      <b>Lookspan</b>
+      <span>Gratis y open source</span>
     </div>
-    <a class="btn btn-fire" href="#empezar" data-en="Get started">Empezar</a>
+    <a class="btn btn-fire" href="#empezar">Empezar</a>
   </div>
 
   <footer><div class="wrap foot">
-    <span data-en="Lookspan is a project by <a href=&quot;https://fervon.dev&quot;><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forged red-hot">Lookspan es un proyecto de <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forjado al rojo vivo</span>
-    <span data-en="MIT © 2026 Jonathan Martín · <a href=&quot;https://github.com/JoniMartin27/lookspan&quot;>GitHub ↗</a>">MIT © 2026 Jonathan Martín · <a href="https://github.com/JoniMartin27/lookspan">GitHub ↗</a></span>
+    <span assets="" logo-icon.svg"="" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon · Forged red-hot"&gt;Lookspan es un proyecto de <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forjado al rojo vivo</span>
+    <span>MIT © 2026 Jonathan Martín · <a href="https://github.com/JoniMartin27/lookspan">GitHub ↗</a></span>
   </div></footer>
 
-  <script src="index.client.js?v=20260814c" defer></script>
-  <script src="/assets/shared.js?v=20260814c" defer></script>
+  <script src="/lookspan/index.client.js?v=20260814d" defer=""></script>
+  <script src="/assets/shared.js?v=20260814d" defer=""></script>
 
-</body>
-</html>
+
+
+</body></html>

@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es"><head></head><body data-fv-calm="">﻿
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Alternativa a Screenpipe, más ligera y sin nube | Trace</title>
+  <meta name="description" content="La idea de Screenpipe sin el consumo ni la suscripción en la nube. Señales ligeras en vez de vídeo 24/7, de verdad local y de pago único, $39.">
+  <link rel="canonical" href="https://fervon.dev/es/trace/screenpipe-alternative"><link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/screenpipe-alternative"><link rel="alternate" hreflang="en" href="https://fervon.dev/trace/screenpipe-alternative"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/es/trace/screenpipe-alternative">
+  <meta name="keywords" content="Screenpipe alternative, lightweight Screenpipe alternative, Screenpipe vs Trace, local memory app, one-time price memory app, private personal memory, Rewind alternative, Microsoft Recall alternative">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#0E0B0A">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Fervon">
+  <meta property="og:title" content="Una alternativa ligera a Screenpipe">
+  <meta property="og:description" content="Te gusta la idea de Screenpipe pero no su consumo ni su nube de pago. Trace es la opción ligera y local-first, de pago único.">
+  <meta property="og:url" content="https://fervon.dev/es/trace/screenpipe-alternative">
+  <meta property="og:image" content="https://fervon.dev/assets/og-trace.jpg">
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-trace.jpg">
+  <meta property="og:locale" content="es_ES">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- ===== Structured data: breadcrumb ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://fervon.dev/" },
+      { "@type": "ListItem", "position": 2, "name": "Trace", "item": "https://fervon.dev/trace/" },
+      { "@type": "ListItem", "position": 3, "name": "Screenpipe alternative", "item": "https://fervon.dev/trace/screenpipe-alternative" }
+    ]
+  }
+  </script>
+
+  <!-- ===== Structured data: FAQ (eligible for FAQ rich results) ===== -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is there a lighter Screenpipe alternative?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Screenpipe is a capable, open-source tool, but it leans on continuous screen recording, which is resource-intensive. Trace is built to be lightweight: it captures small signals — browser history, the active window and clipboard text — instead of recording video around the clock, so it sits quietly in the background on an ordinary computer." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Trace have a subscription?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Trace is a one-time purchase. Joining the waitlist locks in the $39 early-bird lifetime price (regular $59). An optional local-AI Pro tier is planned for later and is never required to use the app." }
+      },
+      {
+        "@type": "Question",
+        "name": "Is Trace open source?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No — Trace is a private, commercial app, not open source. But it's built to run with zero network: no servers, no accounts, no telemetry. You can confirm nothing leaves your machine by watching your own firewall. Screenpipe, by contrast, is fully open source." }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I download Trace today?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Not yet. Trace is in a waitlist and beta phase — it is not downloadable right now. Join the waitlist and we will email you when builds are ready, starting with the platform that ships first." }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Trace send my data to the cloud?",
+        "acceptedAnswer": { "@type": "Answer", "text": "No. Trace runs entirely on your machine, with no servers and no accounts. It runs with your firewall closed, so you can confirm nothing leaves your machine." }
+      }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://fervon.dev/#organization",
+  "name": "Fervon",
+  "url": "https://fervon.dev/",
+  "logo": "https://fervon.dev/assets/favicon-512.png",
+  "description": "Estudio de software autónomo: productos local-first y herramientas open source construidas con flotas de agentes de IA.",
+  "sameAs": [
+    "https://github.com/Fervon",
+    "https://www.npmjs.com/package/fervon",
+    "https://dev.to/jonimatiin",
+    "https://bsky.app/profile/jonimartin.bsky.social",
+    "https://mastodon.social/@jonimartin"
+  ]
+}
+  </script>
+
+  <link rel="stylesheet" href="/assets/core.css?v=20260814d">
+  <link rel="stylesheet" href="/trace/base.css?v=20260814d">
+  <link rel="stylesheet" href="/trace/screenpipe-alternative.css?v=20260814d">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260814d">
+
+
+  <a class="skip" href="#top">Skip to content</a>
+
+  <header class="nav"><div class="glass bar">
+    <nav class="crumb" aria-label="Ruta de navegación">
+      <a href="/"><span class="fv"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> fervon</span></a><span class="sep">›</span>
+      <a href="/trace/"><svg class="mark" width="17" height="17" viewBox="0 0 120 120" aria-hidden="true"><path d="M15.5 76 L15.5 88 L7.07 88 L14 76 Z" fill="#FF6A00"></path><path d="M14 82 C28 82 32 60 48 60 C62 60 60 74 72 74 C83 74 90 59.59 99 44" fill="none" stroke="#FF6A00" stroke-width="12" stroke-linecap="butt" stroke-linejoin="round"></path><circle cx="99" cy="44" r="6" fill="#FFB02E"></circle></svg>Trace</a><span class="sep">›</span>
+      <span aria-current="page">Alternativa a Screenpipe</span>
+    </nav>
+    <div class="act">
+      <nav class="langseg" id="lang" aria-label="Idioma"><span class="langopt on" aria-current="true">ES</span><a class="langopt" href="/trace/screenpipe-alternative" hreflang="en" lang="en">EN</a></nav>      <a class="btn btn-fire btn-sm" href="/trace/#waitlist">Únete a la lista</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div aria-hidden="true" class="s-2gTo6UOz"></div>
+      <div class="bggrid s-9EC6gkuB"></div>
+      <div class="wrap cols">
+        <div>
+          <span class="pill reveal"><span class="dot"></span> <span>Local-first · Windows · macOS · Linux</span></span>
+          <h1 class="reveal">Una <span class="grad">alternativa ligera a Screenpipe</span></h1>
+          <p class="sub reveal">¿Te gusta lo que representa Screenpipe pero no su huella pesada ni el coste recurrente? Trace te da una memoria privada y buscable de tu día — <b>ligera en tu máquina, y de pago único en vez de suscripción.</b></p>
+          <div class="row reveal">
+            <a class="btn btn-fire" href="https://buy.polar.sh/polar_cl_uQFZh6NjMqG5zp0RVGHSjITzIJVn1CPA2uB4N0DUmNc">Comprar — $39</a>
+            <a class="btn btn-ghost" href="#waitlist">Únete a la beta</a>
+          </div>
+          <p class="pfoot reveal">Reembolso total hasta el lanzamiento · Pago seguro con Polar</p>
+          <p class="pill reveal s-K9-ORf38"><span class="dot"></span> <span>Pago único · <b class="s-7zm8I-3n">$39</b> early-bird <span class="s-sEVcIw8j">(luego $59)</span></span></p>
+          <div class="trust reveal"><span>✓ Pago único</span><span>✓ Firewall cerrado</span><span>✓ Sin telemetría</span></div>
+        </div>
+
+        <div class="demo reveal">
+          <div class="glass">
+            <div class="top">
+              <i class="s-aBnRT5ZT"></i><i class="s-wpdX47Tq"></i><i class="s-aNyb6LKH"></i>
+              <span class="s-Sxc0fCNN">Trace · Tu línea de tiempo</span>
+              <span class="s-cXQOUgJA"><span class="dot"></span> LOCAL</span>
+            </div>
+            <div class="body">
+              <div class="srch">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+                <span class="q" id="q"></span><span class="car"></span>
+              </div>
+              <div class="res" id="res">
+                <div class="rrow" data-i="0"><span class="t">14:32</span><span class="k k-web">web</span><span class="x">Precios del competidor — plan nube $25/mes</span></div>
+                <div class="rrow" data-i="1"><span class="t">11:08</span><span class="k k-doc">doc</span><span class="x">Notas: «ligero, pago único, sin nube»</span></div>
+                <div class="rrow" data-i="2"><span class="t">09:51</span><span class="k k-app">app</span><span class="x">Figma — borrador del hero de la landing</span></div>
+              </div>
+            </div>
+          </div>
+          <p class="s-HOKjOaN8">Demo ilustrativa.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT TRACE DOES DIFFERENTLY -->
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h">En 30 segundos</h2>
+          <ul>
+        <li>Screenpipe tiene buena idea, pero pesa mucho en la máquina y su nube va por suscripción.</li>
+        <li><b>Trace</b> es la versión ligera: sin grabación continua de pantalla y con mucho menos consumo.</li>
+        <li><b>Sin nube</b>: todo queda en local, sin cuenta y sin API key.</li>
+        <li><b>Pago único de $39</b> en lugar de una cuota mensual.</li>
+          </ul>
+      <div class="cta-row s-tldrcta">
+        <a class="btn btn-fire" href="#pricing">Ver Trace</a>
+      </div>
+        </div>
+      </div>
+    </section>
+    <section class="sec alt" id="different"><div class="wrap">
+      <div class="center reveal"><span class="eye">Por qué encaja Trace</span><h2>Qué hace Trace de forma diferente</h2><p class="desc">Captura menos. Encuentra más.</p></div>
+      <div class="cards">
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.67 19a2 2 0 0 0 1.416-.588l6.154-6.172a6 6 0 0 0-8.49-8.49L5.586 9.914A2 2 0 0 0 5 11.328V18a1 1 0 0 0 1 1z"></path><path d="M16 8 2 22"></path><path d="M17.5 15H9"></path></svg></div><h3>Señales pequeñas, no vídeo</h3><p>Historial, ventana, portapapeles — no vídeo.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg></div><h3>Búsqueda y timeline</h3><p>Escribe una palabra. Recorre tu día.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h.01"></path><path d="M8.5 16.429a5 5 0 0 1 7 0"></path><path d="M5 12.859a10 10 0 0 1 5.17-2.69"></path><path d="M19 12.859a10 10 0 0 0-2.007-1.523"></path><path d="M2 8.82a15 15 0 0 1 4.177-2.643"></path><path d="M22 8.82a15 15 0 0 0-11.288-3.764"></path><path d="m2 2 20 20"></path></svg></div><h3>Local de verdad</h3><p>Sin servidores. Firewall cerrado.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 15.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 19.61a1 1 0 0 0-1.68.474 2.5 2.5 0 1 1-3.014-3.015 1 1 0 0 0 .474-1.68l-1.683-1.682a2.414 2.414 0 0 1 0-3.414L4.39 8.61a1 1 0 0 1 1.68.474 2.5 2.5 0 1 0 3.014-3.015 1 1 0 0 1-.474-1.68l1.683-1.682a2.414 2.414 0 0 1 3.414 0z"></path></svg></div><h3>Capturas + OCR, más adelante</h3><p>Opcional, desactivado por defecto.</p></div>
+      </div>
+    </div></section>
+
+    <!-- FOOTPRINT (dynamic visual) -->
+    <section class="sec" id="footprint"><div class="wrap">
+      <div class="center reveal"><span class="eye">La diferencia</span><h2>El peso en tu disco</h2></div>
+      <div class="fpwrap">
+        <div class="fp trace reveal"><div class="fpl">Trace</div><div class="fptrack"><div class="fpbar"></div><div class="fpval">≈ unos KB al día</div></div></div>
+        <div class="fp heavy reveal"><div class="fpl">Grabadores de pantalla</div><div class="fptrack"><div class="fpbar"></div><div class="fpval">~11 GB al mes</div></div></div>
+      </div>
+    </div></section>
+
+    <!-- STATS -->
+    <section class="sec"><div class="wrap stats">
+      <div class="reveal"><div class="v grad">0</div><div class="l">datos a la nube</div></div>
+      <div class="reveal"><div class="v grad">3</div><div class="l">Win · macOS · Linux</div></div>
+      <div class="reveal"><div class="v grad">1×</div><div class="l">pago único</div></div>
+      <div class="reveal"><div class="v grad">$39</div><div class="l">lifetime early-bird</div></div>
+    </div></section>
+
+    <!-- ONE-TIME PRICE, NO SUBSCRIPTION -->
+    <section class="sec alt" id="pricing"><div class="wrap">
+      <div class="center reveal"><span class="eye">Precio</span><h2>Pago único, sin suscripción</h2><p class="desc">Una utilidad que conservas años no debería ser una factura mensual. Paga una vez, es tuya — <strong>$39</strong> early-bird (normal $59), futuras actualizaciones incluidas. No hay nube que financiar.</p></div>
+      <div class="row reveal s-3lt95Vwr">
+        <a class="btn btn-fire" href="https://buy.polar.sh/polar_cl_uQFZh6NjMqG5zp0RVGHSjITzIJVn1CPA2uB4N0DUmNc">Comprar — $39</a>
+        <a class="btn btn-ghost" href="/trace/#pricing">Detalles completos de precio</a>
+      </div>
+    </div></section>
+
+    <!-- TRACE VS SCREENPIPE -->
+    <section class="sec" id="compare"><div class="wrap">
+      <div class="center reveal"><span class="eye">Comparativa</span><h2>Trace vs Screenpipe</h2><p class="desc">Una mirada justa, lado a lado. Herramientas distintas para personas distintas — elige la que encaje con cómo trabajas de verdad.</p></div>
+      <div class="glass reveal s-oxNvOtru">
+        <div class="s-Gx11RS-7"><table>
+          <thead><tr><th scope="col">&nbsp;</th><th scope="col" class="isus">Trace</th><th scope="col">Screenpipe</th></tr></thead>
+          <tbody>
+            <tr>
+              <th scope="row">Enfoque de captura</th>
+              <td class="isus"><span class="yes">Señales ligeras: historial, ventana activa, portapapeles</span></td>
+              <td><span class="warn">Grabación continua de pantalla + audio con OCR</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Consumo de recursos</th>
+              <td class="isus"><span class="yes">Ligero por diseño</span></td>
+              <td><span class="warn">Más pesado, intensivo en recursos</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Instalación</th>
+              <td class="isus"><span class="yes">Aspira a instalar en un clic</span></td>
+              <td><span class="warn">Más técnica / orientada a desarrolladores</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Precio</th>
+              <td class="isus"><span class="yes">Pago único $39 (early-bird, era $59)</span></td>
+              <td><span class="warn">Núcleo gratis; la nube de pago es, según se reporta, suscripción/créditos</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Corre local / offline</th>
+              <td class="isus"><span class="yes">Sí — funciona con el firewall cerrado</span></td>
+              <td><span class="yes">Sí — también local-first</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Open source</th>
+              <td class="isus"><span class="warn">App privada y comercial</span></td>
+              <td><span class="yes">Totalmente open source</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Mejor para</th>
+              <td class="isus"><span class="yes">Una app silenciosa y acabada de «encuentra cualquier cosa»</span></td>
+              <td><span class="warn">Una plataforma programable de grabarlo-todo</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Disponibilidad</th>
+              <td class="isus"><span class="warn">Beta — únete a la lista</span></td>
+              <td><span class="yes">Disponible ya</span></td>
+            </tr>
+          </tbody>
+        </table></div>
+        <div class="s-rC4CFmz1">La comparativa se ofrece de buena fe y refleja información públicamente reportada; el precio y las capacidades de Screenpipe pueden cambiar. Las marcas pertenecen a sus dueños.</div>
+      </div>
+    </div></section>
+
+    <!-- WAITLIST (primary CTA) -->
+    <section class="sec alt" id="waitlist"><div class="wrap">
+      <div class="center reveal"><span class="eye">Lista de espera</span><h2>Empezar</h2><p class="desc">Aún en beta, no descargable. Únete a la lista y fija el precio lifetime de $39.</p></div>
+      <form id="wl" class="wlform reveal" action="https://formspree.io/f/mnjyoknb" method="POST" novalidate="">
+          <input type="hidden" name="origen" value="trace/screenpipe-alternative">
+          <input type="hidden" name="_subject" value="fervon.dev · trace/screenpipe-alternative">
+        <div class="frow">
+          <label class="vh" for="email">Correo electrónico</label>
+          <input type="email" id="email" name="email" required="" autocomplete="email" inputmode="email" placeholder="tu@ejemplo.com">
+          <button type="submit" class="btn btn-fire">Únete a la lista</button>
+        </div>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="vh" aria-hidden="true">
+        <p class="fmsg" id="fmsg" role="status" aria-live="polite"></p>
+        <p class="ffine">Sin spam. Un solo email cuando abra la beta. Cancela cuando quieras.</p>
+      </form>
+    </div></section>
+
+    <!-- FAQ -->
+    <section class="sec" id="faq"><div class="wrap">
+      <div class="center reveal"><span class="eye">FAQ</span><h2>Preguntas frecuentes</h2></div>
+      <div class="faq reveal">
+        <details><summary>¿Hay una alternativa más ligera a Screenpipe?</summary><p>Sí. Screenpipe es una herramienta capaz y open source, pero se apoya en la grabación continua de pantalla, que es intensiva en recursos. Trace está hecho para ser ligero: captura señales pequeñas — historial de navegador, la ventana activa y el texto del portapapeles — en vez de grabar vídeo a todas horas, así que reposa tranquilo en segundo plano en un ordenador corriente.</p></details>
+        <details><summary>¿Trace tiene suscripción?</summary><p>No. Trace es un pago único. Unirte a la lista fija el precio lifetime early-bird de $39 (normal $59). Un tier Pro opcional de IA local está previsto para más adelante y nunca es obligatorio para usar la app.</p></details>
+        <details><summary>¿Trace es open source?</summary><p>No — Trace es una app privada y comercial, no open source. Pero está hecha para funcionar con red cero: sin servidores, sin cuentas, sin telemetría. Puedes confirmar que nada sale de tu máquina vigilando tu propio firewall. Screenpipe, en cambio, es totalmente open source.</p></details>
+        <details><summary>¿Puedo descargar Trace hoy?</summary><p>Todavía no. Trace está en fase de lista de espera y beta — ahora mismo no se puede descargar. Únete a la lista y te avisaremos por email cuando las builds estén listas, empezando por la plataforma que se lance primero.</p></details>
+        <details><summary>¿Trace envía mis datos a la nube?</summary><p>No. Trace corre por completo en tu máquina, sin servidores y sin cuentas. Funciona con el firewall cerrado, así que puedes confirmar que nada sale de tu máquina.</p></details>
+      </div>
+    </div></section>
+
+    <!-- CTA -->
+    <section class="sec"><div class="wrap">
+      <div class="glass ctaband reveal">
+        <div class="bggrid s-im9vJqY9"></div>
+        <h2>Toda la memoria. <span class="grad">Una fracción del peso.</span></h2>
+        <p class="desc s-HQSJ4X1v">Privada, local, ligera y tuya para siempre. Fija el precio lifetime de $39.</p>
+        <div class="row s-0syaN8w1">
+          <a class="btn btn-fire" href="https://buy.polar.sh/polar_cl_uQFZh6NjMqG5zp0RVGHSjITzIJVn1CPA2uB4N0DUmNc">Comprar — $39</a>
+          <a class="btn btn-ghost" href="#waitlist">Únete a la lista</a>        </div>
+        <p class="pfoot">Reembolso total hasta el lanzamiento · Pago seguro con Polar</p>
+      </div>
+    </div></section>
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">Más de Fervon</span>
+          <h2 id="mas-h">Sigue explorando</h2>
+        </div>
+        <div class="related reveal">
+        <a class="relcard" href="/es/trace/personal-memory-tool-without-screen-recording">
+          <span class="rt">Memoria sin grabar la pantalla</span>
+          <span class="rd">Sin vídeo 24/7 ni capturas almacenadas.</span>
+        </a>
+        <a class="relcard" href="/es/trace/rewind-ai-alternative">
+          <span class="rt">Alternativa a Rewind AI</span>
+          <span class="rd">Rewind cerró. La sustituta local y multiplataforma.</span>
+        </a>
+        <a class="relcard" href="/trace/">
+          <span class="rt">Trace</span>
+          <span class="rd">Tu memoria personal, local-first y de pago único.</span>
+        </a>
+        <a class="relcard" href="/es/trace/limitless-alternative">
+          <span class="rt">Limitless alternative</span>
+          <span class="rd">Meta compró Limitless. La opción independiente.</span>
+        </a>
+        <a class="relcard" href="/es/trace/rewind-shut-down-what-to-use">
+          <span class="rt">Rewind shut down: what to use now</span>
+          <span class="rd">Repaso honesto de lo que quedó en pie.</span>
+        </a>
+        </div>
+      <div class="fv-share">
+        <button type="button" class="sharebtn" aria-label="Compartir esta página">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
+          <span>Compartir</span>
+        </button>
+        <span class="sharemsg" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>Trace</b>
+      <span>Pago único · $39</span>
+    </div>
+    <a class="btn btn-fire" href="#pricing">Comprar</a>
+  </div>
+
+  <footer><div class="wrap foot">
+    <span assets="" logo-icon.svg"="" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh">Trace es un proyecto de <a href="https://fervon.dev"></a></span>
+    <span>© 2026 Jonathan Martín · Local-first por diseño</span>
+  </div></footer>
+
+  <script src="/trace/screenpipe-alternative.client.js?v=20260814d" defer=""></script>
+  <script src="/assets/shared.js?v=20260814d" defer=""></script>
+
+
+
+
+</body></html>

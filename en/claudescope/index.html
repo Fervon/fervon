@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en"><head></head><body>﻿
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ClaudeScope · Search your Claude Code sessions</title>
+  <meta name="description" content="Full-text search across every Claude Code session, plus the usage dashboard your subscription hides. One command, 100% local. Free and open source.">
+  <link rel="canonical" href="https://fervon.dev/en/claudescope/"><link rel="alternate" hreflang="es" href="https://fervon.dev/claudescope/"><link rel="alternate" hreflang="en" href="https://fervon.dev/en/claudescope/"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/claudescope/">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#0E0B0A">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Fervon">
+  <meta property="og:title" content="ClaudeScope · Search every Claude Code session">
+  <meta property="og:description" content="Which session did you fix that bug in? Full-text search plus a Claude Code usage dashboard, 100% local, one command. Free and open source.">
+  <meta property="og:url" content="https://fervon.dev/en/claudescope/">
+  <meta property="og:image" content="https://fervon.dev/assets/og-claudescope.jpg">
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-claudescope.jpg">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "ClaudeScope",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Windows, macOS, Linux",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "description": "Búsqueda full-text en cada sesión de Claude Code que has corrido, más el panel de uso que tu suscripción no muestra. Un comando, cero instalación, cero red, 100% local. Open source MIT.",
+    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
+    "url": "https://fervon.dev/claudescope/"
+  }
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿ClaudeScope sube mis sesiones a algún sitio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Lee los ficheros de sesión que Claude Code ya guarda en tu disco y monta el índice y el panel en tu propia máquina. No hay servidor, no hay cuenta y no hay API key."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Hay que instalar algo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No hace falta instalación permanente: con npx claudescope-cli se ejecuta directamente. Solo necesitas Node.js."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué puedo buscar exactamente?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "El texto completo de las conversaciones: tus mensajes, las respuestas y las llamadas a herramientas. Sirve justo para lo que uno hace a mano y mal: recordar en qué sesión resolviste un problema concreto."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto cuesta?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nada. Es gratis y open source, sin tier de pago ni límite de uso. El código está en GitHub."
+      }
+    }
+  ]
+}
+  </script>
+
+  <link rel="stylesheet" href="/assets/core.css?v=20260814d">
+  <link rel="stylesheet" href="/assets/product.css?v=20260814d">
+  <link rel="stylesheet" href="/claudescope/index.css?v=20260814d">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260814d">
+
+
+  <a class="skip" href="#top">Skip to content</a>
+
+  <header class="nav"><div class="glass bar">
+    <a class="crumb" href="/en/"><span class="fv"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> fervon</span><span class="sep">›</span><span>claudescope</span></a>
+    <nav class="menu">
+      <a href="#features">What you get</a>
+      <a href="#demo">Demo</a>
+      <a href="#how">How it works</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#get">Install</a>
+    </nav>
+    <div class="act">
+      <nav class="langseg" id="lang" aria-label="Language"><a class="langopt" href="/claudescope/" hreflang="es" lang="es">ES</a><span class="langopt on" aria-current="true">EN</span></nav>
+      <a class="btn btn-ghost btn-sm" href="https://github.com/JoniMartin27/claudescope">GitHub</a>
+      <a class="btn btn-fire btn-sm" href="#get">Install</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div aria-hidden="true" class="s-MaOXm6sP"></div>
+      <div class="bggrid s-9EC6gkuB"></div>
+      <div class="wrap cols">
+        <div>
+          <span class="pill reveal"><span class="dot"></span> MIT · 0 dependencies · 0 network</span>
+          <h1 class="reveal">Which session did you <span class="grad">fix that bug in?</span></h1>
+          <p class="sub reveal"><b>Full-text search across every Claude Code session</b>, plus the usage panel your subscription hides from you.</p>
+          <div class="row reveal">
+            <div class="cmd">
+              <span class="pr mono">$</span><code class="mono" id="cmd">npx claudescope-cli</code>
+              <button class="cp" id="copyBtn" aria-label="Copiar comando">⧉ Copiar</button>
+            </div>
+            <a class="btn btn-ghost" href="https://github.com/JoniMartin27/claudescope">View on GitHub</a>
+          </div>
+          <div class="trust reveal"><span>✓ 127.0.0.1:4317</span><span>✓ Read-only</span><span>✓ 100% local</span></div>
+        </div>
+
+        <div class="demo reveal">
+          <div class="glass">
+            <div class="top">
+              <i class="s-aBnRT5ZT"></i><i class="s-wpdX47Tq"></i><i class="s-aNyb6LKH"></i>
+              <span class="s-Sxc0fCNN">claudescope · 127.0.0.1:4317</span>
+              <span class="s-cXQOUgJA"><span class="dot"></span> LOCAL</span>
+            </div>
+            <div class="body">
+              <div class="scopebar">
+                <span class="lens">🔭</span>
+                <span class="q mono" id="q"><span class="car"></span></span>
+                <span class="hits" id="hits">&nbsp;</span>
+              </div>
+              <div class="res" id="res">
+                <div class="hit" data-h="1">
+                  <div class="meta"><span class="role u">prompt</span><span class="mono">trading-bot</span><span>·</span><span>3 weeks ago</span></div>
+                  <div class="txt">…add the <mark>Postgres driver</mark> to the adapter, the pool isn't closing properly when…</div>
+                </div>
+                <div class="hit" data-h="2">
+                  <div class="meta"><span class="role a">response</span><span class="mono">trading-bot</span><span>·</span><span>3 weeks ago</span></div>
+                  <div class="txt">The <mark>Postgres driver</mark> now runs on <code class="mono">pg-mem</code> in-process; the real remote one I'm leaving as a follow-up…</div>
+                </div>
+                <div class="hit" data-h="3">
+                  <div class="meta"><span class="role t">tool · Edit</span><span class="mono">trading-bot</span><span>·</span><span>3 weeks ago</span></div>
+                  <div class="txt">src/db/<mark>postgres</mark>.ts · createPool({ ... })</div>
+                </div>
+              </div>
+              <div class="m3">
+                <div class="mcell"><div class="lab">sessions</div><div class="val mono s-Tjt46SSf" id="m-ses">0</div></div>
+                <div class="mcell"><div class="lab">messages</div><div class="val mono s-_3JYQidQ" id="m-msg">0</div></div>
+                <div class="mcell"><div class="lab">cache saved</div><div class="val mono s-UceLg92w" id="m-cache">$0</div></div>
+              </div>
+            </div>
+          </div>
+          <p class="s-HOKjOaN8">Illustrative demo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEMO REAL -->
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h">In 30 seconds</h2>
+          <ul>
+        <li><b>ClaudeScope</b> gives full-text search across <b>every</b> Claude Code session you have run.</li>
+        <li>It adds the <b>usage dashboard</b> your subscription does not show: tokens, cost and what the cache saved you.</li>
+        <li><b>100% local</b>: it reads the session files on your disk. Nothing is uploaded, no API key needed.</li>
+        <li>One command and <b>free</b>: <code>npx claudescope-cli</code>. Open source.</li>
+          </ul>
+      <div class="cta-row s-tldrcta">
+        <a class="btn btn-fire" href="#empezar">How to start</a>
+      </div>
+        </div>
+      </div>
+    </section>
+    <section class="sec alt" id="demo">
+      <div class="wrap center reveal">
+        <span class="eye">Demo</span>
+        <h2>See it in action</h2>
+        <p class="desc">Usage, spend per model and full-text search — straight from your own transcripts.</p>
+      </div>
+      <div class="wrap reveal s-InoH4OY_">
+        <figure class="glass s-C5vSwR5_">
+          <img src="/assets/claudescope-promo.webp" width="900" height="506" alt="ClaudeScope en acción: tarjetas de estadísticas, desglose de gasto por modelo y búsqueda full-text de sesiones de Claude Code" loading="lazy" decoding="async" class="s-h9OptjuP">
+        </figure>
+        <p class="s-KScCWUrT">Real product, running locally.</p>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="sec"><div class="wrap stats">
+      <div class="reveal"><div class="v grad">0</div><div class="l">network requests</div></div>
+      <div class="reveal"><div class="v grad">0</div><div class="l">dependencies in node_modules</div></div>
+      <div class="reveal"><div class="v grad">&lt;2 s</div><div class="l">to parse ~35k messages</div></div>
+      <div class="reveal"><div class="v grad">1</div><div class="l">command, nothing to install</div></div>
+    </div></section>
+
+    <!-- HOW -->
+    <section class="sec alt" id="how"><div class="wrap">
+      <div class="center reveal"><span class="eye">The flow</span><h2>From gigabytes of <span class="mono s-mkl85k5q">.jsonl</span> to answers, in one command</h2></div>
+      <div class="steps">
+        <div class="glass step reveal"><div class="n mono">01</div><h3>Run one command</h3><p><code class="mono">npx claudescope-cli</code>. Nothing to install.</p></div>
+        <div class="glass step reveal"><div class="n mono">02</div><h3>It finds your data</h3><p>Locates your Claude Code folder automatically.</p></div>
+        <div class="glass step reveal"><div class="n mono">03</div><h3>Builds in memory</h3><p>Streams every transcript, tolerant of corrupt lines.</p></div>
+        <div class="glass step reveal"><div class="n mono">04</div><h3>Opens the dashboard</h3><p>Your browser opens at <code class="mono">127.0.0.1:4317</code>.</p></div>
+      </div>
+    </div></section>
+
+    <!-- FEATURES -->
+    <section class="sec" id="features"><div class="wrap">
+      <div class="center reveal"><span class="eye">What you get</span><h2>Your Claude Code history, finally readable</h2></div>
+      <div class="cards">
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg></div><h3>Full-text search</h3><p>Instant grep over every prompt, response and tool-call, with highlighting.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 7v14"></path><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"></path></svg></div><h3>Session reader</h3><p>Click a result and read the whole conversation in place.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="M18 17V9"></path><path d="M13 17V5"></path><path d="M8 17v-3"></path></svg></div><h3>Usage at a glance</h3><p>Sessions, messages, tokens, API cost and <b>how much the cache saved you</b>.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path><path d="M22 12A10 10 0 0 0 12 2v10z"></path></svg></div><h3>Tokens and spend</h3><p>Where your tokens go and cost per model, with zero libraries.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z"></path><circle cx="12" cy="12" r="10"></circle></svg></div><h3>Typical session</h3><p>Cost, messages and duration at median and p90.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path></svg></div><h3>Heatmap and timeline</h3><p>Your rhythm by day × hour and the daily trend.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"></path><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"></path><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"></path><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"></path><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"></path><path d="M3.477 10.896a4 4 0 0 1 .585-.396"></path><path d="M19.938 10.5a4 4 0 0 1 .585.396"></path><path d="M6 18a4 4 0 0 1-1.967-.516"></path><path d="M19.967 17.484A4 4 0 0 1 18 18"></path></svg></div><h3>Insights and archetype</h3><p>Your habits in plain language, plus your archetype and streak.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72"></path><path d="m14 7 3 3"></path><path d="M5 6v4"></path><path d="M19 14v4"></path><path d="M10 2v2"></path><path d="M7 8H3"></path><path d="M21 16h-4"></path><path d="M11 3H9"></path></svg></div><h3>Wrapped card</h3><p>A shareable, <b>anonymized</b> year-in-review, generated locally.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22v-5"></path><path d="M9 8V2"></path><path d="M15 8V2"></path><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8Z"></path></svg></div><h3>Multi-CLI</h3><p>Also reads <b>Codex, Cursor, Aider, Gemini and Copilot CLI</b>.</p></div>
+      </div>
+      <p class="center reveal s-ooKI87HB">Plus: offline percentile badge, installable PWA, opt-in real cost and export to Markdown, CSV or JSON.</p>
+    </div></section>
+
+    <!-- PROBLEM / SEARCH -->
+    <section class="sec alt"><div class="wrap two">
+      <div class="reveal">
+        <span class="eye">The problem</span>
+        <h2>Your answer is in there, but you can't <span class="grad">grep it</span></h2>
+        <p class="desc"><code class="mono s-Tjt46SSf">claude --resume</code> shows you a wall of IDs with no content and no search. The answer lives in <code class="mono s-7ufF5ecg">~/.claude/projects/</code>, locked inside gigabytes of raw <code class="mono">.jsonl</code>.</p>
+        <div class="chips">
+          <span class="chip">🔎 Where did I set up the Postgres driver?</span>
+          <span class="chip">💸 How many tokens am I burning?</span>
+          <span class="chip">🗂️ Which project eats the most?</span>
+          <span class="chip">🛠️ Which tools does Claude use?</span>
+          <span class="chip">⏰ When am I most productive?</span>
+        </div>
+        <p class="s-r1Fbi1KV">From the transcripts you already have — <b class="s-7TvVc0z_">100% local, zero network</b>.</p>
+      </div>
+      <div class="glass reveal s-pTF7jaW7">
+        <div class="s-m1cAPZWN">Weekly ritual · <span class="mono s-Tjt46SSf">--weekly</span></div>
+        <div class="s-FSqbGIAR">
+          <p class="s-WEcSIxuM">Prints a plain-text <b>Scope Report</b>: deltas vs. last week, streak 🔥, archetype and percentile. Wire it to a cron job.</p>
+          <div class="codeblock mono s-xT6h2iOF">
+<span class="c"># cron, every Monday at 9:00</span>
+0 9 * * 1 claudescope <span class="p">--weekly</span> &gt;&gt; ~/scope.log
+          </div>
+        </div>
+        <div class="s-ijLQGO-V">
+          <div class="s-SL7Dviq4">Activity heatmap (day × hour)</div>
+          <div class="heat" id="heat"></div>
+        </div>
+      </div>
+    </div></section>
+
+    <!-- PRIVACY -->
+    <section class="sec" id="privacy"><div class="wrap">
+      <div class="center reveal"><span class="eye">Privacy first</span><h2>The most sensitive thing you own <span class="grad">never leaves your machine</span></h2><p class="desc">Your AI coding history shouldn't have to go anywhere to be understood. So it doesn't.</p></div>
+      <div class="pri">
+        <div class="it reveal"><div class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.9 16.1C1 12.2 1 5.8 4.9 1.9"></path><path d="M7.8 4.7a6.14 6.14 0 0 0-.8 7.5"></path><circle cx="12" cy="9" r="2"></circle><path d="M16.2 4.8c2 2 2.26 5.11.8 7.47"></path><path d="M19.1 1.9a9.96 9.96 0 0 1 0 14.1"></path><path d="M9.5 18h5"></path><path d="m8 22 4-11 4 11"></path></svg></div><div><h3>Zero network requests</h3><p>Pull the WiFi and it works exactly the same.</p></div></div>
+        <div class="it reveal"><div class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"></path><circle cx="12" cy="12" r="3"></circle></svg></div><div><h3>Read-only</h3><p>Reads your transcripts. Never touches them.</p></div></div>
+        <div class="it reveal"><div class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div><div><h3>Local-only server</h3><p>Bound to <code class="mono s-Tjt46SSf">127.0.0.1</code>, unreachable from your network.</p></div></div>
+        <div class="it reveal"><div class="k"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7.5 4.27 9 5.15"></path><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg></div><div><h3>Zero dependencies</h3><p>Pure Node. Nothing to audit in <code class="mono">node_modules</code>.</p></div></div>
+      </div>
+      <p class="center reveal s-ooKI87HB"><code class="mono s-Tjt46SSf">--merge</code> combines your team's machines and <code class="mono s-Tjt46SSf">--csv</code> / <code class="mono s-Tjt46SSf">--report</code> produce a hash-verifiable artifact, without exposing a single prompt.</p>
+    </div></section>
+
+    <!-- GET / INSTALL -->
+    <section class="sec alt" id="get"><div class="wrap">
+      <div class="center reveal"><span class="eye">Install</span><h2>One command. That's it.</h2><p class="desc">No config, no account, no network. Node 18+ and your browser opens the dashboard.</p></div>
+      <div class="reveal s-Rfshxx51">
+        <div class="cmd s-UbYCC2D5">
+          <span class="pr mono">$</span><code class="mono" id="cmd2">npx claudescope-cli</code>
+          <button class="cp" id="copyBtn2" aria-label="Copiar comando">⧉ Copiar</button>
+        </div>
+        <p class="s-iWjuOMCm">Opens at <code class="mono s-Tjt46SSf">http://127.0.0.1:4317</code>. Prefer it global? <code class="mono">npm i -g claudescope-cli</code>.</p>
+        <div class="s-euPpcIEe">
+          <a class="btn btn-ghost" href="https://github.com/JoniMartin27/claudescope">⭐ Star on GitHub</a>
+          <a class="btn btn-ghost" href="https://www.npmjs.com/package/claudescope-cli">📦 View on npm</a>
+        </div>
+        <div class="trust s-mbm6U6qU"><span>✓ Windows · macOS · Linux</span><span>✓ Node ≥ 18</span><span>✓ MIT</span></div>
+      </div>
+    </div></section>
+
+    <!-- CTA -->
+    <section class="sec"><div class="wrap">
+      <div class="glass ctaband reveal">
+        <div class="bggrid s-im9vJqY9"></div>
+        <h2>Stop searching blind. <span class="grad">Point the spyglass.</span></h2>
+        <p class="desc s-HQSJ4X1v">Your own transcripts, finally readable. Locally.</p>
+        <div class="row s-v2rvd44y">
+          <div class="cmd"><span class="pr mono">$</span><code class="mono" id="cmd3">npx claudescope-cli</code><button class="cp" id="copyBtn3" aria-label="Copiar comando">⧉ Copiar</button></div>
+          <a class="btn btn-ghost" href="https://github.com/JoniMartin27/claudescope">⭐ Star on GitHub</a>
+        </div>
+      </div>
+    </div></section>
+
+    <!-- seo:faq -->
+    <section class="sec seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">FAQ</span>
+          <h2 id="faq-h">Frequently asked questions</h2>
+        </div>
+        <div class="faq reveal">
+        <details>
+          <summary>Does ClaudeScope upload my sessions anywhere?</summary>
+          <p>No. It reads the session files Claude Code already stores on your disk and builds the index and dashboard on your own machine. There is no server, no account and no API key.</p>
+        </details>
+        <details>
+          <summary>Do I have to install anything?</summary>
+          <p>No permanent install is needed: <code>npx claudescope-cli</code> runs it directly. All you need is Node.js.</p>
+        </details>
+        <details>
+          <summary>What can I actually search?</summary>
+          <p>The full text of your conversations: your messages, the replies and the tool calls. Exactly what people otherwise do badly by hand: remembering which session solved a given problem.</p>
+        </details>
+        <details>
+          <summary>How much does it cost?</summary>
+          <p>Nothing. It is free and open source, with no paid tier and no usage limit. The code is on GitHub.</p>
+        </details>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- seo:table -->
+    <section class="sec seosec" id="ficha" aria-labelledby="ficha-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">Spec sheet</span>
+          <h2 id="ficha-h">ClaudeScope at a glance</h2>
+        </div>
+        <div class="tablewrap reveal">
+          <table class="seotable">
+            <caption class="vh">ClaudeScope price, licence, requirements and data handling.</caption>
+            <thead>
+          <tr><th>Item</th><th>Value</th></tr>
+            </thead>
+            <tbody>
+          <tr><th>Price</th><td>Free, with no paid tier</td></tr>
+          <tr><th>Licence</th><td>MIT (open source)</td></tr>
+          <tr><th>How you run it</th><td><code>npx claudescope-cli</code></td></tr>
+          <tr><th>Requirements</th><td>Node.js</td></tr>
+          <tr><th>Platforms</th><td>Windows · macOS · Linux</td></tr>
+          <tr><th>Where it runs</th><td>On your machine, over the session files on your disk</td></tr>
+          <tr><th>Account or API key</th><td>Neither is needed</td></tr>
+          <tr><th>Telemetry</th><td>None: nothing is uploaded</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">More from Fervon</span>
+          <h2 id="mas-h">Keep exploring</h2>
+        </div>
+        <div class="related reveal">
+        <a class="relcard" href="/en/lookspan/">
+          <span class="rt">Lookspan</span>
+          <span class="rd">Local-first observability for your AI agents. Free.</span>
+        </a>
+        <a class="relcard" href="/en/launchpad/">
+          <span class="rt">Mission Control</span>
+          <span class="rd">Start every repo at once, with no port clashes.</span>
+        </a>
+        <a class="relcard" href="/en/veredicto/">
+          <span class="rt">Veredicto</span>
+          <span class="rd">The CI check that catches agent tests proving nothing.</span>
+        </a>
+        <a class="relcard" href="/veredicto/report">
+          <span class="rt">El informe de datos</span>
+          <span class="rd">20 buggy modules, 20 green suites, 0 caught.</span>
+        </a>
+        </div>
+      <div class="fv-share">
+        <button type="button" class="sharebtn" aria-label="Share this page">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
+          <span>Share</span>
+        </button>
+        <span class="sharemsg" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>ClaudeScope</b>
+      <span>Free and open source</span>
+    </div>
+    <a class="btn btn-fire" href="#empezar">Get started</a>
+  </div>
+
+  <footer><div class="wrap foot">
+    <span assets="" logo-icon.svg"="" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh">ClaudeScope is a project by <a href="https://fervon.dev"></a></span>
+    <span>MIT © 2026 Jonathan Martín · <a href="https://github.com/JoniMartin27/claudescope">GitHub ↗</a></span>
+  </div></footer>
+
+  <script src="/claudescope/index.client.js?v=20260814d" defer=""></script>
+  <script src="/assets/shared.js?v=20260814d" defer=""></script>
+
+
+
+</body></html>

@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en"><head></head><body>﻿
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Pregón · Compose once, announce on 14 channels</title>
+  <meta name="description" content="Open-source cross-poster: write one message and publish it adapted to 14 channels, with real traction from npm, PyPI and GitHub. Self-host, free.">
+  <link rel="canonical" href="https://fervon.dev/en/pregon/"><link rel="alternate" hreflang="es" href="https://fervon.dev/pregon/"><link rel="alternate" hreflang="en" href="https://fervon.dev/en/pregon/"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/pregon/">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#0E0B0A">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Fervon">
+  <meta property="og:title" content="Pregón · One shout. Fourteen echoes.">
+  <meta property="og:description" content="Centralised cross-poster plus traction tracking. One canonical message, adapted to each platform and published by API. Free and open source.">
+  <meta property="og:url" content="https://fervon.dev/en/pregon/">
+  <meta property="og:image" content="https://fervon.dev/assets/og-pregon.jpg">
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-pregon.jpg">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Pregón",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Windows, macOS, Linux",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "description": "Cross-poster centralizado y open source: compón un mensaje una vez y publícalo adaptado a cada plataforma — 8 canales automáticos por API y 6 asistidos. Hub por proyecto con tracción real (npm/PyPI/GitHub) y tracker de crecimiento. Stack Next.js + Prisma + SQLite, self-host.",
+    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
+    "url": "https://fervon.dev/pregon/"
+  }
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿A qué plataformas publica automáticamente?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Publica por API a los canales que tengan credenciales conectadas —entre ellos Bluesky, Mastodon y DEV.to—. Para las redes sin API abierta genera el texto adaptado listo para pegar."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Publica el mismo texto en todas partes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, y ese es el punto. Se escribe un mensaje canónico y Pregón lo adapta al formato, la longitud y las convenciones de cada red antes de publicarlo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Dónde se guardan mis credenciales?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "En tu propia instalación. Pregón corre donde tú lo pongas y no hay un servicio central de terceros que las custodie."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué mide el tracking de tracción?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cifras reales tiradas de las APIs públicas: descargas de npm y PyPI y estrellas de GitHub, agrupadas por proyecto, para ver si un anuncio movió algo."
+      }
+    }
+  ]
+}
+  </script>
+
+  <link rel="stylesheet" href="/assets/core.css?v=20260814d">
+  <link rel="stylesheet" href="/assets/product.css?v=20260814d">
+  <link rel="stylesheet" href="/pregon/index.css?v=20260814d">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260814d">
+
+
+  <a class="skip" href="#top">Skip to content</a>
+
+  <header class="nav"><div class="glass bar">
+    <a class="crumb" href="/en/"><span class="fv"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> fervon</span><span class="sep">›</span><span>pregón</span></a>
+    <nav class="menu">
+      <a href="#features">Features</a>
+      <a href="#channels">Channels</a>
+      <a href="#how">How it works</a>
+      <a href="#hub">Traction</a>
+      <a href="#get">Get started</a>
+    </nav>
+    <div class="act">
+      <nav class="langseg" id="lang" aria-label="Language"><a class="langopt" href="/pregon/" hreflang="es" lang="es">ES</a><span class="langopt on" aria-current="true">EN</span></nav>
+      <a class="btn btn-ghost btn-sm" href="https://github.com/JoniMartin27/pregon">GitHub</a>
+      <a class="btn btn-fire btn-sm" href="#get">Get started</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div aria-hidden="true" class="s-dCU_gX_7"></div>
+      <div class="bggrid s-9EC6gkuB"></div>
+      <div class="wrap cols">
+        <div>
+          <span class="pill reveal"><span class="dot"></span> Open source · Self-host · Free</span>
+          <h1 class="reveal">One shout. <span class="grad">Fourteen echoes.</span></h1>
+          <p class="sub reveal"><b>You write the message once</b> and it's published, adapted to every platform.</p>
+          <div class="row reveal">
+            <a class="btn btn-fire" href="https://github.com/JoniMartin27/pregon">View on GitHub</a>
+            <a class="btn btn-ghost" href="#get">How to run it</a>
+          </div>
+          <div class="trust reveal"><span>✓ 8 auto + 6 assisted</span><span>✓ Credentials encrypted locally</span><span>✓ Next.js · Prisma · SQLite</span></div>
+        </div>
+
+        <div class="demo reveal">
+          <div class="glass">
+            <div class="top">
+              <i class="s-aBnRT5ZT"></i><i class="s-wpdX47Tq"></i><i class="s-aNyb6LKH"></i>
+              <span class="s-Sxc0fCNN">pregón · compose → broadcast</span>
+              <span class="s-cXQOUgJA"><span class="dot"></span> <span>LIVE</span></span>
+            </div>
+            <div class="body">
+              <div class="compose">
+                <div class="ph">Canonical message · once</div>
+                <div class="txt" id="canon"></div>
+              </div>
+              <div class="fanout" id="fanout">
+                <div class="frow" data-i="0"><span class="ico">🦋</span><span class="nm">Bluesky</span><span class="ad" id="ad-bsky">≤300</span><span class="st tag-auto" id="st-bsky">···</span></div>
+                <div class="frow" data-i="1"><span class="ico">🐘</span><span class="nm">Mastodon</span><span class="ad">≤500</span><span class="st tag-auto" id="st-mast">···</span></div>
+                <div class="frow" data-i="2"><span class="ico">🟠</span><span class="nm">Reddit</span><span class="ad">title + url</span><span class="st tag-auto" id="st-red">···</span></div>
+                <div class="frow" data-i="3"><span class="ico">𝕏</span><span class="nm">X</span><span class="ad">≤280 · link 23</span><span class="st tag-assist" id="st-x">···</span></div>
+                <div class="frow" data-i="4"><span class="ico">🟧</span><span class="nm">Hacker News</span><span class="ad">title ≤80</span><span class="st tag-assist" id="st-hn">···</span></div>
+              </div>
+            </div>
+          </div>
+          <p class="s-HOKjOaN8">Illustrative demo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATS -->
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h">In 30 seconds</h2>
+          <ul>
+        <li><b>Pregón</b> is a cross-poster: you compose the message <b>once</b> and it is published adapted to each platform.</li>
+        <li>Fourteen channels, published <b>via API</b>, respecting each network thread format and limits.</li>
+        <li>It includes <b>traction tracking</b>: a per-project hub with real npm, PyPI and GitHub numbers.</li>
+        <li><b>Free and open source</b>, with your credentials stored in your own installation.</li>
+          </ul>
+      <div class="cta-row s-tldrcta">
+        <a class="btn btn-fire" href="https://github.com/JoniMartin27/pregon">View on GitHub</a>
+      </div>
+        </div>
+      </div>
+    </section>
+    <section class="sec"><div class="wrap stats">
+      <div class="reveal"><div class="v grad">1</div><div class="l">canonical message</div></div>
+      <div class="reveal"><div class="v grad">14</div><div class="l">connectable channels</div></div>
+      <div class="reveal"><div class="v grad">8</div><div class="l">publish via API</div></div>
+      <div class="reveal"><div class="v grad">0</div><div class="l">quota · self-host</div></div>
+    </div></section>
+
+    <!-- HOW -->
+    <section class="sec alt" id="how"><div class="wrap">
+      <div class="center reveal"><span class="eye">The flow</span><h2>From an idea to a multichannel announcement</h2></div>
+      <div class="steps">
+        <div class="glass step reveal"><div class="n mono">01</div><h3>Pick a project</h3><p>Every launch hangs off a project.</p></div>
+        <div class="glass step reveal"><div class="n mono">02</div><h3>Compose once</h3><p>Title, body, link, tags and images.</p></div>
+        <div class="glass step reveal"><div class="n mono">03</div><h3>It adapts itself</h3><p>Trims, moves the link, converts tags.</p></div>
+        <div class="glass step reveal"><div class="n mono">04</div><h3>Publish or assist</h3><p>8 via API; the rest, composer pre-filled.</p></div>
+        <div class="glass step reveal"><div class="n mono">05</div><h3>Measure traction</h3><p>Permalinks, engagement and growth.</p></div>
+      </div>
+    </div></section>
+
+    <!-- FEATURES -->
+    <section class="sec" id="features"><div class="wrap">
+      <div class="center reveal"><span class="eye">Features</span><h2>The command center for broadcasting what you build</h2></div>
+      <div class="cards">
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m3 11 18-5v12L3 14v-3z"></path><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"></path></svg></div><h3>Compose once, broadcast to all</h3><p>A canonical message that travels to every channel.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.36a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72Z"></path><path d="m14 7 3 3"></path><path d="M5 6v4"></path><path d="M19 14v4"></path><path d="M10 2v2"></path><path d="M7 8H3"></path><path d="M21 16h-4"></path><path d="M11 3H9"></path></svg></div><h3>Per-platform adaptation</h3><p>280 on X, 300 on Bluesky, 500 on Mastodon; title separate where it belongs.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg></div><h3>8 fully automatic channels</h3><p>They publish via API and return the permalink.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg></div><h3>6 assisted channels</h3><p>They open their composer with the text already adapted.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.376 3.622a1 1 0 0 1 3.002 3.002L7.368 18.635a2 2 0 0 1-.855.506l-2.872.838a.5.5 0 0 1-.62-.62l.838-2.872a2 2 0 0 1 .506-.854z"></path></svg></div><h3>Per-channel overrides</h3><p>A one-off variant; the rest stays canonical.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg></div><h3>Announcements and comments</h3><p>A new post or a reply to a thread by its URL.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="M7 16h8"></path><path d="M7 11h12"></path><path d="M7 6h3"></path></svg></div><h3>Per-project hub</h3><p>Broadcast notes + real npm/PyPI/GitHub traction.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 7h6v6"></path><path d="m22 7-8.5 8.5-5-5L2 17"></path></svg></div><h3>Growth tracker</h3><p>Cron snapshots with weekly sparklines.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div><h3>Yours and encrypted</h3><p>Local SQLite; credentials AES-256-GCM. No SaaS.</p></div>
+      </div>
+    </div></section>
+
+    <!-- CHANNELS -->
+    <section class="sec alt" id="channels"><div class="wrap">
+      <div class="center reveal"><span class="eye">Channels</span><h2>14 destinations, grouped by how they publish</h2></div>
+
+      <div class="chgrid reveal">
+        <div class="chcell"><span class="e">🦋</span> Bluesky <span class="badge-dot s-aNyb6LKH"></span></div>
+        <div class="chcell"><span class="e">🐘</span> Mastodon <span class="badge-dot s-aNyb6LKH"></span></div>
+        <div class="chcell"><span class="e">🟠</span> Reddit <span class="badge-dot s-aNyb6LKH"></span></div>
+        <div class="chcell"><span class="e">📝</span> Hashnode <span class="badge-dot s-aNyb6LKH"></span></div>
+        <div class="chcell"><span class="e">👾</span> DEV.to <span class="badge-dot s-aNyb6LKH"></span></div>
+        <div class="chcell"><span class="e">✈️</span> Telegram <span class="badge-dot s-aNyb6LKH"></span></div>
+        <div class="chcell"><span class="e">🎮</span> Discord <span class="badge-dot s-aNyb6LKH"></span></div>
+        <div class="chcell"><span class="e">💼</span> Slack <span class="badge-dot s-aNyb6LKH"></span></div>
+        <div class="chcell"><span class="e">𝕏</span> X (Twitter) <span class="badge-dot s-2MRNokPD"></span></div>
+        <div class="chcell"><span class="e">🧵</span> Threads <span class="badge-dot s-2MRNokPD"></span></div>
+        <div class="chcell"><span class="e">💼</span> LinkedIn <span class="badge-dot s-2MRNokPD"></span></div>
+        <div class="chcell"><span class="e">🟧</span> Hacker News <span class="badge-dot s-2MRNokPD"></span></div>
+        <div class="chcell"><span class="e">🦞</span> Lobste.rs <span class="badge-dot s-2MRNokPD"></span></div>
+        <div class="chcell"><span class="e">🧑‍💻</span> Indie Hackers <span class="badge-dot s-2MRNokPD"></span></div>
+        <div class="chcell s-VBlk_CRv"><span class="e">😺</span> Product Hunt <span class="badge-dot s-wYK_8jqI"></span></div>
+        <div class="chcell s-VBlk_CRv"><span class="e">📋</span> BetaList <span class="badge-dot s-wYK_8jqI"></span></div>
+        <div class="chcell s-VBlk_CRv"><span class="e">🟩</span> Peerlist <span class="badge-dot s-wYK_8jqI"></span></div>
+        <div class="chcell s-VBlk_CRv"><span class="e">💚</span> WhatsApp <span class="badge-dot s-wYK_8jqI"></span></div>
+      </div>
+
+      <div class="leg reveal">
+        <span><i class="s-aNyb6LKH"></i> Automatic · publishes via API</span>
+        <span><i class="s-2MRNokPD"></i> Assisted · pre-filled composer</span>
+        <span><i class="s-wYK_8jqI"></i> In the catalog · coming soon</span>
+      </div>
+    </div></section>
+
+    <!-- ADAPT TABLE -->
+    <section class="sec" id="adapt"><div class="wrap two">
+      <div class="reveal">
+        <span class="eye">Adaptation engine</span>
+        <h2>The same message, tailored to each network</h2>
+        <p class="desc">A pure engine computes the optimal payload for each channel: how much fits, where the title goes and how characters are counted.</p>
+        <div class="chips">
+          <span class="chip">Ellipsis trimming</span><span class="chip">Real link weight (t.co = 23)</span><span class="chip">Title inline or separate</span><span class="chip">tags → hashtags</span><span class="chip">tags → tags field</span><span class="chip">Over-limit warning</span>
+        </div>
+        <p class="s-r1Fbi1KV">The same calculation runs on the server and in the client. What you see is what goes out.</p>
+      </div>
+      <div class="glass reveal s-pTF7jaW7">
+        <div class="s-m1cAPZWN">Limits and format per channel</div>
+        <div class="s-Gx11RS-7"><table>
+          <thead><tr><th>Channel</th><th>Limit</th><th>Title</th><th>Hashtags</th></tr></thead>
+          <tbody>
+            <tr><td>X (Twitter)</td><td>280 <span class="s-S3SwxiHm">· link 23</span></td><td class="s-7TvVc0z_">inline</td><td class="s-7TvVc0z_">append</td></tr>
+            <tr><td>Bluesky</td><td>300</td><td class="s-7TvVc0z_">inline</td><td class="s-7TvVc0z_">append</td></tr>
+            <tr><td>Mastodon · Threads</td><td>500</td><td class="s-7TvVc0z_">inline</td><td class="s-7TvVc0z_">append</td></tr>
+            <tr><td>LinkedIn</td><td>3000</td><td class="s-7TvVc0z_">inline</td><td class="s-7TvVc0z_">append</td></tr>
+            <tr><td>Telegram</td><td>4096</td><td class="s-7TvVc0z_">inline</td><td class="s-7TvVc0z_">—</td></tr>
+            <tr><td>Discord</td><td>2000</td><td class="s-7TvVc0z_">inline</td><td class="s-7TvVc0z_">—</td></tr>
+            <tr><td>Reddit</td><td>300</td><td class="s-7TvVc0z_">separate</td><td class="s-7TvVc0z_">—</td></tr>
+            <tr><td>DEV.to · Hashnode</td><td class="s-7TvVc0z_">article</td><td class="s-7TvVc0z_">separate</td><td class="s-7TvVc0z_">tags field</td></tr>
+            <tr><td>Hacker News</td><td>80 <span class="s-S3SwxiHm">· title</span></td><td class="s-7TvVc0z_">separate</td><td class="s-7TvVc0z_">—</td></tr>
+          </tbody>
+        </table></div>
+        <div class="s-pHurP39Q">Figures from Pregón's real engine profiles.</div>
+      </div>
+    </div></section>
+
+    <!-- HUB / TRACTION -->
+    <section class="sec alt" id="hub"><div class="wrap two">
+      <div class="glass reveal s-2JJNNEg8">
+        <div class="top s-7YiKLXEt">
+          <span class="s-2nC4mcaV">Lookspan</span>
+          <span class="mono s-x1B9EBcv">npm · PyPI · GitHub</span>
+          <span class="s-UTkEemx-">real traction</span>
+        </div>
+        <div class="s-JpW33o6g">
+          <div class="glass s-n_W39EIN"><div class="s-xFUyv6IN">npm / week</div><div class="mono s-NHBCV8oL">↑ 312</div><svg viewBox="0 0 100 28" class="s-D5p7pGSo"><polyline points="0,24 17,21 33,22 50,15 67,12 83,9 100,4" fill="none" stroke="var(--ember)" stroke-width="2"></polyline></svg></div>
+          <div class="glass s-n_W39EIN"><div class="s-xFUyv6IN">PyPI / week</div><div class="mono s-6V2xLOvp">↑ 148</div><svg viewBox="0 0 100 28" class="s-D5p7pGSo"><polyline points="0,22 17,23 33,18 50,17 67,13 83,11 100,7" fill="none" stroke="var(--spark)" stroke-width="2"></polyline></svg></div>
+          <div class="glass s-n_W39EIN"><div class="s-xFUyv6IN">GitHub ★</div><div class="mono s-Pn2yDU3R">↑ 27</div><svg viewBox="0 0 100 28" class="s-D5p7pGSo"><polyline points="0,25 17,24 33,20 50,18 67,14 83,10 100,6" fill="none" stroke="var(--brasa)" stroke-width="2"></polyline></svg></div>
+        </div>
+        <div class="s-pHurP39Q">Sample figures — in your own Hub you'll see real data from api.npmjs.org, pypistats.org and the GitHub API.</div>
+      </div>
+      <div class="reveal s-yL1ph0KH">
+        <span class="eye">Per-project hub</span>
+        <h2>You don't just publish: you see if it's working</h2>
+        <p class="desc">Every project has its own <b>broadcast memory</b> and its <b>real public traction</b>, from official sources — no made-up numbers.</p>
+        <div class="chips">
+          <span class="chip">npm downloads</span><span class="chip">PyPI downloads</span><span class="chip">Stars · forks · issues</span><span class="chip">Cron snapshots</span><span class="chip">Engagement per post</span><span class="chip">Saved permalinks</span>
+        </div>
+        <p class="s-r1Fbi1KV">Every post saves its permalink and its metrics: you see which channel gave you the most reach.</p>
+      </div>
+    </div></section>
+
+    <!-- GET STARTED -->
+    <section class="sec" id="get"><div class="wrap">
+      <div class="center reveal"><span class="eye">Get started</span><h2>It's yours: clone it and run it</h2><p class="desc">Open source and self-hosted. No accounts, no quota: it runs on your machine with a SQLite. Next.js 16 + Prisma 6.</p></div>
+      <div class="wrap reveal s-U8NDF3cN">
+        <div class="codeblk mono">
+          <div><span class="c"># 1 · clone the repo</span></div>
+          <div><span class="p">git</span> clone https://github.com/JoniMartin27/pregon</div>
+          <div><span class="p">cd</span> pregon</div>
+          <div class="s-35KBScVH"><span class="c"># 2 · install and prepare the database</span></div>
+          <div><span class="p">npm</span> install</div>
+          <div><span class="p">npx</span> prisma migrate dev</div>
+          <div class="s-35KBScVH"><span class="c"># 3 · start it up (http://localhost:4040)</span></div>
+          <div><span class="p">npm</span> run dev</div>
+        </div>
+      </div>
+      <div class="dlhero reveal">
+        <a class="btn btn-fire dlmain" href="https://github.com/JoniMartin27/pregon">
+          <span class="s-aCDiHF3O">⭐</span>
+          <span>View the code on GitHub</span>
+        </a>
+        <p class="s-JNShV9Zc">Repo <span class="mono">JoniMartin27/pregon</span> · in active development, self-host</p>
+      </div>
+    </div></section>
+
+    <!-- CTA -->
+    <section class="sec alt"><div class="wrap">
+      <div class="glass ctaband reveal">
+        <div class="bggrid s-im9vJqY9"></div>
+        <h2>Stop copy-pasting. <span class="grad">Proclaim it.</span></h2>
+        <p class="desc s-HQSJ4X1v">Write the announcement once and watch what you launch grow.</p>
+        <div class="row s-0syaN8w1">
+          <a class="btn btn-fire" href="https://github.com/JoniMartin27/pregon">⭐ Star on GitHub</a>
+          <a class="btn btn-ghost" href="#channels">See all 14 channels</a>
+        </div>
+      </div>
+    </div></section>
+
+    <!-- seo:faq -->
+    <section class="sec seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">FAQ</span>
+          <h2 id="faq-h">Frequently asked questions</h2>
+        </div>
+        <div class="faq reveal">
+        <details>
+          <summary>Which platforms does it post to automatically?</summary>
+          <p>It posts via API to whichever channels have credentials connected —among them Bluesky, Mastodon and DEV.to—. For networks without an open API it generates the adapted text ready to paste.</p>
+        </details>
+        <details>
+          <summary>Does it post the same text everywhere?</summary>
+          <p>No, and that is the point. You write one canonical message and Pregón adapts it to each network format, length and conventions before posting.</p>
+        </details>
+        <details>
+          <summary>Where are my credentials stored?</summary>
+          <p>In your own installation. Pregón runs wherever you put it and there is no central third-party service holding them.</p>
+        </details>
+        <details>
+          <summary>What does the traction tracking measure?</summary>
+          <p>Real numbers pulled from public APIs: npm and PyPI downloads and GitHub stars, grouped per project, so you can see whether an announcement moved anything.</p>
+        </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">More from Fervon</span>
+          <h2 id="mas-h">Keep exploring</h2>
+        </div>
+        <div class="related reveal">
+        <a class="relcard" href="/en/launchpad/">
+          <span class="rt">Mission Control</span>
+          <span class="rd">Start every repo at once, with no port clashes.</span>
+        </a>
+        <a class="relcard" href="/en/claudescope/">
+          <span class="rt">ClaudeScope</span>
+          <span class="rd">Search every Claude Code session you have run. Free.</span>
+        </a>
+        <a class="relcard" href="/en/">
+          <span class="rt">Fervon</span>
+          <span class="rd">The studio and the whole portfolio, on one page.</span>
+        </a>
+        </div>
+      <div class="fv-share">
+        <button type="button" class="sharebtn" aria-label="Share this page">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
+          <span>Share</span>
+        </button>
+        <span class="sharemsg" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>Pregón</b>
+      <span>Free and open source</span>
+    </div>
+    <a class="btn btn-fire" href="https://github.com/JoniMartin27/pregon">GitHub</a>
+  </div>
+
+  <footer><div class="wrap foot">
+    <span assets="" logo-icon.svg"="" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh">Pregón is a project by <a href="https://fervon.dev"></a></span>
+    <span>Open source · © 2026 Jonathan Martín · <a href="https://github.com/JoniMartin27/pregon">GitHub ↗</a></span>
+  </div></footer>
+
+  <script src="/pregon/index.client.js?v=20260814d" defer=""></script>
+  <script src="/assets/shared.js?v=20260814d" defer=""></script>
+
+
+
+</body></html>

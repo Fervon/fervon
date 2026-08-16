@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en"><head></head><body>﻿
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Trace · Your personal memory, on your machine</title>
+  <meta name="description" content="Find anything you saw, read or did, without recording your screen or uploading anything. The alternative to Rewind and Recall. Pay once, $39.">
+  <link rel="canonical" href="https://fervon.dev/en/trace/"><link rel="alternate" hreflang="es" href="https://fervon.dev/trace/"><link rel="alternate" hreflang="en" href="https://fervon.dev/en/trace/"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/trace/">
+  <meta name="keywords" content="alternativa a Rewind, alternativa a Limitless, alternativa privada a Microsoft Recall, memoria personal local-first, alternativa a Screenpipe, línea de tiempo privada, memoria personal">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#0E0B0A">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Fervon">
+  <meta property="og:title" content="Trace · Your personal memory, on your machine">
+  <meta property="og:description" content="Find anything you saw, read or did — no screen recording, no cloud, no subscription. The private, local-first alternative to Rewind, Limitless and Microsoft Recall.">
+  <meta property="og:url" content="https://fervon.dev/en/trace/">
+  <meta property="og:image" content="https://fervon.dev/assets/og-trace.jpg">
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-trace.jpg">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Trace",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Windows, macOS, Linux",
+    "description": "Memoria personal local-first y multiplataforma. Encuentra cualquier cosa que viste, leíste o hiciste — sin grabar tu pantalla, sin nube, sin suscripción. Alternativa privada a Rewind, Limitless y Microsoft Recall.",
+    "offers": { "@type": "Offer", "price": "39", "priceCurrency": "USD", "description": "Licencia lifetime early-bird" },
+    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
+    "url": "https://fervon.dev/trace/"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "¿Trace graba mi pantalla todo el tiempo?", "acceptedAnswer": { "@type": "Answer", "text": "No. Trace captura señales ligeras — historial de navegador, ventana activa, texto del portapapeles — en vez de grabar vídeo continuo. Las capturas con OCR son un extra opcional, desactivado por defecto, y solo se disparan al cambiar de foco." } },
+      { "@type": "Question", "name": "¿Se envía algún dato mío a la nube?", "acceptedAnswer": { "@type": "Answer", "text": "No. Trace no tiene servidores ni cuentas. Funciona con el firewall cerrado — nada sale de tu equipo, y puedes comprobarlo tú mismo." } },
+      { "@type": "Question", "name": "¿En qué se diferencia de Microsoft Recall?", "acceptedAnswer": { "@type": "Answer", "text": "Recall está atado a los Copilot+ PC, toma capturas constantes y ha recibido fuertes críticas de privacidad. Trace funciona en cualquier PC moderno, captura mucho menos, filtra las exclusiones antes de escribir nada, y es transparente y opcional por diseño." } },
+      { "@type": "Question", "name": "¿Qué pasó con Rewind y Limitless?", "acceptedAnswer": { "@type": "Answer", "text": "Rewind (luego Limitless) fue adquirido por Meta y su app se cerró el 19 de diciembre de 2025. Trace existe para ser el sucesor independiente y realmente local para quien aún quiere esto sin un dueño big-tech." } },
+      { "@type": "Question", "name": "¿Qué plataformas soporta?", "acceptedAnswer": { "@type": "Answer", "text": "Trace apunta a Windows, macOS y Linux. A los de la lista se les dirá qué builds de plataforma estarán listos primero." } },
+      { "@type": "Question", "name": "¿Cuánto cuesta Trace?", "acceptedAnswer": { "@type": "Answer", "text": "Trace es un pago único. Unirte a la lista fija el precio lifetime early-bird de 39 USD (precio normal 59 USD). Un tier Pro de IA local está previsto para después y es totalmente opcional." } }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="/assets/core.css?v=20260814d">
+  <link rel="stylesheet" href="/trace/base.css?v=20260814d">
+  <link rel="stylesheet" href="/trace/index.css?v=20260814d">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260814d">
+
+
+  <a class="skip" href="#top">Skip to content</a>
+
+  <header class="nav"><div class="glass bar">
+    <a class="crumb" href="/en/">
+      <span class="fv"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> fervon</span><span class="sep">›</span>
+      <span><svg class="mark" width="17" height="17" viewBox="0 0 120 120" aria-hidden="true"><path d="M15.5 76 L15.5 88 L7.07 88 L14 76 Z" fill="#FF6A00"></path><path d="M14 82 C28 82 32 60 48 60 C62 60 60 74 72 74 C83 74 90 59.59 99 44" fill="none" stroke="#FF6A00" stroke-width="12" stroke-linecap="butt" stroke-linejoin="round"></path><circle cx="99" cy="44" r="6" fill="#FFB02E"></circle></svg>Trace</span>
+    </a>
+    <nav class="menu">
+      <a href="#how">How it works</a>
+      <a href="#privacy">Privacy</a>
+      <a href="#compare">Compare</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="act">
+      <nav class="langseg" id="lang" aria-label="Language"><a class="langopt" href="/trace/" hreflang="es" lang="es">ES</a><span class="langopt on" aria-current="true">EN</span></nav>      <a class="btn btn-fire btn-sm" href="#waitlist">Join the waitlist</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div aria-hidden="true" class="s-hlcZPUUK"></div>
+      <div class="bggrid s-9EC6gkuB"></div>
+      <div class="wrap cols">
+        <div>
+          <span class="pill reveal"><span class="dot"></span> Local-first · Windows · macOS · Linux</span>
+          <h1 class="reveal">Your Rewind memory now belongs to Meta. <span class="grad">Trace's never will.</span></h1>
+          <p class="sub reveal">Local-first personal memory — find anything you saw, read, or did. <b>No screen recording, no cloud, no subscription.</b></p>
+          <div class="row reveal">
+            <a class="btn btn-fire" href="https://buy.polar.sh/polar_cl_uQFZh6NjMqG5zp0RVGHSjITzIJVn1CPA2uB4N0DUmNc">Buy — $39</a>
+            <a class="btn btn-ghost" href="#how">See how it works</a>
+          </div>
+          <p class="pill reveal s-K9-ORf38"><span></span> One-time payment · <b class="s-7zm8I-3n">$39</b> early-bird <span class="s-sEVcIw8j">(then $59)</span></p>
+          <div class="trust reveal"><span>✓ Full refund anytime before launch</span><span>✓ One-time payment</span><span>✓ Firewall closed</span><span>✓ No telemetry</span></div>
+        </div>
+
+        <div class="demo reveal">
+          <div class="glass">
+            <div class="top">
+              <i class="s-aBnRT5ZT"></i><i class="s-wpdX47Tq"></i><i class="s-aNyb6LKH"></i>
+              <span class="s-Sxc0fCNN">Trace · Your timeline</span>
+              <span class="dot s-cXQOUgJA"><span></span> LOCAL</span>
+            </div>
+            <div class="body">
+              <div class="srch">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+                <span class="q" id="q"></span><span class="car"></span>
+              </div>
+              <div class="res" id="res">
+                <div class="rrow" data-i="0"><span class="t">14:32</span><span class="k k-web">web</span><span class="x">Competitor pricing — cloud plan $25/mo</span></div>
+                <div class="rrow" data-i="1"><span class="t">11:08</span><span class="k k-doc">doc</span><span class="x">Notes: “one-time payment, no subscription”</span></div>
+                <div class="rrow" data-i="2"><span class="t">09:51</span><span class="k k-app">app</span><span class="x">Figma — landing hero draft</span></div>
+              </div>
+            </div>
+          </div>
+          <p class="s-HOKjOaN8">Illustrative demo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM -->
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h">In 30 seconds</h2>
+          <ul>
+        <li><b>Trace</b> finds anything you saw, read or did on your computer.</li>
+        <li><b>No screen recording</b>: it uses browser history, active window and clipboard. No 24/7 video, no stored screenshots.</li>
+        <li>Everything <b>on your machine</b>: no cloud, no account. Windows, macOS and Linux.</li>
+        <li><b>$39 once</b>, not a subscription. The independent alternative to Rewind, Limitless and Microsoft Recall.</li>
+          </ul>
+      <div class="cta-row s-tldrcta">
+        <a class="btn btn-fire" href="#pricing">See pricing</a>
+      </div>
+        </div>
+      </div>
+    </section>
+    <section class="sec alt" id="problem"><div class="wrap">
+      <div class="center reveal"><span class="eye">The problem</span><h2>“Where did I see that?”</h2><p class="desc">You saw it. You can't find it.</p></div>
+      <div class="cards s-iLcIat7U">
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg></div><p>Your day, scattered across a dozen apps that don't talk to each other.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"></path><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"></path><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"></path><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"></path><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"></path><path d="M3.477 10.896a4 4 0 0 1 .585-.396"></path><path d="M19.938 10.5a4 4 0 0 1 .585.396"></path><path d="M6 18a4 4 0 0 1-1.967-.516"></path><path d="M19.967 17.484A4 4 0 0 1 18 18"></path></svg></div><p>You remember <em>seeing</em> it, not <em>where</em>.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div><p>The apps that fixed this died, or want your screen in their cloud.</p></div>
+      </div>
+    </div></section>
+
+    <!-- HOW -->
+    <section class="sec" id="how"><div class="wrap">
+      <div class="center reveal"><span class="eye">The flow</span><h2>How it works</h2><p class="desc">Three steps. Nothing leaves your computer.</p></div>
+      <div class="steps">
+        <div class="glass step reveal"><div class="n mono">01</div><h3>Lightweight capture</h3><p>History, active window, clipboard. No 24/7 screen recording.</p></div>
+        <div class="glass step reveal"><div class="n mono">02</div><h3>Local indexing</h3><p>Indexed and encrypted on your machine. Exclusions <em>before</em> writing.</p></div>
+        <div class="glass step reveal"><div class="n mono">03</div><h3>Search &amp; timeline</h3><p>Search or scroll through your day. Instant and offline.</p></div>
+      </div>
+    </div></section>
+
+    <!-- PRIVACY (star feature) -->
+    <section class="sec alt" id="privacy"><div class="wrap">
+      <div class="center reveal"><span class="eye">The star feature</span><h2>Privacy you can verify</h2><p class="desc">Other “private memories” phone home. Trace doesn't ask you to take its word for it.</p></div>
+      <div class="cards">
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h.01"></path><path d="M8.5 16.429a5 5 0 0 1 7 0"></path><path d="M5 12.859a10 10 0 0 1 5.17-2.69"></path><path d="M19 12.859a10 10 0 0 0-2.007-1.523"></path><path d="M2 8.82a15 15 0 0 1 4.177-2.643"></path><path d="M22 8.82a15 15 0 0 0-11.288-3.764"></path><path d="m2 2 20 20"></path></svg></div><h3>Verifiable zero-network</h3><p>Works with the firewall closed. No telemetry, no accounts.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"></path><path d="M22 21H7"></path><path d="m5 11 9 9"></path></svg></div><h3>Exclusions before capture</h3><p>Block apps, domains and incognito before anything is written to disk.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.586 17.414A2 2 0 0 0 2 18.828V21a1 1 0 0 0 1 1h3a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h1a1 1 0 0 0 1-1v-1a1 1 0 0 1 1-1h.172a2 2 0 0 0 1.414-.586l.814-.814a6.5 6.5 0 1 0-4-4z"></path><circle cx="16.5" cy="7.5" r=".5" fill="currentColor"></circle></svg></div><h3>Encrypted at rest</h3><p>Index encrypted on your disk. Delete any moment, or everything, in one click.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg></div><h3>Private by design</h3><p>No telemetry, no accounts.</p></div>
+      </div>
+    </div></section>
+
+    <!-- STATS -->
+    <section class="sec"><div class="wrap stats">
+      <div class="reveal"><div class="v grad">0</div><div class="l">data to the cloud</div></div>
+      <div class="reveal"><div class="v grad">3</div><div class="l">Win · macOS · Linux</div></div>
+      <div class="reveal"><div class="v grad">1×</div><div class="l">one-time payment</div></div>
+      <div class="reveal"><div class="v grad">$39</div><div class="l">lifetime early-bird</div></div>
+    </div></section>
+
+    <!-- COMPARE -->
+    <section class="sec alt" id="compare"><div class="wrap">
+      <div class="center reveal"><span class="eye">Compare</span><h2>How it compares</h2><p class="desc">The honest version.</p></div>
+      <div class="glass reveal s-oxNvOtru">
+        <div class="s-Gx11RS-7"><table>
+          <thead><tr><th scope="col">&nbsp;</th><th scope="col" class="isus">Trace</th><th scope="col">Rewind / Limitless</th><th scope="col">Screenpipe</th><th scope="col">Microsoft Recall</th></tr></thead>
+          <tbody>
+            <tr>
+              <th scope="row">Still alive &amp; independent</th>
+              <td class="isus"><span class="yes">Yes</span></td>
+              <td><span class="no">Bought by Meta, app shut down Dec 19, 2025</span></td>
+              <td><span class="yes">Yes</span></td>
+              <td><span class="warn">Tied to Microsoft</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Truly local / offline</th>
+              <td class="isus"><span class="yes">Yes — firewall closed</span></td>
+              <td><span class="no">Pulls toward the cloud</span></td>
+              <td><span class="warn">Pushes you to the cloud</span></td>
+              <td><span class="warn">Local, but controversial</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Lightweight</th>
+              <td class="isus"><span class="yes">Signals, not 24/7 video</span></td>
+              <td><span class="warn">Heavy screen recording</span></td>
+              <td><span class="no">&gt;10GB RAM, &gt;100% CPU</span></td>
+              <td><span class="warn">Constant snapshots</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Price</th>
+              <td class="isus"><span class="yes">One-time payment ($39 early-bird)</span></td>
+              <td><span class="warn">Subscription (discontinued)</span></td>
+              <td><span class="no">$25–49/mo in the cloud</span></td>
+              <td><span class="warn">Requires a “Copilot+ PC”</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Hardware requirement</th>
+              <td class="isus"><span class="yes">Any modern PC</span></td>
+              <td><span class="warn">Mac first</span></td>
+              <td><span class="warn">Powerful machine</span></td>
+              <td><span class="no">Copilot+ PC only</span></td>
+            </tr>
+          </tbody>
+        </table></div>
+        <div class="s-rC4CFmz1">Public facts as of mid-2025. Trademarks belong to their owners.</div>
+      </div>
+    </div></section>
+
+    <!-- PRICING -->
+    <section class="sec" id="pricing"><div class="wrap">
+      <div class="center reveal"><span class="eye">Pricing</span><h2>Simple and honest</h2><p class="desc">Pay once. Yours forever.</p></div>
+      <div class="prices">
+        <div class="glass price feat-card reveal">
+          <span class="pbadge">Early-bird</span>
+          <div class="pname">Lifetime</div>
+          <div class="pamt"><span class="pnow grad">$39</span><span class="pwas">$59</span></div>
+          <div class="pcyc">one-time payment</div>
+          <ul class="plist">
+            <li>Local capture, search and timeline</li>
+            <li>Windows, macOS and Linux</li>
+            <li>Zero network, encrypted at rest</li>
+            <li>All future updates</li>
+          </ul>
+          <a class="btn btn-fire btn-block" href="https://buy.polar.sh/polar_cl_uQFZh6NjMqG5zp0RVGHSjITzIJVn1CPA2uB4N0DUmNc">Buy — $39</a>
+          <p class="pfoot">In beta — pre-sale. Buy now and get your license + the beta the moment it's ready. Full refund anytime before launch. Secure checkout by Polar.</p>
+        </div>
+
+        <div class="glass price reveal">
+          <span class="pbadge soon">Coming soon</span>
+          <div class="pname">AI Pro</div>
+          <div class="pamt"><span class="pnow">$5–8</span></div>
+          <div class="pcyc">per month · optional</div>
+          <ul class="plist">
+            <li>Semantic chat over your memory</li>
+            <li><strong>Local</strong> AI model — no cloud</li>
+            <li>100% optional — Lifetime doesn't need it</li>
+          </ul>
+          <a class="btn btn-ghost btn-block" href="#waitlist">Notify me</a>
+          <p class="pfoot">After the desktop app launches.</p>
+        </div>
+      </div>
+    </div></section>
+
+    <!-- WAITLIST (primary CTA) -->
+    <section class="sec alt" id="waitlist"><div class="wrap">
+      <div class="center reveal"><span class="eye">Free waitlist</span><h2>Not ready to buy?</h2><p class="desc">Leave your email and I'll tell you when the beta opens — no charge. Buying now gets you in first and locks the $39 price.</p></div>
+      <form id="wl" class="wlform reveal" action="https://formspree.io/f/mnjyoknb" method="POST" novalidate="">
+          <input type="hidden" name="origen" value="trace/index">
+          <input type="hidden" name="_subject" value="fervon.dev · trace/index">
+        <div class="frow">
+          <label class="vh" for="email">Email address</label>
+          <input type="email" id="email" name="email" required="" autocomplete="email" inputmode="email" placeholder="you@example.com">
+          <button type="submit" class="btn btn-fire">Únete a la lista</button>
+        </div>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="vh" aria-hidden="true">
+        <p class="fmsg" id="fmsg" role="status" aria-live="polite"></p>
+        <p class="ffine">No spam. One email when the beta opens.</p>
+      </form>
+    </div></section>
+
+    <!-- FAQ -->
+    <section class="sec" id="faq"><div class="wrap">
+      <div class="center reveal"><span class="eye">FAQ</span><h2>Frequently asked questions</h2></div>
+      <div class="faq reveal">
+        <details><summary>Does Trace record my screen all the time?</summary><p>No. It captures lightweight signals — history, active window, clipboard — not continuous video. OCR is optional and off by default.</p></details>
+        <details><summary>Is any of my data sent to the cloud?</summary><p>No servers, no accounts. It runs with your firewall closed — nothing leaves your machine, and you can confirm that yourself.</p></details>
+        <details><summary>How is it different from Microsoft Recall?</summary><p>Recall is tied to “Copilot+ PCs” and captures constantly. Trace runs on any modern PC, captures far less, and filters before writing.</p></details>
+        <details><summary>What happened to Rewind / Limitless?</summary><p>Meta bought it and shut the app down on December 19, 2025. Trace is the independent, truly local successor.</p></details>
+        <details><summary>Which platforms does it support?</summary><p>Windows, macOS and Linux. The waitlist will know which builds land first.</p></details>
+        <details><summary>When can I use it and how much does it cost?</summary><p>Trace is in active development. You can buy the $39 lifetime now (normally $59): it's in beta, so you're charged today and get the beta plus your license the moment it's ready, with a full refund anytime before launch. Payments are handled securely by Polar (your card never touches my servers). The local AI Pro tier is optional and comes later.</p></details>
+      </div>
+    </div></section>
+
+    <!-- CTA -->
+    <section class="sec alt"><div class="wrap">
+      <div class="glass ctaband reveal">
+        <div class="bggrid s-im9vJqY9"></div>
+        <h2>Stop searching blind. <span class="grad">Remember it.</span></h2>
+        <p class="desc s-HQSJ4X1v">Private, local, and yours forever. Lock in the $39 lifetime price.</p>
+        <div class="row s-0syaN8w1">
+          <a class="btn btn-fire" href="https://buy.polar.sh/polar_cl_uQFZh6NjMqG5zp0RVGHSjITzIJVn1CPA2uB4N0DUmNc">Buy — $39</a>        </div>
+        <p class="pfoot">Full refund anytime before launch · Secure checkout by Polar · No account, no subscription</p>
+      </div>
+    </div></section>
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">More from Fervon</span>
+          <h2 id="mas-h">Keep exploring</h2>
+        </div>
+        <div class="related reveal">
+        <a class="relcard" href="/trace/rewind-ai-alternative">
+          <span class="rt">Alternativa a Rewind AI</span>
+          <span class="rd">Rewind is gone. The local, cross-platform replacement.</span>
+        </a>
+        <a class="relcard" href="/trace/microsoft-recall-alternative">
+          <span class="rt">Alternativa a Microsoft Recall</span>
+          <span class="rd">No Copilot+ PC, none of the privacy problems.</span>
+        </a>
+        <a class="relcard" href="/trace/personal-memory-tool-without-screen-recording">
+          <span class="rt">Memoria sin grabar la pantalla</span>
+          <span class="rd">No 24/7 video, no stored screenshots.</span>
+        </a>
+        <a class="relcard" href="/trace/limitless-alternative">
+          <span class="rt">Alternativa a Limitless</span>
+          <span class="rd">Meta bought Limitless. The independent option.</span>
+        </a>
+        <a class="relcard" href="/trace/screenpipe-alternative">
+          <span class="rt">Alternativa a Screenpipe</span>
+          <span class="rd">Same idea, without the footprint or the subscription.</span>
+        </a>
+        <a class="relcard" href="/trace/rewind-shut-down-what-to-use">
+          <span class="rt">Rewind cerró: qué usar ahora</span>
+          <span class="rd">An honest roundup of what survived.</span>
+        </a>
+        </div>
+      <div class="fv-share">
+        <button type="button" class="sharebtn" aria-label="Share this page">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
+          <span>Share</span>
+        </button>
+        <span class="sharemsg" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>Trace</b>
+      <span>Pay once · $39</span>
+    </div>
+    <a class="btn btn-fire" href="#pricing">Buy</a>
+  </div>
+
+  <footer><div class="wrap foot">
+    <span>Trace is a project by <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forged red-hot</span>
+    <span>© 2026 Jonathan Martín · Local-first by design</span>
+  </div></footer>
+
+  <script src="/trace/index.client.js?v=20260814d" defer=""></script>
+  <script src="/assets/shared.js?v=20260814d" defer=""></script>
+
+
+
+</body></html>

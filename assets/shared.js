@@ -37,12 +37,24 @@
   window.addEventListener('resize',function(){ if(window.innerWidth>880) set(false); });
 })();
 
-/* Fervon bilingual toggle — ES/EN segmented control, persisted, used by every page */
+/* Conmutador de idioma HEREDADO — intercambiaba el texto en el cliente leyendo
+   atributos data-en/data-es.
+
+   YA NO SE USA: desde 2026-08-14 cada idioma es una página física con su propia
+   URL y su hreflang (ver scripts/i18n-build.mjs). Aquel invento era invisible
+   para Google —el segundo idioma vivía en atributos, no en texto— y por eso la
+   mitad del contenido no rankeaba en ninguna parte.
+
+   Se conserva el código, inerte, por si alguna página antigua quedara servida
+   desde la caché con el marcado viejo. Si no hay atributos que intercambiar, o
+   si el selector ya son enlaces de verdad, no hace nada. */
 (function(){
   var KEY="fervon-lang";
   var base=(document.documentElement.getAttribute("lang")||"es").slice(0,2).toLowerCase();
   var other=base==="es"?"en":"es";
   var nodes=[].slice.call(document.querySelectorAll("[data-"+other+"]"));
+  var sel=document.getElementById("lang");
+  if(!nodes.length || (sel && sel.tagName==="NAV")) return;   // página monolingüe: nada que hacer
   nodes.forEach(function(n){ var a=n.getAttribute("data-i18n-attr"); n.setAttribute("data-"+base, a?(n.getAttribute(a)||""):n.innerHTML); });
 
   // Replace the legacy single #lang button with an ES/EN segmented control.

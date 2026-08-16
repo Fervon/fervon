@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en"><head></head><body>﻿
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>inferbench · Benchmark local LLMs on your GPU</title>
+  <meta name="description" content="Download, launch and benchmark local LLM engines in one click. Real tok/s, TTFT and VRAM from your GPU. 100% local. Free and open source.">
+  <link rel="canonical" href="https://fervon.dev/en/inferbench/"><link rel="alternate" hreflang="es" href="https://fervon.dev/inferbench/"><link rel="alternate" hreflang="en" href="https://fervon.dev/en/inferbench/"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/inferbench/">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#0E0B0A">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Fervon">
+  <meta property="og:title" content="inferbench · Which LLM runs on your GPU, and how fast">
+  <meta property="og:description" content="Download, launch and benchmark local LLMs in one click. Real tok/s, TTFT and VRAM. Free and open source.">
+  <meta property="og:url" content="https://fervon.dev/en/inferbench/">
+  <meta property="og:image" content="https://fervon.dev/assets/og-inferbench.jpg">
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-inferbench.jpg">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "inferbench",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Windows, macOS, Linux",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "description": "Descarga, arranca y benchmarkea motores de inferencia LLM locales con un click. Mide tok/s, TTFT y VRAM reales en tu GPU. 124 modelos verificados, multimotor.",
+    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
+    "url": "https://fervon.dev/inferbench/"
+  }
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Qué mide inferbench exactamente?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tokens por segundo, tiempo hasta el primer token (TTFT) y VRAM ocupada, medidos en tu propio equipo con tu propia GPU. Son cifras reproducibles de tu hardware, no estimaciones."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Necesito saber de cuantización o de llama.cpp?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. inferbench se encarga de descargar el modelo, elegir el motor y arrancarlo. Tú eliges el modelo del catálogo y lees los resultados."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Los modelos del catálogo son reales?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, y es una regla dura del proyecto: cada entrada del catálogo apunta a un repositorio GGUF verificado en Hugging Face. No hay modelos inventados ni enlaces muertos."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Envía algo a internet aparte de descargar el modelo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Fuera de la descarga del modelo que tú pides, todo el benchmark corre en local y no se manda telemetría."
+      }
+    }
+  ]
+}
+  </script>
+
+  <link rel="stylesheet" href="/assets/core.css?v=20260814d">
+  <link rel="stylesheet" href="/assets/product.css?v=20260814d">
+  <link rel="stylesheet" href="/inferbench/index.css?v=20260814d">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260814d">
+
+
+  <a class="skip" href="#top">Skip to content</a>
+
+  <header class="nav"><div class="glass bar">
+    <a class="crumb" href="/en/"><span class="fv"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> fervon</span><span class="sep">›</span><span>inferbench</span></a>
+    <nav class="menu">
+      <a href="#features">Features</a>
+      <a href="#demo">Demo</a>
+      <a href="#how">How it works</a>
+      <a href="#models">Models</a>
+      <a href="#download">Download</a>
+    </nav>
+    <div class="act">
+      <nav class="langseg" id="lang" aria-label="Language"><a class="langopt" href="/inferbench/" hreflang="es" lang="es">ES</a><span class="langopt on" aria-current="true">EN</span></nav>
+      <a class="btn btn-ghost btn-sm" href="https://github.com/JoniMartin27/inferbench">GitHub</a>
+      <a class="btn btn-fire btn-sm" href="#download">Download</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div aria-hidden="true" class="s-Cbwz0RmP"></div>
+      <div class="bggrid s-9EC6gkuB"></div>
+      <div class="wrap cols">
+        <div>
+          <span class="pill reveal"><span class="dot"></span> Open source · MIT · Free</span>
+          <h1 class="reveal">Which LLM runs on your GPU <span class="grad">and at how many tok/s</span>.</h1>
+          <p class="sub reveal"><strong>inferbench</strong> <b>downloads, launches and benchmarks local LLMs in one click</b>. No Docker, no terminal. It actually measures.</p>
+          <div class="row reveal">
+            <a class="btn btn-fire" href="#download">Download free</a>
+            <a class="btn btn-ghost" href="https://github.com/JoniMartin27/inferbench">View on GitHub</a>
+          </div>
+          <div class="trust reveal"><span>✓ Windows · macOS · Linux</span><span>✓ No Python or Node</span><span>✓ 100% local and private</span></div>
+        </div>
+
+        <div class="demo reveal">
+          <div class="glass">
+            <div class="top">
+              <i class="s-aBnRT5ZT"></i><i class="s-wpdX47Tq"></i><i class="s-aNyb6LKH"></i>
+              <span class="s-Sxc0fCNN">inferbench · Live benchmark</span>
+              <span class="s-cXQOUgJA"><span class="dot"></span> LIVE</span>
+            </div>
+            <div class="body">
+              <div class="s-mev-PYc1">
+                <div class="s-bovPrI1j">Qwen3 30B-A3B · <span class="s-Tjt46SSf">MoE</span></div>
+                <div class="mono s-JYzqVkix" id="quant-badge">Q4_K_M</div>
+              </div>
+              <div class="mono s-bmtNTvWe">llama.cpp · nativo · ctx 8192 · -fa · -ctk q8_0</div>
+              <div class="m3">
+                <div class="mcell"><div class="lab">tok/s</div><div class="val mono s-Tjt46SSf" id="m-tps">0.0</div></div>
+                <div class="mcell"><div class="lab">TTFT</div><div class="val mono s-_3JYQidQ" id="m-ttft">— <span class="s-XkYfBwm2">ms</span></div></div>
+                <div class="mcell"><div class="lab">VRAM</div><div class="val mono s-UceLg92w" id="m-vram">0.0 <span class="s-XkYfBwm2">GB</span></div></div>
+              </div>
+              <div class="s-pKyGiDK4"><span id="phase-label">Descargando GGUF…</span><span id="phase-pct">0%</span></div>
+              <div class="barwrap"><div id="bar"></div></div>
+              <div class="term mono" id="log"><div class="s-sEVcIw8j">$ inferbench run --auto</div></div>
+            </div>
+          </div>
+          <p class="s-HOKjOaN8">Illustrative demo of the benchmark view.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEMO REAL -->
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h">In 30 seconds</h2>
+          <ul>
+        <li><b>inferbench</b> downloads, launches and benchmarks local LLM inference engines in one click.</li>
+        <li>It gives you real numbers from your machine: <b>tok/s, TTFT and VRAM</b>, not a model card headline.</li>
+        <li>It answers the one question that matters before a 40 GB download: <b>will this fit and run on my GPU?</b></li>
+        <li><b>Free and open source</b>, for Windows, macOS and Linux.</li>
+          </ul>
+      <div class="cta-row s-tldrcta">
+        <a class="btn btn-fire" href="#download">Download free</a>
+      </div>
+        </div>
+      </div>
+    </section>
+    <section class="sec alt" id="demo">
+      <div class="wrap center reveal">
+        <span class="eye">Demo</span>
+        <h2>See it in action</h2>
+        <p class="desc">Hardware, optimization, live benchmark, run comparison and Serve/MCP — all on your machine.</p>
+      </div>
+      <div class="wrap reveal s-InoH4OY_">
+        <figure class="glass s-C5vSwR5_">
+          <img src="/assets/inferbench-demo.webp" width="800" height="500" alt="inferbench in action: detected hardware, catalog with optimization, live benchmark with tok/s, Q8 vs Q4 run comparison and Serve/MCP generating an image" loading="lazy" decoding="async" class="s-h9OptjuP">
+        </figure>
+        <p class="s-KScCWUrT">Real benchmark numbers, unedited.</p>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="sec"><div class="wrap stats">
+      <div class="reveal"><div class="v grad">124</div><div class="l">verified models</div></div>
+      <div class="reveal"><div class="v grad">3</div><div class="l">systems: Win · macOS · Linux</div></div>
+      <div class="reveal"><div class="v grad">~4 ms</div><div class="l">compatibility listing</div></div>
+      <div class="reveal"><div class="v grad">0</div><div class="l">data sent to the cloud</div></div>
+    </div></section>
+
+    <!-- HOW -->
+    <section class="sec alt" id="how"><div class="wrap">
+      <div class="center reveal"><span class="eye">The flow</span><h2>From zero to real results in 5 steps</h2></div>
+      <div class="steps">
+        <div class="glass step reveal"><div class="n mono">01</div><h3>Pick a model</h3><p>From the catalog or your local GGUFs.</p></div>
+        <div class="glass step reveal"><div class="n mono">02</div><h3>Download the engine</h3><p>Official binary + GGUF from Hugging Face.</p></div>
+        <div class="glass step reveal"><div class="n mono">03</div><h3>Launch optimized</h3><p>Optimal config auto-computed for your GPU.</p></div>
+        <div class="glass step reveal"><div class="n mono">04</div><h3>Live benchmark</h3><p>TTFT, tok/s, VRAM and quality in real time.</p></div>
+        <div class="glass step reveal"><div class="n mono">05</div><h3>Compare and decide</h3><p>Saved runs, comparable side by side.</p></div>
+      </div>
+    </div></section>
+
+    <!-- FEATURES -->
+    <section class="sec" id="features"><div class="wrap">
+      <div class="center reveal"><span class="eye">Features</span><h2>Everything to tune local inference</h2></div>
+      <div class="cards">
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path></svg></div><h3>One-click auto-bootstrap</h3><p>Engine, GGUF, optimal config and benchmark. End-to-end.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.39 4.39a1 1 0 0 0 1.68-.474 2.5 2.5 0 1 1 3.014 3.015 1 1 0 0 0-.474 1.68l1.683 1.682a2.414 2.414 0 0 1 0 3.414L19.61 19.39a1 1 0 0 1-1.68-.474 2.5 2.5 0 1 0-3.014 3.015 1 1 0 0 1 .474 1.68l-1.683 1.682a2.414 2.414 0 0 1-3.414 0L8.61 24.39"></path><path d="M2.83 16.17a2.414 2.414 0 0 0 0 3.414L4.51 21.27a1 1 0 0 0 1.68-.474 2.5 2.5 0 0 1 3.014 3.015"></path></svg></div><h3>Hardware detection</h3><p>CPU, RAM and GPU. Compatibility for 124 models in ~4 ms.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 21.73a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73z"></path><path d="M3.3 7 12 12l8.7-5"></path><path d="M12 22V12"></path></svg></div><h3>Native mode, no Docker</h3><p>Official release + CUDA + DLLs auto. Docker optional.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"></path></svg></div><h3>124-model catalog</h3><p>Llama, Qwen, Gemma, Mistral, Phi, DeepSeek… verified.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72"></path><path d="m14 7 3 3"></path><path d="M5 6v4"></path><path d="M19 14v4"></path><path d="M10 2v2"></path><path d="M7 8H3"></path><path d="M21 16h-4"></path><path d="M11 3H9"></path></svg></div><h3>Automatic optimizer</h3><p>Quant, KV-cache, context, MoE offload and flags. Overridable.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 15 6 6m-6-6v4.8m0-4.8h4.8"></path><path d="M9 19.8V15m0 0H4.2M9 15l-6 6"></path><path d="M15 4.2V9m0 0h4.8M15 9l6-6"></path><path d="M9 4.2V9m0 0H4.2M9 9 3 3"></path></svg></div><h3>KV compression explained</h3><p>5 presets, with what fits on YOUR GPU at each level.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 7h6v6"></path><path d="m22 7-8.5 8.5-5-5L2 17"></path></svg></div><h3>Real metrics, live</h3><p>TTFT, tok/s and VRAM measured via SSE. Nothing simulated.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"></path><path d="M7 21h10"></path><path d="M12 3v18"></path><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"></path></svg></div><h3>Sweep and compare</h3><p>N quantizations queued, comparable runs with charts.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg></div><h3>100% local and private</h3><p>No telemetry, no account, no server. MIT.</p></div>
+      </div>
+    </div></section>
+
+    <!-- MODELS -->
+    <section class="sec alt" id="models"><div class="wrap two">
+      <div class="reveal">
+        <span class="eye">Catalog</span>
+        <h2>124 verified models, zero made up</h2>
+        <p class="desc">Every entry is checked against Hugging Face: the GGUF repo exists and the <code class="mono s-7ufF5ecg">Q4_K_M</code> resolves.</p>
+        <div class="chips">
+          <span class="chip">Llama 3.x</span><span class="chip">Qwen 2.5 / 3</span><span class="chip">Gemma 2 / 3</span><span class="chip">Mistral · Mixtral</span><span class="chip">Phi 2-4</span><span class="chip">DeepSeek R1</span><span class="chip">QwQ 32B</span><span class="chip">Vision (VL)</span><span class="chip">Code</span><span class="chip">MoE 30B-A3B</span><span class="chip">Granite</span><span class="chip">Command-R</span>
+        </div>
+        <p class="s-r1Fbi1KV">It also scans your local GGUFs (LM Studio, Ollama, HF cache).</p>
+      </div>
+      <div class="glass reveal s-pTF7jaW7">
+        <div class="s-m1cAPZWN">Supported engines</div>
+        <div class="s-Gx11RS-7"><table>
+          <thead><tr><th>Engine</th><th>Type</th><th>Native</th><th>Docker</th><th>Auto-download</th></tr></thead>
+          <tbody>
+            <tr><td>llama.cpp</td><td class="s-7TvVc0z_">local</td><td><span aria-hidden="true">✅</span><span class="vh">Yes</span></td><td><span aria-hidden="true">✅</span><span class="vh">Yes</span></td><td class="s-7TvVc0z_">✅ HF GGUF</td></tr>
+            <tr><td>ollama</td><td class="s-7TvVc0z_">local</td><td><span aria-hidden="true">✅</span><span class="vh">Yes</span></td><td><span aria-hidden="true">✅</span><span class="vh">Yes</span></td><td class="s-7TvVc0z_">✅ registry</td></tr>
+            <tr><td>vLLM</td><td class="s-7TvVc0z_">local</td><td><span aria-hidden="true">—</span><span class="vh">No</span></td><td>✅ GPU</td><td class="s-7TvVc0z_">✅ HF</td></tr>
+            <tr><td>SGLang</td><td class="s-7TvVc0z_">local</td><td><span aria-hidden="true">—</span><span class="vh">No</span></td><td>✅ GPU</td><td class="s-7TvVc0z_">✅ HF</td></tr>
+            <tr><td>TGI</td><td class="s-7TvVc0z_">local</td><td><span aria-hidden="true">—</span><span class="vh">No</span></td><td>✅ GPU</td><td class="s-7TvVc0z_">✅ HF</td></tr>
+            <tr><td>OpenAI / Anthropic</td><td class="s-7TvVc0z_">API</td><td>n/a</td><td>n/a</td><td class="s-7TvVc0z_">n/a</td></tr>
+            <tr><td>OpenRouter / NVIDIA</td><td class="s-7TvVc0z_">API</td><td>n/a</td><td>n/a</td><td class="s-7TvVc0z_">n/a</td></tr>
+          </tbody>
+        </table></div>
+        <div class="s-pHurP39Q">llama.cpp/ollama native; vLLM/SGLang/TGI via Docker + NVIDIA GPU. Cloud APIs with your key.</div>
+      </div>
+    </div></section>
+
+    <!-- QUALITY -->
+    <section class="sec"><div class="wrap">
+      <div class="center reveal"><span class="eye">Quality</span><h2>Not just speed: quality too, in 3 modes</h2><p class="desc">TTFT and tok/s always real. The quality score (0-100) is up to you.</p></div>
+      <div class="cards s-iLcIat7U">
+        <div class="glass feat reveal"><div class="s-mev-PYc1"><h3 class="s-q3nqK4Vz">Reference (offline)</h3><span class="chip s-Tjt46SSf">Default</span></div><p class="s-35KBScVH">Compare against the reference. Pure Python, no GPU or network.</p></div>
+        <div class="glass feat reveal"><div class="s-mev-PYc1"><h3 class="s-q3nqK4Vz">LLM-judge local</h3><span class="chip s-_3JYQidQ">Optional</span></div><p class="s-35KBScVH">The engine scores with a 0-100 rubric. Reliable with models ≥7-8B.</p></div>
+        <div class="glass feat reveal"><div class="s-mev-PYc1"><h3 class="s-q3nqK4Vz">LLM-judge via API</h3><span class="chip s-UceLg92w">Most reliable</span></div><p class="s-35KBScVH">A cloud model judges impartially. Requires API key.</p></div>
+      </div>
+    </div></section>
+
+    <!-- DOWNLOAD -->
+    <section class="sec alt" id="download"><div class="wrap">
+      <div class="center reveal"><span class="eye">Download</span><h2>Download it free</h2><p class="desc">No Python or Node: the backend is embedded. We detect your system.</p></div>
+      <div class="dlhero reveal">
+        <a class="btn btn-fire dlmain" id="dlMain" href="https://github.com/JoniMartin27/inferbench/releases/latest">
+          <span class="s-Uwbxj3Sb" id="dlIcon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"></path><path d="m7 10 5 5 5-5"></path><path d="M5 21h14"></path></svg></span>
+          <span>Descargar para <span id="dlOsName">tu sistema</span><br><span class="os mono" id="dlFile">InferBench · última versión</span></span>
+        </a>
+        <div class="dlothers" id="dlOthers">
+          <a class="dlchip" data-os="win" href="https://github.com/JoniMartin27/inferbench/releases/latest">🪟 <b>Windows</b> · .exe</a>
+          <a class="dlchip" data-os="mac" href="https://github.com/JoniMartin27/inferbench/releases/latest">🍎 <b>macOS</b> · .dmg (Apple Silicon)</a>
+          <a class="dlchip" data-os="linux" href="https://github.com/JoniMartin27/inferbench/releases/latest">🐧 <b>Linux</b> · .AppImage</a>
+        </div>
+        <p class="s-Sye85s0n">Another version or build it yourself? <a href="https://github.com/JoniMartin27/inferbench/releases" class="s-meojCzlB">All releases →</a></p>
+      </div>
+    </div></section>
+
+    <!-- CTA -->
+    <section class="sec"><div class="wrap">
+      <div class="glass ctaband reveal">
+        <div class="bggrid s-im9vJqY9"></div>
+        <h2>Stop guessing. <span class="grad">Measure it.</span></h2>
+        <p class="desc s-HQSJ4X1v">Which quantization fits, at how many tok/s and which engine wins on your hardware — with real data, locally.</p>
+        <div class="row s-0syaN8w1">
+          <a class="btn btn-fire" href="#download">Download inferbench</a>
+          <a class="btn btn-ghost" href="https://github.com/JoniMartin27/inferbench">⭐ Star on GitHub</a>
+        </div>
+      </div>
+    </div></section>
+
+    <!-- seo:faq -->
+    <section class="sec seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">FAQ</span>
+          <h2 id="faq-h">Frequently asked questions</h2>
+        </div>
+        <div class="faq reveal">
+        <details>
+          <summary>What does inferbench actually measure?</summary>
+          <p>Tokens per second, time to first token (TTFT) and VRAM used, measured on your own machine with your own GPU. They are reproducible numbers from your hardware, not estimates.</p>
+        </details>
+        <details>
+          <summary>Do I need to know about quantisation or llama.cpp?</summary>
+          <p>No. inferbench handles downloading the model, picking the engine and starting it. You pick a model from the catalogue and read the results.</p>
+        </details>
+        <details>
+          <summary>Are the catalogue models real?</summary>
+          <p>Yes, and it is a hard rule of the project: every catalogue entry points to a GGUF repository verified on Hugging Face. There are no invented models and no dead links.</p>
+        </details>
+        <details>
+          <summary>Does it send anything online beyond downloading the model?</summary>
+          <p>No. Apart from downloading the model you asked for, the whole benchmark runs locally and no telemetry is sent.</p>
+        </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">More from Fervon</span>
+          <h2 id="mas-h">Keep exploring</h2>
+        </div>
+        <div class="related reveal">
+        <a class="relcard" href="/en/lookspan/">
+          <span class="rt">Lookspan</span>
+          <span class="rd">Local-first observability for your AI agents. Free.</span>
+        </a>
+        <a class="relcard" href="/en/claudescope/">
+          <span class="rt">ClaudeScope</span>
+          <span class="rd">Search every Claude Code session you have run. Free.</span>
+        </a>
+        <a class="relcard" href="/en/trace/">
+          <span class="rt">Trace</span>
+          <span class="rd">Your personal memory: local-first, pay once.</span>
+        </a>
+        <a class="relcard" href="/en/regenta/">
+          <span class="rt">Regenta</span>
+          <span class="rd">Govern your fleet of AI agents.</span>
+        </a>
+        </div>
+      <div class="fv-share">
+        <button type="button" class="sharebtn" aria-label="Share this page">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
+          <span>Share</span>
+        </button>
+        <span class="sharemsg" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>inferbench</b>
+      <span>Free and open source</span>
+    </div>
+    <a class="btn btn-fire" href="#download">Download</a>
+  </div>
+
+  <footer><div class="wrap foot">
+    <span assets="" logo-icon.svg"="" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh">inferbench is a project by <a href="https://fervon.dev"></a></span>
+    <span>MIT © 2026 Jonathan Martín · <a href="https://github.com/JoniMartin27/inferbench">GitHub ↗</a></span>
+  </div></footer>
+
+  <script src="/inferbench/index.client.js?v=20260814d" defer=""></script>
+  <script src="/assets/shared.js?v=20260814d" defer=""></script>
+
+
+
+</body></html>

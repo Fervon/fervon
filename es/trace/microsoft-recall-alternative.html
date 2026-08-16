@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es"><head></head><body data-fv-calm="">﻿
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Alternativa a Microsoft Recall para cualquier PC | Trace</title>
+  <meta name="description" content="La memoria buscable de Recall sin exigir un PC Copilot+ ni los problemas de privacidad. Todo en el dispositivo, en Windows, Mac y Linux. Pago único, $39.">
+  <link rel="canonical" href="https://fervon.dev/es/trace/microsoft-recall-alternative"><link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/microsoft-recall-alternative"><link rel="alternate" hreflang="en" href="https://fervon.dev/trace/microsoft-recall-alternative"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/es/trace/microsoft-recall-alternative">
+  <meta name="keywords" content="Microsoft Recall alternative, Microsoft Recall privacy alternative, Recall without Copilot+ PC, local-first memory app, private personal memory, on-device timeline">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#0E0B0A">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Fervon">
+  <meta property="og:title" content="Una alternativa privada a Microsoft Recall">
+  <meta property="og:description" content="La memoria buscable de Recall sin el bloqueo a PCs Copilot+ ni las capturas continuas. Local-first en cualquier PC. Pago único.">
+  <meta property="og:url" content="https://fervon.dev/es/trace/microsoft-recall-alternative">
+  <meta property="og:image" content="https://fervon.dev/assets/og-trace.jpg">
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-trace.jpg">
+  <meta property="og:locale" content="es_ES">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Fervon", "item": "https://fervon.dev/" },
+      { "@type": "ListItem", "position": 2, "name": "Trace", "item": "https://fervon.dev/trace/" },
+      { "@type": "ListItem", "position": 3, "name": "Microsoft Recall alternative", "item": "https://fervon.dev/trace/microsoft-recall-alternative" }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "Do I need a Copilot+ PC for Trace?", "acceptedAnswer": { "@type": "Answer", "text": "No. Unlike Microsoft Recall, Trace does not require a Copilot+ PC or any dedicated AI hardware (NPU). It runs on any reasonably modern Windows, macOS or Linux computer because it captures lightweight signals instead of constant full-screen snapshots." } },
+      { "@type": "Question", "name": "Is Microsoft Recall private?", "acceptedAnswer": { "@type": "Answer", "text": "Microsoft says Recall keeps its snapshots local and encrypted, and after widely reported criticism it made the feature opt-in and added Windows Hello protection. Even so, the approach of periodically capturing your screen has continued to draw privacy concerns from security researchers. Trace takes a different route: it records far less, filters exclusions before anything is written, and works fully on-device." } },
+      { "@type": "Question", "name": "What's a good Microsoft Recall alternative?", "acceptedAnswer": { "@type": "Answer", "text": "If you want Recall's core benefit — finding anything you saw or did — without the Copilot+ PC requirement, Trace is a strong alternative. It is local-first, cross-platform, captures lightweight signals rather than continuous screenshots, and is a one-time purchase instead of being bundled into a specific class of new PC." } },
+      { "@type": "Question", "name": "Does Trace take constant screenshots like Recall?", "acceptedAnswer": { "@type": "Answer", "text": "No. By default Trace notes lightweight signals — browser history, the active window, and clipboard text. Screenshots with OCR are planned as an opt-in extra and are not part of the current build. Continuous screen capture is not how Trace works." } },
+      { "@type": "Question", "name": "How much does Trace cost and which platforms does it support?", "acceptedAnswer": { "@type": "Answer", "text": "Trace is a one-time purchase. Joining the waitlist locks in the $39 early-bird price (regular $59), with no subscription. It targets Windows, macOS and Linux, and is currently in a waitlist and beta phase — not yet available to download." } }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://fervon.dev/#organization",
+  "name": "Fervon",
+  "url": "https://fervon.dev/",
+  "logo": "https://fervon.dev/assets/favicon-512.png",
+  "description": "Estudio de software autónomo: productos local-first y herramientas open source construidas con flotas de agentes de IA.",
+  "sameAs": [
+    "https://github.com/Fervon",
+    "https://www.npmjs.com/package/fervon",
+    "https://dev.to/jonimatiin",
+    "https://bsky.app/profile/jonimartin.bsky.social",
+    "https://mastodon.social/@jonimartin"
+  ]
+}
+  </script>
+
+  <link rel="stylesheet" href="/assets/core.css?v=20260814d">
+  <link rel="stylesheet" href="/trace/base.css?v=20260814d">
+  <link rel="stylesheet" href="/trace/microsoft-recall-alternative.css?v=20260814d">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260814d">
+
+
+  <a class="skip" href="#top">Skip to content</a>
+
+  <header class="nav"><div class="glass bar">
+    <nav class="crumb" aria-label="Ruta de navegación">
+      <a href="/"><span class="fv"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> fervon</span></a><span class="sep">›</span>
+      <a href="/trace/"><span><svg class="mark" width="17" height="17" viewBox="0 0 120 120" aria-hidden="true"><path d="M15.5 76 L15.5 88 L7.07 88 L14 76 Z" fill="#FF6A00"></path><path d="M14 82 C28 82 32 60 48 60 C62 60 60 74 72 74 C83 74 90 59.59 99 44" fill="none" stroke="#FF6A00" stroke-width="12" stroke-linecap="butt" stroke-linejoin="round"></path><circle cx="99" cy="44" r="6" fill="#FFB02E"></circle></svg>Trace</span></a>
+      <span class="sep">›</span>
+      <span aria-current="page">Alternativa a Recall</span>
+    </nav>
+    <nav class="menu">
+      <a href="#different">En qué se diferencia</a>
+      <a href="#compare">Comparativa</a>
+      <a href="#pricing">Precio</a>
+      <a href="#faq">Preguntas</a>
+    </nav>
+    <div class="act">
+      <nav class="langseg" id="lang" aria-label="Idioma"><span class="langopt on" aria-current="true">ES</span><a class="langopt" href="/trace/microsoft-recall-alternative" hreflang="en" lang="en">EN</a></nav>      <a class="btn btn-fire btn-sm" href="/trace/#waitlist">Únete a la lista</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div aria-hidden="true" class="s-2gTo6UOz"></div>
+      <div class="bggrid s-9EC6gkuB"></div>
+      <div class="wrap cols">
+        <div>
+          <span class="pill reveal"><span class="dot"></span> <span>Alternativa a Microsoft Recall · cualquier PC</span></span>
+          <h1 class="reveal">Una alternativa a Microsoft Recall que <span class="grad">respeta tu privacidad</span>.</h1>
+          <p class="sub reveal">Microsoft Recall le da a Windows una memoria con búsqueda — pero solo en un <b>Copilot+ PC</b> y tomando capturas de tu pantalla. Trace logra lo mismo —encuentra lo que viste, leíste o hiciste— en <b>cualquier PC moderno</b>, totalmente en tu equipo.</p>
+          <div class="row reveal">
+            <a class="btn btn-fire" href="https://buy.polar.sh/polar_cl_uQFZh6NjMqG5zp0RVGHSjITzIJVn1CPA2uB4N0DUmNc">Comprar — $39</a>
+            <a class="btn btn-ghost" href="/trace/#waitlist">Únete a la lista</a>
+          </div>
+          <p class="pfoot reveal">Reembolso total hasta el lanzamiento · Pago seguro con Polar</p>
+          <p class="pill reveal s-K9-ORf38"><span class="dot"></span> <span>Pago único · <b class="s-7zm8I-3n">$39</b> early-bird <span class="s-sEVcIw8j">(luego $59)</span></span></p>
+          <div class="trust reveal"><span>✓ Sin Copilot+ PC</span><span>✓ Firewall cerrado</span><span>✓ Sin telemetría</span></div>
+        </div>
+
+        <div class="demo reveal">
+          <div class="glass">
+            <div class="top">
+              <i class="s-aBnRT5ZT"></i><i class="s-wpdX47Tq"></i><i class="s-aNyb6LKH"></i>
+              <span class="s-Sxc0fCNN">Trace · Tu línea de tiempo</span>
+              <span class="s-cXQOUgJA"><span class="dot"></span> LOCAL</span>
+            </div>
+            <div class="body">
+              <div class="srch">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg>
+                <span class="q" id="q"></span><span class="car"></span>
+              </div>
+              <div class="res" id="res">
+                <div class="rrow" data-i="0"><span class="t">14:32</span><span class="k k-web">web</span><span class="x">Página de precios del competidor — nube $25/mes</span></div>
+                <div class="rrow" data-i="1"><span class="t">11:08</span><span class="k k-doc">doc</span><span class="x">Notas: «sin Copilot+ PC, sin suscripción»</span></div>
+                <div class="rrow" data-i="2"><span class="t">09:51</span><span class="k k-app">app</span><span class="x">Figma — borrador del hero de la landing</span></div>
+              </div>
+            </div>
+          </div>
+          <p class="s-HOKjOaN8">Demo ilustrativa.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW TRACE IS DIFFERENT -->
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h">En 30 segundos</h2>
+          <ul>
+        <li>Microsoft Recall exige un <b>PC Copilot+</b> y guarda capturas continuas de tu pantalla.</li>
+        <li><b>Trace</b> da la misma memoria buscable en <b>cualquier PC</b>, también en macOS y Linux.</li>
+        <li>No hace capturas: usa historial de navegador, ventana activa y portapapeles. <b>Menos superficie de riesgo</b>.</li>
+        <li>Todo <b>en el dispositivo</b> y <b>pago único de $39</b>.</li>
+          </ul>
+      <div class="cta-row s-tldrcta">
+        <a class="btn btn-fire" href="#pricing">Ver Trace</a>
+      </div>
+        </div>
+      </div>
+    </section>
+    <section class="sec alt" id="different"><div class="wrap">
+      <div class="center reveal"><span class="eye">Por qué Trace</span><h2>En qué se diferencia Trace</h2><p class="desc">Empieza por el extremo opuesto: capturar lo mínimo y seguir siendo útil de verdad.</p></div>
+      <div class="cards">
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="14" x="2" y="3" rx="2"></rect><line x1="8" x2="16" y1="21" y2="21"></line><line x1="12" x2="12" y1="17" y2="21"></line></svg></div><h3>Sin hardware especial</h3><p>Sin Copilot+ PC. Cualquier PC.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12.67 19a2 2 0 0 0 1.416-.588l6.154-6.172a6 6 0 0 0-8.49-8.49L5.586 9.914A2 2 0 0 0 5 11.328V18a1 1 0 0 0 1 1z"></path><path d="M16 8 2 22"></path><path d="M17.5 15H9"></path></svg></div><h3>Captura ligera, no capturas</h3><p>Señales ligeras, no capturas.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7 21-4.3-4.3c-1-1-1-2.5 0-3.4l9.6-9.6c1-1 2.5-1 3.4 0l5.6 5.6c1 1 1 2.5 0 3.4L13 21"></path><path d="M22 21H7"></path><path d="m5 11 9 9"></path></svg></div><h3>Exclusiones antes de capturar</h3><p>Filtrado antes de escribir.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h.01"></path><path d="M8.5 16.429a5 5 0 0 1 7 0"></path><path d="M5 12.859a10 10 0 0 1 5.17-2.69"></path><path d="M19 12.859a10 10 0 0 0-2.007-1.523"></path><path d="M2 8.82a15 15 0 0 1 4.177-2.643"></path><path d="M22 8.82a15 15 0 0 0-11.288-3.764"></path><path d="m2 2 20 20"></path></svg></div><h3>Totalmente en tu equipo</h3><p>Sin servidores. Firewall cerrado.</p></div>
+      </div>
+    </div></section>
+
+    <!-- FOOTPRINT (dynamic visual) -->
+    <section class="sec" id="footprint"><div class="wrap">
+      <div class="center reveal"><span class="eye">La diferencia</span><h2>El peso en tu disco</h2></div>
+      <div class="fpwrap">
+        <div class="fp trace reveal"><div class="fpl">Trace</div><div class="fptrack"><div class="fpbar"></div><div class="fpval">≈ unos KB al día</div></div></div>
+        <div class="fp heavy reveal"><div class="fpl">Capturas de Recall</div><div class="fptrack"><div class="fpbar"></div><div class="fpval">constante, pantalla completa</div></div></div>
+      </div>
+    </div></section>
+
+    <!-- STATS -->
+    <section class="sec"><div class="wrap stats">
+      <div class="reveal"><div class="v grad">0</div><div class="l">datos a la nube</div></div>
+      <div class="reveal"><div class="v grad">3</div><div class="l">Win · macOS · Linux</div></div>
+      <div class="reveal"><div class="v grad">0</div><div class="l">NPU necesaria</div></div>
+      <div class="reveal"><div class="v grad">$39</div><div class="l">pago único early-bird</div></div>
+    </div></section>
+
+    <!-- COMPARE -->
+    <section class="sec alt" id="compare"><div class="wrap">
+      <div class="center reveal"><span class="eye">Comparativa</span><h2>Trace frente a Microsoft Recall</h2><p class="desc">Los dos enfoques, lado a lado. Los datos de Recall reflejan los requisitos y cambios documentados públicamente por Microsoft; las marcas pertenecen a sus dueños.</p></div>
+      <div class="glass reveal s-oxNvOtru">
+        <div class="s-Gx11RS-7"><table>
+          <thead><tr><th scope="col">&nbsp;</th><th scope="col" class="isus">Trace by Fervon</th><th scope="col">Microsoft Recall</th></tr></thead>
+          <tbody>
+            <tr>
+              <th scope="row">Hardware necesario</th>
+              <td class="isus"><span class="yes">Cualquier PC moderno con Windows, Mac o Linux</span></td>
+              <td><span class="no">Copilot+ PC con NPU de 40+ TOPS</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Plataformas</th>
+              <td class="isus"><span class="yes">Windows, macOS y Linux</span></td>
+              <td><span class="warn">Solo Windows</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Qué captura</th>
+              <td class="isus"><span class="yes">Señales ligeras (historial, ventana activa, portapapeles)</span></td>
+              <td><span class="warn">Capturas periódicas de toda la pantalla</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Capturas continuas</th>
+              <td class="isus"><span class="yes">No (el OCR sobre capturas es un extra opcional, más adelante)</span></td>
+              <td><span class="warn">Sí, por diseño</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Exclusiones</th>
+              <td class="isus"><span class="yes">Filtradas <em>antes</em> de escribir nada</span></td>
+              <td><span class="warn">Filtradas después de capturar</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Funciona totalmente offline</th>
+              <td class="isus"><span class="yes">Sí — con el firewall cerrado, cero red</span></td>
+              <td><span class="yes">Sí — el procesado es en el equipo</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Historial de privacidad</th>
+              <td class="isus"><span class="yes">Captura mínima desde el primer día</span></td>
+              <td><span class="warn">Reforzado tras críticas muy difundidas</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Precio</th>
+              <td class="isus"><span class="yes">Pago único de $39 (early-bird, normal $59)</span></td>
+              <td><span class="warn">Incluido al comprar un Copilot+ PC</span></td>
+            </tr>
+          </tbody>
+        </table></div>
+        <div class="s-rC4CFmz1">Comparativa hecha de buena fe con información pública disponible a 2026. Microsoft ha cambiado los valores por defecto y las protecciones de Recall con el tiempo; consulta la documentación actual de Microsoft para los últimos detalles.</div>
+      </div>
+    </div></section>
+
+    <!-- PRICING -->
+    <section class="sec" id="pricing"><div class="wrap">
+      <div class="center reveal"><span class="eye">Precio</span><h2>Precio y plataformas</h2><p class="desc">Un pago único, sobre el equipo que ya tienes.</p></div>
+      <div class="prices">
+        <div class="glass price feat-card reveal">
+          <span class="pbadge">Early-bird</span>
+          <div class="pname">De por vida</div>
+          <div class="pamt"><span class="pnow grad">$39</span><span class="pwas">$59</span></div>
+          <div class="pcyc">pago único</div>
+          <ul class="plist">
+            <li>Captura, búsqueda y timeline locales</li>
+            <li>Windows, macOS y Linux</li>
+            <li>Sin Copilot+ PC ni NPU</li>
+            <li>Cero red, cifrado en reposo</li>
+          </ul>
+          <a class="btn btn-fire btn-block" href="https://buy.polar.sh/polar_cl_uQFZh6NjMqG5zp0RVGHSjITzIJVn1CPA2uB4N0DUmNc">Comprar — $39</a>
+          <p class="pfoot">La lista fija el precio de $39.</p>
+        </div>
+
+        <div class="glass price reveal">
+          <span class="pbadge soon">Próximamente</span>
+          <div class="pname">Pro IA</div>
+          <div class="pamt"><span class="pnow">$5–8</span></div>
+          <div class="pcyc">al mes · opcional</div>
+          <ul class="plist">
+            <li>Preguntas semánticas sobre tu memoria</li>
+            <li>Modelo de IA <strong>local</strong> — sin nube</li>
+            <li>100% opcional — De por vida no lo necesita</li>
+          </ul>
+          <a class="btn btn-ghost btn-block" href="/trace/#waitlist">Avísame</a>
+          <p class="pfoot">Tras lanzar la app de escritorio.</p>
+        </div>
+      </div>
+    </div></section>
+
+    <!-- WAITLIST CTA -->
+    <section class="sec alt" id="waitlist"><div class="wrap">
+      <div class="center reveal"><span class="eye">Empezar</span><h2>Sé de los primeros</h2><p class="desc">Si querías Recall pero no podías usarlo, o no estabas cómodo con capturas constantes de pantalla, Trace está hecho para ti. Únete a la lista para conseguir la beta, fijar el precio de por vida de $39 y ayudar a decidir qué se construye — en el PC que ya tienes.</p></div>
+      <form id="wl" class="wlform reveal" action="https://formspree.io/f/mnjyoknb" method="POST" novalidate="">
+          <input type="hidden" name="origen" value="trace/microsoft-recall-alternative">
+          <input type="hidden" name="_subject" value="fervon.dev · trace/microsoft-recall-alternative">
+        <div class="frow">
+          <label class="vh" for="email">Correo electrónico</label>
+          <input type="email" id="email" name="email" required="" autocomplete="email" inputmode="email" placeholder="tu@ejemplo.com">
+          <button type="submit" class="btn btn-fire">Únete a la lista</button>
+        </div>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="vh" aria-hidden="true">
+        <p class="fmsg" id="fmsg" role="status" aria-live="polite"></p>
+        <p class="ffine">Sin spam. Un solo email cuando abra la beta.</p>
+      </form>
+    </div></section>
+
+    <!-- FAQ -->
+    <section class="sec" id="faq"><div class="wrap">
+      <div class="center reveal"><span class="eye">FAQ</span><h2>Preguntas frecuentes</h2></div>
+      <div class="faq reveal">
+        <details><summary>¿Necesito un Copilot+ PC para Trace?</summary><p>No. A diferencia de Microsoft Recall, Trace no requiere un Copilot+ PC ni hardware de IA dedicado (NPU). Funciona en cualquier ordenador razonablemente moderno con Windows, macOS o Linux porque captura señales ligeras en vez de capturas constantes de toda la pantalla.</p></details>
+        <details><summary>¿Es privado Microsoft Recall?</summary><p>Microsoft afirma que Recall mantiene sus capturas locales y cifradas, y tras críticas muy difundidas lo hizo opcional y añadió protección con Windows Hello. Aun así, el enfoque de capturar tu pantalla periódicamente ha seguido generando dudas de privacidad entre investigadores de seguridad. Trace toma otra vía: graba mucho menos, filtra las exclusiones antes de escribir nada y funciona totalmente en tu equipo.</p></details>
+        <details><summary>¿Cuál es una buena alternativa a Microsoft Recall?</summary><p>Si quieres el beneficio central de Recall —encontrar cualquier cosa que viste o hiciste— sin el requisito del Copilot+ PC, Trace es una alternativa sólida. Es local-first, multiplataforma, captura señales ligeras en vez de capturas continuas y es un pago único en lugar de estar atado a una categoría concreta de PC nuevo.</p></details>
+        <details><summary>¿Trace toma capturas constantes como Recall?</summary><p>No. Por defecto Trace anota señales ligeras — historial de navegador, la ventana activa y el texto del portapapeles. Las capturas con OCR se prevén como extra opcional y no forman parte del build actual. La captura continua de pantalla no es como funciona Trace.</p></details>
+        <details><summary>¿Cuánto cuesta Trace y ya está disponible?</summary><p>Trace es un pago único — unirte a la lista fija el precio early-bird de $39 (normal $59), sin suscripción. Apunta a Windows, macOS y Linux. Ahora está en fase de lista de espera y beta y aún no se puede descargar; la lista es cómo consigues la beta primero.</p></details>
+      </div>
+    </div></section>
+
+    <!-- CTA -->
+    <section class="sec alt"><div class="wrap">
+      <div class="glass ctaband reveal">
+        <div class="bggrid s-im9vJqY9"></div>
+        <h2>La memoria de Recall, sin el Copilot+ PC. <span class="grad">Recuérdalo.</span></h2>
+        <p class="desc s-HQSJ4X1v">Privada, local y en cualquier PC moderno. Fija el precio de por vida de $39.</p>
+        <div class="row s-0syaN8w1">
+          <a class="btn btn-fire" href="https://buy.polar.sh/polar_cl_uQFZh6NjMqG5zp0RVGHSjITzIJVn1CPA2uB4N0DUmNc">Comprar — $39</a>
+          <a class="btn btn-ghost" href="/trace/#waitlist">Únete a la lista</a>
+        </div>
+        <p class="pfoot">Reembolso total hasta el lanzamiento · Pago seguro con Polar</p>
+      </div>
+    </div></section>
+
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">Más de Fervon</span>
+          <h2 id="mas-h">Sigue explorando</h2>
+        </div>
+        <div class="related reveal">
+        <a class="relcard" href="/es/trace/personal-memory-tool-without-screen-recording">
+          <span class="rt">Memoria sin grabar la pantalla</span>
+          <span class="rd">Sin vídeo 24/7 ni capturas almacenadas.</span>
+        </a>
+        <a class="relcard" href="/es/trace/rewind-alternative-windows">
+          <span class="rt">Alternativa a Rewind en Windows</span>
+          <span class="rd">Rewind era solo para Mac. Qué usar en Windows.</span>
+        </a>
+        <a class="relcard" href="/trace/">
+          <span class="rt">Trace</span>
+          <span class="rd">Tu memoria personal, local-first y de pago único.</span>
+        </a>
+        <a class="relcard" href="/es/trace/rewind-shut-down-what-to-use">
+          <span class="rt">Rewind shut down: what to use now</span>
+          <span class="rd">Repaso honesto de lo que quedó en pie.</span>
+        </a>
+        <a class="relcard" href="/es/trace/limitless-alternative">
+          <span class="rt">Limitless alternative</span>
+          <span class="rd">Meta compró Limitless. La opción independiente.</span>
+        </a>
+        </div>
+      <div class="fv-share">
+        <button type="button" class="sharebtn" aria-label="Compartir esta página">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
+          <span>Compartir</span>
+        </button>
+        <span class="sharemsg" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>Trace</b>
+      <span>Pago único · $39</span>
+    </div>
+    <a class="btn btn-fire" href="#pricing">Comprar</a>
+  </div>
+
+  <footer><div class="wrap foot">
+    <span assets="" logo-icon.svg"="" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh">Trace es un proyecto de <a href="https://fervon.dev"></a></span>
+    <span>© 2026 Jonathan Martín · Local-first por diseño</span>
+  </div></footer>
+
+  <script src="/trace/microsoft-recall-alternative.client.js?v=20260814d" defer=""></script>
+  <script src="/assets/shared.js?v=20260814d" defer=""></script>
+
+  
+
+
+</body></html>

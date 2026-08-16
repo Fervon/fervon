@@ -1,21 +1,317 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://fervon.dev/</loc><lastmod>2026-08-14</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-  <url><loc>https://fervon.dev/trace/</loc><lastmod>2026-08-14</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://fervon.dev/trace/rewind-alternative-windows</loc><lastmod>2026-08-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://fervon.dev/trace/limitless-alternative</loc><lastmod>2026-08-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://fervon.dev/trace/microsoft-recall-alternative</loc><lastmod>2026-08-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://fervon.dev/trace/screenpipe-alternative</loc><lastmod>2026-08-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://fervon.dev/trace/personal-memory-tool-without-screen-recording</loc><lastmod>2026-08-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://fervon.dev/trace/rewind-ai-alternative</loc><lastmod>2026-08-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://fervon.dev/trace/rewind-shut-down-what-to-use</loc><lastmod>2026-08-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://fervon.dev/inferbench/</loc><lastmod>2026-08-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://fervon.dev/lookspan/</loc><lastmod>2026-08-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://fervon.dev/claudescope/</loc><lastmod>2026-08-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://fervon.dev/veredicto/</loc><lastmod>2026-08-14</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-  <url><loc>https://fervon.dev/veredicto/report</loc><lastmod>2026-08-14</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://fervon.dev/launchpad/</loc><lastmod>2026-08-14</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://fervon.dev/pregon/</loc><lastmod>2026-08-14</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-  <url><loc>https://fervon.dev/regenta/</loc><lastmod>2026-08-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-  <url><loc>https://fervon.dev/contacto/</loc><lastmod>2026-08-14</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://fervon.dev/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/en/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/contacto/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/contacto/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/contacto/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/contacto/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/en/contacto/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/contacto/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/contacto/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/contacto/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/claudescope/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/claudescope/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/claudescope/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/claudescope/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/en/claudescope/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/claudescope/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/claudescope/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/claudescope/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/inferbench/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/inferbench/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/inferbench/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/inferbench/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/en/inferbench/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/inferbench/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/inferbench/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/inferbench/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/launchpad/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/launchpad/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/launchpad/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/launchpad/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/en/launchpad/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/launchpad/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/launchpad/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/launchpad/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/lookspan/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/lookspan/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/lookspan/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/lookspan/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/en/lookspan/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/lookspan/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/lookspan/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/lookspan/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/pregon/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/pregon/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/pregon/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/pregon/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/en/pregon/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/pregon/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/pregon/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/pregon/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/regenta/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/regenta/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/regenta/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/regenta/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/en/regenta/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/regenta/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/regenta/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/regenta/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/trace/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/trace/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/trace/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/trace/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/en/trace/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/trace/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/trace/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/trace/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/veredicto/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/veredicto/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/veredicto/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/veredicto/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/en/veredicto/</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/veredicto/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/veredicto/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/veredicto/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/veredicto/report</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/veredicto/report"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/veredicto/report"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/es/trace/limitless-alternative</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/limitless-alternative"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/trace/limitless-alternative"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/es/trace/limitless-alternative"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/trace/limitless-alternative</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/limitless-alternative"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/trace/limitless-alternative"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/es/trace/limitless-alternative"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/es/trace/microsoft-recall-alternative</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/microsoft-recall-alternative"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/trace/microsoft-recall-alternative"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/es/trace/microsoft-recall-alternative"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/trace/microsoft-recall-alternative</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/microsoft-recall-alternative"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/trace/microsoft-recall-alternative"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/es/trace/microsoft-recall-alternative"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/es/trace/personal-memory-tool-without-screen-recording</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/personal-memory-tool-without-screen-recording"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/trace/personal-memory-tool-without-screen-recording"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/es/trace/personal-memory-tool-without-screen-recording"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/trace/personal-memory-tool-without-screen-recording</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/personal-memory-tool-without-screen-recording"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/trace/personal-memory-tool-without-screen-recording"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/es/trace/personal-memory-tool-without-screen-recording"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/es/trace/rewind-ai-alternative</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/rewind-ai-alternative"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/trace/rewind-ai-alternative"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/es/trace/rewind-ai-alternative"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/trace/rewind-ai-alternative</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/rewind-ai-alternative"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/trace/rewind-ai-alternative"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/es/trace/rewind-ai-alternative"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/es/trace/rewind-alternative-windows</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/rewind-alternative-windows"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/trace/rewind-alternative-windows"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/es/trace/rewind-alternative-windows"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/trace/rewind-alternative-windows</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/rewind-alternative-windows"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/trace/rewind-alternative-windows"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/es/trace/rewind-alternative-windows"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/es/trace/rewind-shut-down-what-to-use</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/rewind-shut-down-what-to-use"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/trace/rewind-shut-down-what-to-use"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/es/trace/rewind-shut-down-what-to-use"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/trace/rewind-shut-down-what-to-use</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/rewind-shut-down-what-to-use"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/trace/rewind-shut-down-what-to-use"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/es/trace/rewind-shut-down-what-to-use"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/es/trace/screenpipe-alternative</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/screenpipe-alternative"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/trace/screenpipe-alternative"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/es/trace/screenpipe-alternative"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/trace/screenpipe-alternative</loc>
+    <lastmod>2026-08-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/screenpipe-alternative"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/trace/screenpipe-alternative"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/es/trace/screenpipe-alternative"/>
+  </url>
 </urlset>

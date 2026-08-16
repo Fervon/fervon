@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Veredicto · The CI check that catches gamed tests</title>
+  <meta name="description" content="The CI check that spots agent tests proving nothing: over-mocking, vacuous asserts and .skip. Deterministic, in the PR, no API key.">
+  <link rel="canonical" href="https://fervon.dev/en/veredicto/"><link rel="alternate" hreflang="es" href="https://fervon.dev/veredicto/"><link rel="alternate" hreflang="en" href="https://fervon.dev/en/veredicto/"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/veredicto/">
+  <meta name="keywords" content="test-gaming, detección reward hacking, CI check agentes IA, GitHub Action tests amañados, integridad de tests, code review agentes, alternativa CodeRabbit test integrity">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#0E0B0A">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Fervon">
+  <meta property="og:title" content="Veredicto · Catch agents gaming your tests">
+  <meta property="og:description" content="The CI check that catches AI-agent tests that prove nothing: over-mocking, vacuous asserts, deleted tests. Deterministic, in the pull request.">
+  <meta property="og:url" content="https://fervon.dev/en/veredicto/">
+  <meta property="og:image" content="https://fervon.dev/veredicto/og.svg">
+  <meta name="twitter:image" content="https://fervon.dev/veredicto/og.svg">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Veredicto",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "GitHub Actions, CI",
+    "description": "Check de CI que detecta test-gaming en pull requests de agentes de IA: tests borrados o .skip, asserts tautológicos, mocks circulares y umbrales relajados. Detección estática determinista, sin API key.",
+    "offers": { "@type": "Offer", "price": "19", "priceCurrency": "USD", "description": "Licencia por repositorio y mes, pull requests ilimitados" },
+    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
+    "url": "https://fervon.dev/veredicto/"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "¿Necesito una API key o un LLM?", "acceptedAnswer": { "@type": "Answer", "text": "No. Veredicto corre en el runner de tu CI, es determinista y no usa ningún LLM ni API key. Ni siquiera la licencia sale a la red: se verifica offline contra una firma." } },
+      { "@type": "Question", "name": "¿Veredicto va a bloquear mis pull requests?", "acceptedAnswer": { "@type": "Answer", "text": "Por defecto funciona en modo warn: comenta lo que detecta sin bloquear. El modo block es opt-in, para cuando ya confías en sus reglas. Cada regla trae explicación y se puede suprimir con un comentario en el PR." } },
+      { "@type": "Question", "name": "¿En qué se diferencia de CodeRabbit o del review nativo de GitHub?", "acceptedAnswer": { "@type": "Answer", "text": "CodeRabbit revisa calidad con un LLM de pago; GitHub valida seguridad (CodeQL, secret scanning). Ninguno comprueba la integridad de los tests. Veredicto hace una cosa: detectar cuando los tests se amañaron — determinista, instantáneo y sin mandar tu diff a ningún servidor." } },
+      { "@type": "Question", "name": "¿Qué es test-gaming exactamente?", "acceptedAnswer": { "@type": "Answer", "text": "Cuando un cambio hace que el CI pase en verde sin que el código sea correcto: borrar o marcar tests con .skip, asserts tautológicos como expect(true).toBe(true), mocks que mockean justo lo que se testea, snapshots regenerados en masa o umbrales de cobertura relajados." } },
+      { "@type": "Question", "name": "¿Funciona en GitLab o Bitbucket?", "acceptedAnswer": { "@type": "Answer", "text": "El primer objetivo es GitHub Actions. GitLab y Bitbucket están en el roadmap como prueba de neutralidad. Apúntate a la lista para saber cuándo llegan." } },
+      { "@type": "Question", "name": "¿Cuánto cuesta?", "acceptedAnswer": { "@type": "Answer", "text": "19 USD por repositorio y mes, con pull requests ilimitados, en repos públicos y privados. No hay tier gratis. También hay clave para todos los repositorios de un mismo dueño." } }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="/assets/core.css?v=20260814d">
+  <link rel="stylesheet" href="/veredicto/base.css?v=20260814d">
+  <link rel="stylesheet" href="/veredicto/index.css?v=20260814d">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260814d">
+</head>
+<body>
+  <a class="skip" href="#top">Skip to content</a>
+
+  <header class="nav"><div class="glass bar">
+    <a class="crumb" href="/en/">
+      <span class="fv"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> fervon</span><span class="sep">›</span>
+      <span><svg class="mark" width="17" height="17" viewBox="0 0 26 26" aria-hidden="true"><path d="M5 13 L11 19 L21 7" fill="none" stroke="var(--amber)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>Veredicto</span>
+    </a>
+    <nav class="menu">
+      <a href="#problem">The problem</a>
+      <a href="#how">How it works</a>
+      <a href="#catches">What it catches</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="act">
+      <nav class="langseg" id="lang" aria-label="Language"><a class="langopt" href="/veredicto/" hreflang="es" lang="es">ES</a><span class="langopt on" aria-current="true">EN</span></nav>      <a class="btn btn-fire btn-sm" href="#pricing">Buy a licence</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="bggrid h-grid" aria-hidden="true"></div>
+      <div class="h-glow" aria-hidden="true"></div>
+      <div class="wrap cols">
+        <div>
+          <span class="pill reveal"><span class="dot"></span> GitHub Action · No API key · Source-available</span>
+          <h1 class="reveal">Your agent mocked the very thing it should test. <span class="grad">Tests pass; your app doesn't.</span></h1>
+          <p class="sub reveal">The CI check that catches tests that prove nothing — mocks of the code under test, vacuous asserts, deleted or silenced tests, inflated coverage. <b>Deterministic, in the PR, no API key.</b></p>
+          <div class="row reveal">
+            <a class="btn btn-fire" href="#pricing">Buy a licence — $19/repo</a>
+            <a class="btn btn-ghost" href="#how">See how it works</a>
+          </div>
+          <p class="pill reveal s-K9-ORf38"><span class="dot"></span> <b class="s-7zm8I-3n">$19/repo per month</b> · verified offline, nothing leaves your runner</p>
+          <div class="trust reveal"><span>✓ No API key</span><span>✓ Runs on your runner</span><span>✓ Source-available</span><span>✓ 2-min setup</span></div>
+        </div>
+
+        <div class="demo reveal">
+          <div class="glass">
+            <div class="top">
+              <i class="s-aBnRT5ZT"></i><i class="s-wpdX47Tq"></i><i class="s-aNyb6LKH"></i>
+              <span class="s-Sxc0fCNN vfile">Veredicto · PR #128 — feat: checkout</span>
+              <span class="dotr"><span></span> FAILED</span>
+            </div>
+            <div class="body">
+              <div class="vlist" id="vlist">
+                <div class="vrow bad" data-i="0"><span class="ix">✗</span><span class="vt">Mocks the module under test: <code>jest.mock('./checkout')</code><small>the test only checks the mock, not the code</small></span></div>
+                <div class="vrow bad" data-i="1"><span class="ix">✗</span><span class="vt">Tautological assert: <code>expect(true).toBe(true)</code><small>Always passes — verifies nothing</small></span></div>
+                <div class="vrow warn" data-i="2"><span class="ix">⚠</span><span class="vt">Coverage threshold lowered <code>80 → 40%</code><small>in jest.config.js, same commit</small></span></div>
+              </div>
+              <div class="verdict" id="verdict">
+                <b>VERDICT · test-gaming detected</b>
+                <span class="vtag">3 señales</span>
+              </div>
+            </div>
+          </div>
+          <p class="demo-note">Illustrative demo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM -->
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h">In 30 seconds</h2>
+          <ul>
+        <li><b>Veredicto</b> is a CI check that catches AI-agent tests that <b>prove nothing</b>.</li>
+        <li>It flags over-mocking, tautological asserts and mocks of <b>the very thing under test</b>.</li>
+        <li>A deterministic GitHub Action: <b>no API key</b>, and nothing leaves your runner.</li>
+        <li><b>$19 per repository</b>, one payment. No free tier, no upsell, no usage metering.</li>
+          </ul>
+      <div class="cta-row s-tldrcta">
+        <a class="btn btn-fire" href="#pricing">Buy a licence</a>
+      </div>
+        </div>
+      </div>
+    </section>
+    <section class="sec alt" id="problem"><div class="wrap">
+      <div class="center reveal"><span class="eye">The problem</span><h2>“All tests passing.” Says who?</h2><p class="desc">When an agent writes the code AND the tests, green CI stops meaning the code works.</p></div>
+      <div class="cards s-iLcIat7U">
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></div><p>The agent deletes or <code>.skip</code>s the failing test instead of fixing the bug.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"></path><circle cx="12" cy="12" r="9"></circle></svg></div><p>Asserts that always pass: <code>expect(true).toBe(true)</code>, mocks mocking the very thing under test.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v4"></path><path d="m16.2 7.8 2.9-2.9"></path><path d="M18 12h4"></path><path d="m16.2 16.2 2.9 2.9"></path><path d="M12 18v4"></path><path d="m4.9 19.1 2.9-2.9"></path><path d="M2 12h4"></path><path d="m4.9 4.9 2.9 2.9"></path></svg></div><p>You run fleets of agents in parallel. CI is the only human gate — and it's being gamed.</p></div>
+      </div>
+      <p class="desc center reveal metr-line">In <b>30% of runs</b>, frontier models gamed their own evaluation — measured by METR. The pain is quantified; nobody sells the detector.</p>
+      <p class="desc center reveal report-link"><a href="/veredicto/report">📊 Read the experiment: I asked AI agents to test 20 buggy modules — 100% passed, 0 caught the bug →</a></p>
+    </div></section>
+
+    <!-- HOW -->
+    <section class="sec" id="how"><div class="wrap">
+      <div class="center reveal"><span class="eye">The flow</span><h2>How it works</h2><p class="desc">Two minutes to add. Nothing leaves your runner.</p></div>
+      <div class="steps">
+        <div class="glass step reveal"><div class="stephead"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M12 8v8"></path><path d="M8 12h8"></path></svg></span><span class="n mono">01</span></div><h3>Add the Action</h3><p>Drop one step into your workflow YAML. No app to install, no permissions to grant a SaaS.</p></div>
+        <div class="glass step reveal"><div class="stephead"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"></circle><path d="m21 21-4.3-4.3"></path></svg></span><span class="n mono">02</span></div><h3>Static diff analysis</h3><p>On each PR it scans the diff for test-gaming patterns. <em>Deterministic — no LLM, no API key, runs in seconds.</em></p></div>
+        <div class="glass step reveal"><div class="stephead"><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4"></path><circle cx="12" cy="12" r="9"></circle></svg></span><span class="n mono">03</span></div><h3>Verdict on the PR</h3><p>A clear comment with what it found and why. <em>Warn by default, block opt-in.</em></p></div>
+      </div>
+    </div></section>
+
+    <!-- WHAT IT CATCHES -->
+    <section class="sec alt" id="catches"><div class="wrap">
+      <div class="center reveal"><span class="eye">The detectors</span><h2>What it catches</h2><p class="desc">The concrete tricks agents use to turn CI green without doing the work.</p></div>
+      <div class="cards s-iLcIat7U">
+        <div class="glass feat catch reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-3-6.7"></path><path d="M21 4v5h-5"></path></svg></div><h3>Circular mocks</h3><p>Mocking the exact function under test, so the assertion only checks the mock.</p></div>
+        <div class="glass feat catch reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><path d="M10 11v6"></path><path d="M14 11v6"></path></svg></div><h3>Deleted &amp; skipped tests</h3><p>Tests removed, commented out or marked <code>.skip</code>/<code>xfail</code> in the same PR that touches their code.</p></div>
+        <div class="glass feat catch reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"></rect><path d="M7 10h4"></path><path d="M7 15h2"></path><path d="M14 12l6 6"></path><path d="M20 12l-6 6"></path></svg></div><h3>Assertions deleted, test kept</h3><p>The <code>expect</code> is gone and the <code>it(...)</code> stays: the same number of green tests, checking nothing.</p></div>
+        <div class="glass feat catch reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M8 10h8"></path><path d="M8 14h8"></path></svg></div><h3>Tautological asserts</h3><p><code>expect(true).toBe(true)</code>, <code>assert.strictEqual(true, true)</code>, <code>assert 1 == 1</code>, empty test bodies — green that proves nothing.</p></div>
+        <div class="glass feat catch reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h10"></path><path d="M18 6h2"></path><path d="M4 12h2"></path><path d="M10 12h10"></path><path d="M4 18h6"></path><path d="M14 18h6"></path><circle cx="16" cy="6" r="2"></circle><circle cx="8" cy="12" r="2"></circle><circle cx="12" cy="18" r="2"></circle></svg></div><h3>Relaxed thresholds</h3><p>Coverage minimums lowered, or the CI step disarmed with <code>continue-on-error</code> / <code>|| true</code>, to dodge a red build.</p></div>
+        <div class="glass feat catch reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"></rect><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"></path></svg></div><h3>Mass-regenerated snapshots</h3><p>A wave of snapshot updates that quietly bless whatever the new output happens to be.</p></div>
+        <div class="glass feat catch reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9"></path><path d="M8 8l4 4 4-4"></path><path d="M4 16h16"></path><path d="M4 16v4h16v-4"></path></svg></div><h3>Swallowed failures</h3><p><code>npm test || true</code>, <code>--passWithNoTests</code>, an empty <code>catch {}</code> around the assertions: it failed, and nobody finds out.</p></div>
+        <div class="glass feat catch reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4"></path><path d="M17 12h4"></path><path d="M9.5 9.5l5 5"></path><path d="M14.5 9.5l-5 5"></path><circle cx="12" cy="12" r="9"></circle></svg></div><h3>Weakened assertions</h3><p>A strict matcher swapped for one that can barely fail: <code>toBe</code> becomes <code>toBeTruthy</code>, an exact value becomes <code>any(Number)</code>.</p></div>
+        <div class="glass feat catch reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16"></path><path d="M4 11h10"></path><path d="M4 16h7"></path><path d="M15.5 15.5l5 5"></path><path d="M20.5 15.5l-5 5"></path></svg></div><h3>Commented-out assertions</h3><p>The assertion is not fixed and not deleted — just commented out, so the test still runs and checks one thing less.</p></div>
+      </div>
+      <p class="desc center reveal">Those cards are the families. Under them ship <b>11 deterministic rules</b>, each with the snippet that trips it and a one-line way to silence it when the change was deliberate — <a href="https://github.com/JoniMartin27/veredicto/blob/main/docs/RULES.md">full rule catalog</a>. And the honest part: static detection does not catch a test that is shaped correctly but asserts the wrong thing — <a href="https://github.com/JoniMartin27/veredicto/blob/main/docs/LIMITATIONS.md">what it does not catch, measured</a>.</p>
+    </div></section>
+
+    <!-- STATS -->
+    <section class="sec"><div class="wrap stats">
+      <div class="reveal"><div class="v grad">30%</div><div class="l">of runs gamed (METR)</div></div>
+      <div class="reveal"><div class="v grad">0</div><div class="l">API keys needed</div></div>
+      <div class="reveal"><div class="v grad">2 min</div><div class="l">to set up</div></div>
+      <div class="reveal"><div class="v grad">$0</div><div class="l">base layer, forever</div></div>
+    </div></section>
+
+    <!-- COMPARE -->
+    <section class="sec alt" id="compare"><div class="wrap">
+      <div class="center reveal"><span class="eye">Compare</span><h2>How it compares</h2><p class="desc">The honest version.</p></div>
+      <div class="glass reveal s-oxNvOtru">
+        <div class="s-Gx11RS-7 cmp-scroll"><table>
+          <thead><tr><th scope="col">&nbsp;</th><th scope="col" class="isus">Veredicto</th><th scope="col">CodeRabbit</th><th scope="col">GitHub native</th><th scope="col">Manual review</th></tr></thead>
+          <tbody>
+            <tr>
+              <th scope="row">Detects test-gaming</th>
+              <td class="isus"><span class="yes">Yes — its only job</span></td>
+              <td><span class="no">No built-in detector</span></td>
+              <td><span class="no">No</span></td>
+              <td><span class="warn">If you spot it</span></td>
+            </tr>
+            <tr>
+              <th scope="row">No API key / LLM in base</th>
+              <td class="isus"><span class="yes">Deterministic, on your runner</span></td>
+              <td><span class="no">LLM-based, paid</span></td>
+              <td><span class="warn">Security scans only</span></td>
+              <td><span class="yes">No tooling</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Instant on every PR</th>
+              <td class="isus"><span class="yes">Seconds</span></td>
+              <td><span class="warn">LLM latency</span></td>
+              <td><span class="yes">Fast</span></td>
+              <td><span class="no">Human time</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Price</th>
+              <td class="isus"><span class="yes">$19/repo per month</span></td>
+              <td><span class="no">$24–30/dev/mo</span></td>
+              <td><span class="yes">Included</span></td>
+              <td><span class="warn">Your scarcest resource</span></td>
+            </tr>
+            <tr>
+              <th scope="row">Open source</th>
+              <td class="isus"><span class="yes">Yes — inspectable</span></td>
+              <td><span class="no">Closed</span></td>
+              <td><span class="no">Closed</span></td>
+              <td><span class="warn">—</span></td>
+            </tr>
+          </tbody>
+        </table></div>
+        <div class="s-rC4CFmz1">Public facts as of mid-2026. Trademarks belong to their owners.</div>
+      </div>
+    </div></section>
+
+    <!-- PRICING -->
+    <section class="sec" id="pricing"><div class="wrap">
+      <div class="center reveal"><span class="eye">Pricing</span><h2>One product, one price</h2><p class="desc">No free tier, no upsell, no usage metering. All 11 rules, every pull request.</p></div>
+      <div class="prices">
+        <div class="glass price feat-card reveal">
+          <div class="pname">Per repository</div>
+          <div class="pamt"><span class="pnow grad">$19</span><span class="pcyc">/mo per repo</span></div>
+          <div class="pcyc">unlimited pull requests · public &amp; private repos</div>
+          <ul class="plist">
+            <li>All 11 deterministic rules</li>
+            <li>GitHub Action + GitLab CI, 2-min setup</li>
+            <li>Warn by default, block opt-in</li>
+            <li>Sticky PR comment + inline annotations</li>
+            <li>Licence verified offline — nothing leaves your runner</li>
+            <li>Readable source: audit every rule before you run it</li>
+          </ul>
+          <a class="btn btn-fire btn-block" href="https://buy.polar.sh/polar_cl_ir1Idm0ddrPHPDUqy6bEP7cIpXA8ls1cWAP3f09bDie">Buy a licence — $19/repo</a>
+          <p class="pfoot">An owner-wide key covering every repository you own is also available — write to me. Secure checkout by Polar.</p>
+        </div>
+      </div>
+      <p class="desc center reveal">Source-available, not open source: the code is public so you can read exactly what runs inside your CI, and running it needs a key. Releases up to v0.3.3 were MIT and stay MIT — that grant is not being withdrawn.</p>
+    </div></section>
+
+    <!-- WAITLIST -->
+    <section class="sec alt" id="waitlist"><div class="wrap">
+      <div class="center reveal"><span class="eye">Mailing list</span><h2>Not running agents in CI yet?</h2><p class="desc">Leave your email and I'll send you the data report — “I analyzed N agent PRs: X% showed test-gaming” — and tell you when GitLab/Bitbucket support lands.</p></div>
+      <form id="wl" class="wlform reveal" action="https://formspree.io/f/mnjyoknb" method="POST" novalidate="">
+          <input type="hidden" name="origen" value="veredicto/index">
+          <input type="hidden" name="_subject" value="fervon.dev · veredicto/index">
+        <div class="frow">
+          <label class="vh" for="email">Email address</label>
+          <input type="email" id="email" name="email" required="" autocomplete="email" inputmode="email" placeholder="you@example.com">
+          <button type="submit" class="btn btn-fire">Join the list</button>
+        </div>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="vh" aria-hidden="true">
+        <p class="fmsg" id="fmsg" role="status" aria-live="polite"></p>
+        <p class="ffine">No spam. One email with the report.</p>
+      </form>
+    </div></section>
+
+    <!-- FAQ -->
+    <section class="sec" id="faq"><div class="wrap">
+      <div class="center reveal"><span class="eye">FAQ</span><h2>Frequently asked questions</h2></div>
+      <div class="faq reveal">
+        <details><summary>Do I need an API key or an LLM?</summary><p>No. Veredicto runs on your CI runner, is deterministic, and uses no LLM and no API key. Not even the licence goes online: it is an Ed25519 signature verified locally, so Veredicto works on a runner with no egress at all. Nothing about your diff ever leaves your machine.</p></details>
+        <details><summary>Will it block my pull requests?</summary><p>By default it runs in warn mode: it comments what it finds without blocking. Block mode is opt-in. Every rule has an explanation and can be suppressed with a PR comment.</p></details>
+        <details><summary>How is it different from CodeRabbit or GitHub's native review?</summary><p>CodeRabbit reviews quality with a paid LLM; GitHub validates security. Neither checks test integrity. Veredicto does one thing: detect when the tests were gamed — deterministic, instant, and without sending your diff anywhere.</p></details>
+        <details><summary>What exactly is test-gaming?</summary><p>Making CI go green without the code being correct: deleting or .skip-ing tests, tautological asserts, mocks of the thing under test, mass-regenerated snapshots, or relaxed coverage thresholds.</p></details>
+        <details><summary>Does it work on GitLab or Bitbucket?</summary><p>GitHub Actions first. GitLab and Bitbucket are on the roadmap. Join the list to know when they land.</p></details>
+        <details><summary>How much does it cost?</summary><p>$19 per repository per month, unlimited pull requests, public and private repos alike. There is no free tier. An owner-wide key covering everything you own is also available. Payments handled securely by Polar.</p></details>
+      </div>
+    </div></section>
+
+    <!-- CTA -->
+    <section class="sec alt"><div class="wrap">
+      <div class="glass ctaband reveal">
+        <div class="bggrid s-im9vJqY9"></div>
+        <h2>Stop trusting “tests passing.” <span class="grad">Verify it.</span></h2>
+        <p class="desc s-HQSJ4X1v">Deterministic, offline, readable. Add it to your CI in two minutes.</p>
+        <div class="row s-0syaN8w1">
+          <a class="btn btn-fire" href="#pricing">Buy a licence — $19/repo</a>
+          <a class="btn btn-ghost" href="/veredicto/report">Read the data report</a>
+        </div>
+        <div class="related">
+          <a href="/en/inferbench/">inferbench →</a>
+          <a href="/en/lookspan/">Lookspan →</a>
+          <a href="/en/claudescope/">ClaudeScope →</a>
+        </div>
+      </div>
+    </div></section>
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">More from Fervon</span>
+          <h2 id="mas-h">Keep exploring</h2>
+        </div>
+        <div class="related reveal">
+        <a class="relcard" href="/veredicto/report">
+          <span class="rt">El informe de datos</span>
+          <span class="rd">20 buggy modules, 20 green suites, 0 bugs caught.</span>
+        </a>
+        <a class="relcard" href="/en/lookspan/">
+          <span class="rt">Lookspan</span>
+          <span class="rd">Local-first observability for your AI agents. Free.</span>
+        </a>
+        <a class="relcard" href="/en/claudescope/">
+          <span class="rt">ClaudeScope</span>
+          <span class="rd">Search every Claude Code session you have run. Free.</span>
+        </a>
+        <a class="relcard" href="/en/regenta/">
+          <span class="rt">Regenta</span>
+          <span class="rd">Govern your fleet of AI agents.</span>
+        </a>
+        </div>
+      <div class="fv-share">
+        <button type="button" class="sharebtn" aria-label="Share this page">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
+          <span>Share</span>
+        </button>
+        <span class="sharemsg" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>Veredicto</b>
+      <span>$19 per repository</span>
+    </div>
+    <a class="btn btn-fire" href="#pricing">Buy</a>
+  </div>
+
+  <footer><div class="wrap foot">
+    <span>Veredicto is a project by <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forged red-hot</span>
+    <span>© 2026 Jonathan Martín · Source-available by design</span>
+  </div></footer>
+
+  <script src="/veredicto/index.client.js?v=20260814d" defer=""></script>
+  <script src="/assets/shared.js?v=20260814d" defer=""></script>
+
+
+
+</body></html>

@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en"><head></head><body>﻿
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Regenta · Govern your fleet of AI agents</title>
+  <meta name="description" content="The agentic control layer: orchestrate, audit and delegate a fleet of AI agents with the discipline of an engineering team. A Fervon product.">
+  <link rel="canonical" href="https://fervon.dev/en/regenta/"><link rel="alternate" hreflang="es" href="https://fervon.dev/regenta/"><link rel="alternate" hreflang="en" href="https://fervon.dev/en/regenta/"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/regenta/">
+  <meta name="keywords" content="capa de control agentic, orquestación de agentes de IA, flota de agentes, AI agent control plane, command center de IA, human-in-the-loop, agentes autónomos con control">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#0E0B0A">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Fervon">
+  <meta property="og:title" content="Regenta · Govern your fleet of AI agents">
+  <meta property="og:description" content="The agentic control layer: orchestrate, audit and delegate a fleet of AI agents with total control. Not magic. Control.">
+  <meta property="og:url" content="https://fervon.dev/en/regenta/">
+  <meta property="og:image" content="https://fervon.dev/assets/og-regenta.jpg">
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-regenta.jpg">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Regenta",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web",
+    "description": "Capa de control agentic para dirigir una flota de agentes de IA con disciplina de ingeniería: orquestación autónoma, trazabilidad total, control plane (RBAC, file-locks, jaula de workspace) y human-in-the-loop. Producto comercial de Fervon.",
+    "offers": { "@type": "Offer", "priceCurrency": "USD", "category": "Commercial license", "description": "Licencia comercial — precio en el lanzamiento. La lista de espera fija condiciones de acceso anticipado." },
+    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
+    "url": "https://fervon.dev/regenta/"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "¿Qué es Regenta?", "acceptedAnswer": { "@type": "Answer", "text": "Regenta es la capa de control agentic: una sala de mando para dirigir una flota de agentes de IA con la disciplina de un equipo de ingeniería. No resuelve una tarea suelta — mantiene proyectos enteros vivos, llevando cada objetivo de la idea al código revisado con control total." } },
+      { "@type": "Question", "name": "¿Cómo evita Regenta que un agente borre código o filtre secretos?", "acceptedAnswer": { "@type": "Answer", "text": "Por su Control Plane: RBAC por rol, scope allowedFiles por tarea, file-locks con TTL, jaula de workspace con path-guard, blocklist de comandos peligrosos y un secret vault cifrado con AES-256-GCM. Cada acción pasa por la guardia y queda en un audit trail inmutable." } },
+      { "@type": "Question", "name": "¿Pierdo el control al delegar en la flota?", "acceptedAnswer": { "@type": "Answer", "text": "No. Regenta es human-in-the-loop por diseño: tú apruebas manualmente cada fase crítica y los deploys nunca son automáticos. Cada run, diff, log y decisión queda registrado, con streaming SSE en vivo." } },
+      { "@type": "Question", "name": "¿Puedo crear mis propios agentes?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Defines tus propios agentes — nombre, rol, persona, modelo y skills — y los colocas en tu cadena de mando. Cada agente puede usar un provider y modelo distintos, o inferencia local." } },
+      { "@type": "Question", "name": "¿Es Regenta gratis u open source?", "acceptedAnswer": { "@type": "Answer", "text": "No. Regenta es un producto comercial de Fervon, de código privado. Está en acceso anticipado: unirte a la lista de espera fija condiciones early-bird; el precio se anuncia en el lanzamiento." } },
+      { "@type": "Question", "name": "¿Cuánto cuesta la inferencia?", "acceptedAnswer": { "@type": "Answer", "text": "La licencia es de pago, pero la inferencia puede costar $0: Regenta puede despachar a modelos locales bajo demanda (vía llama.cpp) además de a 8 providers en la nube, sin enviar tu código fuera." } }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="/assets/core.css?v=20260814d">
+  <link rel="stylesheet" href="/assets/product.css?v=20260814d">
+  <link rel="stylesheet" href="/regenta/index.css?v=20260814d">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260814d">
+
+
+  <a class="skip" href="#top">Skip to content</a>
+
+  <header class="nav"><div class="glass bar">
+    <a class="crumb" href="/en/">
+      <span class="fv"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> fervon</span><span class="sep">›</span>
+      <span><svg class="mark" width="17" height="17" viewBox="0 0 32 32" aria-hidden="true"><path d="M11.5 22V10h5.2c2.7 0 4.4 1.5 4.4 3.9 0 1.8-1 3.1-2.6 3.6l3 4.5h-2.9l-2.6-4.1h-1.9V22h-2.6zm2.6-6.2h2.3c1.3 0 2-0.6 2-1.7s-0.7-1.7-2-1.7h-2.3v3.4z" fill="var(--amber)"></path></svg>Regenta</span>
+    </a>
+    <nav class="menu">
+      <a href="#producto">Why</a>
+      <a href="#casos">Use cases</a>
+      <a href="#features">Features</a>
+      <a href="#arquitectura">Architecture</a>
+      <a href="#seguridad">Security</a>
+      <a href="#precio">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="act">
+      <nav class="langseg" id="lang" aria-label="Language"><a class="langopt" href="/regenta/" hreflang="es" lang="es">ES</a><span class="langopt on" aria-current="true">EN</span></nav>
+      <a class="btn btn-fire btn-sm" href="#waitlist">Request access</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="bggrid s-9EC6gkuB"></div>
+      <div class="wrap cols">
+        <div>
+          <span class="pill reveal"><span class="dot"></span> Agentic control plane · human-in-the-loop · commercial</span>
+          <h1 class="reveal">Govern a <span class="grad">fleet of AI agents</span> that keeps your projects alive.</h1>
+          <p class="sub reveal">Regenta isn't a chatbot. It's a command room: you set goals and scopes, and a fleet — that you design — takes them from idea to reviewed code. <b>With total control.</b></p>
+          <div class="row reveal">
+            <a class="btn btn-fire" href="#waitlist">Request access</a>
+            <a class="btn btn-ghost" href="#arquitectura">See how it works</a>
+          </div>
+          <p class="pill reveal s-K9-ORf38"><span></span> <b class="s-7zm8I-3n">No magic. Control.</b> · commercial license</p>
+          <div class="trust reveal"><span>✓ Human-in-the-loop</span><span>✓ Full audit trail</span><span>✓ $0 inference (local)</span></div>
+        </div>
+
+        <div class="demo reveal">
+          <div class="glass">
+            <div class="top">
+              <i class="s-aBnRT5ZT"></i><i class="s-wpdX47Tq"></i><i class="s-aNyb6LKH"></i>
+              <span class="s-Sxc0fCNN">regenta — fleet</span>
+              <span class="dot s-cXQOUgJA"><span></span> 4 LIVE</span>
+            </div>
+            <div class="body">
+              <div class="srch">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+                <span class="q" id="q"></span><span class="car"></span>
+              </div>
+              <div class="res" id="res">
+                <div class="rrow" data-i="0"><span class="t">10s</span><span class="k k-web">coord</span><span class="x">Coordinator assigns the cycle · dependency unlock</span></div>
+                <div class="rrow" data-i="1"><span class="t">scope</span><span class="k k-doc">build</span><span class="x">Builder runs · batch cap 3 · file-locks</span></div>
+                <div class="rrow" data-i="2"><span class="t">✋</span><span class="k k-app">review</span><span class="x">Reviewer + QA · audited diff · CEO approval</span></div>
+              </div>
+            </div>
+          </div>
+          <p class="s-HOKjOaN8">Illustrative demo.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM / SOLUTION -->
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h">In 30 seconds</h2>
+          <ul>
+        <li><b>Regenta</b> is the control layer for directing a <b>fleet of AI agents</b>, not a single agent.</li>
+        <li>It orchestrates, <b>audits</b> and delegates with the discipline of an engineering team: every action is traced.</li>
+        <li>Built so projects <b>stay alive</b> when nobody is watching the screen.</li>
+        <li>A commercial Fervon product, <b>available by request</b>.</li>
+          </ul>
+      <div class="cta-row s-tldrcta">
+        <a class="btn btn-fire" href="#waitlist">Request access</a>
+      </div>
+        </div>
+      </div>
+    </section>
+    <section class="sec alt" id="producto"><div class="wrap">
+      <div class="center reveal"><span class="eye">Why it exists</span><h2>AI agents are powerful. Without control, they're a liability.</h2><p class="desc">Every classic problem of autonomous agents has an engineering answer in Regenta.</p></div>
+      <div class="cards">
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"></path><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"></path><circle cx="12" cy="12" r="2"></circle><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"></path><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"></path></svg></div><h3>Black boxes → Full traceability</h3><p>You don't know what they do or which files they touch. Regenta logs every run, diff, log and decision, with live SSE streaming.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="m9 12 2 2 4-4"></path></svg></div><h3>Runaway agent → Control Plane</h3><p>One loose agent can delete code or leak secrets. Regenta adds RBAC, file-locks, a workspace cage and a dangerous-command blocklist.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div><h3>Chaos → Autonomous Coordinator</h3><p>Coordinating several is chaotic — they clobber each other's files. The Coordinator handles dependency unlocks, exclusive locks and automatic retries.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"></path><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"></path><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"></path><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"></path><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"></path><path d="M3.477 10.896a4 4 0 0 1 .585-.396"></path><path d="M19.938 10.5a4 4 0 0 1 .585.396"></path><path d="M6 18a4 4 0 0 1-1.967-.516"></path><path d="M19.967 17.484A4 4 0 0 1 18 18"></path></svg></div><h3>No memory → Persistent brains</h3><p>They don't understand your project between sessions. Per-agent memory (brain v3, TF-IDF) remembers the context across runs.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"></path><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"></path><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"></path><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"></path></svg></div><h3>Lost control → Human-in-the-loop</h3><p>You want to delegate without losing control. Manual CEO approval at every critical phase. Deploys are never automatic.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"></path><path d="M12 18V6"></path></svg></div><h3>Costly inference → Local inference</h3><p>Inference costs money and scales badly. Local models via llama.cpp on demand → <b>$0 cost</b>, without sending your code out.</p></div>
+      </div>
+    </div></section>
+
+    <!-- USE CASES -->
+    <section class="sec" id="casos"><div class="wrap">
+      <div class="center reveal"><span class="eye">Use cases</span><h2>Keep projects alive, not one-shot scripts.</h2><p class="desc">Give it goals and Regenta keeps a backlog, splits the work across the fleet and takes each task from idea to reviewed code. Some of its uses:</p></div>
+      <div class="cards">
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"></path><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"></path><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"></path><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"></path></svg></div><h3>Build features</h3><p>From a natural-language goal to code: the scout analyzes, the builder implements under scope, and the reviewer + QA validate.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"></path><path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"></path><path d="m14 16-3 3 3 3"></path><path d="M8.293 13.596 7.196 9.5 3.1 10.598"></path><path d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"></path><path d="m13.378 9.633 4.096 1.098 1.097-4.096"></path></svg></div><h3>Refactors with a safety net</h3><p><code>allowedFiles</code> scopes the change, every diff is audited, and the reviewer checks the acceptance criteria.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2v7.31"></path><path d="M14 9.3V1.99"></path><path d="M8.5 2h7"></path><path d="M14 9.3a6.5 6.5 0 1 1-4 0"></path><path d="M5.58 16.5h12.85"></path></svg></div><h3>Tests &amp; QA</h3><p>The test-runner skill runs the suite and captures failures; the QA role validates coverage before accepting.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg></div><h3>Continuous code review</h3><p>The reviewer scans diffs for bugs, security issues and criteria — with your final approval.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7.5 4.27 9 5.15"></path><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"></path><path d="m3.3 7 8.7 5 8.7-5"></path><path d="M12 22V12"></path></svg></div><h3>Migrations &amp; dep bumps</h3><p>The scout assesses the state, a step-by-step plan is generated, the builder runs it scoped, and the reviewer validates.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 2 1.88 1.88"></path><path d="M14.12 3.88 16 2"></path><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"></path><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"></path><path d="M12 20v-9"></path><path d="M6.53 9C4.6 8.8 3 7.1 3 5"></path><path d="M6 13H2"></path><path d="M3 21c0-2.1 1.7-3.9 3.8-4"></path><path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"></path><path d="M22 13h-4"></path><path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"></path></svg></div><h3>Bug fixes &amp; maintenance</h3><p>The scout locates, the Coordinator assigns, the builder fixes and the reviewer approves — in a loop while the project lives.</p></div>
+      </div>
+      <p class="center reveal s-Xc7iGCv3">…and any other: if you can describe the task and scope it, there's an agent for it.</p>
+    </div></section>
+
+    <!-- FEATURES -->
+    <section class="sec alt" id="features"><div class="wrap">
+      <div class="center reveal"><span class="eye">Capabilities</span><h2>A command room, not a chatbot.</h2><p class="desc">Everything you need to operate an AI fleet in production, with engineering discipline.</p></div>
+      <div class="cards">
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 7 9 3 5 7l4 4"></path><path d="m17 11 4 4-4 4-4-4"></path><path d="m8 12 4 4 6-6-4-4Z"></path><path d="m16 8 3-3"></path><path d="M9 21a6 6 0 0 0-6-6"></path></svg></div><h3>Autonomous Coordinator</h3><p>Supervises the whole fleet on a 10s cycle: unlocks dependencies, retries, escalates and triggers auto-reviews.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 17a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3.9a2 2 0 0 1-1.69-.9l-.81-1.2a2 2 0 0 0-1.67-.9H8a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2Z"></path><path d="M2 8v11a2 2 0 0 0 2 2h14"></path></svg></div><h3>Fleet &amp; chain of command</h3><p>Persistent agents in a multi-level org chart — orchestrators, scouts, builders and reviewers — each with its own identity and brain.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path><path d="M21 3v5h-5"></path><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path><path d="M8 16H3v5"></path></svg></div><h3>7-phase pipeline</h3><p>From a natural-language goal to reviewed code: scout → plan → approval → build → review → QA → done.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"></path><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"></path><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"></path><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"></path><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"></path><path d="M3.477 10.896a4 4 0 0 1 .585-.396"></path><path d="M19.938 10.5a4 4 0 0 1 .585.396"></path><path d="M6 18a4 4 0 0 1-1.967-.516"></path><path d="M19.967 17.484A4 4 0 0 1 18 18"></path></svg></div><h3>Persistent brains</h3><p>An Obsidian-style memory graph with TF-IDF search. Each agent remembers decisions and context across runs.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 14 4 4-4 4"></path><path d="m18 2 4 4-4 4"></path><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"></path><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"></path><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"></path></svg></div><h3>Multi-provider router</h3><p>Dispatches per agent across 8 providers (Anthropic, OpenAI, Groq, Gemini…) with failover, quarantine and 429 backoff.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"></path><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"></path></svg></div><h3>Live Fleet Chat</h3><p>Per-project channels, CEO↔agent DMs with memory, multi-agent groups and commands (<code>/task</code>, <code>/approve</code>).</p></div>
+      </div>
+    </div></section>
+
+    <!-- ARCHITECTURE -->
+    <section class="sec" id="arquitectura"><div class="wrap">
+      <div class="center reveal"><span class="eye">Architecture</span><h2>Five layers. Strict separation.</h2><p class="desc">The UI never talks to the engine: everything goes through the API. Each layer has a clear contract.</p></div>
+      <div class="arch reveal">
+        <div class="glass layer">
+          <div class="lh"><span class="lt">Presentation</span></div>
+          <div class="lc"><span>🖥️ Desktop App · React 18 + Vite + Tailwind 4</span><span>Fleet · Projects · Metrics · Brains · Settings</span></div>
+        </div>
+        <div class="conn"><span class="cl">fetch + SSE</span></div>
+        <div class="glass layer">
+          <div class="lh"><span class="lt">API Gateway</span> · Express + TS · :3000</div>
+          <div class="lc"><span>🔐 JWT 4h · Helmet · rate-limit 500/min</span><span>📡 SSE — task · lock · run · review · audit</span><span>📂 REST — projects · tasks · runs · agents · chat</span></div>
+        </div>
+        <div class="conn"></div>
+        <div class="glass layer">
+          <div class="lh"><span class="lt">Core Engine</span></div>
+          <div class="lc"><span>🎯 Coordinator · 10s cycle</span><span>📝 Task Engine</span><span>🤖 Agent Runtime (in-process)</span><span>🔀 LLM Router · 8 providers</span></div>
+        </div>
+        <div class="conn"></div>
+        <div class="glass layer">
+          <div class="lh"><span class="lt">Control Plane</span></div>
+          <div class="lc"><span>🔒 RBAC + Policies</span><span>🔐 File Locks (TTL)</span><span>✅ Human Review</span><span>📜 Audit Trail</span><span>🗝️ Secret Vault · AES-256-GCM</span></div>
+        </div>
+        <div class="conn"></div>
+        <div class="glass layer">
+          <div class="lh"><span class="lt">Infrastructure</span></div>
+          <div class="lc"><span>SQLite (better-sqlite3)</span><span>📁 Workspace under path-guard</span></div>
+        </div>
+      </div>
+    </div></section>
+
+    <!-- SECURITY -->
+    <section class="sec alt" id="seguridad"><div class="wrap">
+      <div class="center reveal"><span class="eye">Control Plane</span><h2>Security by design</h2><p class="desc">Delegating doesn't mean losing command. Every action goes through the guard.</p></div>
+      <div class="cards">
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div><h3>RBAC + Policies</h3><p>Granular per-role permissions: orchestrator, scout, builder, reviewer.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></div><h3><code>allowedFiles</code> scope</h3><p>Each task declares which files it may touch; the builder can't step out.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"></rect><circle cx="12" cy="16" r="1"></circle><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></div><h3>File Locks (TTL)</h3><p>Exclusive per-task acquisition with automatic expiry.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"></rect><path d="M12 9v6"></path><path d="M16 15v6"></path><path d="M16 3v6"></path><path d="M3 15h18"></path><path d="M3 9h18"></path><path d="M8 15v6"></path><path d="M8 3v6"></path></svg></div><h3>Path-guard</h3><p>Workspace cage that resolves symlinks with <code>realpath</code>, not just lexically.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="m4.9 4.9 14.2 14.2"></path></svg></div><h3>Terminal blocklist</h3><p>Blocks <code>deploy</code>/<code>publish</code>/<code>login</code> and interactive prompts.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 2-9.6 9.6"></path><circle cx="7.5" cy="15.5" r="5.5"></circle><path d="m15.5 7.5 3 3"></path></svg></div><h3>Secret Vault</h3><p>AES-256-GCM, per-row IV, master key outside the repo (<code>0600</code> mode).</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 12h-5"></path><path d="M15 8h-5"></path><path d="M19 17V5a2 2 0 0 0-2-2H4"></path><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"></path></svg></div><h3>Audit Trail</h3><p>Immutable log of every action, with an SSE stream at <code>/api/audit/stream</code>.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path><path d="M12 8v4"></path><path d="M12 16h.01"></path></svg></div><h3>Anti-loop + quarantine</h3><p>Skips tasks with 3+ failures; errored keys are isolated without loop retries.</p></div>
+      </div>
+      <p class="center reveal s-7yMS99MS">🔐 <strong>Auth:</strong> JWT with 4h expiry, bcrypt (cost 12), parameterized queries and rate-limiting. In production the API <strong>requires</strong> <code>JWT_SECRET</code> — no insecure fallback.</p>
+    </div></section>
+
+    <!-- STACK -->
+    <section class="sec"><div class="wrap">
+      <div class="center reveal"><span class="eye">Stack</span><h2>Built with serious tools.</h2><p class="desc">An <code>npm workspaces</code> monorepo: typed packages plus the desktop app.</p></div>
+      <div class="chips reveal s-YNp4meHt">
+        <span class="chip">React 18</span><span class="chip">TypeScript</span><span class="chip">Vite</span>
+        <span class="chip">Tailwind CSS 4</span><span class="chip">TanStack Query</span><span class="chip">Express</span>
+        <span class="chip">JWT</span><span class="chip">SSE</span><span class="chip">Helmet</span>
+        <span class="chip">SQLite · better-sqlite3</span><span class="chip">Vitest</span><span class="chip">Playwright</span>
+        <span class="chip">Docker</span><span class="chip">llama.cpp</span><span class="chip">AES-256-GCM</span>
+      </div>
+    </div></section>
+
+    <!-- PRICING (commercial / early-access) -->
+    <section class="sec alt" id="precio"><div class="wrap">
+      <div class="center reveal"><span class="eye">Pricing</span><h2>A commercial product. Early access open.</h2><p class="desc">Regenta is a paid product with a private codebase — not free or open source. Join the waitlist to lock in early-bird terms; pricing is set at launch.</p></div>
+      <div class="prices">
+        <div class="glass price feat-card reveal">
+          <span class="pbadge">Early access</span>
+          <div class="pname">Founder</div>
+          <div class="pamt"><span class="pnow grad">Early-bird</span></div>
+          <div class="pcyc">commercial license · price at launch</div>
+          <ul class="plist">
+            <li>Full agent fleet &amp; autonomous Coordinator</li>
+            <li>Control Plane: RBAC, file-locks, audit trail, vault</li>
+            <li>Custom agents — your persona, model &amp; skills</li>
+            <li>Multi-provider router + $0 local inference</li>
+            <li>Locked-in early-bird terms for the waitlist</li>
+          </ul>
+          <a class="btn btn-fire btn-block" href="#waitlist">Request early access</a>
+          <p class="pfoot">The waitlist locks in founder pricing at launch.</p>
+        </div>
+
+        <div class="glass price reveal">
+          <span class="pbadge soon">On request</span>
+          <div class="pname">Team</div>
+          <div class="pamt"><span class="pnow">Custom</span></div>
+          <div class="pcyc">for teams running fleets in production</div>
+          <ul class="plist">
+            <li>Everything in Founder</li>
+            <li>Multiple seats &amp; shared chain of command</li>
+            <li>Priority support during onboarding</li>
+          </ul>
+          <a class="btn btn-ghost btn-block" href="#waitlist">Get in touch</a>
+          <p class="pfoot">Join the waitlist and tell us your team size.</p>
+        </div>
+      </div>
+      <p class="center reveal s-175vgI79">No price is published yet. We won't invent a number — waitlist members hear it first.</p>
+    </div></section>
+
+    <!-- WAITLIST (primary CTA) -->
+    <section class="sec" id="waitlist"><div class="wrap">
+      <div class="center reveal"><span class="eye">Waitlist</span><h2>Be among the first to govern a fleet</h2><p class="desc">Get early access and lock in founder pricing before launch.</p></div>
+      <form id="wl" class="wlform reveal" action="https://formspree.io/f/mnjyoknb" method="POST" novalidate="">
+          <input type="hidden" name="origen" value="regenta/index">
+          <input type="hidden" name="_subject" value="fervon.dev · regenta/index">
+        <div class="frow">
+          <label class="vh" for="email">Email address</label>
+          <input type="email" id="email" name="email" required="" autocomplete="email" inputmode="email" placeholder="you@example.com">
+          <button type="submit" class="btn btn-fire">Solicitar acceso</button>
+        </div>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="vh" aria-hidden="true">
+        <p class="fmsg" id="fmsg" role="status" aria-live="polite"></p>
+        <p class="ffine">No spam. One email when early access opens.</p>
+      </form>
+    </div></section>
+
+    <!-- FAQ -->
+    <section class="sec alt" id="faq"><div class="wrap">
+      <div class="center reveal"><span class="eye">FAQ</span><h2>Frequently asked questions</h2></div>
+      <div class="faq reveal">
+        <details><summary>What is Regenta?</summary><p>The agentic control plane: a command room to govern a fleet of AI agents with engineering discipline. It doesn't solve a one-off task — it keeps whole projects alive, taking each goal from idea to reviewed code with total control.</p></details>
+        <details><summary>How does Regenta stop an agent from deleting code or leaking secrets?</summary><p>Through its Control Plane: per-role RBAC, per-task <code>allowedFiles</code> scope, file-locks with TTL, a workspace cage with path-guard, a dangerous-command blocklist and an AES-256-GCM secret vault. Every action goes through the guard and into an immutable audit trail.</p></details>
+        <details><summary>Do I lose control when I delegate to the fleet?</summary><p>No. Regenta is human-in-the-loop by design: you manually approve every critical phase and deploys are never automatic. Every run, diff, log and decision is logged, with live SSE streaming.</p></details>
+        <details><summary>Can I create my own agents?</summary><p>Yes. You define your own agents — name, role, persona, model and skills — and place them in your chain of command. Each agent can use a different provider and model, or local inference.</p></details>
+        <details><summary>Is Regenta free or open source?</summary><p>No. Regenta is a commercial product by Fervon, with a private codebase. It's in early access: joining the waitlist locks in early-bird terms, and pricing is announced at launch.</p></details>
+        <details><summary>How much does inference cost?</summary><p>The license is paid, but inference can cost $0: Regenta can dispatch to local models on demand (via llama.cpp) in addition to 8 cloud providers, without sending your code out.</p></details>
+      </div>
+    </div></section>
+
+    <!-- CTA -->
+    <section class="sec"><div class="wrap">
+      <div class="glass ctaband reveal">
+        <div class="bggrid s-im9vJqY9"></div>
+        <h2>You govern. <span class="grad">The fleet executes.</span></h2>
+        <p class="desc s-HQSJ4X1v">Direct AI agents with the discipline of an engineering team — without giving up control. No magic. Control.</p>
+        <div class="row s-0syaN8w1">
+          <a class="btn btn-fire" href="#waitlist">Request access</a>
+          <a class="btn btn-ghost" href="#top">Back to top</a>
+        </div>
+      </div>
+    </div></section>
+
+
+    <!-- seo:table -->
+    <section class="sec seosec" id="ficha" aria-labelledby="ficha-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">Spec sheet</span>
+          <h2 id="ficha-h">Regenta at a glance</h2>
+        </div>
+        <div class="tablewrap reveal">
+          <table class="seotable">
+            <caption class="vh">What Regenta is, who it is for and how to get access.</caption>
+            <thead>
+          <tr><th>Item</th><th>Value</th></tr>
+            </thead>
+            <tbody>
+          <tr><th>What it is</th><td>The control layer for directing a fleet of agents, not a single agent</td></tr>
+          <tr><th>What it is not</th><td>A chatbot: it is a command room with goals and scopes</td></tr>
+          <tr><th>What it adds</th><td>Orchestration, auditing and delegation with every action traced</td></tr>
+          <tr><th>Platform</th><td>Web</td></tr>
+          <tr><th>Model</th><td>A commercial Fervon product</td></tr>
+          <tr><th>Access</th><td>By request</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">More from Fervon</span>
+          <h2 id="mas-h">Keep exploring</h2>
+        </div>
+        <div class="related reveal">
+        <a class="relcard" href="/en/lookspan/">
+          <span class="rt">Lookspan</span>
+          <span class="rd">Local-first observability for your AI agents. Free.</span>
+        </a>
+        <a class="relcard" href="/en/veredicto/">
+          <span class="rt">Veredicto</span>
+          <span class="rd">The CI check that catches agent tests proving nothing.</span>
+        </a>
+        <a class="relcard" href="/en/contacto/">
+          <span class="rt">Contacto</span>
+          <span class="rd">Bespoke development with agent fleets.</span>
+        </a>
+        </div>
+      <div class="fv-share">
+        <button type="button" class="sharebtn" aria-label="Share this page">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
+          <span>Share</span>
+        </button>
+        <span class="sharemsg" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>Regenta</b>
+      <span>Access by request</span>
+    </div>
+    <a class="btn btn-fire" href="#waitlist">Request</a>
+  </div>
+
+  <footer><div class="wrap foot">
+    <span>Regenta is a project by <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forged red-hot</span>
+    <span>© 2026 Jonathan Martín · Govern fleets, keep control</span>
+  </div></footer>
+
+  <script src="/regenta/index.client.js?v=20260814d" defer=""></script>
+  <script src="/assets/shared.js?v=20260814d" defer=""></script>
+
+  
+
+
+
+</body></html>
