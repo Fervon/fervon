@@ -24,17 +24,26 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Lookspan",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Windows, macOS, Linux",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-    "description": "Dashboard de observabilidad local-first para agentes de IA, nativo para MCP. Captura cada llamada LLM, cada herramienta MCP y cada token de coste de agentes LangGraph, CrewAI y MCP. Todo corre en tu máquina con un solo comando: npx lookspan.",
-    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
-    "url": "https://fervon.dev/lookspan/"
-  }
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Lookspan",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Windows, macOS, Linux",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  },
+  "description": "Capture every LLM call, MCP tool and cost token from your LangGraph, CrewAI and MCP agents. Local dashboard with npx lookspan. Free.",
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://fervon.dev/#organization",
+    "name": "Fervon",
+    "url": "https://fervon.dev/"
+  },
+  "url": "https://fervon.dev/lookspan/"
+}
   </script>
 
   <script type="application/ld+json">
@@ -44,34 +53,34 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "¿Mis trazas se van a algún servicio?",
+      "name": "Do my traces go to some service?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Lookspan levanta el colector y el dashboard en 127.0.0.1 y guarda todo en local. No hay cuenta, no hay API key y no hay servidor al que enviar nada."
+        "text": "No. Lookspan runs the collector and dashboard on 127.0.0.1 and stores everything locally. There is no account, no API key and no server to send anything to."
       }
     },
     {
       "@type": "Question",
-      "name": "¿Qué frameworks soporta?",
+      "name": "Which frameworks does it support?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Trae integración directa para LangGraph, CrewAI y agentes MCP. Para cualquier otro, basta con que pueda hacer un POST al colector: el formato está documentado."
+        "text": "It ships direct integrations for LangGraph, CrewAI and MCP agents. For anything else, it just needs to be able to POST to the collector: the format is documented."
       }
     },
     {
       "@type": "Question",
-      "name": "¿Cuánto código hay que tocar?",
+      "name": "How much code do I have to touch?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Una línea en el caso habitual. Se instrumenta el agente al importar y a partir de ahí los spans aparecen solos en el dashboard."
+        "text": "One line in the usual case. You instrument the agent at import time and from then on spans show up in the dashboard by themselves."
       }
     },
     {
       "@type": "Question",
-      "name": "¿Calcula el coste de verdad o lo estima?",
+      "name": "Does it compute real cost or estimate it?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Cuenta los tokens reales de cada llamada y les aplica el precio del modelo usado, así que sabes qué agente concreto se está comiendo el presupuesto."
+        "text": "It counts the real tokens of each call and applies the price of the model used, so you can see which specific agent is eating the budget."
       }
     }
   ]

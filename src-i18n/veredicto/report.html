@@ -1,26 +1,27 @@
 <!DOCTYPE html>
-<html lang="en"><head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>AI wrote tests for 20 buggy modules. None caught the bug</title>
-  <meta name="description" content="A reproducible experiment: AI agents wrote tests for 20 modules with real bugs. All 20 suites passed; none caught the bug. Data and method inside.">
-  <link rel="canonical" href="https://fervon.dev/veredicto/report"><link rel="alternate" hreflang="en" href="https://fervon.dev/veredicto/report"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/veredicto/report">
-  <meta name="keywords" content="AI generated tests, over-mocking, false confidence, test-gaming, coverage is not enough, AI test quality, mutation testing, agent PRs">
-  <meta name="robots" content="index, follow, max-image-preview:large">
-  <meta name="theme-color" content="#0E0B0A">
-  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+  <meta name="description" content="A reproducible experiment: AI agents wrote tests for 20 modules with real bugs. All 20 suites passed; none caught the bug. Data and method inside." />
+  <link rel="canonical" href="https://fervon.dev/veredicto/report" />
+  <meta name="keywords" content="AI generated tests, over-mocking, false confidence, test-gaming, coverage is not enough, AI test quality, mutation testing, agent PRs" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#0E0B0A" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png" />
 
-  <meta property="og:type" content="article">
-  <meta property="og:site_name" content="Fervon">
-  <meta property="og:title" content="I asked AI agents to write tests for 20 buggy modules. 100% passed. 0 caught the bug.">
-  <meta property="og:description" content="Every AI-written suite went green against code with a real bug. 75% asserted the buggy output as 'correct'. A reproducible look at why AI-written tests give false confidence.">
-  <meta property="og:url" content="https://fervon.dev/veredicto/report">
-  <meta property="og:image" content="https://fervon.dev/veredicto/og.svg">
-  <meta name="twitter:image" content="https://fervon.dev/veredicto/og.svg">
-  <meta property="og:locale" content="en_US">
-  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Fervon" />
+  <meta property="og:title" content="I asked AI agents to write tests for 20 buggy modules. 100% passed. 0 caught the bug." />
+  <meta property="og:description" content="Every AI-written suite went green against code with a real bug. 75% asserted the buggy output as 'correct'. A reproducible look at why AI-written tests give false confidence." />
+  <meta property="og:url" content="https://fervon.dev/veredicto/report" />
+  <meta property="og:image" content="https://fervon.dev/veredicto/og.svg" />
+  <meta name="twitter:image" content="https://fervon.dev/veredicto/og.svg" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <script type="application/ld+json">
   {
@@ -42,63 +43,63 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "How was the experiment run?",
+      "name": "",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Twenty modules were seeded with a real, behaviour-changing bug each. Fast AI agents were then asked to write thorough unit tests for every module, without being told a bug was present. The resulting suites were run against the buggy code."
+        "text": ""
       }
     },
     {
       "@type": "Question",
-      "name": "What does \"0% caught the bug\" mean exactly?",
+      "name": "",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "It means no suite produced a failing test that exposed the seeded bug. All twenty went green against code that was known to be wrong."
+        "text": ""
       }
     },
     {
       "@type": "Question",
-      "name": "Does this mean AI should not write tests?",
+      "name": "",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. It means a green suite written by the same agent that wrote the code is not evidence the code works. The tests still have value as regression scaffolding; they just cannot be the thing that verifies correctness."
+        "text": ""
       }
     },
     {
       "@type": "Question",
-      "name": "Can I reproduce this myself?",
+      "name": "",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. The seeded modules and the scorers are in the public repository, so you can run the same experiment against your own model and compare."
+        "text": ""
       }
     },
     {
       "@type": "Question",
-      "name": "What catches this in a real pull request?",
+      "name": "",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A human reviewer, mutation testing, or a deterministic check like Veredicto that flags the specific patterns — over-mocking, tautological asserts, mocking the unit under test — before the pull request is merged."
+        "text": ""
       }
     }
   ]
 }
   </script>
 
-  <link rel="stylesheet" href="/assets/core.css?v=20260814d">
-  <link rel="stylesheet" href="/veredicto/base.css?v=20260814d">
-  <link rel="stylesheet" href="/veredicto/report.css?v=20260814d">
-  <link rel="stylesheet" href="/assets/shared.css?v=20260814d">
+  <link rel="stylesheet" href="/assets/core.css?v=20260814d" />
+  <link rel="stylesheet" href="base.css?v=20260814d" />
+  <link rel="stylesheet" href="report.css?v=20260814d" />
+  <link rel="stylesheet" href="/assets/shared.css?v=20260814d" />
 </head>
 <body>
   <a class="skip" href="#top">Skip to content</a>
 
   <header class="nav"><div class="glass bar">
-    <a class="crumb" href="/en/">
+    <a class="crumb" href="/">
       <span class="fv"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> fervon</span><span class="sep">›</span>
-      <span><svg class="mark" width="17" height="17" viewBox="0 0 26 26" aria-hidden="true"><path d="M5 13 L11 19 L21 7" fill="none" stroke="var(--amber)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a><a href="/en/veredicto/">Veredicto</a>
-    
+      <span><svg class="mark" width="17" height="17" viewBox="0 0 26 26" aria-hidden="true"><path d="M5 13 L11 19 L21 7" fill="none" stroke="var(--amber)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg><a href="/veredicto/">Veredicto</a></span>
+    </a>
     <div class="act">
-      <a class="btn btn-fire btn-sm" href="/en/veredicto/#pricing">Get a licence</a>
+      <a class="btn btn-fire btn-sm" href="/veredicto/#pricing">Get a licence</a>
     </div>
   </div></header>
 
@@ -109,14 +110,14 @@
       <div class="eyebrow">Data report · June 2026</div>
       <h1>AI wrote the tests.<br><span class="grad">The bug shipped anyway.</span></h1>
       <div class="cstrip" aria-hidden="true">
-        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"></path></svg></span>
-        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"></path></svg></span>
-        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"></path></svg></span>
-        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"></path></svg></span>
-        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"></path></svg></span>
-        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"></path></svg></span>
-        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"></path></svg></span>
-        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"></path></svg></span>
+        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"/></svg></span>
+        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"/></svg></span>
+        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"/></svg></span>
+        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"/></svg></span>
+        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"/></svg></span>
+        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"/></svg></span>
+        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"/></svg></span>
+        <span class="ck"><svg viewBox="0 0 24 24"><path d="M4 13 l5 5 L20 6"/></svg></span>
       </div>
       <p class="bugline">20 green builds. <b>0 bugs caught.</b></p>
     </header>
@@ -133,7 +134,7 @@
         <li>The method, the seeded modules and the scorers are <b>reproducible</b> — you can run it against your own model.</li>
           </ul>
       <div class="cta-row s-tldrcta">
-        <a class="btn btn-fire" href="/en/veredicto/">How Veredicto catches this</a>
+        <a class="btn btn-fire" href="/veredicto/">How Veredicto catches this</a>
       </div>
         </div>
       </div>
@@ -157,7 +158,7 @@
           <div class="stitle">20 modules · each with a real bug</div>
         </div>
         <div class="agent">
-          <div class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3 0z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg></div>
+          <div class="ring"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3 0z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></div>
           <span>AI writes tests</span>
         </div>
         <div class="stage">
@@ -186,7 +187,7 @@
       <h2>Two failures — Veredicto catches one of them</h2>
       <div class="layers">
         <div class="lyr caught">
-          <div class="lh"><span class="ic2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span> Blatant gaming <span class="tag2">Caught</span></div>
+          <div class="lh"><span class="ic2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span> Blatant gaming <span class="tag2">Caught</span></div>
           <ul>
             <li>Deleted / skipped tests</li>
             <li>Tautological asserts</li>
@@ -196,11 +197,11 @@
           <div class="note">Deterministic · 0 false positives on 213 real merged PRs</div>
         </div>
         <div class="lyr beyond">
-          <div class="lh"><span class="ic2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"></path><path d="M5 7h14"></path><path d="M5 7l-2.5 6a3.5 3.5 0 0 0 7 0L7 7"></path><path d="M19 7l-2.5 6a3.5 3.5 0 0 0 7 0L21 7"></path><path d="M7 21h10"></path></svg></span> Tests that mirror the bug <span class="tag2">Missed</span></div>
+          <div class="lh"><span class="ic2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 7l-2.5 6a3.5 3.5 0 0 0 7 0L7 7"/><path d="M19 7l-2.5 6a3.5 3.5 0 0 0 7 0L21 7"/><path d="M7 21h10"/></svg></span> Tests that mirror the bug <span class="tag2">Missed</span></div>
           <ul>
             <li>Assert the buggy output as correct</li>
             <li>Invisible to static rules</li>
-            <li>Needs the intent, not the diff's syntax</li>
+            <li>Needs the intent, not the diff&#39;s syntax</li>
           </ul>
           <div class="note">A human reviewer, or mutation testing — not this tool</div>
         </div>
@@ -212,8 +213,8 @@
       <div class="endcta">
         <p class="lead">Catch the blatant test-gaming in your PRs — deterministic, in the pull request, no API key.</p>
         <div class="btnrow">
-          <a class="btn btn-fire" href="/en/veredicto/#pricing">Get a licence — $19/repo</a>
-          <a class="btn btn-ghost" href="/en/veredicto/">How Veredicto works</a>
+          <a class="btn btn-fire" href="/veredicto/#pricing">Get a licence — $19/repo</a>
+          <a class="btn btn-ghost" href="/veredicto/">How Veredicto works</a>
         </div>
       </div>
       <p class="repro">Reproducible — seeded modules + scorers in the <a href="https://github.com/JoniMartin27/veredicto">repo</a>. Run it against your own model.</p>
@@ -287,22 +288,22 @@
           <h2 id="mas-h">Keep exploring</h2>
         </div>
         <div class="related reveal">
-        <a class="relcard" href="/en/veredicto/">
+        <a class="relcard" href="/veredicto/">
           <span class="rt">Veredicto</span>
           <span class="rd">The CI check that catches agent tests proving nothing.</span>
         </a>
-        <a class="relcard" href="/en/lookspan/">
+        <a class="relcard" href="/lookspan/">
           <span class="rt">Lookspan</span>
           <span class="rd">Local-first observability for your AI agents. Free.</span>
         </a>
-        <a class="relcard" href="/en/">
+        <a class="relcard" href="/">
           <span class="rt">Fervon</span>
           <span class="rd">The studio and the whole portfolio, on one page.</span>
         </a>
         </div>
       <div class="fv-share">
         <button type="button" class="sharebtn" aria-label="Compartir esta página">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
           <span>Share</span>
         </button>
         <span class="sharemsg" role="status" aria-live="polite"></span>
@@ -318,7 +319,7 @@
       <b>Veredicto</b>
       <span>$19 per repository</span>
     </div>
-    <a class="btn btn-fire" href="/en/veredicto/#pricing">Get a licence</a>
+    <a class="btn btn-fire" href="/veredicto/#pricing">Get a licence</a>
   </div>
 
   <footer><div class="wrap foot">
@@ -326,7 +327,6 @@
     <span>© 2026 Jonathan Martín · Source-available by design</span>
   </div></footer>
 
-  <script src="/assets/shared.js?v=20260814d" defer=""></script>
-
-
-</body></html>
+  <script src="/assets/shared.js?v=20260814d" defer></script>
+</body>
+</html>

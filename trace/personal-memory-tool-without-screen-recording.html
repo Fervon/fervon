@@ -35,37 +35,52 @@
   </script>
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "Is there a personal memory app that doesn't record your screen?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Trace by Fervon captures lightweight signals — browser history, the active app or window, and clipboard text — instead of recording continuous video. You get a searchable record of everything you did without any screen footage ever being stored." }
-      },
-      {
-        "@type": "Question",
-        "name": "Why avoid screen recording for personal memory?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Screen recording creates large files, consumes significant CPU and RAM, and stores sensitive information like passwords, private messages and financial documents you never intended to archive. It also violates IT security policies in most workplaces, limiting where you can use it." }
-      },
-      {
-        "@type": "Question",
-        "name": "What does Trace capture instead of screen recordings?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Trace captures three lightweight signals: (1) browser history from Chrome, Edge, Firefox and other Chromium browsers; (2) the name of the active application or window; and (3) clipboard text when you copy something (opt-in, off by default). No pixels, no video, no screenshots." }
-      },
-      {
-        "@type": "Question",
-        "name": "How is Trace different from Screenpipe or Microsoft Recall?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Both Screenpipe and Microsoft Recall rely on continuous screen recording or constant snapshots. Trace deliberately avoids this: it captures only metadata (URLs, window titles, clipboard snippets) — not pixels. This makes Trace far lighter on system resources and safe to run on work machines." }
-      },
-      {
-        "@type": "Question",
-        "name": "Is Trace safe to use on a work computer?",
-        "acceptedAnswer": { "@type": "Answer", "text": "Trace is designed with this use case in mind. It never records screen video or takes screenshots by default. The exclusion list lets you block specific apps, domains or windows from being logged. Everything stays on your machine — nothing is uploaded to any server." }
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is there a personal memory app that doesn't record your screen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Trace by Fervon captures lightweight signals — browser history, the active app or window, and clipboard text — instead of recording a continuous video. You get a searchable record of everything you did without any screen recording stored."
       }
-    ]
-  }
+    },
+    {
+      "@type": "Question",
+      "name": "Why avoid screen recording for personal memory?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Screen recording stores everything: visible passwords, private messages, financial documents. It consumes high CPU and RAM, drains batteries, and often violates IT security policies. It's not the right approach when you just need to remember what you were doing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does Trace capture instead?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trace captures three lightweight signals: (1) browser history from Chrome, Edge and Firefox; (2) the name of the active application or window; and (3) clipboard text when you copy something (opt-in, off by default). No pixels, no video, no screenshots."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Trace different from Screenpipe?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Screenpipe records continuous screen video and runs OCR over it. Trace deliberately avoids this: it captures only metadata (URLs, window titles, clipboard snippets) — not pixels. This makes Trace far lighter and safe to use on work machines."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Trace safe to use on a work computer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trace is designed with this use case in mind. It never records screen video or takes screenshots by default. The exclusion list lets you block specific apps, domains or windows. Everything stays on your machine — nothing is uploaded to any server."
+      }
+    }
+  ]
+}
   </script>
 
   <script type="application/ld+json">
@@ -76,7 +91,7 @@
   "name": "Fervon",
   "url": "https://fervon.dev/",
   "logo": "https://fervon.dev/assets/favicon-512.png",
-  "description": "Estudio de software autónomo: productos local-first y herramientas open source construidas con flotas de agentes de IA.",
+  "description": "Autonomous software studio: local-first products and open-source developer tools built with fleets of AI agents.",
   "sameAs": [
     "https://github.com/Fervon",
     "https://www.npmjs.com/package/fervon",

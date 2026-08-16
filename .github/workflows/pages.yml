@@ -41,6 +41,7 @@ jobs:
             --exclude '.wrangler' \
             --exclude 'node_modules' \
             --exclude 'scripts' \
+            --exclude 'src-i18n' \
             --exclude '.gitignore' \
             --exclude 'README.md' \
             --exclude 'SECURITY.md' \

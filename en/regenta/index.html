@@ -25,32 +25,84 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Regenta",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Web",
-    "description": "Capa de control agentic para dirigir una flota de agentes de IA con disciplina de ingeniería: orquestación autónoma, trazabilidad total, control plane (RBAC, file-locks, jaula de workspace) y human-in-the-loop. Producto comercial de Fervon.",
-    "offers": { "@type": "Offer", "priceCurrency": "USD", "category": "Commercial license", "description": "Licencia comercial — precio en el lanzamiento. La lista de espera fija condiciones de acceso anticipado." },
-    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
-    "url": "https://fervon.dev/regenta/"
-  }
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Regenta",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Web",
+  "description": "The agentic control layer: orchestrate, audit and delegate a fleet of AI agents with the discipline of an engineering team. A Fervon product.",
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "category": "Commercial license",
+    "description": "Commercial licence — price at launch. The waiting list sets early-access terms."
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://fervon.dev/#organization",
+    "name": "Fervon",
+    "url": "https://fervon.dev/"
+  },
+  "url": "https://fervon.dev/regenta/"
+}
   </script>
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      { "@type": "Question", "name": "¿Qué es Regenta?", "acceptedAnswer": { "@type": "Answer", "text": "Regenta es la capa de control agentic: una sala de mando para dirigir una flota de agentes de IA con la disciplina de un equipo de ingeniería. No resuelve una tarea suelta — mantiene proyectos enteros vivos, llevando cada objetivo de la idea al código revisado con control total." } },
-      { "@type": "Question", "name": "¿Cómo evita Regenta que un agente borre código o filtre secretos?", "acceptedAnswer": { "@type": "Answer", "text": "Por su Control Plane: RBAC por rol, scope allowedFiles por tarea, file-locks con TTL, jaula de workspace con path-guard, blocklist de comandos peligrosos y un secret vault cifrado con AES-256-GCM. Cada acción pasa por la guardia y queda en un audit trail inmutable." } },
-      { "@type": "Question", "name": "¿Pierdo el control al delegar en la flota?", "acceptedAnswer": { "@type": "Answer", "text": "No. Regenta es human-in-the-loop por diseño: tú apruebas manualmente cada fase crítica y los deploys nunca son automáticos. Cada run, diff, log y decisión queda registrado, con streaming SSE en vivo." } },
-      { "@type": "Question", "name": "¿Puedo crear mis propios agentes?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Defines tus propios agentes — nombre, rol, persona, modelo y skills — y los colocas en tu cadena de mando. Cada agente puede usar un provider y modelo distintos, o inferencia local." } },
-      { "@type": "Question", "name": "¿Es Regenta gratis u open source?", "acceptedAnswer": { "@type": "Answer", "text": "No. Regenta es un producto comercial de Fervon, de código privado. Está en acceso anticipado: unirte a la lista de espera fija condiciones early-bird; el precio se anuncia en el lanzamiento." } },
-      { "@type": "Question", "name": "¿Cuánto cuesta la inferencia?", "acceptedAnswer": { "@type": "Answer", "text": "La licencia es de pago, pero la inferencia puede costar $0: Regenta puede despachar a modelos locales bajo demanda (vía llama.cpp) además de a 8 providers en la nube, sin enviar tu código fuera." } }
-    ]
-  }
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is Regenta?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The agentic control plane: a command room to govern a fleet of AI agents with engineering discipline. It doesn't solve a one-off task — it keeps whole projects alive, taking each goal from idea to reviewed code with total control."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does Regenta stop an agent from deleting code or leaking secrets?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Through its Control Plane: per-role RBAC, per-task allowedFiles scope, file-locks with TTL, a workspace cage with path-guard, a dangerous-command blocklist and an AES-256-GCM secret vault. Every action goes through the guard and into an immutable audit trail."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I lose control when I delegate to the fleet?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Regenta is human-in-the-loop by design: you manually approve every critical phase and deploys are never automatic. Every run, diff, log and decision is logged, with live SSE streaming."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I create my own agents?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. You define your own agents — name, role, persona, model and skills — and place them in your chain of command. Each agent can use a different provider and model, or local inference."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Regenta free or open source?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Regenta is a commercial product by Fervon, with a private codebase. It's in early access: joining the waitlist locks in early-bird terms, and pricing is announced at launch."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does inference cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The license is paid, but inference can cost $0: Regenta can dispatch to local models on demand (via llama.cpp) in addition to 8 cloud providers, without sending your code out."
+      }
+    }
+  ]
+}
   </script>
 
   <link rel="stylesheet" href="/assets/core.css?v=20260814d">

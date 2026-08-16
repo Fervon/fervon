@@ -1,0 +1,401 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Regenta · Gobierna tu flota de agentes de IA | Fervon</title>
+  <meta name="description" content="La capa de control agentic: orquesta, audita y delega una flota de agentes de IA con la disciplina de un equipo de ingeniería. Producto de Fervon." />
+  <link rel="canonical" href="https://fervon.dev/regenta/" />
+  <meta name="keywords" content="capa de control agentic, orquestación de agentes de IA, flota de agentes, AI agent control plane, command center de IA, human-in-the-loop, agentes autónomos con control" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#0E0B0A" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Fervon" />
+  <meta property="og:title" content="Regenta · Gobierna tu flota de agentes de IA" />
+  <meta property="og:description" content="La capa de control agentic: orquesta, audita y delega una flota de agentes de IA con control total. No es magia. Es control. Producto comercial de Fervon." />
+  <meta property="og:url" content="https://fervon.dev/regenta/" />
+  <meta property="og:image" content="https://fervon.dev/assets/og-regenta.jpg" />
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-regenta.jpg" />
+  <meta property="og:locale" content="es_ES" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Regenta",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Web",
+    "description": "Capa de control agentic para dirigir una flota de agentes de IA con disciplina de ingeniería: orquestación autónoma, trazabilidad total, control plane (RBAC, file-locks, jaula de workspace) y human-in-the-loop. Producto comercial de Fervon.",
+    "offers": { "@type": "Offer", "priceCurrency": "USD", "category": "Commercial license", "description": "Licencia comercial — precio en el lanzamiento. La lista de espera fija condiciones de acceso anticipado." },
+    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
+    "url": "https://fervon.dev/regenta/"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      { "@type": "Question", "name": "¿Qué es Regenta?", "acceptedAnswer": { "@type": "Answer", "text": "Regenta es la capa de control agentic: una sala de mando para dirigir una flota de agentes de IA con la disciplina de un equipo de ingeniería. No resuelve una tarea suelta — mantiene proyectos enteros vivos, llevando cada objetivo de la idea al código revisado con control total." } },
+      { "@type": "Question", "name": "¿Cómo evita Regenta que un agente borre código o filtre secretos?", "acceptedAnswer": { "@type": "Answer", "text": "Por su Control Plane: RBAC por rol, scope allowedFiles por tarea, file-locks con TTL, jaula de workspace con path-guard, blocklist de comandos peligrosos y un secret vault cifrado con AES-256-GCM. Cada acción pasa por la guardia y queda en un audit trail inmutable." } },
+      { "@type": "Question", "name": "¿Pierdo el control al delegar en la flota?", "acceptedAnswer": { "@type": "Answer", "text": "No. Regenta es human-in-the-loop por diseño: tú apruebas manualmente cada fase crítica y los deploys nunca son automáticos. Cada run, diff, log y decisión queda registrado, con streaming SSE en vivo." } },
+      { "@type": "Question", "name": "¿Puedo crear mis propios agentes?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Defines tus propios agentes — nombre, rol, persona, modelo y skills — y los colocas en tu cadena de mando. Cada agente puede usar un provider y modelo distintos, o inferencia local." } },
+      { "@type": "Question", "name": "¿Es Regenta gratis u open source?", "acceptedAnswer": { "@type": "Answer", "text": "No. Regenta es un producto comercial de Fervon, de código privado. Está en acceso anticipado: unirte a la lista de espera fija condiciones early-bird; el precio se anuncia en el lanzamiento." } },
+      { "@type": "Question", "name": "¿Cuánto cuesta la inferencia?", "acceptedAnswer": { "@type": "Answer", "text": "La licencia es de pago, pero la inferencia puede costar $0: Regenta puede despachar a modelos locales bajo demanda (vía llama.cpp) además de a 8 providers en la nube, sin enviar tu código fuera." } }
+    ]
+  }
+  </script>
+
+  <link rel="stylesheet" href="/assets/core.css?v=20260814d" />
+  <link rel="stylesheet" href="/assets/product.css?v=20260814d" />
+  <link rel="stylesheet" href="index.css?v=20260814d" />
+  <link rel="stylesheet" href="/assets/shared.css?v=20260814d" />
+</head>
+<body>
+  <a class="skip" href="#top" data-en="Skip to content">Saltar al contenido</a>
+
+  <header class="nav"><div class="glass bar">
+    <a class="crumb" href="/">
+      <span class="fv"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> fervon</span><span class="sep">›</span>
+      <span><svg class="mark" width="17" height="17" viewBox="0 0 32 32" aria-hidden="true"><path d="M11.5 22V10h5.2c2.7 0 4.4 1.5 4.4 3.9 0 1.8-1 3.1-2.6 3.6l3 4.5h-2.9l-2.6-4.1h-1.9V22h-2.6zm2.6-6.2h2.3c1.3 0 2-0.6 2-1.7s-0.7-1.7-2-1.7h-2.3v3.4z" fill="var(--amber)"/></svg>Regenta</span>
+    </a>
+    <nav class="menu">
+      <a href="#producto" data-en="Why">Por qué</a>
+      <a href="#casos" data-en="Use cases">Casos</a>
+      <a href="#features" data-en="Features">Capacidades</a>
+      <a href="#arquitectura" data-en="Architecture">Arquitectura</a>
+      <a href="#seguridad" data-en="Security">Seguridad</a>
+      <a href="#precio" data-en="Pricing">Precio</a>
+      <a href="#faq" data-en="FAQ">FAQ</a>
+    </nav>
+    <div class="act">
+      <button id="lang" class="btn btn-ghost btn-sm" type="button" aria-label="Cambiar idioma / Switch language">EN</button>
+      <a class="btn btn-fire btn-sm" href="#waitlist" data-en="Request access">Solicitar acceso</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="bggrid s-9EC6gkuB"></div>
+      <div class="wrap cols">
+        <div>
+          <span class="pill reveal" data-en='<span class="dot"></span> Agentic control plane · human-in-the-loop · commercial'><span class="dot"></span> Capa de control agentic · human-in-the-loop · producto comercial</span>
+          <h1 class="reveal" data-en='Govern a <span class="grad">fleet of AI agents</span> that keeps your projects alive.'>Gobierna una <span class="grad">flota de agentes de IA</span> que mantiene tus proyectos.</h1>
+          <p class="sub reveal" data-en="Regenta isn't a chatbot. It's a command room: you set goals and scopes, and a fleet — that you design — takes them from idea to reviewed code. <b>With total control.</b>">Regenta no es un chatbot. Es una sala de mando: asignas objetivos y alcances, y una flota —que tú diseñas— los lleva de la idea al código revisado. <b>Con control total.</b></p>
+          <div class="row reveal">
+            <a class="btn btn-fire" href="#waitlist" data-en="Request access">Solicitar acceso</a>
+            <a class="btn btn-ghost" href="#arquitectura" data-en="See how it works">Ver cómo funciona</a>
+          </div>
+          <p class="pill reveal s-K9-ORf38" data-en='<span></span> <b class="s-7zm8I-3n">No magic. Control.</b> · commercial license'><span class="dot"></span> <b class="s-7zm8I-3n">No es magia. Es control.</b> · licencia comercial</p>
+          <div class="trust reveal" data-en='<span>✓ Human-in-the-loop</span><span>✓ Full audit trail</span><span>✓ $0 inference (local)</span>'><span>✓ Human-in-the-loop</span><span>✓ Trazabilidad total</span><span>✓ Inferencia $0 (local)</span></div>
+        </div>
+
+        <div class="demo reveal">
+          <div class="glass">
+            <div class="top">
+              <i class="s-aBnRT5ZT"></i><i class="s-wpdX47Tq"></i><i class="s-aNyb6LKH"></i>
+              <span class="s-Sxc0fCNN" data-en="regenta — fleet">regenta — flota</span>
+              <span class="dot s-cXQOUgJA" data-en='<span></span> 4 LIVE'><span class="dot"></span> 4 LIVE</span>
+            </div>
+            <div class="body">
+              <div class="srch">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                <span class="q" id="q"></span><span class="car"></span>
+              </div>
+              <div class="res" id="res">
+                <div class="rrow" data-i="0"><span class="t">10s</span><span class="k k-web" data-en="coord">coord</span><span class="x" data-en="Coordinator assigns the cycle · dependency unlock">Coordinator asigna el ciclo · desbloqueo de dependencias</span></div>
+                <div class="rrow" data-i="1"><span class="t">scope</span><span class="k k-doc" data-en="build">build</span><span class="x" data-en="Builder runs · batch cap 3 · file-locks">Builder ejecuta · batch cap 3 · file-locks</span></div>
+                <div class="rrow" data-i="2"><span class="t">✋</span><span class="k k-app" data-en="review">review</span><span class="x" data-en="Reviewer + QA · audited diff · CEO approval">Reviewer + QA · diff auditado · aprobación CEO</span></div>
+              </div>
+            </div>
+          </div>
+          <p class="s-HOKjOaN8" data-en="Illustrative demo.">Demo ilustrativa.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROBLEM / SOLUTION -->
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h" data-en="In 30 seconds">En 30 segundos</h2>
+          <ul>
+        <li data-en="<b>Regenta</b> is the control layer for directing a <b>fleet of AI agents</b>, not a single agent."><b>Regenta</b> es la capa de control para dirigir una <b>flota de agentes de IA</b>, no un agente suelto.</li>
+        <li data-en="It orchestrates, <b>audits</b> and delegates with the discipline of an engineering team: every action is traced.">Orquesta, <b>audita</b> y delega con la disciplina de un equipo de ingeniería: cada acción queda trazada.</li>
+        <li data-en="Built so projects <b>stay alive</b> when nobody is watching the screen.">Pensada para que los proyectos <b>sigan vivos</b> cuando nadie está mirando la pantalla.</li>
+        <li data-en="A commercial Fervon product, <b>available by request</b>.">Producto comercial de Fervon, <b>en acceso por solicitud</b>.</li>
+          </ul>
+      <div class="cta-row s-tldrcta">
+        <a class="btn btn-fire" href="#waitlist" data-en="Request access">Solicitar acceso</a>
+      </div>
+        </div>
+      </div>
+    </section>
+    <section class="sec alt" id="producto"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-en="Why it exists">Por qué existe</span><h2 data-en="AI agents are powerful. Without control, they're a liability.">Los agentes de IA son potentes. Sin control, son un riesgo.</h2><p class="desc" data-en="Every classic problem of autonomous agents has an engineering answer in Regenta.">Cada problema clásico de los agentes autónomos tiene una respuesta de ingeniería en Regenta.</p></div>
+      <div class="cards">
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.9 19.1C1 15.2 1 8.8 4.9 4.9"/><path d="M7.8 16.2c-2.3-2.3-2.3-6.1 0-8.5"/><circle cx="12" cy="12" r="2"/><path d="M16.2 7.8c2.3 2.3 2.3 6.1 0 8.5"/><path d="M19.1 4.9C23 8.8 23 15.1 19.1 19"/></svg></div><h3 data-en="Black boxes → Full traceability">Cajas negras → Trazabilidad total</h3><p data-en="You don't know what they do or which files they touch. Regenta logs every run, diff, log and decision, with live SSE streaming.">No sabes qué hacen ni qué archivos tocan. Regenta registra cada run, diff, log y decisión, con streaming SSE en vivo.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg></div><h3 data-en="Runaway agent → Control Plane">Descontrol → Control Plane</h3><p data-en="One loose agent can delete code or leak secrets. Regenta adds RBAC, file-locks, a workspace cage and a dangerous-command blocklist.">Uno descontrolado puede borrar código o filtrar secretos. Regenta añade RBAC, file-locks, jaula de workspace y blocklist de comandos peligrosos.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><h3 data-en="Chaos → Autonomous Coordinator">Caos → Coordinator autónomo</h3><p data-en="Coordinating several is chaotic — they clobber each other's files. The Coordinator handles dependency unlocks, exclusive locks and automatic retries.">Coordinar varios es caótico — se pisan los archivos. El Coordinator gestiona el desbloqueo de dependencias, locks exclusivos y retry automático.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396"/><path d="M19.938 10.5a4 4 0 0 1 .585.396"/><path d="M6 18a4 4 0 0 1-1.967-.516"/><path d="M19.967 17.484A4 4 0 0 1 18 18"/></svg></div><h3 data-en="No memory → Persistent brains">Sin memoria → Cerebros persistentes</h3><p data-en="They don't understand your project between sessions. Per-agent memory (brain v3, TF-IDF) remembers the context across runs.">No entienden tu proyecto entre sesiones. Memoria por agente (brain v3, TF-IDF) que recuerda el contexto entre runs.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 11V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2a2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2a2 2 0 0 0-2 2v8"/><path d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg></div><h3 data-en="Lost control → Human-in-the-loop">Pérdida de control → Human-in-the-loop</h3><p data-en="You want to delegate without losing control. Manual CEO approval at every critical phase. Deploys are never automatic.">Quieres delegar sin perder el control. Aprobación manual del CEO en cada fase crítica. Los deploys nunca son automáticos.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><path d="M12 18V6"/></svg></div><h3 data-en="Costly inference → Local inference">Inferencia cara → Inferencia local</h3><p data-en="Inference costs money and scales badly. Local models via llama.cpp on demand → <b>$0 cost</b>, without sending your code out.">La inferencia cuesta dinero y escala mal. Modelos locales vía llama.cpp bajo demanda → <b>coste $0</b>, sin enviar tu código fuera.</p></div>
+      </div>
+    </div></section>
+
+    <!-- USE CASES -->
+    <section class="sec" id="casos"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-en="Use cases">Casos de uso</span><h2 data-en="Keep projects alive, not one-shot scripts.">Mantén proyectos vivos, no scripts de una vez.</h2><p class="desc" data-en="Give it goals and Regenta keeps a backlog, splits the work across the fleet and takes each task from idea to reviewed code. Some of its uses:">Le das objetivos y Regenta mantiene un backlog, reparte el trabajo entre la flota y lleva cada tarea de la idea al código revisado. Algunos de sus usos:</p></div>
+      <div class="cards">
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></div><h3 data-en="Build features">Construir features</h3><p data-en="From a natural-language goal to code: the scout analyzes, the builder implements under scope, and the reviewer + QA validate.">Del objetivo en lenguaje natural al código: el scout analiza, el builder implementa bajo scope y el reviewer + QA validan.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 19H4.815a1.83 1.83 0 0 1-1.57-.881 1.785 1.785 0 0 1-.004-1.784L7.196 9.5"/><path d="M11 19h8.203a1.83 1.83 0 0 0 1.556-.89 1.784 1.784 0 0 0 0-1.775l-1.226-2.12"/><path d="m14 16-3 3 3 3"/><path d="M8.293 13.596 7.196 9.5 3.1 10.598"/><path d="m9.344 5.811 1.093-1.892A1.83 1.83 0 0 1 11.985 3a1.784 1.784 0 0 1 1.546.888l3.943 6.843"/><path d="m13.378 9.633 4.096 1.098 1.097-4.096"/></svg></div><h3 data-en="Refactors with a safety net">Refactors con red de seguridad</h3><p data-en="<code>allowedFiles</code> scopes the change, every diff is audited, and the reviewer checks the acceptance criteria."><code>allowedFiles</code> acota el cambio, cada diff queda auditado y el reviewer comprueba los criterios de aceptación.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><path d="M5.58 16.5h12.85"/></svg></div><h3 data-en="Tests & QA">Tests y QA</h3><p data-en="The test-runner skill runs the suite and captures failures; the QA role validates coverage before accepting.">El skill test-runner ejecuta la suite y captura fallos; el rol QA valida cobertura antes de aceptar.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div><h3 data-en="Continuous code review">Code review continuo</h3><p data-en="The reviewer scans diffs for bugs, security issues and criteria — with your final approval.">El reviewer analiza diffs en busca de bugs, problemas de seguridad y criterios — con tu aprobación final.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg></div><h3 data-en="Migrations & dep bumps">Migraciones y bumps de deps</h3><p data-en="The scout assesses the state, a step-by-step plan is generated, the builder runs it scoped, and the reviewer validates.">El scout evalúa el estado, se genera un plan por pasos, el builder ejecuta acotado y el reviewer valida.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m8 2 1.88 1.88"/><path d="M14.12 3.88 16 2"/><path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6"/><path d="M12 20v-9"/><path d="M6.53 9C4.6 8.8 3 7.1 3 5"/><path d="M6 13H2"/><path d="M3 21c0-2.1 1.7-3.9 3.8-4"/><path d="M20.97 5c0 2.1-1.6 3.8-3.5 4"/><path d="M22 13h-4"/><path d="M17.2 17c2.1.1 3.8 1.9 3.8 4"/></svg></div><h3 data-en="Bug fixes & maintenance">Fix de bugs y mantenimiento</h3><p data-en="The scout locates, the Coordinator assigns, the builder fixes and the reviewer approves — in a loop while the project lives.">El scout localiza, el Coordinator asigna, el builder corrige y el reviewer aprueba — en bucle mientras el proyecto viva.</p></div>
+      </div>
+      <p class="center reveal s-Xc7iGCv3" data-en="…and any other: if you can describe the task and scope it, there's an agent for it.">…y cualquier otra: si puedes describir la tarea y darle alcance, hay un agente para ello.</p>
+    </div></section>
+
+    <!-- FEATURES -->
+    <section class="sec alt" id="features"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-en="Capabilities">Capacidades</span><h2 data-en="A command room, not a chatbot.">Una sala de mando, no un chatbot.</h2><p class="desc" data-en="Everything you need to operate an AI fleet in production, with engineering discipline.">Todo lo que necesitas para operar una flota de IA en producción, con disciplina de ingeniería.</p></div>
+      <div class="cards">
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 7 9 3 5 7l4 4"/><path d="m17 11 4 4-4 4-4-4"/><path d="m8 12 4 4 6-6-4-4Z"/><path d="m16 8 3-3"/><path d="M9 21a6 6 0 0 0-6-6"/></svg></div><h3 data-en="Autonomous Coordinator">Coordinator autónomo</h3><p data-en="Supervises the whole fleet on a 10s cycle: unlocks dependencies, retries, escalates and triggers auto-reviews.">Supervisa el fleet completo en un ciclo de 10 s: desbloquea dependencias, reintenta, escala y dispara auto-reviews.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 17a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3.9a2 2 0 0 1-1.69-.9l-.81-1.2a2 2 0 0 0-1.67-.9H8a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2Z"/><path d="M2 8v11a2 2 0 0 0 2 2h14"/></svg></div><h3 data-en="Fleet & chain of command">Fleet & cadena de mando</h3><p data-en="Persistent agents in a multi-level org chart — orchestrators, scouts, builders and reviewers — each with its own identity and brain.">Agentes persistentes en un organigrama de varios niveles —orquestadores, scouts, builders y revisores— con identidad y cerebro propios.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg></div><h3 data-en="7-phase pipeline">Pipeline de 7 fases</h3><p data-en="From a natural-language goal to reviewed code: scout → plan → approval → build → review → QA → done.">De un objetivo en lenguaje natural a código revisado: scout → plan → aprobación → build → review → QA → done.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396"/><path d="M19.938 10.5a4 4 0 0 1 .585.396"/><path d="M6 18a4 4 0 0 1-1.967-.516"/><path d="M19.967 17.484A4 4 0 0 1 18 18"/></svg></div><h3 data-en="Persistent brains">Cerebros persistentes</h3><p data-en="An Obsidian-style memory graph with TF-IDF search. Each agent remembers decisions and context across runs.">Grafo de memoria estilo Obsidian con búsqueda TF-IDF. Cada agente recuerda decisiones y contexto entre runs.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 14 4 4-4 4"/><path d="m18 2 4 4-4 4"/><path d="M2 18h1.973a4 4 0 0 0 3.3-1.7l5.454-8.6a4 4 0 0 1 3.3-1.7H22"/><path d="M2 6h1.972a4 4 0 0 1 3.6 2.2"/><path d="M22 18h-6.041a4 4 0 0 1-3.3-1.8l-.359-.45"/></svg></div><h3 data-en="Multi-provider router">Router multi-provider</h3><p data-en="Dispatches per agent across 8 providers (Anthropic, OpenAI, Groq, Gemini…) with failover, quarantine and 429 backoff.">Despacha por agente entre 8 providers (Anthropic, OpenAI, Groq, Gemini…) con failover, cuarentena y backoff 429.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 9a2 2 0 0 1-2 2H6l-4 4V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2z"/><path d="M18 9h2a2 2 0 0 1 2 2v11l-4-4h-6a2 2 0 0 1-2-2v-1"/></svg></div><h3 data-en="Live Fleet Chat">Chat Fleet en vivo</h3><p data-en="Per-project channels, CEO↔agent DMs with memory, multi-agent groups and commands (<code>/task</code>, <code>/approve</code>).">Canales por proyecto, DMs CEO↔agente con memoria, grupos multi-agente y comandos (<code>/task</code>, <code>/approve</code>).</p></div>
+      </div>
+    </div></section>
+
+    <!-- ARCHITECTURE -->
+    <section class="sec" id="arquitectura"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-en="Architecture">Arquitectura</span><h2 data-en="Five layers. Strict separation.">Cinco capas. Separación estricta.</h2><p class="desc" data-en="The UI never talks to the engine: everything goes through the API. Each layer has a clear contract.">La UI nunca habla con el motor: todo pasa por la API. Cada capa tiene un contrato claro.</p></div>
+      <div class="arch reveal">
+        <div class="glass layer">
+          <div class="lh"><span class="lt" data-en="Presentation">Presentación</span></div>
+          <div class="lc"><span data-en="🖥️ Desktop App · React 18 + Vite + Tailwind 4">🖥️ Desktop App · React 18 + Vite + Tailwind 4</span><span data-en="Fleet · Projects · Metrics · Brains · Settings">Fleet · Proyectos · Métricas · Cerebros · Ajustes</span></div>
+        </div>
+        <div class="conn"><span class="cl" data-en="fetch + SSE">fetch + SSE</span></div>
+        <div class="glass layer">
+          <div class="lh"><span class="lt">API Gateway</span> · Express + TS · :3000</div>
+          <div class="lc"><span data-en="🔐 JWT 4h · Helmet · rate-limit 500/min">🔐 JWT 4h · Helmet · rate-limit 500/min</span><span data-en="📡 SSE — task · lock · run · review · audit">📡 SSE — task · lock · run · review · audit</span><span data-en="📂 REST — projects · tasks · runs · agents · chat">📂 REST — projects · tasks · runs · agents · chat</span></div>
+        </div>
+        <div class="conn"></div>
+        <div class="glass layer">
+          <div class="lh"><span class="lt">Core Engine</span></div>
+          <div class="lc"><span data-en="🎯 Coordinator · 10s cycle">🎯 Coordinator · ciclo 10s</span><span data-en="📝 Task Engine">📝 Task Engine</span><span data-en="🤖 Agent Runtime (in-process)">🤖 Agent Runtime (in-process)</span><span data-en="🔀 LLM Router · 8 providers">🔀 LLM Router · 8 providers</span></div>
+        </div>
+        <div class="conn"></div>
+        <div class="glass layer">
+          <div class="lh"><span class="lt">Control Plane</span></div>
+          <div class="lc"><span>🔒 RBAC + Policies</span><span data-en="🔐 File Locks (TTL)">🔐 File Locks (TTL)</span><span data-en="✅ Human Review">✅ Human Review</span><span data-en="📜 Audit Trail">📜 Audit Trail</span><span data-en="🗝️ Secret Vault · AES-256-GCM">🗝️ Secret Vault · AES-256-GCM</span></div>
+        </div>
+        <div class="conn"></div>
+        <div class="glass layer">
+          <div class="lh"><span class="lt" data-en="Infrastructure">Infraestructura</span></div>
+          <div class="lc"><span>SQLite (better-sqlite3)</span><span data-en="📁 Workspace under path-guard">📁 Workspace bajo path-guard</span></div>
+        </div>
+      </div>
+    </div></section>
+
+    <!-- SECURITY -->
+    <section class="sec alt" id="seguridad"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-en="Control Plane">Control Plane</span><h2 data-en="Security by design">Seguridad por diseño</h2><p class="desc" data-en="Delegating doesn't mean losing command. Every action goes through the guard.">Delegar no significa perder el mando. Cada acción pasa por la guardia.</p></div>
+      <div class="cards">
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3 data-en="RBAC + Policies">RBAC + Policies</h3><p data-en="Granular per-role permissions: orchestrator, scout, builder, reviewer.">Permisos granulares por rol: orchestrator, scout, builder, reviewer.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div><h3 data-en="<code>allowedFiles</code> scope">Scope <code>allowedFiles</code></h3><p data-en="Each task declares which files it may touch; the builder can't step out.">Cada tarea declara qué archivos puede tocar; el builder no se sale.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><circle cx="12" cy="16" r="1"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3 data-en="File Locks (TTL)">File Locks (TTL)</h3><p data-en="Exclusive per-task acquisition with automatic expiry.">Adquisición exclusiva por tarea con expiración automática.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M12 9v6"/><path d="M16 15v6"/><path d="M16 3v6"/><path d="M3 15h18"/><path d="M3 9h18"/><path d="M8 15v6"/><path d="M8 3v6"/></svg></div><h3 data-en="Path-guard">Path-guard</h3><p data-en="Workspace cage that resolves symlinks with <code>realpath</code>, not just lexically.">Jaula de workspace que resuelve symlinks con <code>realpath</code>, no solo léxico.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg></div><h3 data-en="Terminal blocklist">Terminal blocklist</h3><p data-en="Blocks <code>deploy</code>/<code>publish</code>/<code>login</code> and interactive prompts.">Bloquea <code>deploy</code>/<code>publish</code>/<code>login</code> y prompts interactivos.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m21 2-9.6 9.6"/><circle cx="7.5" cy="15.5" r="5.5"/><path d="m15.5 7.5 3 3"/></svg></div><h3 data-en="Secret Vault">Secret Vault</h3><p data-en="AES-256-GCM, per-row IV, master key outside the repo (<code>0600</code> mode).">AES-256-GCM, IV por fila, master key fuera del repo (modo <code>0600</code>).</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 12h-5"/><path d="M15 8h-5"/><path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/></svg></div><h3 data-en="Audit Trail">Audit Trail</h3><p data-en="Immutable log of every action, with an SSE stream at <code>/api/audit/stream</code>.">Registro inmutable de cada acción, con stream SSE en <code>/api/audit/stream</code>.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg></div><h3 data-en="Anti-loop + quarantine">Anti-loop + quarantine</h3><p data-en="Skips tasks with 3+ failures; errored keys are isolated without loop retries.">Skip de tareas con 3+ fallos; keys con error aisladas sin reintentos en bucle.</p></div>
+      </div>
+      <p class="center reveal s-7yMS99MS" data-en="🔐 <strong>Auth:</strong> JWT with 4h expiry, bcrypt (cost 12), parameterized queries and rate-limiting. In production the API <strong>requires</strong> <code>JWT_SECRET</code> — no insecure fallback.">🔐 <strong>Auth:</strong> JWT con expiración de 4h, bcrypt (cost 12), queries parametrizadas y rate-limiting. En producción la API <strong>exige</strong> <code>JWT_SECRET</code> — sin fallback inseguro.</p>
+    </div></section>
+
+    <!-- STACK -->
+    <section class="sec"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-en="Stack">Stack</span><h2 data-en="Built with serious tools.">Construido con herramientas serias.</h2><p class="desc" data-en="An <code>npm workspaces</code> monorepo: typed packages plus the desktop app.">Monorepo <code>npm workspaces</code>: paquetes tipados más la app desktop.</p></div>
+      <div class="chips reveal s-YNp4meHt">
+        <span class="chip">React 18</span><span class="chip">TypeScript</span><span class="chip">Vite</span>
+        <span class="chip">Tailwind CSS 4</span><span class="chip">TanStack Query</span><span class="chip">Express</span>
+        <span class="chip">JWT</span><span class="chip">SSE</span><span class="chip">Helmet</span>
+        <span class="chip">SQLite · better-sqlite3</span><span class="chip">Vitest</span><span class="chip">Playwright</span>
+        <span class="chip">Docker</span><span class="chip">llama.cpp</span><span class="chip">AES-256-GCM</span>
+      </div>
+    </div></section>
+
+    <!-- PRICING (commercial / early-access) -->
+    <section class="sec alt" id="precio"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-en="Pricing">Precio</span><h2 data-en="A commercial product. Early access open.">Un producto comercial. Acceso anticipado abierto.</h2><p class="desc" data-en="Regenta is a paid product with a private codebase — not free or open source. Join the waitlist to lock in early-bird terms; pricing is set at launch.">Regenta es un producto de pago con código privado — no es gratis ni open source. Únete a la lista para fijar condiciones early-bird; el precio se anuncia en el lanzamiento.</p></div>
+      <div class="prices">
+        <div class="glass price feat-card reveal">
+          <span class="pbadge" data-en="Early access">Acceso anticipado</span>
+          <div class="pname" data-en="Founder">Fundador</div>
+          <div class="pamt"><span class="pnow grad" data-en="Early-bird">Early-bird</span></div>
+          <div class="pcyc" data-en="commercial license · price at launch">licencia comercial · precio en el lanzamiento</div>
+          <ul class="plist">
+            <li data-en="Full agent fleet & autonomous Coordinator">Flota de agentes completa y Coordinator autónomo</li>
+            <li data-en="Control Plane: RBAC, file-locks, audit trail, vault">Control Plane: RBAC, file-locks, audit trail, vault</li>
+            <li data-en="Custom agents — your persona, model & skills">Agentes a medida — tu persona, modelo y skills</li>
+            <li data-en="Multi-provider router + $0 local inference">Router multi-provider + inferencia local a coste $0</li>
+            <li data-en="Locked-in early-bird terms for the waitlist">Condiciones early-bird fijadas para la lista</li>
+          </ul>
+          <a class="btn btn-fire btn-block" href="#waitlist" data-en="Request early access">Solicitar acceso anticipado</a>
+          <p class="pfoot" data-en="The waitlist locks in founder pricing at launch.">La lista fija el precio de fundador en el lanzamiento.</p>
+        </div>
+
+        <div class="glass price reveal">
+          <span class="pbadge soon" data-en="On request">Bajo consulta</span>
+          <div class="pname" data-en="Team">Equipo</div>
+          <div class="pamt"><span class="pnow" data-en="Custom">A medida</span></div>
+          <div class="pcyc" data-en="for teams running fleets in production">para equipos con flotas en producción</div>
+          <ul class="plist">
+            <li data-en="Everything in Founder">Todo lo de Fundador</li>
+            <li data-en="Multiple seats & shared chain of command">Varios asientos y cadena de mando compartida</li>
+            <li data-en="Priority support during onboarding">Soporte prioritario en el onboarding</li>
+          </ul>
+          <a class="btn btn-ghost btn-block" href="#waitlist" data-en="Get in touch">Hablemos</a>
+          <p class="pfoot" data-en="Join the waitlist and tell us your team size.">Únete a la lista e indícanos el tamaño de tu equipo.</p>
+        </div>
+      </div>
+      <p class="center reveal s-175vgI79" data-en="No price is published yet. We won't invent a number — waitlist members hear it first.">Aún no hay precio publicado. No nos inventamos una cifra — quien esté en la lista lo sabrá primero.</p>
+    </div></section>
+
+    <!-- WAITLIST (primary CTA) -->
+    <section class="sec" id="waitlist"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-en="Waitlist">Lista de espera</span><h2 data-en="Be among the first to govern a fleet">Sé de los primeros en gobernar una flota</h2><p class="desc" data-en="Get early access and lock in founder pricing before launch.">Consigue acceso anticipado y fija el precio de fundador antes del lanzamiento.</p></div>
+      <form id="wl" class="wlform reveal" action="https://formspree.io/f/mnjyoknb" method="POST" novalidate>
+          <input type="hidden" name="origen" value="regenta/index" />
+          <input type="hidden" name="_subject" value="fervon.dev · regenta/index" />
+        <div class="frow">
+          <label class="vh" for="email" data-en="Email address">Correo electrónico</label>
+          <input type="email" id="email" name="email" required autocomplete="email" inputmode="email" placeholder="tu@ejemplo.com" data-i18n-attr="placeholder" data-en="you@example.com" />
+          <button type="submit" class="btn btn-fire">Solicitar acceso</button>
+        </div>
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="vh" aria-hidden="true" />
+        <p class="fmsg" id="fmsg" role="status" aria-live="polite"></p>
+        <p class="ffine" data-en="No spam. One email when early access opens.">Sin spam. Un solo email cuando abra el acceso anticipado.</p>
+      </form>
+    </div></section>
+
+    <!-- FAQ -->
+    <section class="sec alt" id="faq"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-en="FAQ">FAQ</span><h2 data-en="Frequently asked questions">Preguntas frecuentes</h2></div>
+      <div class="faq reveal">
+        <details><summary data-en="What is Regenta?">¿Qué es Regenta?</summary><p data-en="The agentic control plane: a command room to govern a fleet of AI agents with engineering discipline. It doesn't solve a one-off task — it keeps whole projects alive, taking each goal from idea to reviewed code with total control.">La capa de control agentic: una sala de mando para dirigir una flota de agentes de IA con disciplina de ingeniería. No resuelve una tarea suelta — mantiene proyectos enteros vivos, llevando cada objetivo de la idea al código revisado con control total.</p></details>
+        <details><summary data-en="How does Regenta stop an agent from deleting code or leaking secrets?">¿Cómo evita Regenta que un agente borre código o filtre secretos?</summary><p data-en="Through its Control Plane: per-role RBAC, per-task <code>allowedFiles</code> scope, file-locks with TTL, a workspace cage with path-guard, a dangerous-command blocklist and an AES-256-GCM secret vault. Every action goes through the guard and into an immutable audit trail.">Por su Control Plane: RBAC por rol, scope <code>allowedFiles</code> por tarea, file-locks con TTL, jaula de workspace con path-guard, blocklist de comandos peligrosos y un secret vault cifrado con AES-256-GCM. Cada acción pasa por la guardia y queda en un audit trail inmutable.</p></details>
+        <details><summary data-en="Do I lose control when I delegate to the fleet?">¿Pierdo el control al delegar en la flota?</summary><p data-en="No. Regenta is human-in-the-loop by design: you manually approve every critical phase and deploys are never automatic. Every run, diff, log and decision is logged, with live SSE streaming.">No. Regenta es human-in-the-loop por diseño: tú apruebas manualmente cada fase crítica y los deploys nunca son automáticos. Cada run, diff, log y decisión queda registrado, con streaming SSE en vivo.</p></details>
+        <details><summary data-en="Can I create my own agents?">¿Puedo crear mis propios agentes?</summary><p data-en="Yes. You define your own agents — name, role, persona, model and skills — and place them in your chain of command. Each agent can use a different provider and model, or local inference.">Sí. Defines tus propios agentes — nombre, rol, persona, modelo y skills — y los colocas en tu cadena de mando. Cada agente puede usar un provider y modelo distintos, o inferencia local.</p></details>
+        <details><summary data-en="Is Regenta free or open source?">¿Es Regenta gratis u open source?</summary><p data-en="No. Regenta is a commercial product by Fervon, with a private codebase. It's in early access: joining the waitlist locks in early-bird terms, and pricing is announced at launch.">No. Regenta es un producto comercial de Fervon, de código privado. Está en acceso anticipado: unirte a la lista fija condiciones early-bird; el precio se anuncia en el lanzamiento.</p></details>
+        <details><summary data-en="How much does inference cost?">¿Cuánto cuesta la inferencia?</summary><p data-en="The license is paid, but inference can cost $0: Regenta can dispatch to local models on demand (via llama.cpp) in addition to 8 cloud providers, without sending your code out.">La licencia es de pago, pero la inferencia puede costar $0: Regenta puede despachar a modelos locales bajo demanda (vía llama.cpp) además de a 8 providers en la nube, sin enviar tu código fuera.</p></details>
+      </div>
+    </div></section>
+
+    <!-- CTA -->
+    <section class="sec"><div class="wrap">
+      <div class="glass ctaband reveal">
+        <div class="bggrid s-im9vJqY9"></div>
+        <h2 data-en='You govern. <span class="grad">The fleet executes.</span>'>Tú gobiernas. <span class="grad">La flota ejecuta.</span></h2>
+        <p class="desc s-HQSJ4X1v" data-en="Direct AI agents with the discipline of an engineering team — without giving up control. No magic. Control.">Dirige agentes de IA con la disciplina de un equipo de ingeniería — sin renunciar al control. No es magia. Es control.</p>
+        <div class="row s-0syaN8w1">
+          <a class="btn btn-fire" href="#waitlist" data-en="Request access">Solicitar acceso</a>
+          <a class="btn btn-ghost" href="#top" data-en="Back to top">Volver arriba</a>
+        </div>
+      </div>
+    </div></section>
+
+
+    <!-- seo:table -->
+    <section class="sec seosec" id="ficha" aria-labelledby="ficha-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-en="Spec sheet">Ficha</span>
+          <h2 id="ficha-h" data-en="Regenta at a glance">Regenta de un vistazo</h2>
+        </div>
+        <div class="tablewrap reveal">
+          <table class="seotable">
+            <caption class="vh" data-en="What Regenta is, who it is for and how to get access.">Qué es Regenta, para quién es y cómo se accede.</caption>
+            <thead>
+          <tr><th data-en="Item">Dato</th><th data-en="Value">Valor</th></tr>
+            </thead>
+            <tbody>
+          <tr><th data-en="What it is">Qué es</th><td data-en="The control layer for directing a fleet of agents, not a single agent">La capa de control para dirigir una flota de agentes, no un agente suelto</td></tr>
+          <tr><th data-en="What it is not">No es</th><td data-en="A chatbot: it is a command room with goals and scopes">Un chatbot: es una sala de mando con objetivos y alcances</td></tr>
+          <tr><th data-en="What it adds">Qué aporta</th><td data-en="Orchestration, auditing and delegation with every action traced">Orquestación, auditoría y delegación con cada acción trazada</td></tr>
+          <tr><th data-en="Platform">Plataforma</th><td>Web</td></tr>
+          <tr><th data-en="Model">Modelo</th><td data-en="A commercial Fervon product">Producto comercial de Fervon</td></tr>
+          <tr><th data-en="Access">Acceso</th><td data-en="By request">Por solicitud</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-en="More from Fervon">Más de Fervon</span>
+          <h2 id="mas-h" data-en="Keep exploring">Sigue explorando</h2>
+        </div>
+        <div class="related reveal">
+        <a class="relcard" href="/lookspan/">
+          <span class="rt">Lookspan</span>
+          <span class="rd" data-en="Local-first observability for your AI agents. Free.">Observabilidad local-first para tus agentes de IA. Gratis.</span>
+        </a>
+        <a class="relcard" href="/veredicto/">
+          <span class="rt">Veredicto</span>
+          <span class="rd" data-en="The CI check that catches agent tests proving nothing.">El check de CI que pilla los tests de agentes que no prueban nada.</span>
+        </a>
+        <a class="relcard" href="/contacto/">
+          <span class="rt">Contacto</span>
+          <span class="rd" data-en="Bespoke development with agent fleets.">Desarrollo a medida con flotas de agentes.</span>
+        </a>
+        </div>
+      <div class="fv-share">
+        <button type="button" class="sharebtn" aria-label="Compartir esta página">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+          <span data-en="Share">Compartir</span>
+        </button>
+        <span class="sharemsg" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b data-en="Regenta">Regenta</b>
+      <span data-en="Access by request">Acceso por solicitud</span>
+    </div>
+    <a class="btn btn-fire" href="#waitlist" data-en="Request">Solicitar</a>
+  </div>
+
+  <footer><div class="wrap foot">
+    <span data-en='Regenta is a project by <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forged red-hot'>Regenta es un proyecto de <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forjado al rojo vivo</span>
+    <span data-en="© 2026 Jonathan Martín · Govern fleets, keep control">© 2026 Jonathan Martín · Gobierna flotas, mantén el control</span>
+  </div></footer>
+
+  <script src="index.client.js?v=20260814d" defer></script>
+  <script src="/assets/shared.js?v=20260814d" defer></script>
+
+  
+
+</body>
+</html>

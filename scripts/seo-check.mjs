@@ -29,7 +29,7 @@ const rd = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8').replace(/\r\n/g, '
 const PAGES = [];
 (function walk(dir) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (['node_modules', '.git', '.claude'].includes(e.name)) continue;
+    if (['node_modules', '.git', '.claude', 'src-i18n'].includes(e.name)) continue;   // src-i18n son las fuentes del generador, no se publican
     const p = path.join(dir, e.name);
     if (e.isDirectory()) walk(p);
     else if (e.name.endsWith('.html')) PAGES.push(path.relative(ROOT, p).split(path.sep).join('/'));
@@ -92,6 +92,12 @@ const CHECKS = [
      lo que la URL promete, la intención NO está cubierta. */
   { n: 5, name: 'Intención de búsqueda', per: (d, i) => {
       const STOP = new Set(['de','del','la','el','los','las','un','una','y','o','para','con','sin','que','a','en','the','a','of','for','with','to','and','or','what','without','use','tool','alternative','fervon','index']);
+      /* Las versiones traducidas cuelgan de /en/ o /es/ y conservan el slug del
+         idioma ORIGINAL (así ninguna URL indexada se mueve). Medir la intención
+         contra ese slug daría un falso fallo: en /en/contacto/ el slug es
+         español y la página está en inglés. La consulta la define la URL
+         canónica del idioma nativo, que es donde sí se comprueba. */
+      if (/^(en|es)\//.test(d.p)) return true;
       const slug = urlOf(d.p).replace(/^\/|\/$/g, '').split('/').pop() || '';
       const terms = (slug ? slug.split('-') : strip(titles[i]).toLowerCase().split(/\W+/))
         .map((t) => t.toLowerCase()).filter((t) => t.length > 2 && !STOP.has(t));

@@ -1,0 +1,372 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Mission Control · Arranca tus repos sin choques de puerto</title>
+  <meta name="description" content="Descubre los proyectos de una carpeta y los arranca a la vez en puertos sin colisión, con logs, git y salud. Local-only. Gratis y open source." />
+  <link rel="canonical" href="https://fervon.dev/launchpad/" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#0E0B0A" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Fervon" />
+  <meta property="og:title" content="launchpad · Una carpeta, doce repos, una pantalla — sin choques de puerto" />
+  <meta property="og:description" content="Descubre y arranca todos tus proyectos a la vez en puertos sin colisión, con logs en vivo, git y salud. Local-only. Gratis y open source." />
+  <meta property="og:url" content="https://fervon.dev/launchpad/" />
+  <meta property="og:image" content="https://fervon.dev/assets/og-launchpad.jpg" />
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-launchpad.jpg" />
+  <meta property="og:locale" content="es_ES" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "launchpad (Mission Control)",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "Windows, macOS, Linux",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+    "description": "Dashboard local-first que descubre todos tus proyectos de una carpeta y los arranca a la vez en puertos sin colisión, con logs en vivo, git y salud en una sola pantalla. Binds 127.0.0.1, sin cuentas ni telemetría.",
+    "license": "https://opensource.org/licenses/MIT",
+    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
+    "url": "https://fervon.dev/launchpad/"
+  }
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Cómo evita los choques de puerto?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Reserva a cada proyecto un puerto propio dentro de un rango dedicado y se lo pasa al arrancarlo, en vez de dejar que todos intenten ocupar el 3000. Así puedes tener doce servicios levantados a la vez."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Tengo que configurar cada repo a mano?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Escanea la carpeta, reconoce el tipo de proyecto y deduce el comando de arranque. Solo tocas la configuración si quieres cambiar algo concreto."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Sirve para desplegar en producción?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, y es deliberado. Es una herramienta de desarrollo local: levanta tu entorno de trabajo en una pantalla. No abre puertos al exterior ni gestiona servidores."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto cuesta?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Nada. Gratis y open source, sin cuenta ni registro."
+      }
+    }
+  ]
+}
+  </script>
+
+  <link rel="stylesheet" href="/assets/core.css?v=20260814d" />
+  <link rel="stylesheet" href="/assets/product.css?v=20260814d" />
+  <link rel="stylesheet" href="index.css?v=20260814d" />
+  <link rel="stylesheet" href="/assets/shared.css?v=20260814d" />
+</head>
+<body>
+  <a class="skip" href="#top" data-en="Skip to content">Saltar al contenido</a>
+
+  <header class="nav"><div class="glass bar">
+    <a class="crumb" href="/"><span class="fv"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> fervon</span><span class="sep">›</span><span>launchpad</span></a>
+    <nav class="menu">
+      <a href="#features" data-en="Features">Características</a>
+      <a href="#demo" data-en="Demo">Demo</a>
+      <a href="#how" data-en="How it works">Cómo funciona</a>
+      <a href="#detect" data-en="Detection">Detección</a>
+      <a href="#start" data-en="Get started">Empezar</a>
+    </nav>
+    <div class="act">
+      <button id="lang" class="btn btn-ghost btn-sm" type="button" aria-label="Cambiar idioma / Switch language">EN</button>
+      <a class="btn btn-ghost btn-sm" href="https://github.com/JoniMartin27/launchpad">GitHub</a>
+      <a class="btn btn-fire btn-sm" href="#start" data-en="Install">Instalar</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div aria-hidden="true" class="s-wf8mGfEX"></div>
+      <div class="bggrid s-9EC6gkuB"></div>
+      <div class="wrap cols">
+        <div>
+          <span class="pill reveal" data-en="&lt;span class=&quot;dot&quot;&gt;&lt;/span&gt; Open source · MIT · Local-only on 127.0.0.1"><span class="dot"></span> Open source · MIT · Local-only en 127.0.0.1</span>
+          <h1 class="reveal" data-en="One folder, twelve repos, &lt;span class=&quot;grad&quot;&gt;a single screen&lt;/span&gt;.">Una carpeta, doce repos, <span class="grad">una sola pantalla</span>.</h1>
+          <p class="sub reveal" data-en="&lt;b&gt;Point it and hit start.&lt;/b&gt; Collision-free ports, logs, git and health, live."><b>Apunta y pulsa arrancar.</b> Puertos sin colisión, logs, git y salud en vivo.</p>
+          <div class="row reveal">
+            <a class="btn btn-fire" href="#start" data-en="How to install it">Cómo instalarlo</a>
+            <a class="btn btn-ghost" href="https://github.com/JoniMartin27/launchpad" data-en="View on GitHub">Ver en GitHub</a>
+          </div>
+          <div class="trust reveal"><span data-en="✓ No telemetry">✓ Sin telemetría</span><span data-en="✓ Node 18+">✓ Node 18+</span><span data-en="✓ Nothing leaves your machine">✓ Nada sale de tu máquina</span></div>
+        </div>
+
+        <div class="demo reveal">
+          <div class="glass">
+            <div class="top">
+              <i class="s-aBnRT5ZT"></i><i class="s-wpdX47Tq"></i><i class="s-aNyb6LKH"></i>
+              <span class="s-Sxc0fCNN" data-en="Mission Control · 127.0.0.1:7777">Mission Control · 127.0.0.1:7777</span>
+              <span class="s-cXQOUgJA" data-en="&lt;span class=&quot;dot&quot;&gt;&lt;/span&gt; LIVE"><span class="dot"></span> LIVE</span>
+            </div>
+            <div class="body">
+              <div class="s-rYc23Q__">
+                <div class="s-U4_mKRC4" data-en="Discovered projects">Proyectos descubiertos</div>
+                <div class="mono s-y7vt0SXo"><span id="run-count">0</span>/4 en marcha</div>
+              </div>
+              <div class="pgrid">
+                <div class="pcard"><div class="nm"><span class="sdot s-run" id="d0"></span> api-server</div><div class="meta"><span>express · node</span><span class="portchip">:4000</span></div></div>
+                <div class="pcard"><div class="nm"><span class="sdot s-run" id="d1"></span> web-app</div><div class="meta"><span>vite · react</span><span class="portchip">:4001</span></div></div>
+                <div class="pcard"><div class="nm"><span class="sdot s-start" id="d2"></span> docs-site</div><div class="meta"><span>astro</span><span class="portchip">:4002</span></div></div>
+                <div class="pcard"><div class="nm"><span class="sdot s-idle" id="d3"></span> worker-bot</div><div class="meta"><span>telegram · cli</span><span class="portchip">:4003</span></div></div>
+              </div>
+              <div class="term mono" id="log"><div class="s-sEVcIw8j">$ mission-control · escaneando ~/code …</div></div>
+            </div>
+          </div>
+          <p class="s-HOKjOaN8" data-en="Illustrative demo.">Demo ilustrativa.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEMO REAL -->
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h" data-en="In 30 seconds">En 30 segundos</h2>
+          <ul>
+        <li data-en="<b>Mission Control</b> (the <b>launchpad</b> project) discovers every project in a folder on its own and starts them all at once."><b>Mission Control</b> (el proyecto <b>launchpad</b>) descubre solo todos los proyectos de una carpeta y los arranca a la vez.</li>
+        <li data-en="It assigns <b>non-colliding ports</b>, so a dozen repos coexist without fighting over port 3000.">Asigna <b>puertos sin colisión</b>, así que doce repos conviven sin pelearse por el 3000.</li>
+        <li data-en="One screen with <b>live logs, git status and health</b> for every service.">Una pantalla con <b>logs en vivo, estado de git y salud</b> de cada servicio.</li>
+        <li data-en="<b>Local-only</b>, free and open source. Nothing leaves your machine."><b>Solo local</b>, gratis y open source. Nada sale de tu máquina.</li>
+          </ul>
+      <div class="cta-row s-tldrcta">
+        <a class="btn btn-fire" href="#start" data-en="How to install it">Cómo instalarlo</a>
+      </div>
+        </div>
+      </div>
+    </section>
+    <section class="sec alt" id="demo">
+      <div class="wrap center reveal">
+        <span class="eye" data-en="Demo">Demo</span>
+        <h2 data-en="See it in action">Míralo en acción</h2>
+        <p class="desc" data-en="Two projects, collision-free ports, live logs.">Dos proyectos, puertos sin colisión, logs en vivo.</p>
+      </div>
+      <div class="wrap reveal s-YQpEB8rm">
+        <figure class="glass s-C5vSwR5_">
+          <img src="/assets/launchpad-demo.webp" width="920" height="588" alt="Mission Control en acción: lanza dos proyectos en puertos sin colisión y observa los logs en vivo en el cajón de detalle" loading="lazy" decoding="async" class="s-h9OptjuP" />
+        </figure>
+        <p class="s-KScCWUrT" data-en="Real walkthrough, no editing.">Recorrido real, sin edición.</p>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="sec"><div class="wrap stats">
+      <div class="reveal"><div class="v grad">100</div><div class="l" data-en="ports (4000–4099)">puertos (4000–4099)</div></div>
+      <div class="reveal"><div class="v grad">1</div><div class="l" data-en="screen for everything">pantalla para todo</div></div>
+      <div class="reveal"><div class="v grad">127.0.0.1</div><div class="l" data-en="the only host">único host</div></div>
+      <div class="reveal"><div class="v grad">0</div><div class="l" data-en="data to the cloud">datos a la nube</div></div>
+    </div></section>
+
+    <!-- HOW -->
+    <section class="sec alt" id="how"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-en="The flow">El flujo</span><h2 data-en="From twelve &lt;span class=&quot;mono s-mkl85k5q&quot;&gt;cd&lt;/span&gt;s a day to one screen">De doce <span class="mono s-mkl85k5q">cd</span> al día a una pantalla</h2></div>
+      <div class="steps">
+        <div class="glass step reveal"><div class="n mono">01</div><h3 data-en="Point it at the folder">Apunta a la carpeta</h3><p data-en="It lives in your projects root.">Vive en tu raíz de proyectos.</p></div>
+        <div class="glass step reveal"><div class="n mono">02</div><h3 data-en="Auto-detects each one">Auto-detecta cada uno</h3><p data-en="Type and dev command. Zero config.">Tipo y comando de dev. Cero config.</p></div>
+        <div class="glass step reveal"><div class="n mono">03</div><h3 data-en="Starts without clashing">Arranca sin chocar</h3><p data-en="A unique port per project.">Un puerto único por proyecto.</p></div>
+        <div class="glass step reveal"><div class="n mono">04</div><h3 data-en="Watch it live">Vigila en vivo</h3><p data-en="Logs, git and CI in one view.">Logs, git y CI en una vista.</p></div>
+      </div>
+    </div></section>
+
+    <!-- FEATURES -->
+    <section class="sec" id="features"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-en="Features">Características</span><h2 data-en="The whole dance, one single screen">Todo el baile, una sola pantalla</h2></div>
+      <div class="cards">
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div><h3 data-en="Config-free auto-detection">Auto-detección sin config</h3><p data-en="Infers type and command for Vite, Next, Astro, Electron, Express, Python/FastAPI, bots and monorepos.">Deduce tipo y comando de Vite, Next, Astro, Electron, Express, Python/FastAPI, bots y monorepos.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10a7.31 7.31 0 0 0 10 10Z"/><path d="m9 15 3-3"/><path d="M17 13a6 6 0 0 0-6-6"/><path d="M21 13A10 10 0 0 0 11 3"/></svg></div><h3 data-en="Launch many, zero clashes">Lanza muchos, cero choques</h3><p data-en="A unique port per project (4000–4099). Run five at once, isolated.">Un puerto único por proyecto (4000–4099). Corre cinco a la vez, aislados.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.9 16.1C1 12.2 1 5.8 4.9 1.9"/><path d="M7.8 4.7a6.14 6.14 0 0 0-.8 7.5"/><circle cx="12" cy="9" r="2"/><path d="M16.2 4.8c2 2 2.26 5.11.8 7.47"/><path d="M19.1 1.9a9.96 9.96 0 0 1 0 14.1"/><path d="M9.5 18h5"/><path d="m8 22 4-11 4 11"/></svg></div><h3 data-en="Live logs">Logs en vivo</h3><p data-en="WebSocket streaming: filter, follow, clear.">Streaming por WebSocket: filtrar, seguir, limpiar.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg></div><h3 data-en="Git at a glance">Git de un vistazo</h3><p data-en="Branch, changes, ahead/behind and last commit, per project.">Branch, cambios, ahead/behind y último commit, por proyecto.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></div><h3 data-en="Published health">Salud publicada</h3><p data-en="npm/PyPI version and GitHub CI, cached.">Versión en npm/PyPI y CI de GitHub, cacheado.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 10.01h.01"/><path d="M10 14.01h.01"/><path d="M14 10.01h.01"/><path d="M14 14.01h.01"/><path d="M18 6v11.5"/><path d="M6 6v12"/><rect x="2" y="6" width="20" height="12" rx="2"/></svg></div><h3 data-en="Friendly failures">Fallos amables</h3><p data-en="Missing &lt;span class=&quot;mono&quot;&gt;node_modules&lt;/span&gt;? One-click &lt;b&gt;Install&lt;/b&gt; button.">¿Faltan <span class="mono">node_modules</span>? Botón <b>Instalar</b> de un click.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/><path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16"/><path d="M16 16h5v5"/></svg></div><h3 data-en="Live re-scan">Re-escaneo en vivo</h3><p data-en="Drop in a new folder and it shows up, no restart.">Suelta una carpeta nueva y aparece, sin reiniciar.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.586 16.726A2 2 0 0 1 2 15.312V8.688a2 2 0 0 1 .586-1.414l4.688-4.688A2 2 0 0 1 8.688 2h6.624a2 2 0 0 1 1.414.586l4.688 4.688A2 2 0 0 1 22 8.688v6.624a2 2 0 0 1-.586 1.414l-4.688 4.688a2 2 0 0 1-1.414.586H8.688a2 2 0 0 1-1.414-.586z"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg></div><h3 data-en="Clean process control">Control de procesos limpio</h3><p data-en="Start/stop with full process-tree kill on Windows.">Start/stop con kill del árbol completo en Windows.</p></div>
+        <div class="glass feat reveal"><div class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div><h3 data-en="Local-only by design">Local-only por diseño</h3><p data-en="Listens on &lt;span class=&quot;mono&quot;&gt;127.0.0.1&lt;/span&gt;, never &lt;span class=&quot;mono&quot;&gt;0.0.0.0&lt;/span&gt;.">Escucha en <span class="mono">127.0.0.1</span>, nunca <span class="mono">0.0.0.0</span>.</p></div>
+      </div>
+    </div></section>
+
+    <!-- DETECT -->
+    <section class="sec alt" id="detect"><div class="wrap two">
+      <div class="reveal">
+        <span class="eye" data-en="Detection">Detección</span>
+        <h2 data-en="Generic, with no hardcoded names">Genérica, sin nombres hardcodeados</h2>
+        <p class="desc" data-en="Automatic scan plus your overrides in &lt;span class=&quot;mono s-7ufF5ecg&quot;&gt;config.json&lt;/span&gt; (local, outside git). Edit it by hand or from the dashboard.">Escaneo automático más tus sobrescrituras en <span class="mono s-7ufF5ecg">config.json</span> (local, fuera de git). Edítalo a mano o desde el dashboard.</p>
+        <div class="chips">
+          <span class="chip" data-en="Vite · React">Vite · React</span><span class="chip" data-en="Next.js">Next.js</span><span class="chip" data-en="Astro">Astro</span><span class="chip" data-en="Electron">Electron</span><span class="chip" data-en="Express · Fastify">Express · Fastify</span><span class="chip" data-en="Python · FastAPI">Python · FastAPI</span><span class="chip" data-en="Static sites">Sitios estáticos</span><span class="chip" data-en="Telegram bots">Bots de Telegram</span><span class="chip" data-en="Monorepos (workspaces)">Monorepos (workspaces)</span><span class="chip" data-en="backend/ + frontend/">backend/ + frontend/</span>
+        </div>
+        <p class="s-r1Fbi1KV" data-en="Per project: pin the port, rename, change the command, add variables or hide the card.">Por proyecto: fija el puerto, renombra, cambia el comando, añade variables u oculta la tarjeta.</p>
+      </div>
+      <div class="glass reveal s-pTF7jaW7">
+        <div class="s-m1cAPZWN" data-en="Per-project overrides">Sobrescrituras por proyecto</div>
+        <div class="s-Gx11RS-7"><table>
+          <thead><tr><th data-en="Field">Campo</th><th data-en="What it does">Qué hace</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">port</td><td class="s-7TvVc0z_" data-en="Pins the port">Fija el puerto</td></tr>
+            <tr><td class="mono">name</td><td class="s-7TvVc0z_" data-en="Displayed name">Nombre mostrado</td></tr>
+            <tr><td class="mono">command</td><td class="s-7TvVc0z_" data-en="Overrides the command">Sobrescribe el comando</td></tr>
+            <tr><td class="mono">portFlag / portEnv</td><td class="s-7TvVc0z_" data-en="How the port is passed">Cómo se pasa el puerto</td></tr>
+            <tr><td class="mono">env</td><td class="s-7TvVc0z_" data-en="Extra variables (&lt;span class=&quot;mono&quot;&gt;${PORT}&lt;/span&gt;)">Variables extra (<span class="mono">${PORT}</span>)</td></tr>
+            <tr><td class="mono">hidden / runnable</td><td class="s-7TvVc0z_" data-en="Hidden / not launchable">Oculta / no lanzable</td></tr>
+            <tr><td class="mono">cwd</td><td class="s-7TvVc0z_" data-en="Working directory">Directorio de trabajo</td></tr>
+          </tbody>
+        </table></div>
+        <div class="s-pHurP39Q" data-en="Globals in &lt;span class=&quot;mono&quot;&gt;settings&lt;/span&gt;: root, port, range, TTL and auto-scan.">Globales en <span class="mono">settings</span>: raíz, puerto, rango, TTL y auto-escaneo.</div>
+      </div>
+    </div></section>
+
+    <!-- WHY / PRIVACY -->
+    <section class="sec"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-en="Stance">Postura</span><h2 data-en="A single user, loopback only">Un solo usuario, solo loopback</h2><p class="desc" data-en="The socket listens on &lt;span class=&quot;mono&quot;&gt;127.0.0.1&lt;/span&gt; exclusively. It launches processes you already have on disk — like running &lt;span class=&quot;mono&quot;&gt;npm run dev&lt;/span&gt; yourself.">El socket escucha en <span class="mono">127.0.0.1</span> en exclusiva. Lanza procesos que ya tienes en disco — como ejecutar <span class="mono">npm run dev</span> tú mismo.</p></div>
+      <div class="cards s-iLcIat7U">
+        <div class="glass feat reveal"><div class="s-mev-PYc1"><h3 class="s-q3nqK4Vz" data-en="No cloud">Sin nube</h3><span class="chip s-Tjt46SSf" data-en="Always">Siempre</span></div><p class="s-35KBScVH" data-en="Nothing leaves your machine. No accounts, no telemetry.">Nada sale de tu máquina. Sin cuentas, sin telemetría.</p></div>
+        <div class="glass feat reveal"><div class="s-mev-PYc1"><h3 class="s-q3nqK4Vz" data-en="Degrades gracefully">Degrada con gracia</h3><span class="chip s-_3JYQidQ" data-en="Optional">Opcional</span></div><p class="s-35KBScVH" data-en="&lt;span class=&quot;mono&quot;&gt;git&lt;/span&gt;, &lt;span class=&quot;mono&quot;&gt;gh&lt;/span&gt; and &lt;span class=&quot;mono&quot;&gt;uv&lt;/span&gt; enrich the views. If they're missing, the rest keeps working."><span class="mono">git</span>, <span class="mono">gh</span> y <span class="mono">uv</span> enriquecen las vistas. Si faltan, el resto sigue.</p></div>
+        <div class="glass feat reveal"><div class="s-mev-PYc1"><h3 class="s-q3nqK4Vz" data-en="Windows-aware">Windows-aware</h3><span class="chip s-UceLg92w" data-en="Tested">Probado</span></div><p class="s-35KBScVH" data-en="Process-tree kill and dual-stack probe. Node 18+.">Kill del árbol de procesos y sonda dual-stack. Node 18+.</p></div>
+      </div>
+    </div></section>
+
+    <!-- START (CTA principal: command box) -->
+    <section class="sec alt" id="start"><div class="wrap">
+      <div class="center reveal"><span class="eye" data-en="Get started">Empezar</span><h2 data-en="Clone it inside your folder and run">Clónalo dentro de tu carpeta y arranca</h2><p class="desc" data-en="It lives &lt;b&gt;inside&lt;/b&gt; the folder it manages. Clone it, build the UI once and serve everything on one port.">Vive <b>dentro</b> de la carpeta que gestiona. Clónalo, compila la UI una vez y sirve todo en un puerto.</p></div>
+      <div class="cmdwrap reveal">
+        <div class="cmdbox">
+          <span class="glow"></span>
+          <button class="copybtn" id="copyBtn" aria-label="Copiar comandos">⧉ Copiar</button>
+          <div class="cmdline mono"><span class="pr">$</span> git clone https://github.com/JoniMartin27/launchpad</div>
+          <div class="cmdline mono"><span class="pr">$</span> cd launchpad</div>
+          <div class="cmdline mono"><span class="pr">$</span> npm install</div>
+          <div class="cmdline mono"><span class="pr">$</span> npm run build      <span class="ct" data-en="# builds the web UI"># compila la UI web</span></div>
+          <div class="cmdline mono"><span class="pr">$</span> <span class="cm">npm start</span>          <span class="ct" data-en="# UI + API + WS at http://127.0.0.1:7777"># UI + API + WS en http://127.0.0.1:7777</span></div>
+        </div>
+      </div>
+      <div class="dlhero reveal">
+        <p class="s-t_p9h0pa" data-en="Open &lt;a class=&quot;mono s-Tjt46SSf&quot; href=&quot;http://127.0.0.1:7777&quot;&gt;http://127.0.0.1:7777&lt;/a&gt;. It scans the parent folder, seeds a &lt;span class=&quot;mono&quot;&gt;config.json&lt;/span&gt; and shows your projects.">Abre <a class="mono s-Tjt46SSf" href="http://127.0.0.1:7777">http://127.0.0.1:7777</a>. Escanea la carpeta padre, siembra un <span class="mono">config.json</span> y muestra tus proyectos.</p>
+        <div class="dlothers" id="dlOthers">
+          <a class="dlchip" href="https://github.com/JoniMartin27/launchpad" data-en="🐙 &lt;b&gt;Repository&lt;/b&gt; · GitHub">🐙 <b>Repositorio</b> · GitHub</a>
+          <a class="dlchip" href="https://github.com/JoniMartin27/launchpad/blob/main/SPEC.md" data-en="📄 &lt;b&gt;SPEC.md&lt;/b&gt; · REST + WS">📄 <b>SPEC.md</b> · REST + WS</a>
+          <a class="dlchip" href="https://github.com/JoniMartin27/launchpad/blob/main/DESIGN.md" data-en="🎨 &lt;b&gt;DESIGN.md&lt;/b&gt; · design">🎨 <b>DESIGN.md</b> · diseño</a>
+        </div>
+        <p class="s-Ld0TWsu2" data-en="Another folder? &lt;span class=&quot;mono&quot;&gt;MISSION_CONTROL_PROJECTS_ROOT=/path/to/code&lt;/span&gt;. · Dev (HMR): &lt;span class=&quot;mono&quot;&gt;npm run dev&lt;/span&gt;">¿Otra carpeta? <span class="mono">MISSION_CONTROL_PROJECTS_ROOT=/ruta/a/code</span>. · Dev (HMR): <span class="mono">npm run dev</span></p>
+      </div>
+    </div></section>
+
+    <!-- CTA -->
+    <section class="sec"><div class="wrap">
+      <div class="glass ctaband reveal">
+        <div class="bggrid s-im9vJqY9"></div>
+        <h2 data-en="Stop playing port detective. &lt;span class=&quot;grad&quot;&gt;Hit start.&lt;/span&gt;">Deja de hacer de detective de puertos. <span class="grad">Pulsa arrancar.</span></h2>
+        <p class="desc s-HQSJ4X1v" data-en="One folder, all your repos, one screen. No clashes, with logs, git and health, live.">Una carpeta, todos tus repos, una pantalla. Sin choques, con logs, git y salud en vivo.</p>
+        <div class="row s-0syaN8w1">
+          <a class="btn btn-fire" href="#start" data-en="How to install it">Cómo instalarlo</a>
+          <a class="btn btn-ghost" href="https://github.com/JoniMartin27/launchpad" data-en="⭐ Star on GitHub">⭐ Estrella en GitHub</a>
+        </div>
+      </div>
+    </div></section>
+
+    <!-- seo:faq -->
+    <section class="sec seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-en="FAQ">FAQ</span>
+          <h2 id="faq-h" data-en="Frequently asked questions">Preguntas frecuentes</h2>
+        </div>
+        <div class="faq reveal">
+        <details>
+          <summary data-en="How does it avoid port clashes?">¿Cómo evita los choques de puerto?</summary>
+          <p data-en="It reserves a dedicated port per project inside a dedicated range and passes it in at launch, instead of letting everything grab port 3000. That is how a dozen services can run at once.">Reserva a cada proyecto un puerto propio dentro de un rango dedicado y se lo pasa al arrancarlo, en vez de dejar que todos intenten ocupar el 3000. Así puedes tener doce servicios levantados a la vez.</p>
+        </details>
+        <details>
+          <summary data-en="Do I have to configure each repo by hand?">¿Tengo que configurar cada repo a mano?</summary>
+          <p data-en="No. It scans the folder, recognises the project type and infers the start command. You only touch the config if you want to change something specific.">No. Escanea la carpeta, reconoce el tipo de proyecto y deduce el comando de arranque. Solo tocas la configuración si quieres cambiar algo concreto.</p>
+        </details>
+        <details>
+          <summary data-en="Is it for deploying to production?">¿Sirve para desplegar en producción?</summary>
+          <p data-en="No, and that is deliberate. It is a local development tool: it brings your working environment up on one screen. It does not open ports to the outside or manage servers.">No, y es deliberado. Es una herramienta de desarrollo local: levanta tu entorno de trabajo en una pantalla. No abre puertos al exterior ni gestiona servidores.</p>
+        </details>
+        <details>
+          <summary data-en="How much does it cost?">¿Cuánto cuesta?</summary>
+          <p data-en="Nothing. Free and open source, with no account and no sign-up.">Nada. Gratis y open source, sin cuenta ni registro.</p>
+        </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-en="More from Fervon">Más de Fervon</span>
+          <h2 id="mas-h" data-en="Keep exploring">Sigue explorando</h2>
+        </div>
+        <div class="related reveal">
+        <a class="relcard" href="/claudescope/">
+          <span class="rt">ClaudeScope</span>
+          <span class="rd" data-en="Search every Claude Code session you have run. Free.">Busca en todas tus sesiones de Claude Code. Gratis.</span>
+        </a>
+        <a class="relcard" href="/lookspan/">
+          <span class="rt">Lookspan</span>
+          <span class="rd" data-en="Local-first observability for your AI agents. Free.">Observabilidad local-first para tus agentes de IA. Gratis.</span>
+        </a>
+        <a class="relcard" href="/pregon/">
+          <span class="rt">Pregón</span>
+          <span class="rd" data-en="Compose once, announce it on fourteen channels.">Compón una vez, anúncialo en catorce canales.</span>
+        </a>
+        </div>
+      <div class="fv-share">
+        <button type="button" class="sharebtn" aria-label="Compartir esta página">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+          <span data-en="Share">Compartir</span>
+        </button>
+        <span class="sharemsg" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+    </section>
+  </main>
+
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b data-en="Mission Control">Mission Control</b>
+      <span data-en="Free and open source">Gratis y open source</span>
+    </div>
+    <a class="btn btn-fire" href="#start" data-en="Install">Instalar</a>
+  </div>
+
+  <footer><div class="wrap foot">
+    <span data-en="launchpad is a project by &lt;a href=&quot;https://fervon.dev&quot;&gt;&lt;img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> fervon&lt;/a&gt; · Forged red-hot">launchpad es un proyecto de <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forjado al rojo vivo</span>
+    <span data-en="MIT © 2026 Jonathan Martín · &lt;a href=&quot;https://github.com/JoniMartin27/launchpad&quot;&gt;GitHub ↗&lt;/a&gt;">MIT © 2026 Jonathan Martín · <a href="https://github.com/JoniMartin27/launchpad">GitHub ↗</a></span>
+  </div></footer>
+
+  <script src="index.client.js?v=20260814d" defer></script>
+  <script src="/assets/shared.js?v=20260814d" defer></script>
+
+</body>
+</html>

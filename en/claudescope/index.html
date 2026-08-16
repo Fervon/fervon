@@ -24,17 +24,26 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "ClaudeScope",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Windows, macOS, Linux",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-    "description": "Búsqueda full-text en cada sesión de Claude Code que has corrido, más el panel de uso que tu suscripción no muestra. Un comando, cero instalación, cero red, 100% local. Open source MIT.",
-    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
-    "url": "https://fervon.dev/claudescope/"
-  }
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "ClaudeScope",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Windows, macOS, Linux",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  },
+  "description": "Full-text search across every Claude Code session, plus the usage dashboard your subscription hides. One command, 100% local. Free and open source.",
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://fervon.dev/#organization",
+    "name": "Fervon",
+    "url": "https://fervon.dev/"
+  },
+  "url": "https://fervon.dev/claudescope/"
+}
   </script>
 
   <script type="application/ld+json">
@@ -44,34 +53,34 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "¿ClaudeScope sube mis sesiones a algún sitio?",
+      "name": "Does ClaudeScope upload my sessions anywhere?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Lee los ficheros de sesión que Claude Code ya guarda en tu disco y monta el índice y el panel en tu propia máquina. No hay servidor, no hay cuenta y no hay API key."
+        "text": "No. It reads the session files Claude Code already stores on your disk and builds the index and dashboard on your own machine. There is no server, no account and no API key."
       }
     },
     {
       "@type": "Question",
-      "name": "¿Hay que instalar algo?",
+      "name": "Do I have to install anything?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No hace falta instalación permanente: con npx claudescope-cli se ejecuta directamente. Solo necesitas Node.js."
+        "text": "No permanent install is needed: npx claudescope-cli runs it directly. All you need is Node.js."
       }
     },
     {
       "@type": "Question",
-      "name": "¿Qué puedo buscar exactamente?",
+      "name": "What can I actually search?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "El texto completo de las conversaciones: tus mensajes, las respuestas y las llamadas a herramientas. Sirve justo para lo que uno hace a mano y mal: recordar en qué sesión resolviste un problema concreto."
+        "text": "The full text of your conversations: your messages, the replies and the tool calls. Exactly what people otherwise do badly by hand: remembering which session solved a given problem."
       }
     },
     {
       "@type": "Question",
-      "name": "¿Cuánto cuesta?",
+      "name": "How much does it cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Nada. Es gratis y open source, sin tier de pago ni límite de uso. El código está en GitHub."
+        "text": "Nothing. It is free and open source, with no paid tier and no usage limit. The code is on GitHub."
       }
     }
   ]

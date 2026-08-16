@@ -24,17 +24,26 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "inferbench",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Windows, macOS, Linux",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-    "description": "Descarga, arranca y benchmarkea motores de inferencia LLM locales con un click. Mide tok/s, TTFT y VRAM reales en tu GPU. 124 modelos verificados, multimotor.",
-    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
-    "url": "https://fervon.dev/inferbench/"
-  }
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "inferbench",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Windows, macOS, Linux",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  },
+  "description": "Download, launch and benchmark local LLM engines in one click. Real tok/s, TTFT and VRAM from your GPU. 100% local. Free and open source.",
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://fervon.dev/#organization",
+    "name": "Fervon",
+    "url": "https://fervon.dev/"
+  },
+  "url": "https://fervon.dev/inferbench/"
+}
   </script>
 
   <script type="application/ld+json">
@@ -44,34 +53,34 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "¿Qué mide inferbench exactamente?",
+      "name": "What does inferbench actually measure?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Tokens por segundo, tiempo hasta el primer token (TTFT) y VRAM ocupada, medidos en tu propio equipo con tu propia GPU. Son cifras reproducibles de tu hardware, no estimaciones."
+        "text": "Tokens per second, time to first token (TTFT) and VRAM used, measured on your own machine with your own GPU. They are reproducible numbers from your hardware, not estimates."
       }
     },
     {
       "@type": "Question",
-      "name": "¿Necesito saber de cuantización o de llama.cpp?",
+      "name": "Do I need to know about quantisation or llama.cpp?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. inferbench se encarga de descargar el modelo, elegir el motor y arrancarlo. Tú eliges el modelo del catálogo y lees los resultados."
+        "text": "No. inferbench handles downloading the model, picking the engine and starting it. You pick a model from the catalogue and read the results."
       }
     },
     {
       "@type": "Question",
-      "name": "¿Los modelos del catálogo son reales?",
+      "name": "Are the catalogue models real?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Sí, y es una regla dura del proyecto: cada entrada del catálogo apunta a un repositorio GGUF verificado en Hugging Face. No hay modelos inventados ni enlaces muertos."
+        "text": "Yes, and it is a hard rule of the project: every catalogue entry points to a GGUF repository verified on Hugging Face. There are no invented models and no dead links."
       }
     },
     {
       "@type": "Question",
-      "name": "¿Envía algo a internet aparte de descargar el modelo?",
+      "name": "Does it send anything online beyond downloading the model?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No. Fuera de la descarga del modelo que tú pides, todo el benchmark corre en local y no se manda telemetría."
+        "text": "No. Apart from downloading the model you asked for, the whole benchmark runs locally and no telemetry is sent."
       }
     }
   ]

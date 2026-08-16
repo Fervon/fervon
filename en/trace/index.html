@@ -25,32 +25,84 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Trace",
-    "applicationCategory": "UtilitiesApplication",
-    "operatingSystem": "Windows, macOS, Linux",
-    "description": "Memoria personal local-first y multiplataforma. Encuentra cualquier cosa que viste, leíste o hiciste — sin grabar tu pantalla, sin nube, sin suscripción. Alternativa privada a Rewind, Limitless y Microsoft Recall.",
-    "offers": { "@type": "Offer", "price": "39", "priceCurrency": "USD", "description": "Licencia lifetime early-bird" },
-    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
-    "url": "https://fervon.dev/trace/"
-  }
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Trace",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Windows, macOS, Linux",
+  "description": "Find anything you saw, read or did, without recording your screen or uploading anything. The alternative to Rewind and Recall. Pay once, $39.",
+  "offers": {
+    "@type": "Offer",
+    "price": "39",
+    "priceCurrency": "USD",
+    "description": "Licencia lifetime early-bird"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://fervon.dev/#organization",
+    "name": "Fervon",
+    "url": "https://fervon.dev/"
+  },
+  "url": "https://fervon.dev/trace/"
+}
   </script>
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      { "@type": "Question", "name": "¿Trace graba mi pantalla todo el tiempo?", "acceptedAnswer": { "@type": "Answer", "text": "No. Trace captura señales ligeras — historial de navegador, ventana activa, texto del portapapeles — en vez de grabar vídeo continuo. Las capturas con OCR son un extra opcional, desactivado por defecto, y solo se disparan al cambiar de foco." } },
-      { "@type": "Question", "name": "¿Se envía algún dato mío a la nube?", "acceptedAnswer": { "@type": "Answer", "text": "No. Trace no tiene servidores ni cuentas. Funciona con el firewall cerrado — nada sale de tu equipo, y puedes comprobarlo tú mismo." } },
-      { "@type": "Question", "name": "¿En qué se diferencia de Microsoft Recall?", "acceptedAnswer": { "@type": "Answer", "text": "Recall está atado a los Copilot+ PC, toma capturas constantes y ha recibido fuertes críticas de privacidad. Trace funciona en cualquier PC moderno, captura mucho menos, filtra las exclusiones antes de escribir nada, y es transparente y opcional por diseño." } },
-      { "@type": "Question", "name": "¿Qué pasó con Rewind y Limitless?", "acceptedAnswer": { "@type": "Answer", "text": "Rewind (luego Limitless) fue adquirido por Meta y su app se cerró el 19 de diciembre de 2025. Trace existe para ser el sucesor independiente y realmente local para quien aún quiere esto sin un dueño big-tech." } },
-      { "@type": "Question", "name": "¿Qué plataformas soporta?", "acceptedAnswer": { "@type": "Answer", "text": "Trace apunta a Windows, macOS y Linux. A los de la lista se les dirá qué builds de plataforma estarán listos primero." } },
-      { "@type": "Question", "name": "¿Cuánto cuesta Trace?", "acceptedAnswer": { "@type": "Answer", "text": "Trace es un pago único. Unirte a la lista fija el precio lifetime early-bird de 39 USD (precio normal 59 USD). Un tier Pro de IA local está previsto para después y es totalmente opcional." } }
-    ]
-  }
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does Trace record my screen all the time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It captures lightweight signals — history, active window, clipboard — not continuous video. OCR is optional and off by default."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is any of my data sent to the cloud?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No servers, no accounts. It runs with your firewall closed — nothing leaves your machine, and you can confirm that yourself."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is it different from Microsoft Recall?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Recall is tied to “Copilot+ PCs” and captures constantly. Trace runs on any modern PC, captures far less, and filters before writing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happened to Rewind / Limitless?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Meta bought it and shut the app down on December 19, 2025. Trace is the independent, truly local successor."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which platforms does it support?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Windows, macOS and Linux. The waitlist will know which builds land first."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When can I use it and how much does it cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Trace is in active development. You can buy the $39 lifetime now (normally $59): it's in beta, so you're charged today and get the beta plus your license the moment it's ready, with a full refund anytime before launch. Payments are handled securely by Polar (your card never touches my servers). The local AI Pro tier is optional and comes later."
+      }
+    }
+  ]
+}
   </script>
 
   <link rel="stylesheet" href="/assets/core.css?v=20260814d">

@@ -24,17 +24,26 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Pregón",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "Windows, macOS, Linux",
-    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
-    "description": "Cross-poster centralizado y open source: compón un mensaje una vez y publícalo adaptado a cada plataforma — 8 canales automáticos por API y 6 asistidos. Hub por proyecto con tracción real (npm/PyPI/GitHub) y tracker de crecimiento. Stack Next.js + Prisma + SQLite, self-host.",
-    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
-    "url": "https://fervon.dev/pregon/"
-  }
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Pregón",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Windows, macOS, Linux",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "EUR"
+  },
+  "description": "Open-source cross-poster: write one message and publish it adapted to 14 channels, with real traction from npm, PyPI and GitHub. Self-host, free.",
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://fervon.dev/#organization",
+    "name": "Fervon",
+    "url": "https://fervon.dev/"
+  },
+  "url": "https://fervon.dev/pregon/"
+}
   </script>
 
   <script type="application/ld+json">
@@ -44,34 +53,34 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "¿A qué plataformas publica automáticamente?",
+      "name": "Which platforms does it post to automatically?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Publica por API a los canales que tengan credenciales conectadas —entre ellos Bluesky, Mastodon y DEV.to—. Para las redes sin API abierta genera el texto adaptado listo para pegar."
+        "text": "It posts via API to whichever channels have credentials connected —among them Bluesky, Mastodon and DEV.to—. For networks without an open API it generates the adapted text ready to paste."
       }
     },
     {
       "@type": "Question",
-      "name": "¿Publica el mismo texto en todas partes?",
+      "name": "Does it post the same text everywhere?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "No, y ese es el punto. Se escribe un mensaje canónico y Pregón lo adapta al formato, la longitud y las convenciones de cada red antes de publicarlo."
+        "text": "No, and that is the point. You write one canonical message and Pregón adapts it to each network format, length and conventions before posting."
       }
     },
     {
       "@type": "Question",
-      "name": "¿Dónde se guardan mis credenciales?",
+      "name": "Where are my credentials stored?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "En tu propia instalación. Pregón corre donde tú lo pongas y no hay un servicio central de terceros que las custodie."
+        "text": "In your own installation. Pregón runs wherever you put it and there is no central third-party service holding them."
       }
     },
     {
       "@type": "Question",
-      "name": "¿Qué mide el tracking de tracción?",
+      "name": "What does the traction tracking measure?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Cifras reales tiradas de las APIs públicas: descargas de npm y PyPI y estrellas de GitHub, agrupadas por proyecto, para ver si un anuncio movió algo."
+        "text": "Real numbers pulled from public APIs: npm and PyPI downloads and GitHub stars, grouped per project, so you can see whether an announcement moved anything."
       }
     }
   ]

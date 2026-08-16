@@ -23,32 +23,84 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Veredicto",
-    "applicationCategory": "DeveloperApplication",
-    "operatingSystem": "GitHub Actions, CI",
-    "description": "Check de CI que detecta test-gaming en pull requests de agentes de IA: tests borrados o .skip, asserts tautológicos, mocks circulares y umbrales relajados. Detección estática determinista, sin API key.",
-    "offers": { "@type": "Offer", "price": "19", "priceCurrency": "USD", "description": "Licencia por repositorio y mes, pull requests ilimitados" },
-    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
-    "url": "https://fervon.dev/veredicto/"
-  }
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Veredicto",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "GitHub Actions, CI",
+  "description": "The CI check that spots agent tests proving nothing: over-mocking, vacuous asserts and .skip. Deterministic, in the PR, no API key.",
+  "offers": {
+    "@type": "Offer",
+    "price": "19",
+    "priceCurrency": "USD",
+    "description": "Licencia por repositorio y mes, pull requests ilimitados"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://fervon.dev/#organization",
+    "name": "Fervon",
+    "url": "https://fervon.dev/"
+  },
+  "url": "https://fervon.dev/veredicto/"
+}
   </script>
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      { "@type": "Question", "name": "¿Necesito una API key o un LLM?", "acceptedAnswer": { "@type": "Answer", "text": "No. Veredicto corre en el runner de tu CI, es determinista y no usa ningún LLM ni API key. Ni siquiera la licencia sale a la red: se verifica offline contra una firma." } },
-      { "@type": "Question", "name": "¿Veredicto va a bloquear mis pull requests?", "acceptedAnswer": { "@type": "Answer", "text": "Por defecto funciona en modo warn: comenta lo que detecta sin bloquear. El modo block es opt-in, para cuando ya confías en sus reglas. Cada regla trae explicación y se puede suprimir con un comentario en el PR." } },
-      { "@type": "Question", "name": "¿En qué se diferencia de CodeRabbit o del review nativo de GitHub?", "acceptedAnswer": { "@type": "Answer", "text": "CodeRabbit revisa calidad con un LLM de pago; GitHub valida seguridad (CodeQL, secret scanning). Ninguno comprueba la integridad de los tests. Veredicto hace una cosa: detectar cuando los tests se amañaron — determinista, instantáneo y sin mandar tu diff a ningún servidor." } },
-      { "@type": "Question", "name": "¿Qué es test-gaming exactamente?", "acceptedAnswer": { "@type": "Answer", "text": "Cuando un cambio hace que el CI pase en verde sin que el código sea correcto: borrar o marcar tests con .skip, asserts tautológicos como expect(true).toBe(true), mocks que mockean justo lo que se testea, snapshots regenerados en masa o umbrales de cobertura relajados." } },
-      { "@type": "Question", "name": "¿Funciona en GitLab o Bitbucket?", "acceptedAnswer": { "@type": "Answer", "text": "El primer objetivo es GitHub Actions. GitLab y Bitbucket están en el roadmap como prueba de neutralidad. Apúntate a la lista para saber cuándo llegan." } },
-      { "@type": "Question", "name": "¿Cuánto cuesta?", "acceptedAnswer": { "@type": "Answer", "text": "19 USD por repositorio y mes, con pull requests ilimitados, en repos públicos y privados. No hay tier gratis. También hay clave para todos los repositorios de un mismo dueño." } }
-    ]
-  }
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do I need an API key or an LLM?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Veredicto runs on your CI runner, is deterministic, and uses no LLM and no API key. Not even the licence goes online: it is an Ed25519 signature verified locally, so Veredicto works on a runner with no egress at all. Nothing about your diff ever leaves your machine."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will it block my pull requests?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "By default it runs in warn mode: it comments what it finds without blocking. Block mode is opt-in. Every rule has an explanation and can be suppressed with a PR comment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How is it different from CodeRabbit or GitHub's native review?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "CodeRabbit reviews quality with a paid LLM; GitHub validates security. Neither checks test integrity. Veredicto does one thing: detect when the tests were gamed — deterministic, instant, and without sending your diff anywhere."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What exactly is test-gaming?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Making CI go green without the code being correct: deleting or .skip-ing tests, tautological asserts, mocks of the thing under test, mass-regenerated snapshots, or relaxed coverage thresholds."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it work on GitLab or Bitbucket?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "GitHub Actions first. GitLab and Bitbucket are on the roadmap. Join the list to know when they land."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does it cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "$19 per repository per month, unlimited pull requests, public and private repos alike. There is no free tier. An owner-wide key covering everything you own is also available. Payments handled securely by Polar."
+      }
+    }
+  ]
+}
   </script>
 
   <link rel="stylesheet" href="/assets/core.css?v=20260814d">

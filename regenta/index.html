@@ -39,18 +39,60 @@
   </script>
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      { "@type": "Question", "name": "¿Qué es Regenta?", "acceptedAnswer": { "@type": "Answer", "text": "Regenta es la capa de control agentic: una sala de mando para dirigir una flota de agentes de IA con la disciplina de un equipo de ingeniería. No resuelve una tarea suelta — mantiene proyectos enteros vivos, llevando cada objetivo de la idea al código revisado con control total." } },
-      { "@type": "Question", "name": "¿Cómo evita Regenta que un agente borre código o filtre secretos?", "acceptedAnswer": { "@type": "Answer", "text": "Por su Control Plane: RBAC por rol, scope allowedFiles por tarea, file-locks con TTL, jaula de workspace con path-guard, blocklist de comandos peligrosos y un secret vault cifrado con AES-256-GCM. Cada acción pasa por la guardia y queda en un audit trail inmutable." } },
-      { "@type": "Question", "name": "¿Pierdo el control al delegar en la flota?", "acceptedAnswer": { "@type": "Answer", "text": "No. Regenta es human-in-the-loop por diseño: tú apruebas manualmente cada fase crítica y los deploys nunca son automáticos. Cada run, diff, log y decisión queda registrado, con streaming SSE en vivo." } },
-      { "@type": "Question", "name": "¿Puedo crear mis propios agentes?", "acceptedAnswer": { "@type": "Answer", "text": "Sí. Defines tus propios agentes — nombre, rol, persona, modelo y skills — y los colocas en tu cadena de mando. Cada agente puede usar un provider y modelo distintos, o inferencia local." } },
-      { "@type": "Question", "name": "¿Es Regenta gratis u open source?", "acceptedAnswer": { "@type": "Answer", "text": "No. Regenta es un producto comercial de Fervon, de código privado. Está en acceso anticipado: unirte a la lista de espera fija condiciones early-bird; el precio se anuncia en el lanzamiento." } },
-      { "@type": "Question", "name": "¿Cuánto cuesta la inferencia?", "acceptedAnswer": { "@type": "Answer", "text": "La licencia es de pago, pero la inferencia puede costar $0: Regenta puede despachar a modelos locales bajo demanda (vía llama.cpp) además de a 8 providers en la nube, sin enviar tu código fuera." } }
-    ]
-  }
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Qué es Regenta?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La capa de control agentic: una sala de mando para dirigir una flota de agentes de IA con disciplina de ingeniería. No resuelve una tarea suelta — mantiene proyectos enteros vivos, llevando cada objetivo de la idea al código revisado con control total."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cómo evita Regenta que un agente borre código o filtre secretos?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Por su Control Plane: RBAC por rol, scope allowedFiles por tarea, file-locks con TTL, jaula de workspace con path-guard, blocklist de comandos peligrosos y un secret vault cifrado con AES-256-GCM. Cada acción pasa por la guardia y queda en un audit trail inmutable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Pierdo el control al delegar en la flota?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Regenta es human-in-the-loop por diseño: tú apruebas manualmente cada fase crítica y los deploys nunca son automáticos. Cada run, diff, log y decisión queda registrado, con streaming SSE en vivo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Puedo crear mis propios agentes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Defines tus propios agentes — nombre, rol, persona, modelo y skills — y los colocas en tu cadena de mando. Cada agente puede usar un provider y modelo distintos, o inferencia local."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Es Regenta gratis u open source?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Regenta es un producto comercial de Fervon, de código privado. Está en acceso anticipado: unirte a la lista fija condiciones early-bird; el precio se anuncia en el lanzamiento."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto cuesta la inferencia?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La licencia es de pago, pero la inferencia puede costar $0: Regenta puede despachar a modelos locales bajo demanda (vía llama.cpp) además de a 8 providers en la nube, sin enviar tu código fuera."
+      }
+    }
+  ]
+}
   </script>
 
   <link rel="stylesheet" href="/assets/core.css?v=20260814d">

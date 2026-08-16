@@ -101,6 +101,23 @@ const SUELTAS = {
   },
 };
 
+/* Descripción de la ORGANIZACIÓN por idioma. No depende de la página, así que
+   no puede salir de la meta description de cada una. */
+const ORG_DESC = {
+  es: 'Estudio de software autónomo: productos local-first y herramientas open source construidas con flotas de agentes de IA.',
+  en: 'Autonomous software studio: local-first products and open-source developer tools built with fleets of AI agents.',
+};
+
+/* Textos que sólo existen dentro del JSON-LD (descripciones de Offer, etc.) y
+   por tanto no los cubre ni el intercambio de atributos ni la meta de página. */
+const SCHEMA_STRINGS = {
+  en: {
+    'Licencia comercial — precio en el lanzamiento. La lista de espera fija condiciones de acceso anticipado.':
+      'Commercial licence — price at launch. The waiting list sets early-access terms.',
+  },
+  es: {},
+};
+
 const LANGS_ACTIVOS = Object.keys(LANGS).filter((l) => l !== 'zh' || dictZh);
 if (!dictZh) console.log('· Sin scripts/i18n-zh.json: se genera ES/EN. El chino entra cuando exista el diccionario.\n');
 
@@ -114,8 +131,16 @@ const traducibles = (html) => (html.match(/ data-(?:en|es)="/g) || []).length;
    data-*), así que al calcular el mapa de enlaces de una página posterior las
    anteriores ya parecían "sin traducción" y los enlaces de la versión inglesa
    se quedaban apuntando al español. */
+/* Las FUENTES bilingües viven aparte, en src-i18n/, y NO se publican.
+
+   Hace falta porque el generador se comía su propia salida: escribe encima de
+   las páginas de la raíz dejándolas monolingües, así que en la segunda pasada
+   ya no quedaban atributos data-* de los que sacar el otro idioma y no se
+   podía regenerar nada. Con las fuentes separadas, el sitio publicado es
+   siempre un artefacto reproducible desde src-i18n/. */
+const SRC = path.join(ROOT, 'src-i18n');
 const FUENTE = new Map(PAGES.map((p) => {
-  const html = fs.readFileSync(path.join(ROOT, p.src), 'utf8').replace(/\r\n/g, '\n');
+  const html = fs.readFileSync(path.join(SRC, p.src), 'utf8').replace(/\r\n/g, '\n');
   return [p.src, { html, n: (html.match(/ data-(?:en|es)="/g) || []).length }];
 }));
 
@@ -153,6 +178,59 @@ async function transformar(srcHtml, cfg) {
       for (const el of doc.querySelectorAll("[aria-label]")) {
         const v = cfg.sueltas[el.getAttribute("aria-label").trim()];
         if (v) el.setAttribute("aria-label", v);
+      }
+    }
+
+    /* 1c. DATOS ESTRUCTURADOS. El JSON-LD es un <script> aparte, así que el
+       intercambio de idioma no lo tocaba: las páginas generadas enseñaban el
+       FAQ traducido pero declaraban el schema en el idioma original. Google
+       podría servir un fragmento enriquecido en español para una consulta en
+       inglés — y además exige que el FAQPage COINCIDA con lo visible.
+
+       Se reconstruye desde el propio DOM ya traducido, que es la única forma
+       de garantizar que schema y página no se separen nunca. */
+    /* Se aplica SIEMPRE, también a las páginas originales: el nodo Organization
+       se añadió con la descripción en español y estaba puesto igual en las
+       páginas inglesas de la raíz, que nunca pasan por el intercambio. */
+    {
+      for (const sc of doc.querySelectorAll('script[type="application/ld+json"]')) {
+        let data;
+        try { data = JSON.parse(sc.textContent); } catch { continue; }
+        let tocado = false;
+
+        const visitar = (nodo) => {
+          if (Array.isArray(nodo)) return nodo.forEach(visitar);
+          if (!nodo || typeof nodo !== 'object') return;
+
+          if (nodo['@type'] === 'FAQPage') {
+            const pares = [...doc.querySelectorAll('.faq details')].map((d) => ({
+              '@type': 'Question',
+              name: (d.querySelector('summary')?.textContent || '').trim(),
+              acceptedAnswer: { '@type': 'Answer', text: (d.querySelector('p')?.textContent || '').trim() },
+            })).filter((q) => q.name && q.acceptedAnswer.text);
+            if (pares.length) { nodo.mainEntity = pares; tocado = true; }
+          }
+          /* La descripción del producto y de la página van en el idioma de la
+             página: se usa la meta description, que ya está traducida. */
+          if (cfg.metaDesc && ['SoftwareApplication', 'WebPage', 'BlogPosting', 'ProfessionalService'].includes(nodo['@type']) && nodo.description) {
+            nodo.description = cfg.metaDesc; tocado = true;
+          }
+          /* La descripción de MARCA no depende de la página, así que no puede
+             salir de la meta description: lleva su propio texto por idioma. */
+          if (cfg.orgDesc && nodo['@type'] === 'Organization' && nodo.description) {
+            nodo.description = cfg.orgDesc; tocado = true;
+          }
+          /* Textos sueltos del schema que no salen de ninguna meta (p. ej. la
+             descripción de un Offer). */
+          if (nodo.description && cfg.schemaStrings[nodo.description]) {
+            nodo.description = cfg.schemaStrings[nodo.description]; tocado = true;
+          }
+          if (nodo.inLanguage) { nodo.inLanguage = cfg.htmlLang; tocado = true; }
+          if (nodo.name && nodo['@type'] === 'WebPage' && cfg.metaTitle) { nodo.name = cfg.metaTitle; tocado = true; }
+          for (const v of Object.values(nodo)) visitar(v);
+        };
+        visitar(data);
+        if (tocado) sc.textContent = '\n' + JSON.stringify(data, null, 2) + '\n  ';
       }
     }
 
@@ -260,6 +338,10 @@ for (const page of PAGES) {
       alts, mapa, dir,
       meta: (lang === 'zh' ? (dictZh && dictZh.__meta && dictZh.__meta[page.url]) : (METAS[page.url] && METAS[page.url][lang])) || null,
       sueltas: SUELTAS[lang] || {},
+      orgDesc: ORG_DESC[lang] || null,
+      schemaStrings: SCHEMA_STRINGS[lang] || {},
+      metaDesc: ((lang === 'zh' ? (dictZh && dictZh.__meta && dictZh.__meta[page.url]) : (METAS[page.url] && METAS[page.url][lang])) || {}).desc || null,
+      metaTitle: ((lang === 'zh' ? (dictZh && dictZh.__meta && dictZh.__meta[page.url]) : (METAS[page.url] && METAS[page.url][lang])) || {}).title || null,
       opciones: alts.filter((a) => a.hreflang !== 'x-default').map((a) => {
         const l = Object.keys(LANGS).find((k) => LANGS[k].hreflang === a.hreflang);
         return { label: LANGS[l].label, href: urlFor(page, l), hreflang: a.hreflang, htmlLang: LANGS[l].htmlLang, actual: l === lang };

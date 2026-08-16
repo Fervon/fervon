@@ -37,18 +37,60 @@
   </script>
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      { "@type": "Question", "name": "¿Necesito una API key o un LLM?", "acceptedAnswer": { "@type": "Answer", "text": "No. Veredicto corre en el runner de tu CI, es determinista y no usa ningún LLM ni API key. Ni siquiera la licencia sale a la red: se verifica offline contra una firma." } },
-      { "@type": "Question", "name": "¿Veredicto va a bloquear mis pull requests?", "acceptedAnswer": { "@type": "Answer", "text": "Por defecto funciona en modo warn: comenta lo que detecta sin bloquear. El modo block es opt-in, para cuando ya confías en sus reglas. Cada regla trae explicación y se puede suprimir con un comentario en el PR." } },
-      { "@type": "Question", "name": "¿En qué se diferencia de CodeRabbit o del review nativo de GitHub?", "acceptedAnswer": { "@type": "Answer", "text": "CodeRabbit revisa calidad con un LLM de pago; GitHub valida seguridad (CodeQL, secret scanning). Ninguno comprueba la integridad de los tests. Veredicto hace una cosa: detectar cuando los tests se amañaron — determinista, instantáneo y sin mandar tu diff a ningún servidor." } },
-      { "@type": "Question", "name": "¿Qué es test-gaming exactamente?", "acceptedAnswer": { "@type": "Answer", "text": "Cuando un cambio hace que el CI pase en verde sin que el código sea correcto: borrar o marcar tests con .skip, asserts tautológicos como expect(true).toBe(true), mocks que mockean justo lo que se testea, snapshots regenerados en masa o umbrales de cobertura relajados." } },
-      { "@type": "Question", "name": "¿Funciona en GitLab o Bitbucket?", "acceptedAnswer": { "@type": "Answer", "text": "El primer objetivo es GitHub Actions. GitLab y Bitbucket están en el roadmap como prueba de neutralidad. Apúntate a la lista para saber cuándo llegan." } },
-      { "@type": "Question", "name": "¿Cuánto cuesta?", "acceptedAnswer": { "@type": "Answer", "text": "19 USD por repositorio y mes, con pull requests ilimitados, en repos públicos y privados. No hay tier gratis. También hay clave para todos los repositorios de un mismo dueño." } }
-    ]
-  }
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Necesito una API key o un LLM?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Veredicto corre en tu runner, es determinista y no usa LLM ni API key. Ni siquiera la licencia sale a la red: es una firma Ed25519 que se verifica en local, así que funciona en un runner sin salida a internet. Nada de tu diff sale nunca de tu máquina."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Va a bloquear mis pull requests?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Por defecto funciona en modo warn: comenta lo que encuentra sin bloquear. El modo block es opt-in. Cada regla trae explicación y se puede suprimir con un comentario en el PR."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿En qué se diferencia de CodeRabbit o del review nativo de GitHub?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "CodeRabbit revisa calidad con un LLM de pago; GitHub valida seguridad. Ninguno comprueba la integridad de los tests. Veredicto hace una cosa: detectar cuando los tests se amañaron — determinista, instantáneo y sin mandar tu diff a ningún sitio."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué es test-gaming exactamente?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Hacer que el CI pase en verde sin que el código sea correcto: borrar o marcar .skip tests, asserts tautológicos, mocks de lo que se testea, snapshots regenerados en masa o umbrales de cobertura relajados."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Funciona en GitLab o Bitbucket?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Primero GitHub Actions. GitLab y Bitbucket están en el roadmap. Apúntate a la lista para saber cuándo llegan."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto cuesta?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "$19 por repositorio y mes, pull requests ilimitados, en repos públicos y privados por igual. No hay tier gratis. También hay clave para todos los repos de un mismo dueño. Pagos gestionados de forma segura por Polar."
+      }
+    }
+  ]
+}
   </script>
 
   <link rel="stylesheet" href="/assets/core.css?v=20260814d">

@@ -24,131 +24,207 @@
   <meta name="twitter:card" content="summary_large_image">
 
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "Organization",
-        "@id": "https://fervon.dev/#organization",
-        "name": "Fervon",
-        "alternateName": ["Fervon Studio", "Fervon.dev"],
-        "url": "https://fervon.dev/",
-        "logo": {
-          "@type": "ImageObject",
-          "@id": "https://fervon.dev/#logo",
-          "url": "https://fervon.dev/assets/favicon-512.png",
-          "width": 512,
-          "height": 512,
-          "caption": "Fervon"
-        },
-        "image": { "@id": "https://fervon.dev/#logo" },
-        "description": "Estudio de software autónomo: productos, herramientas open source y desarrollo a medida con flotas de agentes de IA. Local-first.",
-        "slogan": "Forjado al rojo vivo",
-        "foundingDate": "2026",
-        "knowsLanguage": ["es", "en"],
-        "founder": { "@id": "https://fervon.dev/#jonathan" },
-        "employee": { "@id": "https://fervon.dev/#jonathan" },
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "contactType": "customer support",
-          "url": "https://fervon.dev/contacto/",
-          "availableLanguage": ["es", "en"]
-        },
-        "sameAs": [
-          "https://github.com/Fervon",
-          "https://www.npmjs.com/package/fervon",
-          "https://dev.to/jonimatiin",
-          "https://bsky.app/profile/jonimartin.bsky.social",
-          "https://mastodon.social/@jonimartin"
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://fervon.dev/#organization",
+      "name": "Fervon",
+      "alternateName": [
+        "Fervon Studio",
+        "Fervon.dev"
+      ],
+      "url": "https://fervon.dev/",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://fervon.dev/#logo",
+        "url": "https://fervon.dev/assets/favicon-512.png",
+        "width": 512,
+        "height": 512,
+        "caption": "Fervon"
+      },
+      "image": {
+        "@id": "https://fervon.dev/#logo"
+      },
+      "description": "Estudio de software autónomo: productos local-first y herramientas open source construidas con flotas de agentes de IA.",
+      "slogan": "Forjado al rojo vivo",
+      "foundingDate": "2026",
+      "knowsLanguage": [
+        "es",
+        "en"
+      ],
+      "founder": {
+        "@id": "https://fervon.dev/#jonathan"
+      },
+      "employee": {
+        "@id": "https://fervon.dev/#jonathan"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "url": "https://fervon.dev/contacto/",
+        "availableLanguage": [
+          "es",
+          "en"
         ]
       },
-      {
-        "@type": "Person",
-        "@id": "https://fervon.dev/#jonathan",
-        "name": "Jonathan Martín",
-        "jobTitle": "Fundador de Fervon",
-        "url": "https://fervon.dev/",
-        "worksFor": { "@id": "https://fervon.dev/#organization" },
-        "sameAs": [
-          "https://github.com/JoniMartin27",
-          "https://dev.to/jonimatiin",
-          "https://bsky.app/profile/jonimartin.bsky.social",
-          "https://mastodon.social/@jonimartin"
-        ]
+      "sameAs": [
+        "https://github.com/Fervon",
+        "https://www.npmjs.com/package/fervon",
+        "https://dev.to/jonimatiin",
+        "https://bsky.app/profile/jonimartin.bsky.social",
+        "https://mastodon.social/@jonimartin"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://fervon.dev/#jonathan",
+      "name": "Jonathan Martín",
+      "jobTitle": "Fundador de Fervon",
+      "url": "https://fervon.dev/",
+      "worksFor": {
+        "@id": "https://fervon.dev/#organization"
       },
-      {
-        "@type": "WebSite",
-        "@id": "https://fervon.dev/#website",
-        "url": "https://fervon.dev/",
-        "name": "Fervon",
-        "alternateName": "Fervon — estudio de software autónomo",
-        "inLanguage": "es",
-        "publisher": { "@id": "https://fervon.dev/#organization" }
-      },
-      {
-        "@type": "WebPage",
-        "@id": "https://fervon.dev/#webpage",
-        "url": "https://fervon.dev/",
-        "name": "Fervon · Estudio de software autónomo",
-        "description": "Fervon es el estudio de software autónomo de Jonathan Martín: productos como Trace, herramientas open source (Lookspan, inferbench, ClaudeScope) y desarrollo a medida con flotas de agentes de IA.",
-        "isPartOf": { "@id": "https://fervon.dev/#website" },
-        "about": { "@id": "https://fervon.dev/#organization" },
-        "primaryImageOfPage": { "@id": "https://fervon.dev/#logo" },
-        "inLanguage": "es"
-      },
-      {
-        "@type": "ProfessionalService",
-        "@id": "https://fervon.dev/#localbusiness",
-        "name": "Fervon",
-        "legalName": "Fervon",
-        "url": "https://fervon.dev/",
-        "image": { "@id": "https://fervon.dev/#logo" },
-        "logo": { "@id": "https://fervon.dev/#logo" },
-        "description": "Estudio de software autónomo. Desarrollo a medida dirigiendo flotas de agentes de IA, y productos propios local-first. Trabajo en remoto desde España, con clientes en cualquier zona horaria.",
-        "slogan": "Forjado al rojo vivo",
-        "parentOrganization": { "@id": "https://fervon.dev/#organization" },
-        "founder": { "@id": "https://fervon.dev/#jonathan" },
-        "address": {
-          "@type": "PostalAddress",
-          "addressCountry": "ES"
-        },
-        "areaServed": { "@type": "Place", "name": "Worldwide" },
-        "availableLanguage": ["es", "en"],
-        "priceRange": "$19–$39",
-        "currenciesAccepted": "USD, EUR",
-        "serviceType": [
-          "Desarrollo de software a medida",
-          "Automatización con agentes de IA",
-          "Integración de LLM",
-          "Software local-first"
-        ],
-        "knowsAbout": [
-          "Agentes de IA",
-          "Modelos de lenguaje locales",
-          "Observabilidad de agentes",
-          "Integración continua",
-          "Software local-first"
-        ],
-        "hasOfferCatalog": {
-          "@type": "OfferCatalog",
-          "name": "Productos y servicios de Fervon",
-          "itemListElement": [
-            { "@type": "Offer", "url": "https://fervon.dev/trace/", "price": "39", "priceCurrency": "USD", "itemOffered": { "@type": "SoftwareApplication", "name": "Trace", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Windows, macOS, Linux" } },
-            { "@type": "Offer", "url": "https://fervon.dev/veredicto/", "price": "19", "priceCurrency": "USD", "itemOffered": { "@type": "SoftwareApplication", "name": "Veredicto", "applicationCategory": "DeveloperApplication", "operatingSystem": "GitHub Actions" } },
-            { "@type": "Offer", "url": "https://fervon.dev/contacto/", "itemOffered": { "@type": "Service", "name": "Desarrollo de software a medida con flotas de agentes de IA" } }
-          ]
-        },
-        "contactPoint": { "@type": "ContactPoint", "contactType": "sales", "url": "https://fervon.dev/contacto/", "availableLanguage": ["es", "en"] },
-        "sameAs": [
-          "https://github.com/Fervon",
-          "https://www.npmjs.com/package/fervon",
-          "https://dev.to/jonimatiin",
-          "https://bsky.app/profile/jonimartin.bsky.social",
-          "https://mastodon.social/@jonimartin"
-        ]
+      "sameAs": [
+        "https://github.com/JoniMartin27",
+        "https://dev.to/jonimatiin",
+        "https://bsky.app/profile/jonimartin.bsky.social",
+        "https://mastodon.social/@jonimartin"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://fervon.dev/#website",
+      "url": "https://fervon.dev/",
+      "name": "Fervon",
+      "alternateName": "Fervon — estudio de software autónomo",
+      "inLanguage": "es",
+      "publisher": {
+        "@id": "https://fervon.dev/#organization"
       }
-    ]
-  }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://fervon.dev/#webpage",
+      "url": "https://fervon.dev/",
+      "name": "Fervon · Estudio de software autónomo",
+      "description": "Fervon es el estudio de software autónomo de Jonathan Martín: productos como Trace, herramientas open source (Lookspan, inferbench, ClaudeScope) y desarrollo a medida con flotas de agentes de IA.",
+      "isPartOf": {
+        "@id": "https://fervon.dev/#website"
+      },
+      "about": {
+        "@id": "https://fervon.dev/#organization"
+      },
+      "primaryImageOfPage": {
+        "@id": "https://fervon.dev/#logo"
+      },
+      "inLanguage": "es"
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://fervon.dev/#localbusiness",
+      "name": "Fervon",
+      "legalName": "Fervon",
+      "url": "https://fervon.dev/",
+      "image": {
+        "@id": "https://fervon.dev/#logo"
+      },
+      "logo": {
+        "@id": "https://fervon.dev/#logo"
+      },
+      "description": "Estudio de software autónomo. Desarrollo a medida dirigiendo flotas de agentes de IA, y productos propios local-first. Trabajo en remoto desde España, con clientes en cualquier zona horaria.",
+      "slogan": "Forjado al rojo vivo",
+      "parentOrganization": {
+        "@id": "https://fervon.dev/#organization"
+      },
+      "founder": {
+        "@id": "https://fervon.dev/#jonathan"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "ES"
+      },
+      "areaServed": {
+        "@type": "Place",
+        "name": "Worldwide"
+      },
+      "availableLanguage": [
+        "es",
+        "en"
+      ],
+      "priceRange": "$19–$39",
+      "currenciesAccepted": "USD, EUR",
+      "serviceType": [
+        "Desarrollo de software a medida",
+        "Automatización con agentes de IA",
+        "Integración de LLM",
+        "Software local-first"
+      ],
+      "knowsAbout": [
+        "Agentes de IA",
+        "Modelos de lenguaje locales",
+        "Observabilidad de agentes",
+        "Integración continua",
+        "Software local-first"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Productos y servicios de Fervon",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "url": "https://fervon.dev/trace/",
+            "price": "39",
+            "priceCurrency": "USD",
+            "itemOffered": {
+              "@type": "SoftwareApplication",
+              "name": "Trace",
+              "applicationCategory": "UtilitiesApplication",
+              "operatingSystem": "Windows, macOS, Linux"
+            }
+          },
+          {
+            "@type": "Offer",
+            "url": "https://fervon.dev/veredicto/",
+            "price": "19",
+            "priceCurrency": "USD",
+            "itemOffered": {
+              "@type": "SoftwareApplication",
+              "name": "Veredicto",
+              "applicationCategory": "DeveloperApplication",
+              "operatingSystem": "GitHub Actions"
+            }
+          },
+          {
+            "@type": "Offer",
+            "url": "https://fervon.dev/contacto/",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Desarrollo de software a medida con flotas de agentes de IA"
+            }
+          }
+        ]
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "url": "https://fervon.dev/contacto/",
+        "availableLanguage": [
+          "es",
+          "en"
+        ]
+      },
+      "sameAs": [
+        "https://github.com/Fervon",
+        "https://www.npmjs.com/package/fervon",
+        "https://dev.to/jonimatiin",
+        "https://bsky.app/profile/jonimartin.bsky.social",
+        "https://mastodon.social/@jonimartin"
+      ]
+    }
+  ]
+}
   </script>
 
   <script type="application/ld+json">

@@ -19,6 +19,7 @@ rsync -a ./ "$OUT"/ \
   --exclude '.wrangler' \
   --exclude 'node_modules' \
   --exclude 'scripts' \
+  --exclude 'src-i18n' \
   --exclude 'docs' \
   --exclude '.gitignore' \
   --exclude 'README.md' \
@@ -42,6 +43,9 @@ for f in README.md SECURITY.md SETUP.md BRAND-IMAGE-PROMPTS.md package.json pack
   if [ -e "$OUT/$f" ]; then echo "FUGA: $OUT/$f no debería publicarse" >&2; leaked=1; fi
 done
 if [ -e "$OUT/scripts" ]; then echo "FUGA: $OUT/scripts/ no debería publicarse" >&2; leaked=1; fi
+# src-i18n/ son las fuentes bilingües del generador de idiomas: duplican todo el
+# contenido y, si se publicaran, Google vería 18 páginas clonadas.
+if [ -e "$OUT/src-i18n" ]; then echo "FUGA: $OUT/src-i18n/ no debería publicarse" >&2; leaked=1; fi
 [ "$leaked" -eq 0 ] || { echo "Abortado: ficheros de dev en la salida." >&2; exit 1; }
 
 # Sanidad: el index y un par de assets clave deben existir.
