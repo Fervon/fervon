@@ -41,6 +41,7 @@ PAGES.sort();
 
 const SAME_AS = [
   'https://github.com/Fervon',
+  'https://www.linkedin.com/company/fervon',
   'https://www.npmjs.com/package/fervon',
   'https://dev.to/jonimatiin',
   'https://bsky.app/profile/jonimartin.bsky.social',
