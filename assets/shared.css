@@ -24,6 +24,11 @@ body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;
 
 /* Brand typeface — Inter Variable, self-hosted (CSP font-src 'self'). */
 @font-face{font-family:"Inter Variable";font-style:normal;font-weight:100 900;font-display:swap;src:url("/assets/fonts/inter-var.woff2") format("woff2")}
+/* Fallback con métricas ajustadas a Inter: mientras baja la woff2 el texto
+   ocupa las MISMAS líneas, así el swap no mueve nada (CLS). */
+@font-face{font-family:"Inter Fallback";src:local("Arial");size-adjust:107.64%;ascent-override:90.44%;descent-override:22.52%;line-gap-override:0%}
+/* Android no tiene Arial: segundo fallback sobre Roboto (métricas casi 1:1 con Inter). */
+@font-face{font-family:"Inter Fallback Android";src:local("Roboto");size-adjust:100%;ascent-override:96.88%;descent-override:24.12%;line-gap-override:0%}
 
 /* Keyboard focus */
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--amber,#FFB02E);outline-offset:2px;border-radius:6px}
@@ -66,7 +71,19 @@ nav .bar,.nav .bar{position:relative}
   nav .links>a,nav .navbtn,.hasmega{display:none!important}
   .nav .menu{display:none!important}
   .mnav-btn{display:inline-flex}
-  .bar.mnav-on .act a.btn-ghost{display:none}
+  nav .act a.btn-ghost,.nav .act a.btn-ghost{display:none}
+  /* Reserva el hueco del hamburguesa ANTES de que shared.js lo inyecte.
+     Sin esto la barra crecía de 56 a 63px al aparecer el botón y todo el
+     header se desplazaba: CLS 0.136 medido en la traza de Lighthouse.
+     El par bar::after va tras @supports de :has(): sin el guard, un navegador
+     viejo que descarta la regla de anulación reservaría DOS huecos. */
+  @supports selector(:has(a)){
+    nav .bar:not(.mnav-on)::after,.nav .bar:not(.mnav-on)::after{content:"";width:40px;height:38px;flex:none}
+    nav .bar:not(.mnav-on):has(.act)::after,.nav .bar:not(.mnav-on):has(.act)::after{content:none}
+  }
+  nav .bar:not(.mnav-on) .act::after,.nav .bar:not(.mnav-on) .act::after{content:"";width:40px;height:38px;flex:none}
+  /* Sin JavaScript no hay hamburguesa: que al menos quede el botón ghost. */
+  @media(scripting:none){nav .act a.btn-ghost,.nav .act a.btn-ghost{display:inline-flex}}
   /* the language toggle must stay reachable on mobile (it is not an <a>,
      so it can't live in the hamburger panel) */
   #lang{display:inline-flex!important}

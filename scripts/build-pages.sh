@@ -37,6 +37,12 @@ rsync -a ./ "$OUT"/ \
   --exclude 'PAYMENTS.md' \
   --exclude 'build'
 
+# Minifica CSS/JS en la salida (las fuentes del repo se quedan legibles).
+npm install --no-save --no-audit --no-fund esbuild
+find "$OUT" \( -name '*.css' -o -name '*.js' \) -type f | while read -r f; do
+  npx esbuild "$f" --minify --allow-overwrite --outfile="$f"
+done
+
 # Salvaguarda: aborta el build si algún fichero de dev se ha colado en la salida.
 leaked=0
 for f in README.md SECURITY.md SETUP.md BRAND-IMAGE-PROMPTS.md package.json package-lock.json index.js .gitignore; do
