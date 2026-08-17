@@ -272,3 +272,14 @@ body > main{min-width:0}
 .seosec .tldr h2{font-size:13px;font-weight:700;letter-spacing:1.6px;
   text-transform:uppercase;color:var(--amber,#FFB02E)}
 @media(max-width:600px){.seosec{padding:52px 0}}
+
+/* ── Pantallas de 320px ──────────────────────────────────────────────────
+   Medido: a 320px desbordaban 6-12px /contacto/ (main 326), /claudescope/ y
+   /inferbench/ (tarjetas .glass de ~150px en pareja: 24+150+gap+150 > 320).
+   Es el mínimo-de-contenido de los hijos de rejilla/flex, que por defecto no
+   bajan de su contenido. Sólo por debajo de 340px, para no tocar nada más. */
+@media(max-width:340px){
+  .wrap>*,.two>*,.cards>*,.stats>*,.feat,.glass{min-width:0}
+  .wrap{padding-left:16px;padding-right:16px}
+  .two,.cards,.stats{grid-template-columns:1fr!important}
+}
