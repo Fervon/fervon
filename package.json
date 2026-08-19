@@ -24,7 +24,14 @@
   ],
   "scripts": {
     "csp:build": "node scripts/build-csp.mjs",
-    "csp:check": "node scripts/csp-check.mjs"
+    "csp:check": "node scripts/csp-check.mjs",
+    "blog:gen": "node scripts/gen-blog.mjs",
+    "blog:og": "node scripts/render-og-blog.mjs",
+    "about:gen": "node scripts/gen-about.mjs",
+    "i18n:build": "node scripts/i18n-build.mjs",
+    "seo:check": "node scripts/seo-check.mjs",
+    "seo:live": "node scripts/seo-check.mjs --live",
+    "revisar": "node scripts/revisar-publicado.mjs"
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",
