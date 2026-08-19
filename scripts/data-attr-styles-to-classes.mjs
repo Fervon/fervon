@@ -23,7 +23,9 @@ const ROOT = process.cwd();
 
 function walk(dir, out = []) {
   for (const f of readdirSync(dir)) {
-    if (f === 'node_modules' || f === '.git' || f === '.wrangler' || f === 'scripts') continue;
+    // `.claude` lleva worktrees viejos que no se publican: procesarlos no sirve
+    // de nada y sus copias rotas abortaban el script entero.
+    if (f === 'node_modules' || f === '.git' || f === '.wrangler' || f === 'scripts' || f === '.claude') continue;
     const p = join(dir, f);
     const s = statSync(p);
     if (s.isDirectory()) walk(p, out);
@@ -48,11 +50,31 @@ const encode = (s) => s.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g
 // data-en / data-es attribute values (never contain a literal " — it's &quot;).
 const DATA_ATTR = /\b(data-(?:en|es))="([^"]*)"/g;
 
+/* FAIL-CLOSED. Si un payload data-* YA trae un " literal, este script no puede
+   trabajar sobre él: `[^"]*` corta el atributo justo ahí, se re-encoda sólo ese
+   trozo y el resto se derrama al documento como texto visible. Así se rompió el
+   pie de las 14 landings de Trace, y no se detectó hasta que se vio castellano
+   suelto en las páginas inglesas que rankean. Antes se corrompía en silencio;
+   ahora aborta y dice dónde. Detalle y reparación: check-data-attr-escape.mjs */
+const ESCAPE_A_MEDIAS = /\bdata-(?:en|es)="[^"]*&lt;[a-zA-Z][\w-]*\s[^"]*[a-zA-Z-]+="/;
+
+function abortarSiEscapeRoto(html, file) {
+  const m = html.match(ESCAPE_A_MEDIAS);
+  if (!m) return;
+  console.error(
+    `\n✗ ${relative(ROOT, file).replace(/\\/g, '/')}: un atributo data-* trae comillas ` +
+    `LITERALES — su escapado está roto y procesarlo lo corrompería más.\n  ${m[0].slice(0, 140)}…\n` +
+    `  Repáralo antes de volver a ejecutar (node scripts/check-data-attr-escape.mjs).`
+  );
+  process.exit(1);
+}
+
 const summary = [];
 let totalReplacements = 0;
 
 for (const file of walk(ROOT)) {
   let html = readFileSync(file, 'utf8');
+  abortarSiEscapeRoto(html, file);
   const cssPath = file.replace(/\.html$/, '.css');
   const newClasses = new Map(); // className -> declaration
   let fileReplacements = 0;
