@@ -27,7 +27,13 @@
    usa el DOMParser de Chrome, que parsea igual que el navegador del visitante
    y NO ejecuta los scripts de la página.
 
-   Uso:  node scripts/i18n-build.mjs           genera
+   OJO — ESTE BUILD NO TRADUCE EL JSON-LD. El intercambio de idioma sólo toca el
+   DOM visible, así que la página en español hereda el BreadcrumbList INGLÉS de
+   su fuente y queda contradiciendo su propio canonical. Por eso `npm run
+   i18n:build` encadena después `fix-breadcrumbs-trace.mjs`: si lanzas este
+   script a pelo, ejecuta también ese, o dejarás 8 breadcrumbs mal.
+
+   Uso:  npm run i18n:build                    genera + repara breadcrumbs
          node scripts/i18n-build.mjs --check   informa sin escribir
    ========================================================================== */
 
@@ -40,6 +46,23 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const CHECK = process.argv.includes('--check');
 const ORIGIN = 'https://fervon.dev';
 const CHROME = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
+
+/* Algunas og:image llevan el texto RASTERIZADO dentro (las de Veredicto), así
+   que no valen para los dos idiomas: sin esto, la página inglesa se comparte
+   con la tarjeta en castellano. Convención: `og-x.jpg` es el español y
+   `og-x-<lang>.jpg` la variante; si el fichero existe, se usa.
+   Va fuera de `transformar()` a propósito — aquello corre dentro del navegador,
+   donde no hay `fs` para comprobar si la variante existe. */
+function ogImagePorIdioma(html, lang) {
+  return html.replace(
+    /((?:property="og:image"|name="twitter:image") content=")(https:\/\/fervon\.dev\/assets\/[a-z0-9-]+?)(?:-[a-z]{2})?(\.jpg)(")/g,
+    (todo, pre, base, ext, post) => {
+      const cand = lang === 'es' ? base + ext : `${base}-${lang}${ext}`;
+      const local = path.join(ROOT, cand.replace(ORIGIN, ''));
+      return fs.existsSync(local) ? pre + cand + post : todo;
+    },
+  );
+}
 
 const LANGS = {
   es: { htmlLang: 'es', hreflang: 'es', ogLocale: 'es_ES', label: 'ES', navLabel: 'Idioma' },
@@ -70,6 +93,7 @@ const PAGES = [
   { src: 'trace/microsoft-recall-alternative.html', url: '/trace/microsoft-recall-alternative', lang: 'en' },
   { src: 'trace/personal-memory-tool-without-screen-recording.html', url: '/trace/personal-memory-tool-without-screen-recording', lang: 'en' },
   { src: 'trace/rewind-ai-alternative.html', url: '/trace/rewind-ai-alternative', lang: 'en' },
+  { src: 'trace/rewind-alternative-mac.html', url: '/trace/rewind-alternative-mac', lang: 'en' },
   { src: 'trace/rewind-alternative-windows.html', url: '/trace/rewind-alternative-windows', lang: 'en' },
   { src: 'trace/rewind-shut-down-what-to-use.html', url: '/trace/rewind-shut-down-what-to-use', lang: 'en' },
   { src: 'trace/screenpipe-alternative.html', url: '/trace/screenpipe-alternative', lang: 'en' },
@@ -266,6 +290,7 @@ async function transformar(srcHtml, cfg) {
     const ogl = doc.querySelector('meta[property="og:locale"]');
     if (ogl) ogl.setAttribute('content', cfg.ogLocale);
 
+
     /* 5. hreflang recíproco + x-default, justo tras el canonical. */
     for (const v of doc.querySelectorAll('link[rel="alternate"][hreflang]')) v.remove();
     if (can) {
@@ -360,7 +385,8 @@ for (const page of PAGES) {
       }),
     };
 
-    const html = await transformar(srcHtml, cfg);
+    let html = await transformar(srcHtml, cfg);
+    html = ogImagePorIdioma(html, lang);
     const out = esOriginal ? page.src : fileFor(page, lang);
     if (!CHECK) {
       fs.mkdirSync(path.join(ROOT, path.dirname(out)), { recursive: true });

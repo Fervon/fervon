@@ -41,6 +41,7 @@ no subscription, no data leaving the user's machine. Sitio: https://fervon.dev
 - [Rewind cerró: qué usar ahora](https://fervon.dev/trace/rewind-shut-down-what-to-use): repaso honesto de las opciones que quedaron tras el cierre de la app de escritorio de Rewind el 19 de diciembre de 2025.
 - [Alternativa a Rewind AI](https://fervon.dev/trace/rewind-ai-alternative): Rewind AI fue adquirida por Meta y cerró; alternativas locales, multiplataforma y de pago único.
 - [Alternativa a Rewind en Windows](https://fervon.dev/trace/rewind-alternative-windows): Rewind era solo para Mac; qué usar en Windows.
+- [Alternativa a Rewind en Mac](https://fervon.dev/trace/rewind-alternative-mac): Rewind era la app de memoria del Mac hasta que Meta la cerró; qué la sustituye en macOS, sin permiso de Grabación de Pantalla.
 - [Alternativa a Limitless](https://fervon.dev/trace/limitless-alternative): tras la adquisición de Limitless (antes Rewind) por Meta, la opción independiente y local.
 - [Alternativa a Microsoft Recall](https://fervon.dev/trace/microsoft-recall-alternative): la memoria buscable de Recall sin el bloqueo a PCs Copilot+ y sin los problemas de privacidad.
 - [Alternativa a Screenpipe](https://fervon.dev/trace/screenpipe-alternative): la misma idea con menos consumo y sin suscripción en la nube.
