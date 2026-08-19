@@ -27,6 +27,7 @@
     "csp:check": "node scripts/csp-check.mjs",
     "blog:gen": "node scripts/gen-blog.mjs",
     "blog:og": "node scripts/render-og-blog.mjs",
+    "og:veredicto": "node scripts/render-og-veredicto.mjs",
     "about:gen": "node scripts/gen-about.mjs",
     "i18n:build": "node scripts/i18n-build.mjs",
     "escape:check": "node scripts/check-data-attr-escape.mjs",

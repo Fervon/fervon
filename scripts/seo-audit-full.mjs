@@ -76,6 +76,13 @@ for (const f of files) {
   if (!p.lang) add('alta', 'lang', 'sin atributo lang en <html>');
   else if (p.lang.slice(0, 2) !== expectedLang) add('alta', 'lang', 'lang="' + p.lang + '" pero la ruta es ' + expectedLang);
 
+  /* Una página noindex (la 404) no juega en el índice: no le toca canonical, ni
+     hreflang, ni Open Graph, ni la miden por longitud, ni tiene que estar
+     enlazada. Se lee pronto porque media docena de comprobaciones dependen. */
+  p.robots = metaName(html, 'robots');
+  const noindex = !!(p.robots && /noindex/i.test(p.robots));
+  if (noindex) add('info', 'noindex', 'meta robots: ' + p.robots + ' — se le saltan las comprobaciones de indexación');
+
   const t = html.match(/<title[^>]*>([\s\S]*?)<\/title>/i);
   p.title = t ? t[1].trim() : null;
   if (!p.title) add('critica', 'title', 'sin <title>');
@@ -96,7 +103,7 @@ for (const f of files) {
   const links = tagsOf(html, 'link');
   const canon = links.filter(l => (attr(l, 'rel') || '').toLowerCase() === 'canonical').map(l => attr(l, 'href'));
   p.canonical = canon[0] ?? null;
-  if (canon.length === 0) add('critica', 'canonical', 'sin rel=canonical');
+  if (canon.length === 0) { if (!noindex) add('critica', 'canonical', 'sin rel=canonical'); }
   else if (canon.length > 1) add('critica', 'canonical-dup', canon.length + ' canonicals');
   else {
     if (!/^https?:\/\//.test(p.canonical)) add('alta', 'canonical-rel', 'canonical relativo');
@@ -105,7 +112,7 @@ for (const f of files) {
 
   const alts = links.filter(l => (attr(l, 'rel') || '').toLowerCase() === 'alternate' && attr(l, 'hreflang'));
   p.hreflang = alts.map(l => ({ lang: attr(l, 'hreflang'), href: attr(l, 'href') }));
-  if (p.hreflang.length === 0) add('media', 'hreflang-falta', 'sin hreflang (sitio bilingue)');
+  if (p.hreflang.length === 0) { if (!noindex) add('media', 'hreflang-falta', 'sin hreflang (sitio bilingue)'); }
   else {
     const langs = p.hreflang.map(h => h.lang);
     if (!langs.includes('x-default')) add('media', 'hreflang-xdefault', 'sin x-default');
@@ -113,8 +120,6 @@ for (const f of files) {
     for (const h of p.hreflang) if (!/^https?:\/\//.test(h.href)) add('alta', 'hreflang-rel', 'hreflang ' + h.lang + ' relativo');
   }
 
-  p.robots = metaName(html, 'robots');
-  if (p.robots && /noindex/i.test(p.robots)) add('info', 'noindex', 'meta robots: ' + p.robots);
 
   if (!metaName(html, 'viewport')) add('alta', 'viewport', 'sin meta viewport');
   if (!/charset\s*=/i.test(html.slice(0, 2000))) add('alta', 'charset', 'sin charset en los primeros 2 KB');
@@ -127,7 +132,7 @@ for (const f of files) {
   };
   p.og = og;
   const ogLabel = { type: 'og:type', title: 'og:title', desc: 'og:description', url: 'og:url', image: 'og:image', site: 'og:site_name', locale: 'og:locale' };
-  for (const [k, v] of Object.entries(og)) if (!v) add((k === 'image' || k === 'title') ? 'alta' : 'baja', 'og-' + k, 'falta ' + ogLabel[k]);
+  for (const [k, v] of Object.entries(og)) if (!v && !noindex) add((k === 'image' || k === 'title') ? 'alta' : 'baja', 'og-' + k, 'falta ' + ogLabel[k]);
   if (og.url && og.url !== url) add('media', 'og-url', 'og:url ' + og.url + ' != URL real ' + url);
   if (og.image && !/^https?:/.test(og.image)) add('alta', 'og-image-rel', 'og:image relativa (debe ser absoluta)');
   if (og.image && og.image.startsWith(ORIGIN)) {
@@ -139,12 +144,12 @@ for (const f of files) {
     if (!og.locale.startsWith(want)) add('media', 'og-locale', 'og:locale ' + og.locale + ' no casa con ' + want);
   }
   p.twCard = metaName(html, 'twitter:card');
-  if (!p.twCard) add('media', 'tw-card', 'sin twitter:card');
-  if (!metaName(html, 'twitter:image') && !og.image) add('media', 'tw-image', 'sin twitter:image');
+  if (!p.twCard && !noindex) add('media', 'tw-card', 'sin twitter:card');
+  if (!metaName(html, 'twitter:image') && !og.image && !noindex) add('media', 'tw-image', 'sin twitter:image');
 
   const lds = [...html.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi)].map(m => m[1]);
   p.ldTypes = [];
-  if (!lds.length) add('media', 'jsonld', 'sin datos estructurados JSON-LD');
+  if (!lds.length && !noindex) add('media', 'jsonld', 'sin datos estructurados JSON-LD');
   for (const raw of lds) {
     try {
       const j = JSON.parse(raw);
@@ -217,7 +222,7 @@ for (const f of files) {
 
   const text = textContent(html);
   p.words = text.split(/\s+/).filter(Boolean).length;
-  if (p.words < 300) add(p.words < 150 ? 'alta' : 'media', 'thin', 'solo ' + p.words + ' palabras de texto visible');
+  if (p.words < 300 && !noindex) add(p.words < 150 ? 'alta' : 'media', 'thin', 'solo ' + p.words + ' palabras de texto visible');
 
   const es = (text.match(/\b(el|la|los|las|de|que|para|con|una|como|mas|sin|por|desde|cuando|pero|todo)\b/gi) || []).length;
   const en = (text.match(/\b(the|and|of|to|for|with|that|from|when|your|this|are|is|but|all)\b/gi) || []).length;
@@ -301,7 +306,8 @@ for (const p of pages) for (const l of new Set(p.linksInt)) {
   const clean = l.split('#')[0].split('?')[0];
   for (const k of [clean, clean + '/', clean.replace(/\/$/, '')]) if (inbound.has(k)) { inbound.set(k, inbound.get(k) + 1); break; }
 }
-for (const [k, n] of inbound) if (n === 0) G('alta', 'huerfana', 'ninguna pagina enlaza a ' + k);
+const sinIndexar = new Set(pages.filter(p => p.robots && /noindex/i.test(p.robots)).map(p => new URL(p.url).pathname));
+for (const [k, n] of inbound) if (n === 0 && !sinIndexar.has(k)) G('alta', 'huerfana', 'ninguna pagina enlaza a ' + k);
 
 // hreflang reciproco
 for (const p of pages) {

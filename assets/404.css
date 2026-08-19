@@ -1,0 +1,151 @@
+/* Hoja de la página 404. Autocontenida a propósito: es la única página que
+   tiene que renderizar bien aunque el resto del sitio falle, y la CSP del sitio
+   (`style-src 'self'`) no admite <style> inline. */
+
+@font-face {
+  font-family: "Inter Variable";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/assets/fonts/inter-var.woff2") format("woff2");
+}
+
+:root {
+  --carbon: #0E0B0A;
+  --card: #1A1310;
+  --line: #2C211B;
+  --line2: #3A2C24;
+  --ember: #FF6A00;
+  --brasa: #E0480F;
+  --amber: #FFB02E;
+  --bone: #EFE7DC;
+  --ash: #A89A8E;
+  --sans: "Inter Variable", Inter, "Segoe UI", system-ui, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--carbon);
+  color: var(--bone);
+  font-family: var(--sans);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 56px 24px;
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+}
+
+.marca {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 19px;
+  color: var(--bone);
+  text-decoration: none;
+  margin-bottom: 44px;
+}
+.marca img { display: block; }
+
+/* El 404 es la pieza de la página: hierro al rojo, como la marca. */
+.codigo {
+  font-size: clamp(84px, 20vw, 168px);
+  font-weight: 800;
+  letter-spacing: -.05em;
+  line-height: .9;
+  margin: 0 0 8px;
+  background: linear-gradient(180deg, var(--amber), var(--brasa));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.yunque {
+  width: 108px;
+  height: 5px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, transparent, var(--ember), transparent);
+  margin: 0 auto 30px;
+}
+
+h1 {
+  font-size: clamp(23px, 4.4vw, 31px);
+  font-weight: 700;
+  letter-spacing: -.01em;
+  margin: 0 0 12px;
+  text-wrap: balance;
+}
+
+.sub { color: var(--ash); font-size: 17px; margin: 0 0 6px; max-width: 46ch; }
+.sub-en { color: #7C7169; font-size: 15px; margin: 0 0 40px; max-width: 46ch; }
+
+.salidas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 34px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 22px;
+  border-radius: 11px;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform .16s, box-shadow .16s, border-color .16s;
+}
+.btn-fire {
+  background: linear-gradient(180deg, var(--ember), var(--brasa));
+  color: #1A0E06;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .25), 0 8px 26px rgba(255, 106, 0, .3);
+}
+.btn-ghost { border: 1px solid var(--line2); color: var(--bone); }
+.btn:hover { transform: translateY(-1px); }
+.btn-ghost:hover { border-color: var(--ember); }
+.btn:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; }
+
+.mapa {
+  border-top: 1px solid var(--line);
+  padding-top: 26px;
+  max-width: 620px;
+  width: 100%;
+}
+.mapa p {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: #6E645C;
+  margin: 0 0 14px;
+}
+.mapa ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  justify-content: center;
+}
+.mapa a {
+  color: var(--ash);
+  text-decoration: none;
+  font-size: 15px;
+  border-bottom: 1px solid transparent;
+}
+.mapa a:hover { color: var(--bone); border-bottom-color: var(--ember); }
+.mapa a:focus-visible { outline: 2px solid var(--amber); outline-offset: 3px; border-radius: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn { transition: none; }
+  .btn:hover { transform: none; }
+}
