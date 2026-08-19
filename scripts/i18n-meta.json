@@ -1,6 +1,5 @@
 {
   "_comentario": "title/description/og por URL y por idioma. Los <title> y las descripciones NO viven en atributos data-*, así que sin esta tabla las páginas generadas heredaban el meta del idioma original — que es el peor error posible, porque el título es lo que Google muestra. Límites: título <=60 caracteres, descripción <=160.",
-
   "/": {
     "en": {
       "title": "Fervon · Autonomous software studio",
@@ -81,7 +80,6 @@
       "ogDesc": "The CI check that catches AI-agent tests that prove nothing: over-mocking, vacuous asserts, deleted tests. Deterministic, in the pull request."
     }
   },
-
   "/trace/limitless-alternative": {
     "es": {
       "title": "Alternativa a Limitless, local-first | Trace",
@@ -136,6 +134,14 @@
       "desc": "La idea de Screenpipe sin el consumo ni la suscripción en la nube. Señales ligeras en vez de vídeo 24/7, de verdad local y de pago único, $39.",
       "ogTitle": "Una alternativa ligera a Screenpipe",
       "ogDesc": "Te gusta la idea de Screenpipe pero no su consumo ni su nube de pago. Trace es la opción ligera y local-first, de pago único."
+    }
+  },
+  "/about/": {
+    "en": {
+      "title": "About Fervon · Autonomous software studio",
+      "desc": "Fervon is Jonathan Martín's autonomous software studio: one person directing fleets of AI agents that build local-first products and open-source tools.",
+      "ogTitle": "About Fervon · Autonomous software studio",
+      "ogDesc": "One person, a fleet of AI agents and a catalogue of local-first products. What Fervon is and how things get built here."
     }
   }
 }

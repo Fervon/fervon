@@ -249,8 +249,8 @@
     .contact .note a{color:var(--amber);font-weight:600}
     .contact .note a:hover{text-decoration:underline}
     /* Standalone contact / hire page */
-    .contact-page{display:flex;flex-direction:column;min-height:100vh}
-    .contact-page main{flex:1;padding-bottom:32px}
+    .contact-page,.about-page{display:flex;flex-direction:column;min-height:100vh}
+    .contact-page main,.about-page main{flex:1;padding-bottom:32px}
     .chero{text-align:center;padding:62px 0 4px}
     .chero h1{font-size:clamp(30px,5vw,46px);font-weight:800;letter-spacing:-1px;line-height:1.08;color:var(--bone)}
     .chero h1 .grad{background:linear-gradient(90deg,var(--ember),var(--amber));-webkit-background-clip:text;background-clip:text;color:transparent}

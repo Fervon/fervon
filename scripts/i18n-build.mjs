@@ -51,6 +51,7 @@ const X_DEFAULT = 'es';
 const PAGES = [
   { src: 'index.html', url: '/', lang: 'es' },
   { src: 'contacto/index.html', url: '/contacto/', lang: 'es' },
+  { src: 'about/index.html', url: '/about/', lang: 'es' },
   { src: 'claudescope/index.html', url: '/claudescope/', lang: 'es' },
   { src: 'inferbench/index.html', url: '/inferbench/', lang: 'es' },
   { src: 'launchpad/index.html', url: '/launchpad/', lang: 'es' },
@@ -90,7 +91,7 @@ const METAS = JSON.parse(fs.readFileSync(path.join(ROOT, 'scripts', 'i18n-meta.j
    de la home, los aria-label que escribe el generador de bloques…). */
 const SUELTAS = {
   en: {
-    'Fervon — estudio de software autónomo. Forjado al rojo vivo.': 'Fervon — autonomous software studio. Forged red-hot.',
+    'Fervon — estudio de software autónomo': 'Fervon — autonomous software studio',
     'Compartir esta página': 'Share this page',
     'Cambiar idioma / Switch language': 'Switch language',
     'Menú': 'Menu',
@@ -114,6 +115,9 @@ const SCHEMA_STRINGS = {
   en: {
     'Licencia comercial — precio en el lanzamiento. La lista de espera fija condiciones de acceso anticipado.':
       'Commercial licence — price at launch. The waiting list sets early-access terms.',
+    'Fundador y única persona de Fervon. Dirige flotas de agentes de IA que construyen productos local-first y herramientas open source.':
+      'Founder and sole person behind Fervon. He directs fleets of AI agents that build local-first products and open-source tools.',
+    'Productos de Fervon': 'Fervon products',
   },
   es: {},
 };
@@ -212,7 +216,7 @@ async function transformar(srcHtml, cfg) {
           }
           /* La descripción del producto y de la página van en el idioma de la
              página: se usa la meta description, que ya está traducida. */
-          if (cfg.metaDesc && ['SoftwareApplication', 'WebPage', 'BlogPosting', 'ProfessionalService'].includes(nodo['@type']) && nodo.description) {
+          if (cfg.metaDesc && ['SoftwareApplication', 'WebPage', 'AboutPage', 'BlogPosting', 'ProfessionalService'].includes(nodo['@type']) && nodo.description) {
             nodo.description = cfg.metaDesc; tocado = true;
           }
           /* La descripción de MARCA no depende de la página, así que no puede
@@ -225,8 +229,11 @@ async function transformar(srcHtml, cfg) {
           if (nodo.description && cfg.schemaStrings[nodo.description]) {
             nodo.description = cfg.schemaStrings[nodo.description]; tocado = true;
           }
+          if (nodo.name && cfg.schemaStrings[nodo.name]) {
+            nodo.name = cfg.schemaStrings[nodo.name]; tocado = true;
+          }
           if (nodo.inLanguage) { nodo.inLanguage = cfg.htmlLang; tocado = true; }
-          if (nodo.name && nodo['@type'] === 'WebPage' && cfg.metaTitle) { nodo.name = cfg.metaTitle; tocado = true; }
+          if (nodo.name && ['WebPage', 'AboutPage'].includes(nodo['@type']) && cfg.metaTitle) { nodo.name = cfg.metaTitle; tocado = true; }
           for (const v of Object.values(nodo)) visitar(v);
         };
         visitar(data);

@@ -91,7 +91,7 @@ const CHECKS = [
      palabras con carga semántica de esa consulta: si el titular no habla de
      lo que la URL promete, la intención NO está cubierta. */
   { n: 5, name: 'Intención de búsqueda', per: (d, i) => {
-      const STOP = new Set(['de','del','la','el','los','las','un','una','y','o','para','con','sin','que','a','en','the','a','of','for','with','to','and','or','what','without','use','tool','alternative','fervon','index']);
+      const STOP = new Set(['de','del','la','el','los','las','un','una','y','o','para','con','sin','que','a','en','the','a','of','for','with','to','and','or','what','without','use','tool','alternative','fervon','index','about']);
       /* Las versiones traducidas cuelgan de /en/ o /es/ y conservan el slug del
          idioma ORIGINAL (así ninguna URL indexada se mueve). Medir la intención
          contra ese slug daría un falso fallo: en /en/contacto/ el slug es
@@ -184,7 +184,17 @@ let failures = 0;
 const rows = [];
 for (const c of CHECKS) {
   if (c.manual) { rows.push([c.n, c.name, 'MANUAL', c.manual]); continue; }
-  if (c.site) { const ok = await c.site(); if (!ok) failures++; rows.push([c.n, c.name, ok ? 'OK' : 'FALLA', 'nivel de sitio']); continue; }
+  if (c.site) {
+    /* Los puntos 24 y 26 salen a la red. Sin conexión la auditoría no debe
+       morirse: se marcan SIN RED y se sigue con los 24 que sí se pueden leer
+       del HTML. Un fallo de DNS no es un fallo de SEO. */
+    let ok;
+    try { ok = await c.site(); }
+    catch (e) { rows.push([c.n, c.name, 'SIN RED', e.cause?.code || e.message]); continue; }
+    if (!ok) failures++;
+    rows.push([c.n, c.name, ok ? 'OK' : 'FALLA', 'nivel de sitio']);
+    continue;
+  }
   const bad = docs.filter((d, i) => !c.per(d, i)).map((d) => d.p);
   if (bad.length) failures++;
   rows.push([c.n, c.name, bad.length ? `${docs.length - bad.length}/${docs.length}` : `${docs.length}/${docs.length}`, bad.length ? bad.join(', ') : '']);

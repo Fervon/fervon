@@ -19,6 +19,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/"/>
   </url>
   <url>
+    <loc>https://fervon.dev/about/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/about/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/about/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/en/about/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/about/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/about/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/about/"/>
+  </url>
+  <url>
     <loc>https://fervon.dev/contacto/</loc>
     <lastmod>2026-08-14</lastmod>
     <changefreq>weekly</changefreq>
