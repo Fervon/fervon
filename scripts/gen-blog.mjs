@@ -24,6 +24,26 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ORIGIN = 'https://fervon.dev';
 const V = 'v=20260819a';
 
+/* Las portadas van con ?v=<hash del fichero>, y no es cosmético: fervon.dev va
+   tras el proxy de Cloudflare, que cachea por URL COMPLETA con max-age=14400.
+   Al rediseñar una portada el nombre no cambia, así que sin el hash el borde
+   sigue sirviendo la vieja durante horas —y las redes sociales la guardan como
+   og:image mucho más— mientras en local se ve la nueva. Es el mismo fallo que
+   dejó 18 páginas sin maquetar en agosto, pero con imágenes.
+   bump-cache-buster.mjs solo mira css/js, así que esto tiene que ir aquí. */
+const hashFichero = (rel) => {
+  const f = path.join(ROOT, rel.replace(/^\//, ''));
+  if (!fs.existsSync(f)) return V;
+  const b = fs.readFileSync(f);
+  let h = 5381;
+  for (let i = 0; i < b.length; i += 7) h = ((h * 33) ^ b[i]) >>> 0;
+  return 'v=' + h.toString(36);
+};
+const portadaURL = (slug) => {
+  const rel = `/assets/blog/${slug}.jpg`;
+  return `${rel}?${hashFichero(rel)}`;
+};
+
 /* El nav y el pie son bloques compartidos: se toman de contacto para que un
    cambio ahí llegue solo al blog al regenerar, en vez de quedar desincronizado. */
 const contacto = fs.readFileSync(path.join(ROOT, 'src-i18n/contacto/index.html'), 'utf8').replace(/\r\n/g, '\n');
@@ -168,7 +188,7 @@ const orgRef = { '@id': `${ORIGIN}/#organization` };
 
 for (const a of ARTICLES) {
   const url = `/blog/${a.slug}/`;
-  const img = `/assets/blog/${a.slug}.jpg`;
+  const img = portadaURL(a.slug);
   const rel = a.relacionados.map((s) => ARTICLES.find((x) => x.slug === s)).filter(Boolean);
 
   const jsonld = {
@@ -251,7 +271,7 @@ ${faqSec(a.faq)}
         </div>
         <div class="bcards reveal">
 ${rel.map((r) => `          <a class="bcard" href="/blog/${r.slug}/">
-            <img src="/assets/blog/${r.slug}.jpg" width="1200" height="630" alt="${esc(r.titulo.es)}" data-en="${esc(r.titulo.en)}" data-i18n-attr="alt" loading="lazy" decoding="async">
+            <img src="${portadaURL(r.slug)}" width="1200" height="630" alt="${esc(r.titulo.es)}" data-en="${esc(r.titulo.en)}" data-i18n-attr="alt" loading="lazy" decoding="async">
             <span class="bc-t" ${t(r.titulo)}</span>
             <span class="bc-d" ${t(r.desc)}</span>
           </a>`).join('\n')}
@@ -303,7 +323,7 @@ const idxJsonld = {
         description: a.desc.es,
         url: `${ORIGIN}/blog/${a.slug}/`,
         datePublished: a.fecha,
-        image: `${ORIGIN}/assets/blog/${a.slug}.jpg`,
+        image: `${ORIGIN}${portadaURL(a.slug)}`,
         author: { '@id': `${ORIGIN}/#jonathan` },
         publisher: orgRef,
       })),
@@ -336,7 +356,7 @@ const idx = `${head({
   desc: 'Novedades de Trace, Veredicto, Lookspan, ClaudeScope, inferbench y launchpad, y artículos sobre cómo se construye software con flotas de agentes de IA.',
   ogTitle: 'Noticias · Fervon',
   ogDesc: 'Novedades de los proyectos de Fervon y el método con el que se construyen: flotas de agentes de IA, medidas y revisadas.',
-  img: '/assets/blog/noticias.jpg',
+  img: portadaURL('noticias'),
   jsonld: idxJsonld,
   tipo: 'website',
 })}
@@ -383,7 +403,7 @@ ${[...NOVEDADES].sort((a, b) => b.fecha.localeCompare(a.fecha)).map((n) => `    
       <p class="sub" ${t({ es: 'Cuatro artículos largos que se leen en cualquier orden, aunque el primero es el que sostiene los otros tres.', en: 'Four long articles that read in any order, though the first is the one holding up the other three.' })}</p>
       <div class="bcards big reveal">
 ${ARTICLES.map((a) => `        <a class="bcard" href="/blog/${a.slug}/">
-          <img src="/assets/blog/${a.slug}.jpg" width="1200" height="630" alt="${esc(a.titulo.es)} — Fervon" data-en="${esc(a.titulo.en)} — Fervon" data-i18n-attr="alt" loading="lazy" decoding="async">
+          <img src="${portadaURL(a.slug)}" width="1200" height="630" alt="${esc(a.titulo.es)} — Fervon" data-en="${esc(a.titulo.en)} — Fervon" data-i18n-attr="alt" loading="lazy" decoding="async">
           <span class="bc-m"><time datetime="${a.fecha}" ${t({ es: fechaLarga(a.fecha, false), en: fechaLarga(a.fecha, true) })}</time> · <span ${t({ es: `${a.minutos} min`, en: `${a.minutos} min` })}</span></span>
           <span class="bc-t" ${t(a.titulo)}</span>
           <span class="bc-d" ${t(a.desc)}</span>
