@@ -27,6 +27,15 @@ no subscription, no data leaving the user's machine. Sitio: https://fervon.dev
 
 - [Regenta](https://fervon.dev/regenta/): la capa de control agentic. Orquesta, audita y delega una flota de agentes de IA con la disciplina de un equipo de ingeniería.
 
+## Sobre el estudio
+
+- [Sobre Fervon](https://fervon.dev/about/): qué es Fervon, quién está detrás, qué significa «estudio de software autónomo», cómo trabaja y el catálogo completo.
+- [Noticias](https://fervon.dev/blog/): novedades de cada proyecto según van saliendo (versión y qué cambia) y artículos de fondo sobre cómo se construye software dirigiendo flotas de agentes de IA.
+- [Qué es un estudio de software autónomo](https://fervon.dev/blog/estudio-software-autonomo/): Un estudio de software autónomo es un taller donde la ejecución la hacen agentes de IA y el criterio lo pone una persona. Qué cambia de verdad y qué no.
+- [Cómo se dirige una flota de agentes de IA](https://fervon.dev/blog/flotas-agentes-ia/): Aislamiento con git worktree, cuántos agentes en paralelo, medir antes de arreglar y un panel de jueces adversarial. El método real, con sus límites.
+- [Cómo saber si un agente te está amañando los tests](https://fervon.dev/blog/tests-amanados-agentes/): Seis formas en que un agente pone un test en verde sin arreglar nada, cómo se detecta cada una y la única prueba que no se puede falsear.
+- [Cuánto cuesta de verdad un agente de IA](https://fervon.dev/blog/coste-real-agentes-ia/): La factura del proveedor no es el coste. Dónde se esconde el gasto de un agente, cómo medirlo en local y cuándo compensa mover el modelo a tu GPU.
+
 ## Artículos y comparativas
 
 - [Rewind cerró: qué usar ahora](https://fervon.dev/trace/rewind-shut-down-what-to-use): repaso honesto de las opciones que quedaron tras el cierre de la app de escritorio de Rewind el 19 de diciembre de 2025.

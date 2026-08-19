@@ -13,7 +13,8 @@ const CHROME = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
    preview responde 301 a esas últimas y la medición sale mal (se midió el
    documento intermedio: daba 611px de falso desborde en /lookspan/). */
 const PAGES = [
-  '/', '/contacto/', '/about/', '/en/about/', '/claudescope/', '/inferbench/',
+  '/', '/contacto/', '/about/', '/en/about/',
+  '/blog/', '/en/blog/', '/blog/estudio-software-autonomo/', '/blog/flotas-agentes-ia/', '/blog/tests-amanados-agentes/', '/blog/coste-real-agentes-ia/', '/claudescope/', '/inferbench/',
   '/launchpad/', '/lookspan/', '/pregon/', '/regenta/',
   '/trace/', '/veredicto/', '/veredicto/report.html',
   '/trace/limitless-alternative.html', '/trace/microsoft-recall-alternative.html',

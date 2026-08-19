@@ -143,5 +143,45 @@
       "ogTitle": "About Fervon · Autonomous software studio",
       "ogDesc": "One person, a fleet of AI agents and a catalogue of local-first products. What Fervon is and how things get built here."
     }
+  },
+  "/blog/": {
+    "en": {
+      "title": "News · Fervon",
+      "desc": "Releases from Trace, Veredicto, Lookspan, ClaudeScope, inferbench and launchpad, plus articles on building software with fleets of AI agents.",
+      "ogTitle": "News · Fervon",
+      "ogDesc": "Fervon project releases and the method they are built with: fleets of AI agents, measured and reviewed."
+    }
+  },
+  "/blog/estudio-software-autonomo/": {
+    "en": {
+      "title": "What an autonomous software studio is · Fervon",
+      "desc": "An autonomous software studio is a workshop where AI agents do the execution and one person supplies the judgement. What actually changes, and what does not.",
+      "ogTitle": "What an autonomous software studio is · Fervon",
+      "ogDesc": "An autonomous software studio is a workshop where AI agents do the execution and one person supplies the judgement. What actually changes, and what does not."
+    }
+  },
+  "/blog/flotas-agentes-ia/": {
+    "en": {
+      "title": "How to direct a fleet of AI agents · Fervon",
+      "desc": "Isolation with git worktrees, how many agents in parallel, measuring before fixing, and an adversarial judge panel. The real method, limits included.",
+      "ogTitle": "How to direct a fleet of AI agents · Fervon",
+      "ogDesc": "Isolation with git worktrees, how many agents in parallel, measuring before fixing, and an adversarial judge panel. The real method, limits included."
+    }
+  },
+  "/blog/tests-amanados-agentes/": {
+    "en": {
+      "title": "How to tell if an agent games your tests · Fervon",
+      "desc": "Six ways an agent turns a test green without fixing anything, how to detect each one, and the one check that cannot be faked.",
+      "ogTitle": "How to tell if an agent games your tests · Fervon",
+      "ogDesc": "Six ways an agent turns a test green without fixing anything, how to detect each one, and the one check that cannot be faked."
+    }
+  },
+  "/blog/coste-real-agentes-ia/": {
+    "en": {
+      "title": "What an AI agent really costs · Fervon",
+      "desc": "The provider invoice is not the cost. Where an agent's spend actually hides, how to measure it locally, and when moving the model to your own GPU pays off.",
+      "ogTitle": "What an AI agent really costs · Fervon",
+      "ogDesc": "The provider invoice is not the cost. Where an agent's spend actually hides, how to measure it locally, and when moving the model to your own GPU pays off."
+    }
   }
 }

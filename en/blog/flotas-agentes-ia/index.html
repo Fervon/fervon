@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>How to direct a fleet of AI agents · Fervon</title>
+  <meta name="description" content="Isolation with git worktrees, how many agents in parallel, measuring before fixing, and an adversarial judge panel. The real method, limits included.">
+  <link rel="canonical" href="https://fervon.dev/en/blog/flotas-agentes-ia/"><link rel="alternate" hreflang="es" href="https://fervon.dev/blog/flotas-agentes-ia/"><link rel="alternate" hreflang="en" href="https://fervon.dev/en/blog/flotas-agentes-ia/"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/blog/flotas-agentes-ia/">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="Fervon">
+  <meta name="theme-color" content="#0E0B0A">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Fervon">
+  <meta property="og:title" content="How to direct a fleet of AI agents · Fervon">
+  <meta property="og:description" content="Isolation with git worktrees, how many agents in parallel, measuring before fixing, and an adversarial judge panel. The real method, limits included.">
+  <meta property="og:url" content="https://fervon.dev/en/blog/flotas-agentes-ia/">
+  <meta property="og:image" content="https://fervon.dev/assets/blog/flotas-agentes-ia.jpg">
+  <meta name="twitter:image" content="https://fervon.dev/assets/blog/flotas-agentes-ia.jpg">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://fervon.dev/blog/flotas-agentes-ia/#post",
+      "headline": "Cómo se dirige una flota de agentes de IA",
+      "description": "Isolation with git worktrees, how many agents in parallel, measuring before fixing, and an adversarial judge panel. The real method, limits included.",
+      "url": "https://fervon.dev/blog/flotas-agentes-ia/",
+      "datePublished": "2026-08-19",
+      "dateModified": "2026-08-19",
+      "inLanguage": "en",
+      "image": "https://fervon.dev/assets/blog/flotas-agentes-ia.jpg",
+      "wordCount": 586,
+      "author": {
+        "@id": "https://fervon.dev/#jonathan"
+      },
+      "publisher": {
+        "@id": "https://fervon.dev/#organization"
+      },
+      "isPartOf": {
+        "@id": "https://fervon.dev/blog/#blog"
+      },
+      "mainEntityOfPage": {
+        "@id": "https://fervon.dev/blog/flotas-agentes-ia/#post"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://fervon.dev/#jonathan",
+      "name": "Jonathan Martín",
+      "url": "https://fervon.dev/about/",
+      "worksFor": {
+        "@id": "https://fervon.dev/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://fervon.dev/blog/flotas-agentes-ia/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Fervon",
+          "item": "https://fervon.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Noticias",
+          "item": "https://fervon.dev/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Cómo se dirige una flota de agentes de IA",
+          "item": "https://fervon.dev/blog/flotas-agentes-ia/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://fervon.dev/blog/flotas-agentes-ia/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do you need git worktrees or are branches enough?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Branches alone are not enough if the agents work simultaneously: they share one working directory, so switching branch affects everyone. A worktree gives each agent its own directory. If the agents run one at a time, branches are more than enough."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many parallel agents are too many?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "When the queue of changes awaiting review grows faster than you empty it. In practice that point arrives sooner than you would think: around four per task. If you need more, the task is usually badly scoped."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why reviewers with different criteria instead of just more reviewers?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because identical reviewers make the same mistake at the same time. Three agents with the same brief find the same flaw and miss the rest. Splitting the lenses —correctness, tests, security, simplicity— covers classes of failure that redundancy does not."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can review be fully automated?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can automate the filter, not the decision. An automated panel is very good at discarding what is clearly wrong, and that alone multiplies what a person can process. But whatever survives the filter still needs someone to decide whether it is what they wanted."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens when an agent says it is fixed?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You check it against the condition defined when the bug was reproduced, not against the agent's claim. If that condition was not defined before starting, there is no way to know whether it is fixed — and that is the real problem."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin="">
+  <link rel="stylesheet" href="/index.css?v=20260819a">
+  <link rel="stylesheet" href="/assets/blog.css?v=20260819a">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260819a">
+</head>
+<body class="blog-page">
+  <a class="skip" href="#top">Skip to content</a>
+
+  <nav><div class="bar">
+    <a class="brand" href="/en/"><svg class="blogo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="fv-nav-g" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#E0480F"></stop><stop offset="0.5" stop-color="#FF6A00"></stop><stop offset="1" stop-color="#FFB02E"></stop></linearGradient></defs><path d="M18 94 L18 60 L6 60 L6 44 L18 44 L18 32 A24 24 0 0 1 42 8 L63.24 8 L54 24 L42 24 A8 8 0 0 0 34 32 L34 44 C52 43.2 74 42.2 92.62 41 L88 49 C70 52.2 52 55.6 34 60 L34 94 Z" fill="url(#fv-nav-g)"></path></svg><span class="bword">fervon</span></a>
+    <div class="links">
+      <div class="hasmega">
+        <a class="navbtn" href="/en/#productos" aria-haspopup="true" aria-expanded="false" aria-controls="mega-productos">Products <span class="s-wo-hrmDi">▾</span></a>
+        <div class="mega" id="mega-productos">
+          <div class="megagroup full">
+            <div class="megalabel">Paid</div>
+            <a class="megaitem" href="/en/trace/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-trace" viewBox="0 0 120 120" aria-hidden="true"><path class="hd" d="M15.5 76 L15.5 88 L7.07 88 L14 76 Z"></path><path class="ln" pathLength="74" d="M14 82 C28 82 32 60 48 60 C62 60 60 74 72 74 C83 74 90 59.59 99 44"></path><circle class="ring" cx="99" cy="44" r="11" opacity="0.5"></circle><circle class="dot p" cx="99" cy="44" r="6"></circle></svg></span><span><span class="mi-n">Trace <b>PAID</b></span><span class="mi-d">Your personal memory, on your machine. No screen recording.</span></span></a>
+          </div>
+          <div class="megagroup">
+            <div class="megalabel">Local AI &amp; agents</div>
+            <a class="megaitem" href="/en/inferbench/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-inf" viewBox="0 0 40 40" aria-hidden="true"><rect x="13" y="13" width="14" height="14" rx="2.5"></rect><circle class="dot" cx="20" cy="20" r="2.4"></circle><path d="M16 13V8 M24 13V8 M16 32v-5 M24 32v-5 M13 16H8 M13 24H8 M32 16h-5 M32 24h-5"></path><path class="sp" d="M30 11 l4 -3 M33 30 l4 2"></path></svg></span><span><span class="mi-n">inferbench</span><span class="mi-d">Benchmark LLMs on your GPU.</span></span></a>
+            <a class="megaitem" href="/en/lookspan/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-look" viewBox="0 0 40 40" aria-hidden="true"><rect class="bar" x="9" y="11" width="20" height="3.4" rx="1.7"></rect><rect class="bar" x="9" y="18.3" width="13" height="3.4" rx="1.7"></rect><rect class="bar" x="9" y="25.6" width="25" height="3.4" rx="1.7"></rect></svg></span><span><span class="mi-n">Lookspan</span><span class="mi-d">Observability for AI agents.</span></span></a>
+            <a class="megaitem" href="/en/claudescope/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-scope" viewBox="0 0 40 40" aria-hidden="true"><circle cx="18" cy="18" r="9"></circle><path d="M25 25 L32 32"></path><line class="scan" x1="13.5" y1="18" x2="22.5" y2="18"></line></svg></span><span><span class="mi-n">ClaudeScope</span><span class="mi-d">Search your Claude Code sessions.</span></span></a>
+          </div>
+          <div class="megagroup">
+            <div class="megalabel">Utilities</div>
+            <a class="megaitem" href="/en/launchpad/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-launch" viewBox="0 0 40 40" aria-hidden="true"><g class="rk"><path d="M20 7 C24 11 25 18 20 25 C15 18 16 11 20 7 Z"></path><circle class="dot" cx="20" cy="15" r="1.8"></circle><path d="M16 22 L13 28 M24 22 L27 28"></path></g></svg></span><span><span class="mi-n">launchpad</span><span class="mi-d">Spin up all your projects.</span></span></a>
+            <a class="megaitem" href="/en/pregon/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-pregon" viewBox="0 0 40 40" aria-hidden="true"><circle class="dot" cx="20" cy="20" r="3"></circle><circle class="ring" cx="20" cy="20" r="7"></circle><circle class="ring ring2" cx="20" cy="20" r="7"></circle></svg></span><span><span class="mi-n">Pregón</span><span class="mi-d">Publish to 8+ channels.</span></span></a>
+          </div>
+        </div>
+      </div>
+      <a href="/en/blog/" aria-current="page">News</a>
+      <a href="/en/about/">About</a>
+      <nav class="langseg" id="lang" aria-label="Language"><a class="langopt" href="/blog/flotas-agentes-ia/" hreflang="es" lang="es">ES</a><span class="langopt on" aria-current="true">EN</span></nav>
+      <a class="cta" href="/en/contacto/">Let's talk</a>
+    </div>
+  </div></nav>
+
+  <main class="wrap">
+
+    <header class="chero bhero" id="top">
+      <p class="bmeta">
+        <a href="/en/blog/">News</a>
+        <span aria-hidden="true">·</span>
+        <time datetime="2026-08-19">August 19, 2026</time>
+        <span aria-hidden="true">·</span>
+        <span>8 min read</span>
+      </p>
+      <h1>How to direct a fleet of AI agents</h1>
+      <p class="lead">Launching four agents at the same repository is not parallelism: it is a race condition with names attached. This is the scaffolding that makes it actually parallel.</p>
+    </header>
+
+    <figure class="bcover reveal">
+      <img src="/assets/blog/flotas-agentes-ia.jpg" width="1200" height="630" alt="How to direct a fleet of AI agents — Fervon" fetchpriority="high" decoding="async">
+      <figcaption>One working directory per agent, integrated one at a time.</figcaption>
+    </figure>
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h">In 30 seconds</h2>
+          <ul>
+        <li><b>Agent fleets</b> collide when they share a directory: each one needs <b>its own</b> (a git worktree). Without that, four agents are four versions of the same file.</li>
+        <li>The optimal number is <b>low</b>: around four in parallel. The limit is not the machine, it is how much you can review.</li>
+        <li><b>Reproduce the bug before fixing it.</b> An agent's report is a hypothesis, not a measurement.</li>
+        <li>Before integrating, a <b>panel of judges</b> with different lenses tries to knock the change down. Not redundancy: diversity.</li>
+          </ul>
+      <div class="cta-row s-tldrcta">
+        <a class="btn btn-fire" href="#cuerpo">Read the article</a>
+      </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="cuerpo">
+      <article class="prose reveal">
+      <h2>The first problem is not the model: it is the filesystem</h2>
+
+      <p>The first time you launch several agents at one project you discover something unglamorous: they collide. One reformats a file while another is editing it, a third leaves the repository with uncommitted changes, and the fourth starts from that dirty state and inherits the mess. The result is not four times the work done, it is a single pile of work that cannot be untangled.</p>
+
+      <p>The fix is not smarter, it is more boring: <code>git worktree</code>. Each agent gets its own directory with its own branch, all pointing at the same repository. They write at the same time without seeing each other, and integration happens afterwards, one at a time, when each change can be read on its own.</p>
+
+      <figure class="diag">
+        <svg viewBox="0 0 760 312" width="100%" role="img" aria-labelledby="fig-wt-t">
+          <title id="fig-wt-t">Cada agente trabaja en su propio git worktree y solo se integra al final, en vez de escribir todos sobre el mismo directorio.</title>
+          <defs><marker id="pta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#FF6A00"></path></marker></defs>
+          <g><rect x="285" y="14" width="190" height="54" rx="10" fill="#1A1310" stroke="#FF6A00"></rect><text x="380" y="37" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#EFE7DC">Repositorio</text><text x="380" y="57" text-anchor="middle" font-family="Inter,sans-serif" font-size="11.5" fill="#A89A8E">una sola rama base</text></g>
+          <g><rect x="20" y="118" width="160" height="58" rx="10" fill="#1A1310" stroke="#3A2C22"></rect><text x="100" y="143" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#EFE7DC">worktree A</text><text x="100" y="163" text-anchor="middle" font-family="Inter,sans-serif" font-size="11.5" fill="#A89A8E">agente 1</text></g>
+          <g><rect x="210" y="118" width="160" height="58" rx="10" fill="#1A1310" stroke="#3A2C22"></rect><text x="290" y="143" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#EFE7DC">worktree B</text><text x="290" y="163" text-anchor="middle" font-family="Inter,sans-serif" font-size="11.5" fill="#A89A8E">agente 2</text></g>
+          <g><rect x="400" y="118" width="160" height="58" rx="10" fill="#1A1310" stroke="#3A2C22"></rect><text x="480" y="143" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#EFE7DC">worktree C</text><text x="480" y="163" text-anchor="middle" font-family="Inter,sans-serif" font-size="11.5" fill="#A89A8E">agente 3</text></g>
+          <g><rect x="590" y="118" width="150" height="58" rx="10" fill="#1A1310" stroke="#3A2C22"></rect><text x="665" y="143" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#EFE7DC">worktree D</text><text x="665" y="163" text-anchor="middle" font-family="Inter,sans-serif" font-size="11.5" fill="#A89A8E">agente 4</text></g>
+          <path fill="none" d="M340 70 L110 114" stroke="#FF6A00" stroke-width="2" marker-end="url(#pta)"></path> <path fill="none" d="M365 70 L290 114" stroke="#FF6A00" stroke-width="2" marker-end="url(#pta)"></path>
+          <path fill="none" d="M415 70 L480 114" stroke="#FF6A00" stroke-width="2" marker-end="url(#pta)"></path> <path fill="none" d="M440 70 L660 114" stroke="#FF6A00" stroke-width="2" marker-end="url(#pta)"></path>
+          <g><rect x="285" y="220" width="190" height="54" rx="10" fill="#1A1310" stroke="#FFB02E"></rect><text x="380" y="243" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#EFE7DC">Integración</text><text x="380" y="263" text-anchor="middle" font-family="Inter,sans-serif" font-size="11.5" fill="#A89A8E">una a una, revisada</text></g>
+          <path fill="none" d="M110 178 L320 216" stroke="#FF6A00" stroke-width="2" marker-end="url(#pta)"></path> <path fill="none" d="M290 178 L360 216" stroke="#FF6A00" stroke-width="2" marker-end="url(#pta)"></path>
+          <path fill="none" d="M480 178 L420 216" stroke="#FF6A00" stroke-width="2" marker-end="url(#pta)"></path> <path fill="none" d="M660 178 L450 216" stroke="#FF6A00" stroke-width="2" marker-end="url(#pta)"></path>
+          <text x="380" y="303" text-anchor="middle" font-family="Inter,sans-serif" font-size="12.5" fill="#A89A8E">Sin worktrees, cuatro agentes = cuatro versiones del mismo fichero.</text>
+        </svg>
+        <figcaption>Isolation costs a few milliseconds of setup per agent. Untangling four mixed-up changes costs an afternoon.</figcaption>
+      </figure>
+
+      <p>The cost is real but small, and it only pays off when the agents are going to <em>write</em> at the same time. For launching four readers that only explore the code, setting up worktrees is expense with no benefit.</p>
+
+      <h2>How many agents at once</h2>
+
+      <p>The intuitive answer is "as many as the machine can take". It is the wrong one. The resource that runs out first is neither CPU nor token budget: it is the capacity to read what they did. Four agents finishing at once produce four changes that have to be understood, and understanding costs exactly what it always did.</p>
+
+      <p>The practical rule: <b>if the queue of changes awaiting review is growing, you have too many agents</b>. Rather than launching a fifth, it is almost always better to trim the scope so the four deliver something smaller and easier to judge.</p>
+
+      <h2>Measure before fixing</h2>
+
+      <p>An agent reporting a bug is proposing a hypothesis with a lot of confidence in its voice. Sometimes the bug does not exist; sometimes it exists but the cause is different. If you start patching from the report, you end up fixing something that was not broken and leaving what actually was.</p>
+
+      <p>The order that works is the reverse: reproduce first, touch second. Reproducing means a condition that fails now and will stop failing when the change is right — a test that breaks, a line in the log, an A/B measurement against the real system. If it cannot be reproduced, the first thing to build is a way to reproduce it.</p>
+
+      <blockquote class="pull"><p>A report is not a measurement. Refute the claim before you fix it.</p></blockquote>
+
+      <h2>The judge panel</h2>
+
+      <p>When a change is ready, the temptation is to skim it and accept. The problem is well known: what an agent writes sounds convincing nearly always, even when it is wrong. Review by a single reader, human or not, gets fooled by the prose.</p>
+
+      <p>What does work is putting it in front of several reviewers with <em>different</em> briefs, each hunting a different class of failure and instructed to knock the change down rather than approve it. The key is diversity, not quantity: three reviewers with the same lens find the same flaw three times and miss the other two.</p>
+
+      <div class="tablewrap">
+        <table class="seotable">
+          <caption class="vh">Review lenses and the class of failure each one catches.</caption>
+          <thead><tr><th>Lens</th><th>What it hunts</th><th>What slips through without it</th></tr></thead>
+          <tbody>
+            <tr><th>Correctness</th><td>Edge cases, nulls, event ordering</td><td>Breaks on real data</td></tr>
+            <tr><th>Reproduction</th><td>Did the original bug even exist?</td><td>Fixes for nothing</td></tr>
+            <tr><th>Tests</th><td>Tests that pass without testing</td><td>False green</td></tr>
+            <tr><th>Security</th><td>Secrets, unvalidated input</td><td>Silent leaks</td></tr>
+            <tr><th>Simplicity</th><td>Duplicated code, extra layers</td><td>Debt from day one</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>And one rule you only learn by paying for it: <b>agents need to be told what NOT to do in every single brief</b>. A subagent that is not explicitly forbidden from committing will commit, even if it was told at the start of the session. After launching a fleet, checking the repository state is not paranoia.</p>
+
+      <h2>What does not get delegated</h2>
+
+      <ul class="bullets">
+        <li><b>What gets built.</b> An agent optimises what you asked for; it does not tell you that you asked for the wrong thing.</li>
+        <li><b>What gets accepted.</b> Green tests are a necessary condition, not a sufficient one.</li>
+        <li><b>What gets thrown away.</b> The most profitable decision and the hardest to make, because there is always finished work behind it.</li>
+        <li><b>What gets published.</b> Nothing goes out into the world —a release, a post, an email— without a person approving it.</li>
+      </ul>
+
+      <p>This method is also where half the catalogue came from: <a href="/en/veredicto/">Veredicto</a> automates the tests lens, <a href="/en/lookspan/">Lookspan</a> shows what each agent is doing and spending, and <a href="/en/regenta/">Regenta</a> is the panel it is all governed from. The thesis behind why the work is split this way is in <a href="/en/blog/estudio-software-autonomo/">what an autonomous software studio is</a>.</p>
+      </article>
+    </section>
+
+    <section class="sec seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">FAQ</span>
+          <h2 id="faq-h">Frequently asked questions</h2>
+        </div>
+        <div class="faq reveal">
+        <details>
+          <summary>Do you need git worktrees or are branches enough?</summary>
+          <p>Branches alone are not enough if the agents work simultaneously: they share one working directory, so switching branch affects everyone. A worktree gives each agent its own directory. If the agents run one at a time, branches are more than enough.</p>
+        </details>
+        <details>
+          <summary>How many parallel agents are too many?</summary>
+          <p>When the queue of changes awaiting review grows faster than you empty it. In practice that point arrives sooner than you would think: around four per task. If you need more, the task is usually badly scoped.</p>
+        </details>
+        <details>
+          <summary>Why reviewers with different criteria instead of just more reviewers?</summary>
+          <p>Because identical reviewers make the same mistake at the same time. Three agents with the same brief find the same flaw and miss the rest. Splitting the lenses —correctness, tests, security, simplicity— covers classes of failure that redundancy does not.</p>
+        </details>
+        <details>
+          <summary>Can review be fully automated?</summary>
+          <p>You can automate the filter, not the decision. An automated panel is very good at discarding what is clearly wrong, and that alone multiplies what a person can process. But whatever survives the filter still needs someone to decide whether it is what they wanted.</p>
+        </details>
+        <details>
+          <summary>What happens when an agent says it is fixed?</summary>
+          <p>You check it against the condition defined when the bug was reproduced, not against the agent's claim. If that condition was not defined before starting, there is no way to know whether it is fixed — and that is the real problem.</p>
+        </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">Keep reading</span>
+          <h2 id="mas-h">More news</h2>
+        </div>
+        <div class="bcards reveal">
+          <a class="bcard" href="/en/blog/estudio-software-autonomo/">
+            <img src="/assets/blog/estudio-software-autonomo.jpg" width="1200" height="630" alt="What an autonomous software studio is" loading="lazy" decoding="async">
+            <span class="bc-t">What an autonomous software studio is</span>
+            <span class="bc-d">An autonomous software studio is a workshop where AI agents do the execution and one person supplies the judgement. What actually changes, and what does not.</span>
+          </a>
+          <a class="bcard" href="/en/blog/tests-amanados-agentes/">
+            <img src="/assets/blog/tests-amanados-agentes.jpg" width="1200" height="630" alt="How to tell when an agent is gaming your tests" loading="lazy" decoding="async">
+            <span class="bc-t">How to tell when an agent is gaming your tests</span>
+            <span class="bc-d">Six ways an agent turns a test green without fixing anything, how to detect each one, and the one check that cannot be faked.</span>
+          </a>
+          <a class="bcard bcard-cta" href="/en/about/">
+            <span class="bc-t">Who writes this</span>
+            <span class="bc-d">Fervon is Jonathan Martín's autonomous software studio. One person and a fleet of agents.</span>
+          </a>
+        </div>
+      <div class="fv-share">
+        <button type="button" class="sharebtn" aria-label="Share this page">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
+          <span>Share</span>
+        </button>
+        <span class="sharemsg" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>This comes from actually working this way</b>
+      <span>Open-source tools, self-serve, no email gate</span>
+    </div>
+    <a class="btn btn-fire" href="/en/#productos">See the products</a>
+  </div>
+
+  <footer><div class="wrap">
+    <div class="mark"><svg class="blogo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="fv-foot-g" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#E0480F"></stop><stop offset="0.5" stop-color="#FF6A00"></stop><stop offset="1" stop-color="#FFB02E"></stop></linearGradient></defs><path d="M18 94 L18 60 L6 60 L6 44 L18 44 L18 32 A24 24 0 0 1 42 8 L63.24 8 L54 24 L42 24 A8 8 0 0 0 34 32 L34 44 C52 43.2 74 42.2 92.62 41 L88 49 C70 52.2 52 55.6 34 60 L34 94 Z" fill="url(#fv-foot-g)"></path></svg> fervon</div>
+    <div class="flinks">
+      <a href="/en/#productos">Products</a>
+      <a href="/en/blog/">News</a>
+      <a href="/en/about/">About</a>
+      <a href="/en/contacto/">Contact</a>
+      <a href="https://github.com/Fervon">GitHub</a>
+    </div>
+    <div class="copy">Forged red-hot · © 2026 Fervon</div>
+  </div></footer>
+
+  <script src="/assets/shared.js?v=20260819a" defer=""></script>
+
+
+</body></html>

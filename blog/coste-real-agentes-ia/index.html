@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Cuánto cuesta de verdad un agente de IA · Fervon</title>
+  <meta name="description" content="La factura del proveedor no es el coste. Dónde se esconde el gasto de un agente, cómo medirlo en local y cuándo compensa mover el modelo a tu GPU.">
+  <link rel="canonical" href="https://fervon.dev/blog/coste-real-agentes-ia/"><link rel="alternate" hreflang="es" href="https://fervon.dev/blog/coste-real-agentes-ia/"><link rel="alternate" hreflang="en" href="https://fervon.dev/en/blog/coste-real-agentes-ia/"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/blog/coste-real-agentes-ia/">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="Fervon">
+  <meta name="theme-color" content="#0E0B0A">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Fervon">
+  <meta property="og:title" content="Cuánto cuesta de verdad un agente de IA · Fervon">
+  <meta property="og:description" content="La factura del proveedor no es el coste. Dónde se esconde el gasto de un agente, cómo medirlo en local y cuándo compensa mover el modelo a tu GPU.">
+  <meta property="og:url" content="https://fervon.dev/blog/coste-real-agentes-ia/">
+  <meta property="og:image" content="https://fervon.dev/assets/blog/coste-real-agentes-ia.jpg">
+  <meta name="twitter:image" content="https://fervon.dev/assets/blog/coste-real-agentes-ia.jpg">
+  <meta property="og:locale" content="es_ES">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://fervon.dev/blog/coste-real-agentes-ia/#post",
+      "headline": "Cuánto cuesta de verdad un agente de IA",
+      "description": "La factura del proveedor no es el coste. Dónde se esconde el gasto de un agente, cómo medirlo en local y cuándo compensa mover el modelo a tu GPU.",
+      "url": "https://fervon.dev/blog/coste-real-agentes-ia/",
+      "datePublished": "2026-08-19",
+      "dateModified": "2026-08-19",
+      "inLanguage": "es",
+      "image": "https://fervon.dev/assets/blog/coste-real-agentes-ia.jpg",
+      "wordCount": 488,
+      "author": {
+        "@id": "https://fervon.dev/#jonathan"
+      },
+      "publisher": {
+        "@id": "https://fervon.dev/#organization"
+      },
+      "isPartOf": {
+        "@id": "https://fervon.dev/blog/#blog"
+      },
+      "mainEntityOfPage": {
+        "@id": "https://fervon.dev/blog/coste-real-agentes-ia/#post"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://fervon.dev/#jonathan",
+      "name": "Jonathan Martín",
+      "url": "https://fervon.dev/about/",
+      "worksFor": {
+        "@id": "https://fervon.dev/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://fervon.dev/blog/coste-real-agentes-ia/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Fervon",
+          "item": "https://fervon.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Noticias",
+          "item": "https://fervon.dev/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Cuánto cuesta de verdad un agente de IA",
+          "item": "https://fervon.dev/blog/coste-real-agentes-ia/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://fervon.dev/blog/coste-real-agentes-ia/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Por qué el panel de mi proveedor no me vale?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Porque agrega por clave y por día, no por tarea. Te dice que gastaste una cantidad, no qué tarea la consumió ni cuánto de eso fueron reintentos. Para eso hay que instrumentar en el punto de la llamada."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cuál es la partida más grande normalmente?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "El contexto reenviado. En una conversación con herramientas, cada turno vuelve a mandar todo lo anterior, así que el gasto crece más que linealmente con el número de pasos aunque cada mensaje nuevo sea corto."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Un modelo local sale más barato?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "En coste por token, sí: es cero. En coste total, depende de la tasa de acierto y de la espera. Un modelo pequeño que necesita tres intentos puede acabar costando más tiempo del que ahorra en dinero. La única forma de saberlo es medirlo en tu propia máquina."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cómo se reduce el gasto sin empeorar los resultados?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Por orden de rentabilidad: recortar lo que devuelven las herramientas, quitar del contexto lo que ya no se usa, y subir la tasa de acierto a la primera. Las tres bajan la factura sin tocar la calidad. Recortar el contexto a lo bruto la baja también, pero sube los reintentos."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué hay que registrar como mínimo?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Por cada llamada: tokens de entrada y de salida, modelo, duración, herramienta invocada si la hay, y el identificador de la tarea que la provocó. Con eso ya se puede contestar cuánto cuesta una tarea terminada, que es la única cifra que sirve para decidir."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin="">
+  <link rel="stylesheet" href="/index.css?v=20260819a">
+  <link rel="stylesheet" href="/assets/blog.css?v=20260819a">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260819a">
+</head>
+<body class="blog-page">
+  <a class="skip" href="#top">Saltar al contenido</a>
+
+  <nav><div class="bar">
+    <a class="brand" href="/"><svg class="blogo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="fv-nav-g" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#E0480F"></stop><stop offset="0.5" stop-color="#FF6A00"></stop><stop offset="1" stop-color="#FFB02E"></stop></linearGradient></defs><path d="M18 94 L18 60 L6 60 L6 44 L18 44 L18 32 A24 24 0 0 1 42 8 L63.24 8 L54 24 L42 24 A8 8 0 0 0 34 32 L34 44 C52 43.2 74 42.2 92.62 41 L88 49 C70 52.2 52 55.6 34 60 L34 94 Z" fill="url(#fv-nav-g)"></path></svg><span class="bword">fervon</span></a>
+    <div class="links">
+      <div class="hasmega">
+        <a class="navbtn" href="/#productos" aria-haspopup="true" aria-expanded="false" aria-controls="mega-productos">Productos <span class="s-wo-hrmDi">▾</span></a>
+        <div class="mega" id="mega-productos">
+          <div class="megagroup full">
+            <div class="megalabel">De pago</div>
+            <a class="megaitem" href="/trace/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-trace" viewBox="0 0 120 120" aria-hidden="true"><path class="hd" d="M15.5 76 L15.5 88 L7.07 88 L14 76 Z"></path><path class="ln" pathLength="74" d="M14 82 C28 82 32 60 48 60 C62 60 60 74 72 74 C83 74 90 59.59 99 44"></path><circle class="ring" cx="99" cy="44" r="11" opacity="0.5"></circle><circle class="dot p" cx="99" cy="44" r="6"></circle></svg></span><span><span class="mi-n">Trace <b>DE PAGO</b></span><span class="mi-d">Tu memoria personal, en tu máquina. Sin grabar la pantalla.</span></span></a>
+          </div>
+          <div class="megagroup">
+            <div class="megalabel">IA local &amp; agentes</div>
+            <a class="megaitem" href="/inferbench/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-inf" viewBox="0 0 40 40" aria-hidden="true"><rect x="13" y="13" width="14" height="14" rx="2.5"></rect><circle class="dot" cx="20" cy="20" r="2.4"></circle><path d="M16 13V8 M24 13V8 M16 32v-5 M24 32v-5 M13 16H8 M13 24H8 M32 16h-5 M32 24h-5"></path><path class="sp" d="M30 11 l4 -3 M33 30 l4 2"></path></svg></span><span><span class="mi-n">inferbench</span><span class="mi-d">Benchmark de LLMs en tu GPU.</span></span></a>
+            <a class="megaitem" href="/lookspan/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-look" viewBox="0 0 40 40" aria-hidden="true"><rect class="bar" x="9" y="11" width="20" height="3.4" rx="1.7"></rect><rect class="bar" x="9" y="18.3" width="13" height="3.4" rx="1.7"></rect><rect class="bar" x="9" y="25.6" width="25" height="3.4" rx="1.7"></rect></svg></span><span><span class="mi-n">Lookspan</span><span class="mi-d">Observabilidad de agentes de IA.</span></span></a>
+            <a class="megaitem" href="/claudescope/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-scope" viewBox="0 0 40 40" aria-hidden="true"><circle cx="18" cy="18" r="9"></circle><path d="M25 25 L32 32"></path><line class="scan" x1="13.5" y1="18" x2="22.5" y2="18"></line></svg></span><span><span class="mi-n">ClaudeScope</span><span class="mi-d">Busca tus sesiones de Claude Code.</span></span></a>
+          </div>
+          <div class="megagroup">
+            <div class="megalabel">Utilidades</div>
+            <a class="megaitem" href="/launchpad/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-launch" viewBox="0 0 40 40" aria-hidden="true"><g class="rk"><path d="M20 7 C24 11 25 18 20 25 C15 18 16 11 20 7 Z"></path><circle class="dot" cx="20" cy="15" r="1.8"></circle><path d="M16 22 L13 28 M24 22 L27 28"></path></g></svg></span><span><span class="mi-n">launchpad</span><span class="mi-d">Levanta todos tus proyectos.</span></span></a>
+            <a class="megaitem" href="/pregon/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-pregon" viewBox="0 0 40 40" aria-hidden="true"><circle class="dot" cx="20" cy="20" r="3"></circle><circle class="ring" cx="20" cy="20" r="7"></circle><circle class="ring ring2" cx="20" cy="20" r="7"></circle></svg></span><span><span class="mi-n">Pregón</span><span class="mi-d">Publica en 8+ canales.</span></span></a>
+          </div>
+        </div>
+      </div>
+      <a href="/blog/" aria-current="page">Noticias</a>
+      <a href="/about/">Sobre Fervon</a>
+      <nav class="langseg" id="lang" aria-label="Idioma"><span class="langopt on" aria-current="true">ES</span><a class="langopt" href="/en/blog/coste-real-agentes-ia/" hreflang="en" lang="en">EN</a></nav>
+      <a class="cta" href="/contacto/">Hablemos</a>
+    </div>
+  </div></nav>
+
+  <main class="wrap">
+
+    <header class="chero bhero" id="top">
+      <p class="bmeta">
+        <a href="/blog/">Noticias</a>
+        <span aria-hidden="true">·</span>
+        <time datetime="2026-08-19">19 de agosto de 2026</time>
+        <span aria-hidden="true">·</span>
+        <span>7 min de lectura</span>
+      </p>
+      <h1>Cuánto cuesta de verdad un agente de IA</h1>
+      <p class="lead">La factura te dice cuánto has gastado. No te dice en qué, ni si la mitad se fue en reenviar el mismo contexto veinte veces.</p>
+    </header>
+
+    <figure class="bcover reveal">
+      <img src="/assets/blog/coste-real-agentes-ia.jpg" width="1200" height="630" alt="Cuánto cuesta de verdad un agente de IA — Fervon" fetchpriority="high" decoding="async">
+      <figcaption>La respuesta final es la partida más pequeña del gasto.</figcaption>
+    </figure>
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h">En 30 segundos</h2>
+          <ul>
+        <li>El <b>coste real</b> de los agentes <b>no está en la respuesta final</b>: está en el contexto que se reenvía en cada turno y en la salida de las herramientas que lee.</li>
+        <li>Un agente que falla y reintenta puede costar <b>varias veces</b> lo que uno que acierta a la primera, y en la factura ambos son una línea igual.</li>
+        <li>Para saberlo hay que <b>instrumentar la llamada</b>, no leer el panel del proveedor: por tarea, por herramienta y por reintento.</li>
+        <li>El otro coste es la <b>latencia</b>. Un modelo local puede salir más caro en euros y mucho más barato en espera — o justo al revés.</li>
+          </ul>
+      <div class="cta-row s-tldrcta">
+        <a class="btn btn-fire" href="#cuerpo">Ir al artículo</a>
+      </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="cuerpo">
+      <article class="prose reveal">
+      <h2>La factura no es el coste</h2>
+
+      <p>El panel del proveedor te da un total y, con suerte, un desglose por día o por clave. Eso responde «cuánto», que es la pregunta menos útil. Las preguntas que sirven son otras: qué tarea se comió el presupuesto, qué herramienta devuelve tanto texto que el modelo paga por leerlo, y cuántos de esos euros se fueron en intentos que acabaron descartados.</p>
+
+      <p>Ninguna de esas tres se puede contestar desde fuera. Hay que medir en el punto donde se hace la llamada.</p>
+
+      <h2>Dónde se esconde el gasto</h2>
+
+      <figure class="diag">
+        <svg viewBox="0 0 760 300" width="100%" role="img" aria-labelledby="fig-coste-t">
+          <title id="fig-coste-t">En una tarea de agente, la respuesta final es una fracción del gasto: el contexto reenviado, las herramientas y los reintentos pesan mucho más.</title>
+          <text x="20" y="26" font-family="Inter,sans-serif" font-size="13" fill="#A89A8E">Reparto típico del gasto de UNA tarea de agente</text>
+          <g><text x="20" y="67" font-family="Inter,sans-serif" font-size="13" fill="#EFE7DC">Contexto reenviado en cada turno</text><rect x="20" y="76" width="640" height="14" rx="7" fill="#181210"></rect><rect x="20" y="76" width="640" height="14" rx="7" fill="#E0480F"></rect><text x="672" y="88" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#E0480F">46%</text></g>
+          <g><text x="20" y="113" font-family="Inter,sans-serif" font-size="13" fill="#EFE7DC">Salida de herramientas leída por el modelo</text><rect x="20" y="122" width="640" height="14" rx="7" fill="#181210"></rect><rect x="20" y="122" width="334" height="14" rx="7" fill="#FF6A00"></rect><text x="672" y="134" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#FF6A00">24%</text></g>
+          <g><text x="20" y="159" font-family="Inter,sans-serif" font-size="13" fill="#EFE7DC">Reintentos tras un fallo</text><rect x="20" y="168" width="640" height="14" rx="7" fill="#181210"></rect><rect x="20" y="168" width="223" height="14" rx="7" fill="#FFB02E"></rect><text x="672" y="180" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#FFB02E">16%</text></g>
+          <g><text x="20" y="205" font-family="Inter,sans-serif" font-size="13" fill="#EFE7DC">Razonamiento intermedio</text><rect x="20" y="214" width="640" height="14" rx="7" fill="#181210"></rect><rect x="20" y="214" width="139" height="14" rx="7" fill="#FFD37A"></rect><text x="672" y="226" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#FFD37A">10%</text></g>
+          <g><text x="20" y="251" font-family="Inter,sans-serif" font-size="13" fill="#EFE7DC">La respuesta que de verdad querías</text><rect x="20" y="260" width="640" height="14" rx="7" fill="#181210"></rect><rect x="20" y="260" width="56" height="14" rx="7" fill="#8FD06B"></rect><text x="672" y="272" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#8FD06B">4%</text></g>
+          <text x="20" y="290" font-family="Inter,sans-serif" font-size="12" fill="#A89A8E">Reparto ilustrativo sobre 100: cambia con cada tarea. Lo que no cambia es el orden — la respuesta final nunca es la partida grande.</text>
+        </svg>
+        <figcaption>Las proporciones varían con cada tarea; el orden casi nunca. La respuesta que querías es lo más pequeño que has pagado.</figcaption>
+      </figure>
+
+      <h3>El contexto reenviado</h3>
+
+      <p>Cada turno de una conversación con herramientas vuelve a enviar todo lo anterior. En una tarea de veinte pasos, el primer mensaje se ha pagado veinte veces. Es la partida más grande casi siempre y la más invisible, porque no aparece como una acción: aparece como «tokens de entrada».</p>
+
+      <h3>La salida de las herramientas</h3>
+
+      <p>Una herramienta que devuelve el fichero entero cuando hacían falta diez líneas no cuesta lo que cuesta ejecutarla: cuesta lo que cuesta que el modelo la lea, en ese turno y en todos los siguientes. Recortar la salida de las herramientas suele ser la optimización con mejor relación esfuerzo-ahorro que existe.</p>
+
+      <h3>Los reintentos</h3>
+
+      <p>Un agente que se equivoca, lo detecta y reintenta hace exactamente lo que debe. Pero cada reintento arrastra el contexto acumulado, así que el tercer intento es bastante más caro que el primero. Un agente con una tasa de acierto mediocre no cuesta un poco más: cuesta varias veces más.</p>
+
+      <h3>El contexto muerto</h3>
+
+      <p>Ficheros cargados «por si acaso», resultados de búsquedas que ya no vienen a cuento, instrucciones repetidas en cada turno. Sigue pagándose en cada llamada aunque no aporte nada a la que viene.</p>
+
+      <h2>Cómo medirlo</h2>
+
+      <div class="tablewrap">
+        <table class="seotable">
+          <caption class="vh">Partidas de gasto de un agente, dónde se esconden y qué hay que medir para verlas.</caption>
+          <thead><tr><th>Partida</th><th>Dónde se esconde</th><th>Qué medir</th></tr></thead>
+          <tbody>
+            <tr><th>Contexto reenviado</th><td>Tokens de entrada por turno</td><td>Turnos por tarea</td></tr>
+            <tr><th>Salida de herramientas</th><td>Entrada del turno siguiente</td><td>Bytes devueltos por llamada</td></tr>
+            <tr><th>Reintentos</th><td>Repetición de la misma tarea</td><td>Tasa de acierto a la primera</td></tr>
+            <tr><th>Contexto muerto</th><td>Prompt de sistema y ficheros</td><td>Tokens nunca referenciados</td></tr>
+            <tr><th>Latencia</th><td>Tiempo de espera, no la factura</td><td>Segundos hasta el primer token</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>Todo eso vive en la propia llamada, así que la instrumentación tiene que estar ahí: registrar cada llamada al modelo, cada herramienta invocada y su coste, ligadas a la tarea que las provocó. Es exactamente lo que hace <a href="/lookspan/">Lookspan</a>, y en local: los datos no salen de tu máquina, que en algo que registra tus prompts no es un detalle menor.</p>
+
+      <h2>El coste que no aparece en ninguna factura</h2>
+
+      <p>La espera. Un agente que tarda cuarenta segundos en empezar a responder no cuesta más dinero que uno que tarda cuatro, pero cambia por completo cómo trabajas con él: con cuarenta segundos te vas a otra cosa y pierdes el hilo; con cuatro, iteras.</p>
+
+      <p>Ahí es donde entra la pregunta del modelo local, y no tiene una respuesta única. Un modelo en tu GPU no tiene coste por token, pero sí tiene coste de espera, de memoria y de calidad. Lo único que zanja la discusión es medirlo en tu máquina con tu carga: cuántos tokens por segundo, con qué modelo y con cuánta memoria. Para eso está <a href="/inferbench/">inferbench</a>.</p>
+
+      <ul class="bullets">
+        <li><b>Compensa el local</b> cuando la tarea es repetitiva, tolera un modelo pequeño y te importa que no salgan datos de la máquina.</li>
+        <li><b>Compensa la API</b> cuando la tarea es difícil, se hace pocas veces al día y equivocarse sale más caro que el token.</li>
+        <li><b>Casi siempre compensa mezclar</b>: lo mecánico en local, el criterio a la API.</li>
+      </ul>
+
+      <p>Y una advertencia sobre el ahorro fácil: recortar contexto a lo bruto abarata la llamada y encarece la tarea, porque sube los reintentos. Por eso hay que mirar el coste por tarea terminada, no por llamada. Cómo se organiza todo esto alrededor de una flota está en <a href="/blog/flotas-agentes-ia/">el artículo del método</a>.</p>
+      </article>
+    </section>
+
+    <section class="sec seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">FAQ</span>
+          <h2 id="faq-h">Preguntas frecuentes</h2>
+        </div>
+        <div class="faq reveal">
+        <details>
+          <summary>¿Por qué el panel de mi proveedor no me vale?</summary>
+          <p>Porque agrega por clave y por día, no por tarea. Te dice que gastaste una cantidad, no qué tarea la consumió ni cuánto de eso fueron reintentos. Para eso hay que instrumentar en el punto de la llamada.</p>
+        </details>
+        <details>
+          <summary>¿Cuál es la partida más grande normalmente?</summary>
+          <p>El contexto reenviado. En una conversación con herramientas, cada turno vuelve a mandar todo lo anterior, así que el gasto crece más que linealmente con el número de pasos aunque cada mensaje nuevo sea corto.</p>
+        </details>
+        <details>
+          <summary>¿Un modelo local sale más barato?</summary>
+          <p>En coste por token, sí: es cero. En coste total, depende de la tasa de acierto y de la espera. Un modelo pequeño que necesita tres intentos puede acabar costando más tiempo del que ahorra en dinero. La única forma de saberlo es medirlo en tu propia máquina.</p>
+        </details>
+        <details>
+          <summary>¿Cómo se reduce el gasto sin empeorar los resultados?</summary>
+          <p>Por orden de rentabilidad: recortar lo que devuelven las herramientas, quitar del contexto lo que ya no se usa, y subir la tasa de acierto a la primera. Las tres bajan la factura sin tocar la calidad. Recortar el contexto a lo bruto la baja también, pero sube los reintentos.</p>
+        </details>
+        <details>
+          <summary>¿Qué hay que registrar como mínimo?</summary>
+          <p>Por cada llamada: tokens de entrada y de salida, modelo, duración, herramienta invocada si la hay, y el identificador de la tarea que la provocó. Con eso ya se puede contestar cuánto cuesta una tarea terminada, que es la única cifra que sirve para decidir.</p>
+        </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">Sigue leyendo</span>
+          <h2 id="mas-h">Más noticias</h2>
+        </div>
+        <div class="bcards reveal">
+          <a class="bcard" href="/blog/flotas-agentes-ia/">
+            <img src="/assets/blog/flotas-agentes-ia.jpg" width="1200" height="630" alt="Cómo se dirige una flota de agentes de IA" loading="lazy" decoding="async">
+            <span class="bc-t">Cómo se dirige una flota de agentes de IA</span>
+            <span class="bc-d">Aislamiento con git worktree, cuántos agentes en paralelo, medir antes de arreglar y un panel de jueces adversarial. El método real, con sus límites.</span>
+          </a>
+          <a class="bcard" href="/blog/estudio-software-autonomo/">
+            <img src="/assets/blog/estudio-software-autonomo.jpg" width="1200" height="630" alt="Qué es un estudio de software autónomo" loading="lazy" decoding="async">
+            <span class="bc-t">Qué es un estudio de software autónomo</span>
+            <span class="bc-d">Un estudio de software autónomo es un taller donde la ejecución la hacen agentes de IA y el criterio lo pone una persona. Qué cambia de verdad y qué no.</span>
+          </a>
+          <a class="bcard bcard-cta" href="/about/">
+            <span class="bc-t">Quién escribe esto</span>
+            <span class="bc-d">Fervon es el estudio de software autónomo de Jonathan Martín. Una persona y una flota de agentes.</span>
+          </a>
+        </div>
+      <div class="fv-share">
+        <button type="button" class="sharebtn" aria-label="Compartir esta página">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
+          <span>Compartir</span>
+        </button>
+        <span class="sharemsg" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>Esto sale de trabajar así de verdad</b>
+      <span>Herramientas open source, self-serve y sin dejar el correo</span>
+    </div>
+    <a class="btn btn-fire" href="/#productos">Ver productos</a>
+  </div>
+
+  <footer><div class="wrap">
+    <div class="mark"><svg class="blogo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="fv-foot-g" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#E0480F"></stop><stop offset="0.5" stop-color="#FF6A00"></stop><stop offset="1" stop-color="#FFB02E"></stop></linearGradient></defs><path d="M18 94 L18 60 L6 60 L6 44 L18 44 L18 32 A24 24 0 0 1 42 8 L63.24 8 L54 24 L42 24 A8 8 0 0 0 34 32 L34 44 C52 43.2 74 42.2 92.62 41 L88 49 C70 52.2 52 55.6 34 60 L34 94 Z" fill="url(#fv-foot-g)"></path></svg> fervon</div>
+    <div class="flinks">
+      <a href="/#productos">Productos</a>
+      <a href="/blog/">Noticias</a>
+      <a href="/about/">Sobre</a>
+      <a href="/contacto/">Contacto</a>
+      <a href="https://github.com/Fervon">GitHub</a>
+    </div>
+    <div class="copy">Forjado al rojo vivo · © 2026 Fervon</div>
+  </div></footer>
+
+  <script src="/assets/shared.js?v=20260819a" defer=""></script>
+
+
+</body></html>

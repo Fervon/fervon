@@ -37,6 +37,96 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/about/"/>
   </url>
   <url>
+    <loc>https://fervon.dev/blog/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/blog/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/blog/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/blog/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/en/blog/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/blog/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/blog/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/blog/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/blog/estudio-software-autonomo/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/blog/estudio-software-autonomo/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/blog/estudio-software-autonomo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/blog/estudio-software-autonomo/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/en/blog/estudio-software-autonomo/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/blog/estudio-software-autonomo/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/blog/estudio-software-autonomo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/blog/estudio-software-autonomo/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/blog/flotas-agentes-ia/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/blog/flotas-agentes-ia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/blog/flotas-agentes-ia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/blog/flotas-agentes-ia/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/en/blog/flotas-agentes-ia/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/blog/flotas-agentes-ia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/blog/flotas-agentes-ia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/blog/flotas-agentes-ia/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/blog/tests-amanados-agentes/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/blog/tests-amanados-agentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/blog/tests-amanados-agentes/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/blog/tests-amanados-agentes/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/en/blog/tests-amanados-agentes/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/blog/tests-amanados-agentes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/blog/tests-amanados-agentes/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/blog/tests-amanados-agentes/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/blog/coste-real-agentes-ia/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/blog/coste-real-agentes-ia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/blog/coste-real-agentes-ia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/blog/coste-real-agentes-ia/"/>
+  </url>
+  <url>
+    <loc>https://fervon.dev/en/blog/coste-real-agentes-ia/</loc>
+    <lastmod>2026-08-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/blog/coste-real-agentes-ia/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/blog/coste-real-agentes-ia/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/blog/coste-real-agentes-ia/"/>
+  </url>
+  <url>
     <loc>https://fervon.dev/contacto/</loc>
     <lastmod>2026-08-14</lastmod>
     <changefreq>weekly</changefreq>

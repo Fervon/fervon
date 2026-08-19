@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Qué es un estudio de software autónomo · Fervon</title>
+  <meta name="description" content="Un estudio de software autónomo es un taller donde la ejecución la hacen agentes de IA y el criterio lo pone una persona. Qué cambia de verdad y qué no." />
+  <link rel="canonical" href="https://fervon.dev/blog/estudio-software-autonomo/" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="author" content="Fervon" />
+  <meta name="theme-color" content="#0E0B0A" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png" />
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Fervon" />
+  <meta property="og:title" content="Qué es un estudio de software autónomo · Fervon" />
+  <meta property="og:description" content="Un estudio de software autónomo es un taller donde la ejecución la hacen agentes de IA y el criterio lo pone una persona. Qué cambia de verdad y qué no." />
+  <meta property="og:url" content="https://fervon.dev/blog/estudio-software-autonomo/" />
+  <meta property="og:image" content="https://fervon.dev/assets/blog/estudio-software-autonomo.jpg" />
+  <meta name="twitter:image" content="https://fervon.dev/assets/blog/estudio-software-autonomo.jpg" />
+  <meta property="og:locale" content="es_ES" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://fervon.dev/blog/estudio-software-autonomo/#post",
+      "headline": "Qué es un estudio de software autónomo",
+      "description": "Un estudio de software autónomo es un taller donde la ejecución la hacen agentes de IA y el criterio lo pone una persona. Qué cambia de verdad y qué no.",
+      "url": "https://fervon.dev/blog/estudio-software-autonomo/",
+      "datePublished": "2026-08-19",
+      "dateModified": "2026-08-19",
+      "inLanguage": "es",
+      "image": "https://fervon.dev/assets/blog/estudio-software-autonomo.jpg",
+      "wordCount": 542,
+      "author": {
+        "@id": "https://fervon.dev/#jonathan"
+      },
+      "publisher": {
+        "@id": "https://fervon.dev/#organization"
+      },
+      "isPartOf": {
+        "@id": "https://fervon.dev/blog/#blog"
+      },
+      "mainEntityOfPage": {
+        "@id": "https://fervon.dev/blog/estudio-software-autonomo/#post"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://fervon.dev/#jonathan",
+      "name": "Jonathan Martín",
+      "url": "https://fervon.dev/about/",
+      "worksFor": {
+        "@id": "https://fervon.dev/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://fervon.dev/blog/estudio-software-autonomo/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Fervon",
+          "item": "https://fervon.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Noticias",
+          "item": "https://fervon.dev/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Qué es un estudio de software autónomo",
+          "item": "https://fervon.dev/blog/estudio-software-autonomo/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://fervon.dev/blog/estudio-software-autonomo/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Un estudio autónomo escribe el código sin intervención humana?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "La ejecución sí corre sin intervención: los agentes leen el repositorio, escriben, ejecutan las pruebas y vuelven a intentarlo. Lo que no corre sin intervención es la decisión de qué se acepta. Un cambio que ningún humano ha mirado no se considera terminado."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cuántos agentes hacen falta?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Menos de los que parece. El límite no lo pone la máquina sino la capacidad de revisar: en cuanto la cola de cambios pendientes crece más rápido de lo que se vacía, añadir agentes empeora las cosas. En la práctica cuatro en paralelo por tarea es un techo razonable."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Esto sirve para software serio o solo para prototipos?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sirve para lo que puedas verificar. Si un cambio se puede probar de forma automática y reproducible, el método aguanta perfectamente. Donde se rompe es en lo que solo se puede validar mirándolo: ahí el cuello de botella humano es total y la flota apenas ayuda."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Qué pasa con la calidad?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Es la pregunta correcta, porque el riesgo real de este modelo no es escribir poco código sino aceptar código malo deprisa. La respuesta no es confiar más en el agente: es abaratar la verificación. Pruebas que de verdad fallan cuando algo se rompe, revisión adversarial y medición antes de dar nada por arreglado."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Fervon es un estudio de software autónomo?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sí. Fervon es el estudio de software autónomo de Jonathan Martín: una persona dirigiendo flotas de agentes de IA que construyen productos local-first y herramientas open source. El catálogo entero salió de ese método."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin="">
+  <link rel="stylesheet" href="/index.css?v=20260819a" />
+  <link rel="stylesheet" href="/assets/blog.css?v=20260819a" />
+  <link rel="stylesheet" href="/assets/shared.css?v=20260819a" />
+</head>
+<body class="blog-page">
+  <a class="skip" href="#top" data-en="Skip to content">Saltar al contenido</a>
+
+  <nav><div class="bar">
+    <a class="brand" href="/"><svg class="blogo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="fv-nav-g" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#E0480F"/><stop offset="0.5" stop-color="#FF6A00"/><stop offset="1" stop-color="#FFB02E"/></linearGradient></defs><path d="M18 94 L18 60 L6 60 L6 44 L18 44 L18 32 A24 24 0 0 1 42 8 L63.24 8 L54 24 L42 24 A8 8 0 0 0 34 32 L34 44 C52 43.2 74 42.2 92.62 41 L88 49 C70 52.2 52 55.6 34 60 L34 94 Z" fill="url(#fv-nav-g)"/></svg><span class="bword">fervon</span></a>
+    <div class="links">
+      <div class="hasmega">
+        <a class="navbtn" href="/#productos" aria-haspopup="true" aria-expanded="false" aria-controls="mega-productos" data-en="Products &lt;span class=&quot;s-wo-hrmDi&quot;&gt;▾&lt;/span&gt;">Productos <span class="s-wo-hrmDi">▾</span></a>
+        <div class="mega" id="mega-productos">
+          <div class="megagroup full">
+            <div class="megalabel" data-en="Paid">De pago</div>
+            <a class="megaitem" href="/trace/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-trace" viewBox="0 0 120 120" aria-hidden="true"><path class="hd" d="M15.5 76 L15.5 88 L7.07 88 L14 76 Z"/><path class="ln" pathLength="74" d="M14 82 C28 82 32 60 48 60 C62 60 60 74 72 74 C83 74 90 59.59 99 44"/><circle class="ring" cx="99" cy="44" r="11" opacity="0.5"/><circle class="dot p" cx="99" cy="44" r="6"/></svg></span><span><span class="mi-n" data-en="Trace &lt;b&gt;PAID&lt;/b&gt;">Trace <b>DE PAGO</b></span><span class="mi-d" data-en="Your personal memory, on your machine. No screen recording.">Tu memoria personal, en tu máquina. Sin grabar la pantalla.</span></span></a>
+          </div>
+          <div class="megagroup">
+            <div class="megalabel" data-en="Local AI &amp; agents">IA local &amp; agentes</div>
+            <a class="megaitem" href="/inferbench/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-inf" viewBox="0 0 40 40" aria-hidden="true"><rect x="13" y="13" width="14" height="14" rx="2.5"/><circle class="dot" cx="20" cy="20" r="2.4"/><path d="M16 13V8 M24 13V8 M16 32v-5 M24 32v-5 M13 16H8 M13 24H8 M32 16h-5 M32 24h-5"/><path class="sp" d="M30 11 l4 -3 M33 30 l4 2"/></svg></span><span><span class="mi-n">inferbench</span><span class="mi-d" data-en="Benchmark LLMs on your GPU.">Benchmark de LLMs en tu GPU.</span></span></a>
+            <a class="megaitem" href="/lookspan/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-look" viewBox="0 0 40 40" aria-hidden="true"><rect class="bar" x="9" y="11" width="20" height="3.4" rx="1.7"/><rect class="bar" x="9" y="18.3" width="13" height="3.4" rx="1.7"/><rect class="bar" x="9" y="25.6" width="25" height="3.4" rx="1.7"/></svg></span><span><span class="mi-n">Lookspan</span><span class="mi-d" data-en="Observability for AI agents.">Observabilidad de agentes de IA.</span></span></a>
+            <a class="megaitem" href="/claudescope/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-scope" viewBox="0 0 40 40" aria-hidden="true"><circle cx="18" cy="18" r="9"/><path d="M25 25 L32 32"/><line class="scan" x1="13.5" y1="18" x2="22.5" y2="18"/></svg></span><span><span class="mi-n">ClaudeScope</span><span class="mi-d" data-en="Search your Claude Code sessions.">Busca tus sesiones de Claude Code.</span></span></a>
+          </div>
+          <div class="megagroup">
+            <div class="megalabel" data-en="Utilities">Utilidades</div>
+            <a class="megaitem" href="/launchpad/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-launch" viewBox="0 0 40 40" aria-hidden="true"><g class="rk"><path d="M20 7 C24 11 25 18 20 25 C15 18 16 11 20 7 Z"/><circle class="dot" cx="20" cy="15" r="1.8"/><path d="M16 22 L13 28 M24 22 L27 28"/></g></svg></span><span><span class="mi-n">launchpad</span><span class="mi-d" data-en="Spin up all your projects.">Levanta todos tus proyectos.</span></span></a>
+            <a class="megaitem" href="/pregon/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-pregon" viewBox="0 0 40 40" aria-hidden="true"><circle class="dot" cx="20" cy="20" r="3"/><circle class="ring" cx="20" cy="20" r="7"/><circle class="ring ring2" cx="20" cy="20" r="7"/></svg></span><span><span class="mi-n">Pregón</span><span class="mi-d" data-en="Publish to 8+ channels.">Publica en 8+ canales.</span></span></a>
+          </div>
+        </div>
+      </div>
+      <a href="/blog/" aria-current="page" data-en="News">Noticias</a>
+      <a href="/about/" data-en="About">Sobre Fervon</a>
+      <button id="lang" class="navbtn" type="button" aria-label="Cambiar idioma / Switch language">EN</button>
+      <a class="cta" href="/contacto/" data-en="Let's talk">Hablemos</a>
+    </div>
+  </div></nav>
+
+  <main class="wrap">
+
+    <header class="chero bhero" id="top">
+      <p class="bmeta">
+        <a href="/blog/" data-en="News">Noticias</a>
+        <span aria-hidden="true">·</span>
+        <time datetime="2026-08-19" data-en="August 19, 2026">19 de agosto de 2026</time>
+        <span aria-hidden="true">·</span>
+        <span data-en="7 min read">7 min de lectura</span>
+      </p>
+      <h1 data-en="What an autonomous software studio is">Qué es un estudio de software autónomo</h1>
+      <p class="lead" data-en="The phrase sounds like a brochure. Underneath there is something concrete: when execution stops being the expensive part, deciding becomes the scarce one. This is the division of labour behind Fervon.">La expresión suena a folleto. Debajo hay algo concreto: cuando ejecutar deja de ser lo caro, lo escaso pasa a ser decidir. Este es el reparto de trabajo que hay detrás de Fervon.</p>
+    </header>
+
+    <figure class="bcover reveal">
+      <img src="/assets/blog/estudio-software-autonomo.jpg" width="1200" height="630" alt="Qué es un estudio de software autónomo — Fervon" data-en="What an autonomous software studio is — Fervon" data-i18n-attr="alt" fetchpriority="high" decoding="async">
+      <figcaption data-en="Judgement directs, the fleet executes, the judges filter.">El criterio dirige, la flota ejecuta, los jueces filtran.</figcaption>
+    </figure>
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h" data-en="In 30 seconds">En 30 segundos</h2>
+          <ul>
+        <li data-en='An <b>autonomous software studio</b> is a workshop where AI agents do the execution work and one person supplies the judgement — what gets built and what gets accepted.'>Un <b>estudio de software autónomo</b> es un taller donde el trabajo de ejecución lo hacen agentes de IA y el criterio —qué se construye y qué se acepta— lo pone una persona.</li>
+        <li data-en='It is not "AI programs on its own". Without someone deciding what to throw away, a fleet produces <b>volume</b>, not product.'>No es «la IA programa sola». Sin alguien que decida qué se tira, una flota produce <b>volumen</b>, no producto.</li>
+        <li data-en='What changes is not typing speed: it is that <b>the queue disappears</b> between having an idea and seeing it run.'>Lo que cambia no es la velocidad de teclear: es que <b>desaparece la cola</b> entre tener una idea y verla funcionando.</li>
+        <li data-en='The model only holds if the studio is <b>small</b>. The more people, the more time goes into coordinating instead of deciding.'>El modelo solo aguanta si el estudio es <b>pequeño</b>. Cuantas más personas, más tiempo se va en coordinar en vez de en decidir.</li>
+          </ul>
+      <div class="cta-row s-tldrcta">
+        <a class="btn btn-fire" href="#cuerpo" data-en="Read the article">Ir al artículo</a>
+      </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="cuerpo">
+      <article class="prose reveal">
+      <h2 data-en="The name is literal, not a slogan">El nombre es literal, no un eslogan</h2>
+
+      <p data-en='A normal software studio sells capacity: people multiplied by time. An autonomous studio sells outcome, because capacity has stopped being the limit. The "autonomous" part is not a promise about future artificial intelligence: it describes how the work is organised today. Execution runs without anyone typing, and the person shows up at the points where judgement is required.'>Un estudio de software normal vende capacidad: personas por tiempo. Un estudio autónomo vende resultado, porque la capacidad ha dejado de ser el límite. La parte «autónoma» no describe una promesa de futuro sobre inteligencia artificial: describe cómo se organiza el trabajo hoy. La ejecución corre sin que haya nadie tecleando, y la persona aparece en los puntos donde hace falta juicio.</p>
+
+      <p data-en="The practical difference shows in what happens overnight. In a classic team, nothing happens overnight. In an autonomous studio, overnight is when what was decided in the afternoon gets executed, and in the morning there is something to review. The work has not become instant: it has been decoupled from one person's working day.">La diferencia práctica se nota en qué se hace por la noche. En un equipo clásico, por la noche no se hace nada. En un estudio autónomo, por la noche se ejecuta lo que se decidió por la tarde, y por la mañana hay algo que revisar. El trabajo no se ha vuelto instantáneo: se ha desacoplado de la jornada de una persona.</p>
+
+      <h2 data-en="Three things it is not">Tres cosas que no es</h2>
+
+      <p data-en="The label is being used for very different things, so it is worth bounding it by exclusion before defining it.">La etiqueta se está usando para cosas muy distintas, así que conviene acotarla por exclusión antes que por definición.</p>
+
+      <ul class="bullets">
+        <li data-en='<b>It is not eyeballing code in a chat window.</b> An agent that cannot run the tests, read the whole repository and try again is not a fleet: it is autocomplete with good prose.'><b>No es escribir código a ojo con un chat.</b> Un agente que no puede ejecutar las pruebas, leer el repositorio entero y volver a intentarlo no es una flota: es un autocompletado con buena prosa.</li>
+        <li data-en='<b>It is not an agency with AI bolted on.</b> If you still bill by the hour, AI just gives you cheaper hours to sell, and the incentive turns against you the moment you deliver early.'><b>No es una agencia con IA encima.</b> Si sigues cobrando por horas, la IA solo te hace tener horas más baratas que vender, y el incentivo se te pone en contra en cuanto entregas antes.</li>
+        <li data-en='<b>It is not unsupervised work.</b> Autonomous refers to execution, not to judgement. A change nobody has looked at is not finished, green or not.'><b>No es trabajo sin supervisión.</b> Autónomo se refiere a la ejecución, no al criterio. Un cambio que nadie ha mirado no está terminado, esté verde o no.</li>
+      </ul>
+
+      <h2 data-en="What does define it">Lo que sí lo define</h2>
+
+      <h3 data-en="Execution is parallel and cheap">La ejecución es paralela y barata</h3>
+
+      <p data-en="When one attempt costs minutes instead of days, it changes which questions are worth asking. Debating three approaches on a whiteboard stops making sense: it is cheaper to build all three and see which one survives the tests. Design discussion does not disappear, but it happens with code in front of you instead of opinions.">Cuando lanzar un intento cuesta minutos en vez de días, cambia qué preguntas merece la pena hacerse. Deja de tener sentido discutir tres enfoques en una pizarra: sale más barato construir los tres y mirar cuál sobrevive a las pruebas. La discusión de diseño no desaparece, pero se hace con código delante en vez de con opiniones.</p>
+
+      <h3 data-en="Judgement is scarce and expensive">El criterio es escaso y caro</h3>
+
+      <p data-en="This is the real bottleneck, and it is worth stating plainly because it is the opposite of what the usual pitch promises. Four agents working in parallel produce four changes that have to be reviewed. If review does not scale, the fleet stops helping and starts burying you. That is why the studio's job is not writing more code: it is deciding faster, and with better information, which code stays.">Este es el cuello de botella real, y conviene decirlo claro porque es lo contrario de lo que promete el discurso habitual. Cuatro agentes trabajando en paralelo generan cuatro cambios que hay que revisar. Si la revisión no escala, la flota deja de ayudar y empieza a enterrar. Por eso el trabajo del estudio no es escribir más código: es decidir más rápido y con mejor información qué código se queda.</p>
+
+      <h3 data-en="The product is the deliverable, not the hours">El producto es el entregable, no las horas</h3>
+
+      <p data-en="If execution is cheap, billing for time means billing for what is no longer scarce. Two consequences follow, and both are visible on the site: a closed per-project price instead of hourly rates, and a catalogue of products you buy and download without talking to anyone. Neither is a marketing decision: both are the accounting consequence of the model.">Si la ejecución es barata, cobrar por tiempo es cobrar por lo que ya no es escaso. De ahí salen dos consecuencias que se ven en la web: precio cerrado por proyecto en vez de por horas, y catálogo de productos que se compran y se descargan sin hablar con nadie. No son decisiones de marketing: son la consecuencia contable del modelo.</p>
+
+      <figure class="diag">
+        <svg viewBox="0 0 760 250" width="100%" role="img" aria-labelledby="fig-ciclo-t">
+          <title id="fig-ciclo-t">El criterio humano dirige la flota de agentes; un panel de jueces filtra lo que sale y solo lo aprobado llega al producto.</title>
+          <defs><marker id="pta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#FF6A00"/></marker></defs>
+          <g><rect x="20" y="95" width="150" height="62" rx="10" fill="#1A1310" stroke="#FF6A00"/><text x="95" y="122" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#EFE7DC">Criterio</text><text x="95" y="142" text-anchor="middle" font-family="Inter,sans-serif" font-size="11.5" fill="#A89A8E">una persona</text></g>
+          <g><rect x="230" y="95" width="150" height="62" rx="10" fill="#1A1310" stroke="#3A2C22"/><text x="305" y="122" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#EFE7DC">Flota</text><text x="305" y="142" text-anchor="middle" font-family="Inter,sans-serif" font-size="11.5" fill="#A89A8E">agentes en paralelo</text></g>
+          <g><rect x="440" y="95" width="150" height="62" rx="10" fill="#1A1310" stroke="#3A2C22"/><text x="515" y="122" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#EFE7DC">Jueces</text><text x="515" y="142" text-anchor="middle" font-family="Inter,sans-serif" font-size="11.5" fill="#A89A8E">lentes distintas</text></g>
+          <g><rect x="650" y="95" width="90" height="62" rx="10" fill="#1A1310" stroke="#FFB02E"/><text x="695" y="131" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#EFE7DC">Producto</text></g>
+          <path fill="none" d="M172 126 L226 126" stroke="#FF6A00" stroke-width="2" marker-end="url(#pta)"/>
+          <path fill="none" d="M382 126 L436 126" stroke="#FF6A00" stroke-width="2" marker-end="url(#pta)"/>
+          <path fill="none" d="M592 126 L646 126" stroke="#FF6A00" stroke-width="2" marker-end="url(#pta)"/>
+          <path fill="none" d="M515 95 L515 45 L95 45 L95 93" stroke="#E0480F" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#pta)"/>
+          <text x="305" y="36" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" fill="#FFB02E">lo rechazado vuelve con el motivo</text>
+          <text x="380" y="205" text-anchor="middle" font-family="Inter,sans-serif" font-size="12.5" fill="#A89A8E">La ejecución es barata y paralela. El criterio es escaso: es el único cuello de botella real.</text>
+        </svg>
+        <figcaption data-en="The full loop. What a judge rejects is not discarded: it goes back to the start with the reason attached, which is the part that makes the next pass better.">El bucle completo. Lo que un juez rechaza no se descarta: vuelve al principio con el motivo, que es la parte que hace que la siguiente vuelta sea mejor.</figcaption>
+      </figure>
+
+      <h2 data-en="What changes versus a classic team">Qué cambia frente a un equipo clásico</h2>
+
+      <div class="tablewrap">
+        <table class="seotable">
+          <caption class="vh" data-en="Differences between an autonomous software studio and a classic development team.">Diferencias entre un estudio de software autónomo y un equipo de desarrollo clásico.</caption>
+          <thead><tr><th data-en=""></th><th data-en="Classic team">Equipo clásico</th><th data-en="Autonomous studio">Estudio autónomo</th></tr></thead>
+          <tbody>
+            <tr><th data-en="Scarce resource">Recurso escaso</th><td data-en="Development hours">Horas de desarrollo</td><td data-en="Judgement and review">Criterio y revisión</td></tr>
+            <tr><th data-en="Cost of one attempt">Coste de un intento</th><td data-en="Days">Días</td><td data-en="Minutes">Minutos</td></tr>
+            <tr><th data-en="How design is decided">Cómo se decide el diseño</th><td data-en="Meeting and a document">Reunión y documento</td><td data-en="The options get built">Se construyen las opciones</td></tr>
+            <tr><th data-en="What slows delivery">Qué frena la entrega</th><td data-en="Coordination">Coordinación</td><td data-en="Review">Revisión</td></tr>
+            <tr><th data-en="Billing unit">Unidad de facturación</th><td data-en="Time and headcount">Tiempo y perfiles</td><td data-en="Project or product">Proyecto o producto</td></tr>
+            <tr><th data-en="Working hours">Horario del trabajo</th><td data-en="The people's">El de las personas</td><td data-en="Continuous">Continuo</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 data-en="Why it only works if the studio is small">Por qué solo funciona si el estudio es pequeño</h2>
+
+      <p data-en="There is an overlooked asymmetry here. Adding agents is nearly free; adding people is not. Every new person introduces coordination, and coordination competes for exactly the resource that was already scarce: the attention of whoever decides. A one-person studio with a large fleet can move faster than a five-person team with the same fleet, simply because it spends nothing on reaching agreement.">Aquí hay una asimetría que se pasa por alto. Añadir agentes es casi gratis; añadir personas no. Cada persona nueva mete coordinación, y la coordinación compite exactamente por el recurso que ya era escaso: la atención de quien decide. Un estudio de una persona con una flota grande puede ir más rápido que un equipo de cinco personas con la misma flota, simplemente porque no gasta nada en ponerse de acuerdo.</p>
+
+      <blockquote class="pull"><p data-en="The fleet does not replace the team. It replaces the calendar.">La flota no sustituye al equipo. Sustituye al calendario.</p></blockquote>
+
+      <p data-en="That sets a natural ceiling: at some point one person cannot review any more, and there the studio stops scaling no matter how many agents you start. It is a real limit and it deserves to be said, because this model is often sold as though it had none.">Eso pone un techo natural: llega un punto en que una sola persona no puede revisar más, y ahí el estudio deja de escalar por más agentes que arranques. Es un límite real y merece decirse, porque el modelo se vende a menudo como si no lo tuviera.</p>
+
+      <h2 data-en="What comes out of a workshop like this">Qué sale de un taller así</h2>
+
+      <p data-en='The proof that the method works is not a manifesto: it is the catalogue. Everything under <a href="/#productos">products</a> came out of the same loop, including the tools that exist precisely to plug the holes this way of working opens — <a href="/veredicto/">Veredicto</a> was born from not trusting the tests agents write, and <a href="/lookspan/">Lookspan</a> from not knowing where the spend was going. How the fleet is actually directed is in <a href="/blog/flotas-agentes-ia/">the method article</a>, and who is behind it, in <a href="/about/">about Fervon</a>.'>La prueba de que el método funciona no es un manifiesto: es el catálogo. Todo lo que hay en <a href="/#productos">productos</a> salió del mismo bucle, incluidas las herramientas que existen precisamente para tapar los agujeros que abre trabajar así — <a href="/veredicto/">Veredicto</a> nació de no fiarse de los tests que escriben los agentes, y <a href="/lookspan/">Lookspan</a> de no saber en qué se estaba yendo el gasto. Cómo se dirige la flota en la práctica está en <a href="/blog/flotas-agentes-ia/">el artículo del método</a>, y quién hay detrás, en <a href="/about/">sobre Fervon</a>.</p>
+      </article>
+    </section>
+
+    <section class="sec seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-en="FAQ">FAQ</span>
+          <h2 id="faq-h" data-en="Frequently asked questions">Preguntas frecuentes</h2>
+        </div>
+        <div class="faq reveal">
+        <details>
+          <summary data-en="Does an autonomous studio write code with no human involvement?">¿Un estudio autónomo escribe el código sin intervención humana?</summary>
+          <p data-en="Execution does run without intervention: the agents read the repository, write, run the tests and try again. What does not run without intervention is the decision of what gets accepted. A change no human has looked at is not considered finished.">La ejecución sí corre sin intervención: los agentes leen el repositorio, escriben, ejecutan las pruebas y vuelven a intentarlo. Lo que no corre sin intervención es la decisión de qué se acepta. Un cambio que ningún humano ha mirado no se considera terminado.</p>
+        </details>
+        <details>
+          <summary data-en="How many agents do you need?">¿Cuántos agentes hacen falta?</summary>
+          <p data-en="Fewer than you would think. The limit is not the machine but review capacity: as soon as the queue of pending changes grows faster than it empties, adding agents makes things worse. In practice four in parallel per task is a sensible ceiling.">Menos de los que parece. El límite no lo pone la máquina sino la capacidad de revisar: en cuanto la cola de cambios pendientes crece más rápido de lo que se vacía, añadir agentes empeora las cosas. En la práctica cuatro en paralelo por tarea es un techo razonable.</p>
+        </details>
+        <details>
+          <summary data-en="Does this work for serious software or only prototypes?">¿Esto sirve para software serio o solo para prototipos?</summary>
+          <p data-en="It works for whatever you can verify. If a change can be tested automatically and reproducibly, the method holds up fine. Where it breaks down is anything that can only be validated by looking at it: there the human bottleneck is total and the fleet barely helps.">Sirve para lo que puedas verificar. Si un cambio se puede probar de forma automática y reproducible, el método aguanta perfectamente. Donde se rompe es en lo que solo se puede validar mirándolo: ahí el cuello de botella humano es total y la flota apenas ayuda.</p>
+        </details>
+        <details>
+          <summary data-en="What about quality?">¿Qué pasa con la calidad?</summary>
+          <p data-en="That is the right question, because the real risk of this model is not writing too little code but accepting bad code quickly. The answer is not trusting the agent more: it is making verification cheaper. Tests that actually fail when something breaks, adversarial review, and measurement before calling anything fixed.">Es la pregunta correcta, porque el riesgo real de este modelo no es escribir poco código sino aceptar código malo deprisa. La respuesta no es confiar más en el agente: es abaratar la verificación. Pruebas que de verdad fallan cuando algo se rompe, revisión adversarial y medición antes de dar nada por arreglado.</p>
+        </details>
+        <details>
+          <summary data-en="Is Fervon an autonomous software studio?">¿Fervon es un estudio de software autónomo?</summary>
+          <p data-en="Yes. Fervon is Jonathan Martín's autonomous software studio: one person directing fleets of AI agents that build local-first products and open-source tools. The entire catalogue came out of that method.">Sí. Fervon es el estudio de software autónomo de Jonathan Martín: una persona dirigiendo flotas de agentes de IA que construyen productos local-first y herramientas open source. El catálogo entero salió de ese método.</p>
+        </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-en="Keep reading">Sigue leyendo</span>
+          <h2 id="mas-h" data-en="More news">Más noticias</h2>
+        </div>
+        <div class="bcards reveal">
+          <a class="bcard" href="/blog/flotas-agentes-ia/">
+            <img src="/assets/blog/flotas-agentes-ia.jpg" width="1200" height="630" alt="Cómo se dirige una flota de agentes de IA" data-en="How to direct a fleet of AI agents" data-i18n-attr="alt" loading="lazy" decoding="async">
+            <span class="bc-t" data-en="How to direct a fleet of AI agents">Cómo se dirige una flota de agentes de IA</span>
+            <span class="bc-d" data-en="Isolation with git worktrees, how many agents in parallel, measuring before fixing, and an adversarial judge panel. The real method, limits included.">Aislamiento con git worktree, cuántos agentes en paralelo, medir antes de arreglar y un panel de jueces adversarial. El método real, con sus límites.</span>
+          </a>
+          <a class="bcard" href="/blog/tests-amanados-agentes/">
+            <img src="/assets/blog/tests-amanados-agentes.jpg" width="1200" height="630" alt="Cómo saber si un agente te está amañando los tests" data-en="How to tell when an agent is gaming your tests" data-i18n-attr="alt" loading="lazy" decoding="async">
+            <span class="bc-t" data-en="How to tell when an agent is gaming your tests">Cómo saber si un agente te está amañando los tests</span>
+            <span class="bc-d" data-en="Six ways an agent turns a test green without fixing anything, how to detect each one, and the one check that cannot be faked.">Seis formas en que un agente pone un test en verde sin arreglar nada, cómo se detecta cada una y la única prueba que no se puede falsear.</span>
+          </a>
+          <a class="bcard bcard-cta" href="/about/">
+            <span class="bc-t" data-en="Who writes this">Quién escribe esto</span>
+            <span class="bc-d" data-en="Fervon is Jonathan Martín's autonomous software studio. One person and a fleet of agents.">Fervon es el estudio de software autónomo de Jonathan Martín. Una persona y una flota de agentes.</span>
+          </a>
+        </div>
+      <div class="fv-share">
+        <button type="button" class="sharebtn" aria-label="Compartir esta página">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+          <span data-en="Share">Compartir</span>
+        </button>
+        <span class="sharemsg" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b data-en="This comes from actually working this way">Esto sale de trabajar así de verdad</b>
+      <span data-en="Open-source tools, self-serve, no email gate">Herramientas open source, self-serve y sin dejar el correo</span>
+    </div>
+    <a class="btn btn-fire" href="/#productos" data-en="See the products">Ver productos</a>
+  </div>
+
+  <footer><div class="wrap">
+    <div class="mark"><svg class="blogo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="fv-foot-g" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#E0480F"/><stop offset="0.5" stop-color="#FF6A00"/><stop offset="1" stop-color="#FFB02E"/></linearGradient></defs><path d="M18 94 L18 60 L6 60 L6 44 L18 44 L18 32 A24 24 0 0 1 42 8 L63.24 8 L54 24 L42 24 A8 8 0 0 0 34 32 L34 44 C52 43.2 74 42.2 92.62 41 L88 49 C70 52.2 52 55.6 34 60 L34 94 Z" fill="url(#fv-foot-g)"/></svg> fervon</div>
+    <div class="flinks">
+      <a href="/#productos" data-en="Products">Productos</a>
+      <a href="/blog/" data-en="News">Noticias</a>
+      <a href="/about/" data-en="About">Sobre</a>
+      <a href="/contacto/" data-en="Contact">Contacto</a>
+      <a href="https://github.com/Fervon">GitHub</a>
+    </div>
+    <div class="copy" data-en="Forged red-hot · © 2026 Fervon">Forjado al rojo vivo · © 2026 Fervon</div>
+  </div></footer>
+
+  <script src="/assets/shared.js?v=20260819a" defer></script>
+</body>
+</html>

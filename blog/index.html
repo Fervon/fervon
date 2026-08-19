@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Noticias · Fervon</title>
+  <meta name="description" content="Novedades de Trace, Veredicto, Lookspan, ClaudeScope, inferbench y launchpad, y artículos sobre cómo se construye software con flotas de agentes de IA.">
+  <link rel="canonical" href="https://fervon.dev/blog/"><link rel="alternate" hreflang="es" href="https://fervon.dev/blog/"><link rel="alternate" hreflang="en" href="https://fervon.dev/en/blog/"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/blog/">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="Fervon">
+  <meta name="theme-color" content="#0E0B0A">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Fervon">
+  <meta property="og:title" content="Noticias · Fervon">
+  <meta property="og:description" content="Novedades de los proyectos de Fervon y el método con el que se construyen: flotas de agentes de IA, medidas y revisadas.">
+  <meta property="og:url" content="https://fervon.dev/blog/">
+  <meta property="og:image" content="https://fervon.dev/assets/blog/noticias.jpg">
+  <meta name="twitter:image" content="https://fervon.dev/assets/blog/noticias.jpg">
+  <meta property="og:locale" content="es_ES">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Blog",
+      "@id": "https://fervon.dev/blog/#blog",
+      "name": "Noticias de Fervon",
+      "description": "Novedades de los proyectos de Fervon y artículos sobre cómo se construye software dirigiendo flotas de agentes de IA.",
+      "url": "https://fervon.dev/blog/",
+      "inLanguage": "es",
+      "publisher": {
+        "@id": "https://fervon.dev/#organization"
+      },
+      "author": {
+        "@id": "https://fervon.dev/#jonathan"
+      },
+      "blogPost": [
+        {
+          "@type": "BlogPosting",
+          "@id": "https://fervon.dev/blog/estudio-software-autonomo/#post",
+          "headline": "Qué es un estudio de software autónomo",
+          "description": "Un estudio de software autónomo es un taller donde la ejecución la hacen agentes de IA y el criterio lo pone una persona. Qué cambia de verdad y qué no.",
+          "url": "https://fervon.dev/blog/estudio-software-autonomo/",
+          "datePublished": "2026-08-19",
+          "image": "https://fervon.dev/assets/blog/estudio-software-autonomo.jpg",
+          "author": {
+            "@id": "https://fervon.dev/#jonathan"
+          },
+          "publisher": {
+            "@id": "https://fervon.dev/#organization"
+          }
+        },
+        {
+          "@type": "BlogPosting",
+          "@id": "https://fervon.dev/blog/flotas-agentes-ia/#post",
+          "headline": "Cómo se dirige una flota de agentes de IA",
+          "description": "Aislamiento con git worktree, cuántos agentes en paralelo, medir antes de arreglar y un panel de jueces adversarial. El método real, con sus límites.",
+          "url": "https://fervon.dev/blog/flotas-agentes-ia/",
+          "datePublished": "2026-08-19",
+          "image": "https://fervon.dev/assets/blog/flotas-agentes-ia.jpg",
+          "author": {
+            "@id": "https://fervon.dev/#jonathan"
+          },
+          "publisher": {
+            "@id": "https://fervon.dev/#organization"
+          }
+        },
+        {
+          "@type": "BlogPosting",
+          "@id": "https://fervon.dev/blog/tests-amanados-agentes/#post",
+          "headline": "Cómo saber si un agente te está amañando los tests",
+          "description": "Seis formas en que un agente pone un test en verde sin arreglar nada, cómo se detecta cada una y la única prueba que no se puede falsear.",
+          "url": "https://fervon.dev/blog/tests-amanados-agentes/",
+          "datePublished": "2026-08-19",
+          "image": "https://fervon.dev/assets/blog/tests-amanados-agentes.jpg",
+          "author": {
+            "@id": "https://fervon.dev/#jonathan"
+          },
+          "publisher": {
+            "@id": "https://fervon.dev/#organization"
+          }
+        },
+        {
+          "@type": "BlogPosting",
+          "@id": "https://fervon.dev/blog/coste-real-agentes-ia/#post",
+          "headline": "Cuánto cuesta de verdad un agente de IA",
+          "description": "La factura del proveedor no es el coste. Dónde se esconde el gasto de un agente, cómo medirlo en local y cuándo compensa mover el modelo a tu GPU.",
+          "url": "https://fervon.dev/blog/coste-real-agentes-ia/",
+          "datePublished": "2026-08-19",
+          "image": "https://fervon.dev/assets/blog/coste-real-agentes-ia.jpg",
+          "author": {
+            "@id": "https://fervon.dev/#jonathan"
+          },
+          "publisher": {
+            "@id": "https://fervon.dev/#organization"
+          }
+        }
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://fervon.dev/#jonathan",
+      "name": "Jonathan Martín",
+      "url": "https://fervon.dev/about/",
+      "worksFor": {
+        "@id": "https://fervon.dev/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://fervon.dev/blog/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Fervon",
+          "item": "https://fervon.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Noticias",
+          "item": "https://fervon.dev/blog/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://fervon.dev/blog/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿De qué va este blog?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "De dos cosas: las novedades de cada proyecto de Fervon según van saliendo, y artículos de fondo sobre cómo se construye software dirigiendo flotas de agentes de IA. Nada de relleno: solo se publica lo que se ha medido trabajando."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cada cuánto se publica?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Cuando hay algo medido que contar. Es un estudio de una persona, así que se prefiere un artículo útil al mes que cuatro de relleno a la semana."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Hay que suscribirse para leerlo?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. No hay muro, ni registro, ni ventana pidiendo el correo. Todo el contenido está abierto, igual que la mayoría del código."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Quién escribe los artículos?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Jonathan Martín, fundador y única persona de Fervon. Los artículos cuentan su método real de trabajo, con los límites y las cosas que salieron mal incluidas."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin="">
+  <link rel="stylesheet" href="/index.css?v=20260819a">
+  <link rel="stylesheet" href="/assets/blog.css?v=20260819a">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260819a">
+</head>
+<body class="blog-page blog-index">
+  <a class="skip" href="#top">Saltar al contenido</a>
+
+  <nav><div class="bar">
+    <a class="brand" href="/"><svg class="blogo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="fv-nav-g" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#E0480F"></stop><stop offset="0.5" stop-color="#FF6A00"></stop><stop offset="1" stop-color="#FFB02E"></stop></linearGradient></defs><path d="M18 94 L18 60 L6 60 L6 44 L18 44 L18 32 A24 24 0 0 1 42 8 L63.24 8 L54 24 L42 24 A8 8 0 0 0 34 32 L34 44 C52 43.2 74 42.2 92.62 41 L88 49 C70 52.2 52 55.6 34 60 L34 94 Z" fill="url(#fv-nav-g)"></path></svg><span class="bword">fervon</span></a>
+    <div class="links">
+      <div class="hasmega">
+        <a class="navbtn" href="/#productos" aria-haspopup="true" aria-expanded="false" aria-controls="mega-productos">Productos <span class="s-wo-hrmDi">▾</span></a>
+        <div class="mega" id="mega-productos">
+          <div class="megagroup full">
+            <div class="megalabel">De pago</div>
+            <a class="megaitem" href="/trace/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-trace" viewBox="0 0 120 120" aria-hidden="true"><path class="hd" d="M15.5 76 L15.5 88 L7.07 88 L14 76 Z"></path><path class="ln" pathLength="74" d="M14 82 C28 82 32 60 48 60 C62 60 60 74 72 74 C83 74 90 59.59 99 44"></path><circle class="ring" cx="99" cy="44" r="11" opacity="0.5"></circle><circle class="dot p" cx="99" cy="44" r="6"></circle></svg></span><span><span class="mi-n">Trace <b>DE PAGO</b></span><span class="mi-d">Tu memoria personal, en tu máquina. Sin grabar la pantalla.</span></span></a>
+          </div>
+          <div class="megagroup">
+            <div class="megalabel">IA local &amp; agentes</div>
+            <a class="megaitem" href="/inferbench/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-inf" viewBox="0 0 40 40" aria-hidden="true"><rect x="13" y="13" width="14" height="14" rx="2.5"></rect><circle class="dot" cx="20" cy="20" r="2.4"></circle><path d="M16 13V8 M24 13V8 M16 32v-5 M24 32v-5 M13 16H8 M13 24H8 M32 16h-5 M32 24h-5"></path><path class="sp" d="M30 11 l4 -3 M33 30 l4 2"></path></svg></span><span><span class="mi-n">inferbench</span><span class="mi-d">Benchmark de LLMs en tu GPU.</span></span></a>
+            <a class="megaitem" href="/lookspan/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-look" viewBox="0 0 40 40" aria-hidden="true"><rect class="bar" x="9" y="11" width="20" height="3.4" rx="1.7"></rect><rect class="bar" x="9" y="18.3" width="13" height="3.4" rx="1.7"></rect><rect class="bar" x="9" y="25.6" width="25" height="3.4" rx="1.7"></rect></svg></span><span><span class="mi-n">Lookspan</span><span class="mi-d">Observabilidad de agentes de IA.</span></span></a>
+            <a class="megaitem" href="/claudescope/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-scope" viewBox="0 0 40 40" aria-hidden="true"><circle cx="18" cy="18" r="9"></circle><path d="M25 25 L32 32"></path><line class="scan" x1="13.5" y1="18" x2="22.5" y2="18"></line></svg></span><span><span class="mi-n">ClaudeScope</span><span class="mi-d">Busca tus sesiones de Claude Code.</span></span></a>
+          </div>
+          <div class="megagroup">
+            <div class="megalabel">Utilidades</div>
+            <a class="megaitem" href="/launchpad/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-launch" viewBox="0 0 40 40" aria-hidden="true"><g class="rk"><path d="M20 7 C24 11 25 18 20 25 C15 18 16 11 20 7 Z"></path><circle class="dot" cx="20" cy="15" r="1.8"></circle><path d="M16 22 L13 28 M24 22 L27 28"></path></g></svg></span><span><span class="mi-n">launchpad</span><span class="mi-d">Levanta todos tus proyectos.</span></span></a>
+            <a class="megaitem" href="/pregon/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-pregon" viewBox="0 0 40 40" aria-hidden="true"><circle class="dot" cx="20" cy="20" r="3"></circle><circle class="ring" cx="20" cy="20" r="7"></circle><circle class="ring ring2" cx="20" cy="20" r="7"></circle></svg></span><span><span class="mi-n">Pregón</span><span class="mi-d">Publica en 8+ canales.</span></span></a>
+          </div>
+        </div>
+      </div>
+      <a href="/blog/" aria-current="page">Noticias</a>
+      <a href="/about/">Sobre Fervon</a>
+      <nav class="langseg" id="lang" aria-label="Idioma"><span class="langopt on" aria-current="true">ES</span><a class="langopt" href="/en/blog/" hreflang="en" lang="en">EN</a></nav>
+      <a class="cta" href="/contacto/">Hablemos</a>
+    </div>
+  </div></nav>
+
+  <main class="wrap">
+
+    <header class="chero" id="top">
+      <h1>Noticias. <span class="grad">Qué sale del taller.</span></h1>
+      <p>Las novedades de cada proyecto según van saliendo, y el método con el que se construyen. Se publica lo que se ha medido trabajando, no lo que suena bien.</p>
+      <div class="cta-row">
+        <a class="btn btn-fire" href="#novedades">Ver las novedades</a>
+        <a class="btn btn-ghost" href="/about/">Sobre Fervon</a>
+      </div>
+    </header>
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h">En 30 segundos</h2>
+          <ul>
+        <li>Este es el blog de <b>Fervon</b>, el estudio de software autónomo de Jonathan Martín.</li>
+        <li>Dos cosas: las <b>novedades de cada proyecto</b> según van saliendo, y artículos de fondo sobre <b>cómo se dirige una flota de agentes de IA</b>.</li>
+        <li>Sin muro, sin registro y <b>sin pedir el correo</b>. Todo abierto, igual que la mayoría del código.</li>
+        <li>Se publica <b>cuando hay algo medido</b> que contar, no por calendario.</li>
+          </ul>
+      <div class="cta-row s-tldrcta">
+        <a class="btn btn-fire" href="#novedades">Ver las novedades</a>
+      </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="novedades">
+      <h2>Novedades de los proyectos</h2>
+      <p class="sub">Lo que ha ido saliendo del catálogo, con la versión y lo que cambia de verdad.</p>
+      <ol class="novedades reveal">
+        <li>
+          <div class="nv-h">
+            <time datetime="2026-08-19">19 de agosto de 2026</time>
+            <a class="nv-p" href="/lookspan/">Lookspan</a>
+            <span class="nv-v">v0.5.3</span>
+          </div>
+          <h3>Seguridad endurecida y Postgres externo</h3>
+          <p>Lookspan puede apoyarse ahora en un <b>Postgres externo</b> además del almacenamiento local, y trae un endurecimiento de seguridad en el servidor de ingesta. Sigue siendo local-first: el dashboard vive en <code>127.0.0.1:3100</code> con <code>npx lookspan</code> y ningún span sale de tu máquina si no se lo pides.</p>
+        </li>
+        <li>
+          <div class="nv-h">
+            <time datetime="2026-08-12">12 de agosto de 2026</time>
+            <a class="nv-p" href="/veredicto/">Veredicto</a>
+            <span class="nv-v">v0.4.0</span>
+          </div>
+          <h3>Veredicto pasa a ser de pago, con la licencia verificada sin salir del runner</h3>
+          <p>Un producto, $19 por repositorio, self-serve y sin escalones. La parte interesante es cómo se comprueba la licencia: una firma Ed25519 validada <b>en local</b> contra una clave pública incrustada en el código. Sin servidor de licencias, sin llamada a casa y sin telemetría — en un runner sin salida a internet sigue funcionando. Una herramienta que lee tus diffs no tiene por qué informar sobre ellos, y eso vale también para su propio cobro. El control es <b>fail-closed</b> y corre antes de leer el diff: una ejecución sin licencia falla y dice por qué, nunca se parece a «Veredicto pasó y tu PR está limpio». Todo lo anterior a la 0.3.3 sigue siendo MIT, de forma irrevocable.</p>
+        </li>
+        <li>
+          <div class="nv-h">
+            <time datetime="2026-08-12">12 de agosto de 2026</time>
+            <a class="nv-p" href="/launchpad/">launchpad</a>
+            <span class="nv-v">v1.3.0</span>
+          </div>
+          <h3>Abrir un proyecto en tu editor desde el panel — y un agujero de seguridad cerrado</h3>
+          <p>El cajón de detalle ya abre cualquier proyecto en <b>tu editor, tu explorador de archivos o una terminal</b>: el <code>cd</code> que el README prometía ahorrarte. El endpoint existía pero ningún botón lo llamaba, y solo sabía de VS Code; ahora el editor sale de <code>settings.editorCommand</code>, así que <code>subl</code>, <code>webstorm</code> o <code>nvim</code> valen igual. De paso se cerró algo más serio: la ruta antigua usaba <code>execFile(cmd, [path], { shell: true })</code>, que concatena los argumentos en una cadena de shell <b>sin escaparlos</b> — el nombre de una carpeta de proyecto podía ejecutar comandos.</p>
+        </li>
+        <li>
+          <div class="nv-h">
+            <time datetime="2026-08-12">12 de agosto de 2026</time>
+            <a class="nv-p" href="/claudescope/">ClaudeScope</a>
+            <span class="nv-v">v0.5</span>
+          </div>
+          <h3>Saltar al mensaje, resumen semanal e informe HTML que se abre sin conexión</h3>
+          <p>Abrir una sesión desde un resultado de búsqueda ahora <b>baja hasta el mensaje</b> que coincidió y lo resalta, que era la mitad que le faltaba al buscar→leer. Llega también <code>--weekly</code>, un «Scope Report» en texto plano —esta semana contra la anterior, racha, arquetipo, proyecto principal, percentil— pensado para una tarea programada, y la exportación a un <b>.html autocontenido</b> que se abre sin conexión. Y modo equipo local: <code>--dump-sessions</code> vuelca las sesiones y <code>--merge</code> junta varios volcados en una analítica común. Cero infraestructura y nada sube a ningún sitio.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section class="sec" id="articulos">
+      <h2>A fondo</h2>
+      <p class="sub">Cuatro artículos largos que se leen en cualquier orden, aunque el primero es el que sostiene los otros tres.</p>
+      <div class="bcards big reveal">
+        <a class="bcard" href="/blog/estudio-software-autonomo/">
+          <img src="/assets/blog/estudio-software-autonomo.jpg" width="1200" height="630" alt="Qué es un estudio de software autónomo — Fervon" loading="lazy" decoding="async">
+          <span class="bc-m"><time datetime="2026-08-19">19 de agosto de 2026</time> · <span>7 min</span></span>
+          <span class="bc-t">Qué es un estudio de software autónomo</span>
+          <span class="bc-d">Un estudio de software autónomo es un taller donde la ejecución la hacen agentes de IA y el criterio lo pone una persona. Qué cambia de verdad y qué no.</span>
+        </a>
+        <a class="bcard" href="/blog/flotas-agentes-ia/">
+          <img src="/assets/blog/flotas-agentes-ia.jpg" width="1200" height="630" alt="Cómo se dirige una flota de agentes de IA — Fervon" loading="lazy" decoding="async">
+          <span class="bc-m"><time datetime="2026-08-19">19 de agosto de 2026</time> · <span>8 min</span></span>
+          <span class="bc-t">Cómo se dirige una flota de agentes de IA</span>
+          <span class="bc-d">Aislamiento con git worktree, cuántos agentes en paralelo, medir antes de arreglar y un panel de jueces adversarial. El método real, con sus límites.</span>
+        </a>
+        <a class="bcard" href="/blog/tests-amanados-agentes/">
+          <img src="/assets/blog/tests-amanados-agentes.jpg" width="1200" height="630" alt="Cómo saber si un agente te está amañando los tests — Fervon" loading="lazy" decoding="async">
+          <span class="bc-m"><time datetime="2026-08-19">19 de agosto de 2026</time> · <span>7 min</span></span>
+          <span class="bc-t">Cómo saber si un agente te está amañando los tests</span>
+          <span class="bc-d">Seis formas en que un agente pone un test en verde sin arreglar nada, cómo se detecta cada una y la única prueba que no se puede falsear.</span>
+        </a>
+        <a class="bcard" href="/blog/coste-real-agentes-ia/">
+          <img src="/assets/blog/coste-real-agentes-ia.jpg" width="1200" height="630" alt="Cuánto cuesta de verdad un agente de IA — Fervon" loading="lazy" decoding="async">
+          <span class="bc-m"><time datetime="2026-08-19">19 de agosto de 2026</time> · <span>7 min</span></span>
+          <span class="bc-t">Cuánto cuesta de verdad un agente de IA</span>
+          <span class="bc-d">La factura del proveedor no es el coste. Dónde se esconde el gasto de un agente, cómo medirlo en local y cuándo compensa mover el modelo a tu GPU.</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- seo:table -->
+    <section class="sec seosec" id="indice" aria-labelledby="indice-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">De un vistazo</span>
+          <h2 id="indice-h">Qué artículo te interesa</h2>
+        </div>
+        <div class="tablewrap reveal">
+          <table class="seotable">
+            <caption class="vh">Artículos del blog de Fervon con su tema y a quién le sirve cada uno.</caption>
+            <thead><tr>
+              <th>Artículo</th>
+              <th>De qué va</th>
+              <th>Para quién</th>
+              <th>Lectura</th>
+            </tr></thead>
+            <tbody>
+          <tr><th><a href="/blog/estudio-software-autonomo/">Qué es un estudio de software autónomo</a></th><td>El reparto de trabajo entre criterio humano y flota</td><td>Quien quiere entender el modelo</td><td>7 min</td></tr>
+          <tr><th><a href="/blog/flotas-agentes-ia/">Cómo se dirige una flota de agentes de IA</a></th><td>Aislamiento, cuántos agentes, medir y revisar</td><td>Quien ya lanza agentes y se pisan</td><td>8 min</td></tr>
+          <tr><th><a href="/blog/tests-amanados-agentes/">Cómo saber si un agente te está amañando los tests</a></th><td>Seis formas de poner un test en verde sin arreglar</td><td>Quien revisa PRs de agentes</td><td>7 min</td></tr>
+          <tr><th><a href="/blog/coste-real-agentes-ia/">Cuánto cuesta de verdad un agente de IA</a></th><td>Dónde se esconde el gasto y cómo medirlo</td><td>Quien ve la factura y no sabe por qué</td><td>7 min</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">FAQ</span>
+          <h2 id="faq-h">Preguntas frecuentes</h2>
+        </div>
+        <div class="faq reveal">
+        <details>
+          <summary>¿De qué va este blog?</summary>
+          <p>De dos cosas: las novedades de cada proyecto de Fervon según van saliendo, y artículos de fondo sobre cómo se construye software dirigiendo flotas de agentes de IA. Nada de relleno: solo se publica lo que se ha medido trabajando.</p>
+        </details>
+        <details>
+          <summary>¿Cada cuánto se publica?</summary>
+          <p>Cuando hay algo medido que contar. Es un estudio de una persona, así que se prefiere un artículo útil al mes que cuatro de relleno a la semana.</p>
+        </details>
+        <details>
+          <summary>¿Hay que suscribirse para leerlo?</summary>
+          <p>No. No hay muro, ni registro, ni ventana pidiendo el correo. Todo el contenido está abierto, igual que la mayoría del código.</p>
+        </details>
+        <details>
+          <summary>¿Quién escribe los artículos?</summary>
+          <p>Jonathan Martín, fundador y única persona de Fervon. Los artículos cuentan su método real de trabajo, con los límites y las cosas que salieron mal incluidas.</p>
+        </details>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="hablemos">
+      <div class="services">
+        <h3>Lo que sale de aquí</h3>
+        <p class="intro">Los artículos cuentan el método; el catálogo es la prueba. Dos productos de pago y seis herramientas open source, todas construidas así.</p>
+        <div class="cta-row sact">
+          <a class="btn btn-fire" href="/#productos">Ver los productos</a>
+          <a class="btn btn-ghost" href="/contacto/">Hablemos</a>
+        </div>
+      </div>
+      <div class="fv-share">
+        <button type="button" class="sharebtn" aria-label="Compartir esta página">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
+          <span>Compartir</span>
+        </button>
+        <span class="sharemsg" role="status" aria-live="polite"></span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>Noticias de Fervon</b>
+      <span>Cómo se construye software con flotas de agentes</span>
+    </div>
+    <a class="btn btn-fire" href="#articulos">Leer</a>
+  </div>
+
+  <footer><div class="wrap">
+    <div class="mark"><svg class="blogo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="fv-foot-g" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#E0480F"></stop><stop offset="0.5" stop-color="#FF6A00"></stop><stop offset="1" stop-color="#FFB02E"></stop></linearGradient></defs><path d="M18 94 L18 60 L6 60 L6 44 L18 44 L18 32 A24 24 0 0 1 42 8 L63.24 8 L54 24 L42 24 A8 8 0 0 0 34 32 L34 44 C52 43.2 74 42.2 92.62 41 L88 49 C70 52.2 52 55.6 34 60 L34 94 Z" fill="url(#fv-foot-g)"></path></svg> fervon</div>
+    <div class="flinks">
+      <a href="/#productos">Productos</a>
+      <a href="/blog/">Noticias</a>
+      <a href="/about/">Sobre</a>
+      <a href="/contacto/">Contacto</a>
+      <a href="https://github.com/Fervon">GitHub</a>
+    </div>
+    <div class="copy">Forjado al rojo vivo · © 2026 Fervon</div>
+  </div></footer>
+
+  <script src="/assets/shared.js?v=20260819a" defer=""></script>
+
+
+</body></html>

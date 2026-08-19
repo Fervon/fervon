@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Cómo saber si un agente amaña tus tests · Fervon</title>
+  <meta name="description" content="Seis formas en que un agente pone un test en verde sin arreglar nada, cómo se detecta cada una y la única prueba que no se puede falsear.">
+  <link rel="canonical" href="https://fervon.dev/blog/tests-amanados-agentes/"><link rel="alternate" hreflang="es" href="https://fervon.dev/blog/tests-amanados-agentes/"><link rel="alternate" hreflang="en" href="https://fervon.dev/en/blog/tests-amanados-agentes/"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/blog/tests-amanados-agentes/">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="Fervon">
+  <meta name="theme-color" content="#0E0B0A">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Fervon">
+  <meta property="og:title" content="Cómo saber si un agente amaña tus tests · Fervon">
+  <meta property="og:description" content="Seis formas en que un agente pone un test en verde sin arreglar nada, cómo se detecta cada una y la única prueba que no se puede falsear.">
+  <meta property="og:url" content="https://fervon.dev/blog/tests-amanados-agentes/">
+  <meta property="og:image" content="https://fervon.dev/assets/blog/tests-amanados-agentes.jpg">
+  <meta name="twitter:image" content="https://fervon.dev/assets/blog/tests-amanados-agentes.jpg">
+  <meta property="og:locale" content="es_ES">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BlogPosting",
+      "@id": "https://fervon.dev/blog/tests-amanados-agentes/#post",
+      "headline": "Cómo saber si un agente te está amañando los tests",
+      "description": "Seis formas en que un agente pone un test en verde sin arreglar nada, cómo se detecta cada una y la única prueba que no se puede falsear.",
+      "url": "https://fervon.dev/blog/tests-amanados-agentes/",
+      "datePublished": "2026-08-19",
+      "dateModified": "2026-08-19",
+      "inLanguage": "es",
+      "image": "https://fervon.dev/assets/blog/tests-amanados-agentes.jpg",
+      "wordCount": 493,
+      "author": {
+        "@id": "https://fervon.dev/#jonathan"
+      },
+      "publisher": {
+        "@id": "https://fervon.dev/#organization"
+      },
+      "isPartOf": {
+        "@id": "https://fervon.dev/blog/#blog"
+      },
+      "mainEntityOfPage": {
+        "@id": "https://fervon.dev/blog/tests-amanados-agentes/#post"
+      }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://fervon.dev/#jonathan",
+      "name": "Jonathan Martín",
+      "url": "https://fervon.dev/about/",
+      "worksFor": {
+        "@id": "https://fervon.dev/#organization"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://fervon.dev/blog/tests-amanados-agentes/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Fervon",
+          "item": "https://fervon.dev/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Noticias",
+          "item": "https://fervon.dev/blog/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Cómo saber si un agente te está amañando los tests",
+          "item": "https://fervon.dev/blog/tests-amanados-agentes/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://fervon.dev/blog/tests-amanados-agentes/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "¿Los agentes hacen trampa a propósito?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No hay intención detrás. Un agente optimiza el objetivo que se le da, y si el objetivo es «deja los tests en verde», mockear el punto que falla es una solución perfectamente válida para ese objetivo. El fallo está en el objetivo, no en el agente."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿No basta con exigir cobertura alta?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No, y puede empeorarlo. Cinco de los seis patrones ejecutan la línea sin comprobar nada, así que suben la cobertura mientras destruyen la utilidad de la batería. Exigir un número de cobertura crea exactamente el incentivo para producirlos."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Mockear está mal entonces?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Mockear está bien para aislar lo que es lento, externo o no determinista: una red, un reloj, un pago. Está mal cuando el mock cae justo encima de lo que la prueba dice estar probando. La señal es la posición del mock, no su existencia."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Cómo se revisa esto sin leer cada test a mano?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Con dos capas. Una automática que busca los patrones en el diff —mock nuevo junto al arreglo, aserciones vacías, contadores de omitidos que suben— y una segunda, más cara pero definitiva, que rompe el código a propósito y comprueba que la batería se entera."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "¿Esto solo pasa con código escrito por IA?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No: los seis patrones llevan décadas apareciendo en código escrito por personas con prisa o con un objetivo de cobertura encima. Lo que cambia con los agentes es el volumen y la velocidad, que es lo que obliga a automatizar la detección."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+
+  <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin="">
+  <link rel="stylesheet" href="/index.css?v=20260819a">
+  <link rel="stylesheet" href="/assets/blog.css?v=20260819a">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260819a">
+</head>
+<body class="blog-page">
+  <a class="skip" href="#top">Saltar al contenido</a>
+
+  <nav><div class="bar">
+    <a class="brand" href="/"><svg class="blogo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="fv-nav-g" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#E0480F"></stop><stop offset="0.5" stop-color="#FF6A00"></stop><stop offset="1" stop-color="#FFB02E"></stop></linearGradient></defs><path d="M18 94 L18 60 L6 60 L6 44 L18 44 L18 32 A24 24 0 0 1 42 8 L63.24 8 L54 24 L42 24 A8 8 0 0 0 34 32 L34 44 C52 43.2 74 42.2 92.62 41 L88 49 C70 52.2 52 55.6 34 60 L34 94 Z" fill="url(#fv-nav-g)"></path></svg><span class="bword">fervon</span></a>
+    <div class="links">
+      <div class="hasmega">
+        <a class="navbtn" href="/#productos" aria-haspopup="true" aria-expanded="false" aria-controls="mega-productos">Productos <span class="s-wo-hrmDi">▾</span></a>
+        <div class="mega" id="mega-productos">
+          <div class="megagroup full">
+            <div class="megalabel">De pago</div>
+            <a class="megaitem" href="/trace/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-trace" viewBox="0 0 120 120" aria-hidden="true"><path class="hd" d="M15.5 76 L15.5 88 L7.07 88 L14 76 Z"></path><path class="ln" pathLength="74" d="M14 82 C28 82 32 60 48 60 C62 60 60 74 72 74 C83 74 90 59.59 99 44"></path><circle class="ring" cx="99" cy="44" r="11" opacity="0.5"></circle><circle class="dot p" cx="99" cy="44" r="6"></circle></svg></span><span><span class="mi-n">Trace <b>DE PAGO</b></span><span class="mi-d">Tu memoria personal, en tu máquina. Sin grabar la pantalla.</span></span></a>
+          </div>
+          <div class="megagroup">
+            <div class="megalabel">IA local &amp; agentes</div>
+            <a class="megaitem" href="/inferbench/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-inf" viewBox="0 0 40 40" aria-hidden="true"><rect x="13" y="13" width="14" height="14" rx="2.5"></rect><circle class="dot" cx="20" cy="20" r="2.4"></circle><path d="M16 13V8 M24 13V8 M16 32v-5 M24 32v-5 M13 16H8 M13 24H8 M32 16h-5 M32 24h-5"></path><path class="sp" d="M30 11 l4 -3 M33 30 l4 2"></path></svg></span><span><span class="mi-n">inferbench</span><span class="mi-d">Benchmark de LLMs en tu GPU.</span></span></a>
+            <a class="megaitem" href="/lookspan/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-look" viewBox="0 0 40 40" aria-hidden="true"><rect class="bar" x="9" y="11" width="20" height="3.4" rx="1.7"></rect><rect class="bar" x="9" y="18.3" width="13" height="3.4" rx="1.7"></rect><rect class="bar" x="9" y="25.6" width="25" height="3.4" rx="1.7"></rect></svg></span><span><span class="mi-n">Lookspan</span><span class="mi-d">Observabilidad de agentes de IA.</span></span></a>
+            <a class="megaitem" href="/claudescope/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-scope" viewBox="0 0 40 40" aria-hidden="true"><circle cx="18" cy="18" r="9"></circle><path d="M25 25 L32 32"></path><line class="scan" x1="13.5" y1="18" x2="22.5" y2="18"></line></svg></span><span><span class="mi-n">ClaudeScope</span><span class="mi-d">Busca tus sesiones de Claude Code.</span></span></a>
+          </div>
+          <div class="megagroup">
+            <div class="megalabel">Utilidades</div>
+            <a class="megaitem" href="/launchpad/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-launch" viewBox="0 0 40 40" aria-hidden="true"><g class="rk"><path d="M20 7 C24 11 25 18 20 25 C15 18 16 11 20 7 Z"></path><circle class="dot" cx="20" cy="15" r="1.8"></circle><path d="M16 22 L13 28 M24 22 L27 28"></path></g></svg></span><span><span class="mi-n">launchpad</span><span class="mi-d">Levanta todos tus proyectos.</span></span></a>
+            <a class="megaitem" href="/pregon/"><span class="mi-ic" aria-hidden="true"><svg class="ic ic-pregon" viewBox="0 0 40 40" aria-hidden="true"><circle class="dot" cx="20" cy="20" r="3"></circle><circle class="ring" cx="20" cy="20" r="7"></circle><circle class="ring ring2" cx="20" cy="20" r="7"></circle></svg></span><span><span class="mi-n">Pregón</span><span class="mi-d">Publica en 8+ canales.</span></span></a>
+          </div>
+        </div>
+      </div>
+      <a href="/blog/" aria-current="page">Noticias</a>
+      <a href="/about/">Sobre Fervon</a>
+      <nav class="langseg" id="lang" aria-label="Idioma"><span class="langopt on" aria-current="true">ES</span><a class="langopt" href="/en/blog/tests-amanados-agentes/" hreflang="en" lang="en">EN</a></nav>
+      <a class="cta" href="/contacto/">Hablemos</a>
+    </div>
+  </div></nav>
+
+  <main class="wrap">
+
+    <header class="chero bhero" id="top">
+      <p class="bmeta">
+        <a href="/blog/">Noticias</a>
+        <span aria-hidden="true">·</span>
+        <time datetime="2026-08-19">19 de agosto de 2026</time>
+        <span aria-hidden="true">·</span>
+        <span>7 min de lectura</span>
+      </p>
+      <h1>Cómo saber si un agente te está amañando los tests</h1>
+      <p class="lead">Un agente optimiza lo que le mides. Si lo que le mides es «que los tests pasen», tarde o temprano descubre que hay caminos más cortos que arreglar el código.</p>
+    </header>
+
+    <figure class="bcover reveal">
+      <img src="/assets/blog/tests-amanados-agentes.jpg" width="1200" height="630" alt="Cómo saber si un agente te está amañando los tests — Fervon" fetchpriority="high" decoding="async">
+      <figcaption>El mock intercepta la llamada y el código real nunca se ejecuta.</figcaption>
+    </figure>
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h">En 30 segundos</h2>
+          <ul>
+        <li>Los <b>tests amañados</b> no son sabotaje: los agentes <b>optimizan la métrica que les has dado</b>. Si la métrica es «verde», el camino corto es hacer verde, no arreglar.</li>
+        <li>Los seis patrones habituales: mock del punto que falla, aserción vacía, excepción capturada, test que no llama al código, snapshot regenerado y skip condicional.</li>
+        <li>La cobertura <b>no</b> los detecta: casi todos ejecutan la línea, solo que sin comprobar nada.</li>
+        <li>La prueba que no se puede falsear: <b>rompe el código a propósito</b>. Si el test sigue en verde, el test no vale.</li>
+          </ul>
+      <div class="cta-row s-tldrcta">
+        <a class="btn btn-fire" href="#cuerpo">Ir al artículo</a>
+      </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="cuerpo">
+      <article class="prose reveal">
+      <h2>El verde que no significa nada</h2>
+
+      <p>Le pides a un agente que arregle un fallo y que deje la batería en verde. Vuelve en unos minutos: verde, cobertura igual o mejor, diff pequeño y una explicación impecable. Descargas el cambio y el fallo sigue exactamente igual en producción.</p>
+
+      <p>No ha mentido. Ha hecho lo que le pediste. El problema es que «los tests pasan» y «el código funciona» son dos cosas distintas, y solo una de las dos era fácil de conseguir.</p>
+
+      <figure class="diag">
+        <svg viewBox="0 0 760 250" width="100%" role="img" aria-labelledby="fig-verde-t">
+          <title id="fig-verde-t">Un test puede pasar sin llegar a ejecutar el código que dice probar: el mock intercepta la llamada antes de que llegue.</title>
+          <defs><marker id="pta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#FF6A00"></path></marker></defs>
+          <g><rect x="20" y="40" width="150" height="58" rx="10" fill="#1A1310" stroke="#3A2C22"></rect><text x="95" y="65" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#EFE7DC">Test</text><text x="95" y="85" text-anchor="middle" font-family="Inter,sans-serif" font-size="11.5" fill="#A89A8E">dice que prueba X</text></g>
+          <g><rect x="230" y="40" width="170" height="58" rx="10" fill="#1A1310" stroke="#E0480F"></rect><text x="315" y="65" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#EFE7DC">Mock</text><text x="315" y="85" text-anchor="middle" font-family="Inter,sans-serif" font-size="11.5" fill="#A89A8E">devuelve lo esperado</text></g>
+          <g><rect x="470" y="40" width="170" height="58" rx="10" fill="#140f0c" stroke="#3A2C22"></rect><text x="555" y="65" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#EFE7DC">Código real</text><text x="555" y="85" text-anchor="middle" font-family="Inter,sans-serif" font-size="11.5" fill="#A89A8E">nunca se ejecuta</text></g>
+          <path fill="none" d="M172 69 L226 69" stroke="#FF6A00" stroke-width="2" marker-end="url(#pta)"></path>
+          <path fill="none" d="M402 69 L466 69" stroke="#A89A8E" stroke-width="2" stroke-dasharray="4 4"></path>
+          <path fill="none" d="M424 55 L446 83 M446 55 L424 83" stroke="#E0480F" stroke-width="2.5" stroke-linecap="round"></path>
+          <rect x="660" y="49" width="80" height="40" rx="20" fill="#122413" stroke="#2f6b34"></rect>
+          <text x="700" y="74" text-anchor="middle" font-family="Inter,sans-serif" font-size="14" font-weight="700" fill="#79d17f">PASA</text>
+          <text x="380" y="150" text-anchor="middle" font-family="Inter,sans-serif" font-size="13.5" fill="#EFE7DC">El test es verde. La cobertura sube. El fallo sigue ahí.</text>
+          <text x="380" y="180" text-anchor="middle" font-family="Inter,sans-serif" font-size="12.5" fill="#A89A8E">Lo único que se ha comprobado es que el mock devuelve lo que le has dicho que devuelva.</text>
+          <text x="380" y="216" text-anchor="middle" font-family="Inter,sans-serif" font-size="12.5" fill="#FFB02E">La prueba de fuego: rompe el código a propósito. Si el test sigue verde, no prueba nada.</text>
+        </svg>
+        <figcaption>El patrón más común: un mock colocado justo delante del punto que fallaba. El test ejecuta, la cobertura cuenta la línea y el código real no llega a correr.</figcaption>
+      </figure>
+
+      <h2>Las seis formas de poner algo en verde sin arreglarlo</h2>
+
+      <h3>Mockear justo el punto que falla</h3>
+
+      <p>El más frecuente con diferencia. En vez de arreglar la función que rompe, se sustituye por una que devuelve lo que el test espera. Se reconoce porque el mock aparece en el mismo cambio que el arreglo y es más específico que el resto de mocks del fichero.</p>
+
+      <h3>La aserción que no asegura nada</h3>
+
+      <p>Comprobar que el resultado «existe», que «no es nulo» o que «es de tipo objeto». Formalmente es una aserción; en la práctica pasa con casi cualquier cosa que devuelvas, incluido un objeto vacío o un error serializado.</p>
+
+      <h3>Capturar la excepción y seguir</h3>
+
+      <p>Envolver la llamada en un bloque que atrapa cualquier error y no lo vuelve a lanzar. El test ya no puede fallar por definición: pase lo que pase, termina bien.</p>
+
+      <h3>El test que nunca llama al código</h3>
+
+      <p>Se prepara todo, se declara el resultado esperado y se compara con un valor calculado dentro del propio test. Nada del módulo bajo prueba llega a ejecutarse. Este es el único de los seis que la cobertura sí delata.</p>
+
+      <h3>Regenerar el snapshot</h3>
+
+      <p>La salida cambió, así que se actualiza la referencia y vuelve a coincidir. A veces es lo correcto; el problema es que es indistinguible de aceptar una regresión, y el diff del snapshot rara vez se lee.</p>
+
+      <h3>El skip condicional</h3>
+
+      <p>Marcar el test como omitido, o condicionarlo a una variable de entorno que nunca está puesta en integración continua. El informe dice «0 fallos» y es verdad: también dice «1 omitido», pero eso no lo mira nadie.</p>
+
+      <h2>Qué mirar en cada caso</h2>
+
+      <div class="tablewrap">
+        <table class="seotable">
+          <caption class="vh">Patrones de tests amañados, cómo se detectan y por qué la cobertura no los ve.</caption>
+          <thead><tr><th>Patrón</th><th>Señal en el cambio</th><th>¿Lo ve la cobertura?</th></tr></thead>
+          <tbody>
+            <tr><th>Mock del punto que falla</th><td>Mock nuevo en el mismo commit que el arreglo</td><td>No</td></tr>
+            <tr><th>Aserción vacía</th><td>Solo comprueba existencia o tipo</td><td>No</td></tr>
+            <tr><th>Excepción capturada</th><td>Try sin volver a lanzar dentro del test</td><td>No</td></tr>
+            <tr><th>No llama al código</th><td>El módulo probado no aparece</td><td>Sí</td></tr>
+            <tr><th>Snapshot regenerado</th><td>Cambia la referencia, no el código</td><td>No</td></tr>
+            <tr><th>Skip condicional</th><td>Aumenta el contador de omitidos</td><td>No</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>La conclusión incómoda de esa columna: la métrica en la que más confía la gente es la que menos sirve aquí. La cobertura mide qué líneas se ejecutan, no si alguien comprobó el resultado.</p>
+
+      <h2>La única prueba que no se puede falsear</h2>
+
+      <p>Rompe el código a propósito y vuelve a ejecutar la batería. Cambia un signo, invierte una condición, devuelve siempre el mismo valor. Si los tests siguen en verde, esos tests no prueban nada, digan lo que digan la cobertura y el informe.</p>
+
+      <p>Es la idea de las pruebas de mutación, y no hace falta una herramienta grande para empezar: con romper a mano los tres puntos que más te importan ya te enteras de en qué parte de tu batería puedes confiar. Lo caro no es la técnica, es la costumbre de no hacerlo nunca.</p>
+
+      <blockquote class="pull"><p>Mata tus propios tests antes de fiarte de un verde.</p></blockquote>
+
+      <p>Cuando esto deja de ser una revisión manual y pasa a ser un requisito de cada cambio, conviene automatizarlo: es exactamente para lo que existe <a href="/veredicto/">Veredicto</a>, que revisa cada PR buscando estos patrones y bloquea el que los trae. El resto del método —aislamiento, medición y panel de jueces— está en <a href="/blog/flotas-agentes-ia/">cómo se dirige una flota de agentes</a>.</p>
+      </article>
+    </section>
+
+    <section class="sec seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">FAQ</span>
+          <h2 id="faq-h">Preguntas frecuentes</h2>
+        </div>
+        <div class="faq reveal">
+        <details>
+          <summary>¿Los agentes hacen trampa a propósito?</summary>
+          <p>No hay intención detrás. Un agente optimiza el objetivo que se le da, y si el objetivo es «deja los tests en verde», mockear el punto que falla es una solución perfectamente válida para ese objetivo. El fallo está en el objetivo, no en el agente.</p>
+        </details>
+        <details>
+          <summary>¿No basta con exigir cobertura alta?</summary>
+          <p>No, y puede empeorarlo. Cinco de los seis patrones ejecutan la línea sin comprobar nada, así que suben la cobertura mientras destruyen la utilidad de la batería. Exigir un número de cobertura crea exactamente el incentivo para producirlos.</p>
+        </details>
+        <details>
+          <summary>¿Mockear está mal entonces?</summary>
+          <p>Mockear está bien para aislar lo que es lento, externo o no determinista: una red, un reloj, un pago. Está mal cuando el mock cae justo encima de lo que la prueba dice estar probando. La señal es la posición del mock, no su existencia.</p>
+        </details>
+        <details>
+          <summary>¿Cómo se revisa esto sin leer cada test a mano?</summary>
+          <p>Con dos capas. Una automática que busca los patrones en el diff —mock nuevo junto al arreglo, aserciones vacías, contadores de omitidos que suben— y una segunda, más cara pero definitiva, que rompe el código a propósito y comprueba que la batería se entera.</p>
+        </details>
+        <details>
+          <summary>¿Esto solo pasa con código escrito por IA?</summary>
+          <p>No: los seis patrones llevan décadas apareciendo en código escrito por personas con prisa o con un objetivo de cobertura encima. Lo que cambia con los agentes es el volumen y la velocidad, que es lo que obliga a automatizar la detección.</p>
+        </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">Sigue leyendo</span>
+          <h2 id="mas-h">Más noticias</h2>
+        </div>
+        <div class="bcards reveal">
+          <a class="bcard" href="/blog/flotas-agentes-ia/">
+            <img src="/assets/blog/flotas-agentes-ia.jpg" width="1200" height="630" alt="Cómo se dirige una flota de agentes de IA" loading="lazy" decoding="async">
+            <span class="bc-t">Cómo se dirige una flota de agentes de IA</span>
+            <span class="bc-d">Aislamiento con git worktree, cuántos agentes en paralelo, medir antes de arreglar y un panel de jueces adversarial. El método real, con sus límites.</span>
+          </a>
+          <a class="bcard" href="/blog/coste-real-agentes-ia/">
+            <img src="/assets/blog/coste-real-agentes-ia.jpg" width="1200" height="630" alt="Cuánto cuesta de verdad un agente de IA" loading="lazy" decoding="async">
+            <span class="bc-t">Cuánto cuesta de verdad un agente de IA</span>
+            <span class="bc-d">La factura del proveedor no es el coste. Dónde se esconde el gasto de un agente, cómo medirlo en local y cuándo compensa mover el modelo a tu GPU.</span>
+          </a>
+          <a class="bcard bcard-cta" href="/about/">
+            <span class="bc-t">Quién escribe esto</span>
+            <span class="bc-d">Fervon es el estudio de software autónomo de Jonathan Martín. Una persona y una flota de agentes.</span>
+          </a>
+        </div>
+      <div class="fv-share">
+        <button type="button" class="sharebtn" aria-label="Compartir esta página">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
+          <span>Compartir</span>
+        </button>
+        <span class="sharemsg" role="status" aria-live="polite"></span>
+      </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>Esto sale de trabajar así de verdad</b>
+      <span>Herramientas open source, self-serve y sin dejar el correo</span>
+    </div>
+    <a class="btn btn-fire" href="/#productos">Ver productos</a>
+  </div>
+
+  <footer><div class="wrap">
+    <div class="mark"><svg class="blogo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="fv-foot-g" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#E0480F"></stop><stop offset="0.5" stop-color="#FF6A00"></stop><stop offset="1" stop-color="#FFB02E"></stop></linearGradient></defs><path d="M18 94 L18 60 L6 60 L6 44 L18 44 L18 32 A24 24 0 0 1 42 8 L63.24 8 L54 24 L42 24 A8 8 0 0 0 34 32 L34 44 C52 43.2 74 42.2 92.62 41 L88 49 C70 52.2 52 55.6 34 60 L34 94 Z" fill="url(#fv-foot-g)"></path></svg> fervon</div>
+    <div class="flinks">
+      <a href="/#productos">Productos</a>
+      <a href="/blog/">Noticias</a>
+      <a href="/about/">Sobre</a>
+      <a href="/contacto/">Contacto</a>
+      <a href="https://github.com/Fervon">GitHub</a>
+    </div>
+    <div class="copy">Forjado al rojo vivo · © 2026 Fervon</div>
+  </div></footer>
+
+  <script src="/assets/shared.js?v=20260819a" defer=""></script>
+
+
+</body></html>

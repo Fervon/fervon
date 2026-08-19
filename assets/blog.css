@@ -1,0 +1,94 @@
+/* Fervon — blog (el taller). Se apoya en los tokens y en las secciones de
+   /index.css; aquí solo va lo propio de un artículo: columna de lectura,
+   figuras, cita destacada y tarjetas. */
+
+.blog-page{display:flex;flex-direction:column;min-height:100vh}
+.blog-page main{flex:1;padding-bottom:32px}
+
+/* ── Cabecera del artículo ─────────────────────────────────────────────── */
+.blog-page .chero{text-align:center;padding:56px 0 4px}
+.blog-page .chero h1{font-size:clamp(28px,4.6vw,44px);font-weight:800;letter-spacing:-1px;line-height:1.1;color:var(--bone);max-width:19ch;margin:0 auto}
+.blog-page .blog-index .chero h1,.blog-index .chero h1{max-width:none}
+.blog-page .chero .lead,.blog-page .chero>p{max-width:62ch;margin:18px auto 0;color:var(--ash);font-size:17.5px;line-height:1.65}
+.bmeta{display:flex;gap:9px;align-items:center;justify-content:center;flex-wrap:wrap;margin-bottom:16px;font-size:13px;color:var(--ash);letter-spacing:.4px;text-transform:uppercase;font-weight:600}
+.bmeta a{color:var(--amber)}
+.bmeta a:hover{text-decoration:underline}
+.bmeta span[aria-hidden]{color:var(--line2)}
+
+/* ── Portada ───────────────────────────────────────────────────────────── */
+.bcover{margin:34px auto 0;max-width:860px}
+.bcover img{width:100%;height:auto;display:block;border-radius:16px;border:1px solid var(--line);background:var(--card)}
+.bcover figcaption,.diag figcaption{margin-top:11px;text-align:center;color:var(--ash);font-size:13.5px;line-height:1.55;max-width:70ch;margin-left:auto;margin-right:auto}
+
+/* ── Columna de lectura ────────────────────────────────────────────────── */
+.prose{max-width:70ch;margin:0 auto}
+/* `.sec h2` de index.css pone los títulos de sección en 13px, centrados y en
+   mayúsculas — perfecto para una landing y pésimo para un artículo. Dentro de
+   .prose los H2 son titulares de lectura, así que se revierten a mano. */
+.prose h2{font-size:clamp(23px,3vw,30px);font-weight:800;letter-spacing:-.5px;line-height:1.2;color:var(--bone);margin:52px 0 0;text-align:left;text-transform:none}
+.prose h2:first-child{margin-top:0}
+.prose h3{font-size:19px;font-weight:700;color:var(--bone);margin:34px 0 0}
+.prose p{margin-top:17px;color:#cfc3b8;font-size:17px;line-height:1.72}
+.prose a{color:var(--amber);text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--amber) 40%,transparent);text-underline-offset:3px}
+.prose a:hover{text-decoration-color:var(--amber)}
+.prose strong,.prose b{color:var(--bone);font-weight:700}
+.prose em{color:var(--bone);font-style:italic}
+.prose code{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.9em;background:#161010;border:1px solid var(--line);border-radius:6px;padding:2px 6px;color:var(--amber)}
+
+.prose .bullets{list-style:none;margin-top:22px;display:grid;gap:11px}
+.prose .bullets li{position:relative;padding:14px 16px 14px 44px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:12px;color:#cfc3b8;font-size:15.5px;line-height:1.6}
+.prose .bullets li::before{content:"";position:absolute;left:15px;top:17px;width:14px;height:14px;border-radius:50%;background:radial-gradient(circle at 40% 35%,var(--amber),var(--brasa) 70%);box-shadow:0 0 10px rgba(255,106,0,.35)}
+
+.prose .pull{margin:40px 0 0;padding:22px 26px;border-left:3px solid var(--ember);background:linear-gradient(90deg,rgba(255,106,0,.07),transparent 70%);border-radius:0 12px 12px 0}
+.prose .pull p{margin:0;font-size:19.5px;line-height:1.5;color:var(--bone);font-weight:600;letter-spacing:-.2px}
+
+/* ── Figuras: SVG en una caja, con scroll propio si no cabe ────────────── */
+.prose .diag{margin:38px 0 0;padding:22px 20px 18px;background:linear-gradient(165deg,rgba(255,255,255,.022),transparent),var(--card);border:1px solid var(--line);border-radius:16px}
+.prose .diag svg{display:block;width:100%;height:auto;overflow:visible}
+.prose .diag figcaption{margin-top:16px;text-align:left;max-width:none}
+
+/* La tabla desborda a lo ancho DENTRO de su caja, nunca la página. */
+.prose .tablewrap{margin-top:34px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+
+/* ── Novedades de los proyectos ────────────────────────────────────────── */
+/* Línea de tiempo. Las entradas viven en el índice y no como página propia:
+   una nota de versión de cinco líneas convertida en URL suelta es contenido
+   pobre, y varias arrastran a las páginas buenas. */
+.novedades{list-style:none;counter-reset:none;display:grid;gap:16px;margin-top:26px;position:relative;padding-left:26px}
+.novedades::before{content:"";position:absolute;left:7px;top:12px;bottom:12px;width:2px;background:linear-gradient(180deg,var(--ember),color-mix(in srgb,var(--ember) 12%,transparent))}
+.novedades>li{position:relative;background:linear-gradient(165deg,rgba(255,255,255,.022),transparent),var(--card);border:1px solid var(--line);border-radius:16px;padding:19px 22px}
+.novedades>li::before{content:"";position:absolute;left:-24px;top:26px;width:12px;height:12px;border-radius:50%;background:radial-gradient(circle at 40% 35%,var(--amber),var(--brasa) 70%);box-shadow:0 0 0 4px var(--carbon),0 0 12px rgba(255,106,0,.5)}
+.nv-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:12.5px;letter-spacing:.4px;text-transform:uppercase;font-weight:700;color:var(--ash)}
+.nv-p{color:var(--amber)}
+.nv-p:hover{text-decoration:underline}
+.nv-v{border:1px solid var(--line2);border-radius:999px;padding:2px 9px;color:var(--bone);font-size:11.5px;letter-spacing:.3px}
+.novedades h3{margin-top:10px;font-size:18.5px;font-weight:700;color:var(--bone);line-height:1.34;text-align:left;text-transform:none}
+.novedades p{margin-top:9px;color:#cfc3b8;font-size:15px;line-height:1.65}
+.novedades code{font-family:"JetBrains Mono",ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.88em;background:#161010;border:1px solid var(--line);border-radius:6px;padding:1px 5px;color:var(--amber)}
+.novedades b,.novedades strong{color:var(--bone);font-weight:700}
+@media(max-width:560px){.novedades{padding-left:20px}.novedades>li{padding:16px 15px}.novedades>li::before{left:-19px}}
+
+/* ── Tarjetas de artículo ──────────────────────────────────────────────── */
+.bcards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+.bcards.big{grid-template-columns:repeat(2,1fr);gap:20px}
+@media(max-width:900px){.bcards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.bcards,.bcards.big{grid-template-columns:1fr}}
+.bcard{display:flex;flex-direction:column;background:linear-gradient(165deg,rgba(255,255,255,.022),transparent),var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:border-color .16s ease,transform .16s ease,background .16s ease}
+.bcard:hover{border-color:color-mix(in srgb,var(--ember) 46%,var(--line));transform:translateY(-3px);background:rgba(255,106,0,.045)}
+.bcard img{width:100%;height:auto;aspect-ratio:1200/630;object-fit:cover;display:block;border-bottom:1px solid var(--line)}
+.bcard .bc-m{padding:15px 18px 0;font-size:12px;color:var(--ash);letter-spacing:.4px;text-transform:uppercase;font-weight:600}
+.bcard .bc-t{padding:13px 18px 0;font-size:17px;font-weight:700;color:var(--bone);line-height:1.32}
+.bcard .bc-m+.bc-t{padding-top:7px}
+.bcard .bc-d{padding:9px 18px 20px;font-size:14px;color:var(--ash);line-height:1.55}
+.bcard-cta{justify-content:center;background:linear-gradient(150deg,#1d1510,#140E0B)}
+.bcard-cta .bc-t{padding-top:22px}
+
+/* ── Compartir ─────────────────────────────────────────────────────────── */
+.blog-page .fv-share{margin-top:30px;display:flex;justify-content:center;align-items:center;gap:12px}
+
+@media(max-width:560px){
+  .blog-page .chero{padding:40px 0 4px}
+  .prose h2{margin-top:40px}
+  .prose .diag{padding:16px 12px 14px}
+  .prose .pull{padding:18px 18px}
+}
