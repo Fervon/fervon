@@ -146,6 +146,10 @@ const csp = [
   `script-src 'self' ${CF_INSIGHTS_SCRIPT}`.replace(/\s+/g, ' ').trim(),
   "style-src 'self'",
   "img-src 'self' data:",
+  // Las demos de producto de /inferbench/, /launchpad/ y /claudescope/ son
+  // <video> desde el 2026-08-20. Sin esta línea caen en `default-src 'none'`,
+  // no cargan, y sólo se ve su póster (que va por img-src).
+  "media-src 'self'",
   "font-src 'self'",
   `connect-src 'self' https://formspree.io ${CF_INSIGHTS_CONNECT}`,
   "form-action 'self' https://formspree.io",

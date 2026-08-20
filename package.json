@@ -23,20 +23,22 @@
     "README.md"
   ],
   "scripts": {
-    "csp:build": "node scripts/build-csp.mjs",
-    "csp:check": "node scripts/csp-check.mjs",
+    "about:gen": "node scripts/gen-about.mjs",
     "blog:gen": "node scripts/gen-blog.mjs",
     "blog:og": "node scripts/render-og-blog.mjs",
-    "og:veredicto": "node scripts/render-og-veredicto.mjs",
-    "about:gen": "node scripts/gen-about.mjs",
-    "i18n:build": "node scripts/i18n-build.mjs && node scripts/fix-breadcrumbs-trace.mjs && node scripts/check-data-attr-escape.mjs",
     "breadcrumbs:fix": "node scripts/fix-breadcrumbs-trace.mjs",
-    "landing:mac": "node scripts/gen-landing-mac.mjs",
+    "csp:build": "node scripts/build-csp.mjs",
+    "csp:check": "node scripts/csp-check.mjs",
+    "demos:video": "node scripts/gen-demos-video.mjs",
     "escape:check": "node scripts/check-data-attr-escape.mjs",
+    "i18n:build": "node scripts/i18n-build.mjs && node scripts/fix-breadcrumbs-trace.mjs && node scripts/check-data-attr-escape.mjs",
+    "landing:mac": "node scripts/gen-landing-mac.mjs",
+    "og:veredicto": "node scripts/render-og-veredicto.mjs",
+    "relacionadas:fix": "node scripts/fix-relacionadas-trace.mjs",
+    "revisar": "node scripts/revisar-publicado.mjs",
     "seo:check": "node scripts/seo-check.mjs",
     "seo:full": "node scripts/seo-audit-full.mjs .",
-    "seo:live": "node scripts/seo-check.mjs --live",
-    "revisar": "node scripts/revisar-publicado.mjs"
+    "seo:live": "node scripts/seo-check.mjs --live"
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",

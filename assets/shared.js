@@ -134,6 +134,20 @@
   els.forEach(function(el){ if(el._cu) io.observe(el); });
 })();
 
+/* Product demos — the looping <video> that replaced the animated WebP on
+   /inferbench/, /launchpad/ and /claudescope/. `autoplay loop` is motion the
+   user never asked for, so with reduced-motion we stop it on its poster frame
+   and hand over the controls instead of taking the choice away. No-ops on
+   pages without one. */
+(function(){
+  if(!window.matchMedia || !matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  var vids=[].slice.call(document.querySelectorAll("video[autoplay]")); if(!vids.length) return;
+  vids.forEach(function(v){
+    v.removeAttribute("autoplay"); v.autoplay=false; v.loop=false; v.controls=true;
+    try{ v.pause(); }catch(e){}
+  });
+})();
+
 /* Forge atmosphere — shared animated background, one fire behind every page.
    Layers, back to front: drifting smoke wisps (volume), the ember field, a
    heat dome up top (anchored to the hero ingot when the page has one), and a
