@@ -86,6 +86,7 @@ const ENLACES_MINIMOS = {
   'rewind-ai-alternative.html': ['/trace/rewind-alternative-mac'],
   'rewind-shut-down-what-to-use.html': ['/trace/rewind-alternative-mac', '/trace/rewind-alternative-windows'],
   'rewind-alternative-windows.html': ['/trace/rewind-alternative-mac'],
+  'rewind-alternative-mac.html': ['/trace/rewind-alternative-windows'],
   'limitless-alternative.html': ['/trace/rewind-alternative-mac'],
 };
 

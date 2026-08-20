@@ -105,9 +105,44 @@ const CAMBIOS = [
         <li data-es="<b>No pide el permiso de Grabación de Pantalla</b>: lee historial, ventana activa y portapapeles, no vídeo."><b>It never asks for Screen Recording permission</b> — it reads history, active window and clipboard, not video.</li>
         <li data-es="<b>Pago único de $39</b>, sin suscripción y sin cuenta."><b>$39 once</b>, no subscription and no account.</li>`],
 
-  // ---------- tarjeta 4 ----------
+  /* ---------- las cuatro tarjetas ----------
+     MEDIDO el 2026-08-20: con sólo la cuarta cambiada, esta página compartía el
+     49% de sus trigramas con la de Windows —el par más parecido del sitio— y ese
+     es justo el perfil que Google marca «Rastreada: actualmente sin indexar».
+     Las cuatro pasan a hablar de macOS. */
+  ['<h3 data-es="Local de verdad">Genuinely local</h3><p data-es="Sin servidores. Nada llama a casa.">No servers. Nothing phones home.</p>',
+   '<h3 data-es="Local de verdad">Genuinely local</h3><p data-es="Tu índice vive en tu Mac. Ni iCloud ni servidores.">Your index lives on your Mac. No iCloud, no servers.</p>'],
+
+  ['<h3 data-es="Sin grabar pantalla">No screen recording</h3><p data-es="Historial, ventana, portapapeles — no vídeo.">History, window, clipboard — not video.</p>',
+   '<h3 data-es="Sin grabar pantalla">No screen recording</h3><p data-es="Nunca pide el permiso de Grabación de Pantalla.">It never asks for Screen Recording access.</p>'],
+
+  ['<h3 data-es="Pago único">Pay once</h3><p data-es="Un pago. Sin cuota recurrente.">One payment. No recurring fee.</p>',
+   '<h3 data-es="Pago único">Pay once</h3><p data-es="Como se compraba el software de Mac antes.">The way Mac software used to be bought.</p>'],
+
   ['<h3 data-es="Cualquier PC moderno">Any modern PC</h3><p data-es="Sin Copilot+. Corre ligero.">No Copilot+. Runs light.</p>',
    '<h3 data-es="Apple Silicon e Intel">Apple Silicon &amp; Intel</h3><p data-es="Nativo en macOS. Ligero con la batería.">Native on macOS. Light on battery.</p>'],
+
+  // ---------- el peso en disco: en un Mac el SSD no se amplía ----------
+  ['<span class="eye" data-es="La diferencia">The difference</span><h2 data-es="El peso en tu disco">Weight on your disk</h2>',
+   '<span class="eye" data-es="La diferencia">The difference</span><h2 data-es="Tu SSD no se puede ampliar">Your SSD can\'t be upgraded</h2>'],
+
+  ['<div class="fpl" data-es="Grabadores de pantalla">Screen recorders</div>',
+   '<div class="fpl" data-es="Grabar la pantalla todo el día">Recording your screen all day</div>'],
+
+  // ---------- stats ----------
+  ['<div class="v grad">3</div><div class="l">Win · macOS · Linux</div>',
+   '<div class="v grad">2</div><div class="l" data-es="Apple Silicon e Intel">Apple Silicon and Intel</div>'],
+
+  // ---------- cierre ----------
+  ['<h2 data-es="Deja de buscar a ciegas. &lt;span class=&quot;grad&quot;&gt;Recuérdalo.&lt;/span&gt;">Stop searching blind. <span class="grad">Remember it.</span></h2>',
+   '<h2 data-es="Tu Mac ya lo vio. &lt;span class=&quot;grad&quot;&gt;Que lo recuerde.&lt;/span&gt;">Your Mac already saw it. <span class="grad">Let it remember.</span></h2>'],
+
+  ['<p class="desc s-HQSJ4X1v" data-es="Privada, local y tuya para siempre. Fija el precio lifetime de $39.">Private, local and yours forever. Lock in the $39 lifetime price.</p>',
+   '<p class="desc s-HQSJ4X1v" data-es="En tu Mac, tuya para siempre. Fija el precio lifetime de $39.">On your Mac, yours forever. Lock in the $39 lifetime price.</p>'],
+
+  // ---------- pricing ----------
+  ['<h2 data-es="Pago único, sin suscripción">One-time, no subscription</h2><p class="desc" data-es="Un solo pago. $39 lifetime early-bird (luego $59) — Windows, macOS y Linux.">One payment. $39 lifetime early-bird (then $59) — Windows, macOS and Linux.</p>',
+   '<h2 data-es="Pago único, sin suscripción">One-time, no subscription</h2><p class="desc" data-es="Un solo pago. $39 lifetime early-bird (luego $59). Tu licencia vale también para tus otros equipos.">One payment. $39 lifetime early-bird (then $59). Your licence covers your other machines too.</p>'],
 
   // ---------- comparativa: en Mac los rivales son otros ----------
   ['<h2 data-es="Trace vs Microsoft Recall vs Screenpipe">Trace vs Microsoft Recall vs Screenpipe</h2><p class="desc" data-es="Las tres opciones realistas de memoria local para Windows hoy, lado a lado.">The three realistic local-memory options for Windows today, side by side.</p>',
@@ -179,35 +214,9 @@ const CAMBIOS = [
   ['<details><summary data-es="¿En qué se diferencia Trace de Microsoft Recall?">How is Trace different from Microsoft Recall?</summary><p data-es="Microsoft Recall está atado a los PC Copilot+ y toma capturas constantes de tu pantalla, lo que recibió críticas de privacidad. Trace funciona en cualquier PC con Windows moderno, captura mucho menos, filtra las exclusiones antes de escribir nada en disco, y está diseñado para correr con el firewall cerrado.">Microsoft Recall is tied to Copilot+ PCs and takes constant snapshots of your screen, which drew privacy criticism. Trace runs on any modern Windows PC, captures far less, filters exclusions before anything is written to disk, and is designed to run with your firewall closed.</p></details>',
    '<details><summary data-es="¿Trace necesita el permiso de Grabación de Pantalla de macOS?">Does Trace need macOS Screen Recording permission?</summary><p data-es="No. Trace no graba tu pantalla, así que no pide el permiso de Grabación de Pantalla que macOS exige a las herramientas de captura. Lee el historial del navegador, el título de la ventana activa y el portapapeles, filtra tus exclusiones antes de que nada llegue al disco, y está diseñado para correr con el firewall cerrado.">No. Trace doesn\'t record your screen, so it never asks for the Screen Recording permission macOS requires from screen-capture tools. It reads browser history, the active window title and the clipboard, filters your exclusions before anything reaches disk, and is designed to run with your firewall closed.</p></details>'],
 
-  // ---------- relacionadas. De paso: los títulos de estas tarjetas estaban en
-  // castellano dentro del contenido INGLÉS y sin data-es, así que la versión
-  // inglesa los mostraba en español. Aquí van con su data-es como debe ser. ----
-  [`        <a class="relcard" href="/trace/rewind-ai-alternative">
-          <span class="rt">Alternativa a Rewind AI</span>
-          <span class="rd" data-es="Rewind cerró. La sustituta local y multiplataforma.">Rewind is gone. The local, cross-platform replacement.</span>
-        </a>
-        <a class="relcard" href="/trace/microsoft-recall-alternative">
-          <span class="rt">Alternativa a Microsoft Recall</span>
-          <span class="rd" data-es="Sin PC Copilot+ y sin los problemas de privacidad.">No Copilot+ PC, none of the privacy problems.</span>
-        </a>`,
-   `        <a class="relcard" href="/trace/rewind-ai-alternative">
-          <span class="rt" data-es="Alternativa a Rewind AI">Rewind AI alternative</span>
-          <span class="rd" data-es="Rewind cerró. La sustituta local y multiplataforma.">Rewind is gone. The local, cross-platform replacement.</span>
-        </a>
-        <a class="relcard" href="/trace/rewind-alternative-windows">
-          <span class="rt" data-es="Alternativa a Rewind para Windows">Rewind alternative for Windows</span>
-          <span class="rd" data-es="La misma memoria local, en tu PC con Windows.">The same local memory, on your Windows PC.</span>
-        </a>`],
-
-  [`        <a class="relcard" href="/trace/limitless-alternative">
-          <span class="rt">Limitless alternative</span>`,
-   `        <a class="relcard" href="/trace/limitless-alternative">
-          <span class="rt" data-es="Alternativa a Limitless">Limitless alternative</span>`],
-
-  [`        <a class="relcard" href="/trace/screenpipe-alternative">
-          <span class="rt">Screenpipe alternative</span>`,
-   `        <a class="relcard" href="/trace/screenpipe-alternative">
-          <span class="rt" data-es="Alternativa a Screenpipe">Screenpipe alternative</span>`],
+  /* Las tarjetas de «Sigue explorando» las gobierna fix-relacionadas-trace.mjs:
+     los títulos con su par de idiomas y el enlazado mínimo de la familia. Aquí no
+     se tocan, o los dos scripts se pisarían. */
 ];
 
 let html = fs.readFileSync(ORIGEN, 'utf8');
@@ -218,15 +227,14 @@ for (const [de, a] of CAMBIOS) {
   html = html.replace(de, a);
 }
 
-/* Red de seguridad: el slug de Windows sólo puede aparecer en el enlace de la
-   tarjeta relacionada, que es intencionado. En cualquier otro sitio —canonical,
-   og:url, breadcrumb, CSS, JS, formulario— sería un resto sin sustituir. */
+/* Red de seguridad: recién generada, la página no puede mencionar el slug de
+   Windows en NINGÚN sitio —canonical, og:url, breadcrumb, CSS, JS, formulario—,
+   porque todo eso debería estar ya sustituido. El enlace a la landing de Windows
+   en «Sigue explorando» lo añade después fix-relacionadas-trace.mjs, que es
+   quien gobierna ese bloque. */
 if (!fallos.length) {
-  const legitimo = '<a class="relcard" href="/trace/rewind-alternative-windows">';
-  const total = html.split('rewind-alternative-windows').length - 1;
-  const esperado = html.split(legitimo).length - 1;
-  if (esperado !== 1) fallos.push('falta el enlace a la landing de Windows en las relacionadas');
-  if (total !== esperado) fallos.push(`quedan ${total - esperado} referencias al slug de Windows fuera de las tarjetas relacionadas`);
+  const restos = html.split('rewind-alternative-windows').length - 1;
+  if (restos) fallos.push(`quedan ${restos} referencias sin sustituir al slug de Windows`);
 }
 
 if (fallos.length) {
