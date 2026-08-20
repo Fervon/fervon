@@ -49,6 +49,7 @@ console.log(`CSP: ${csp.length} chars · sitemap: ${urls.length} URLs\n`);
 
 let missing = 0;
 let cfInjected = 0;
+let jsonLd = 0;
 
 for (const url of urls) {
   let html;
@@ -67,10 +68,29 @@ for (const url of urls) {
       cfInjected++;
       continue;
     }
+    /* Los <script type="application/ld+json"> son bloques de DATOS, no código:
+       el navegador no tiene nada que ejecutar, así que no hay ejecución que
+       `script-src` pueda bloquear y no necesitan hash. build-csp.mjs lo dice
+       explícitamente («NO se hashean») y este verificador los contaba igual, así
+       que declaraba 104 fallos sobre una política CORRECTA — es decir, decía que
+       no pegaras una CSP que estaba bien.
+
+       MEDIDO el 2026-08-20 antes de cambiar esto: sirviendo el sitio real con la
+       política candidata, 10 páginas con 2-3 bloques ld+json cada una dieron
+       CERO violaciones en la consola de Chrome, y los datos estructurados
+       seguían presentes y siendo JSON válido en el DOM. Se informan aparte para
+       que se vean, pero no cuentan como fallo. */
+    if (/ld\+json/i.test(attrs)) {
+      jsonLd++;
+      continue;
+    }
     missing++;
-    const kind = /ld\+json/i.test(attrs) ? 'JSON-LD' : 'inline JS';
-    console.log(`  MISSING  ${url}\n           ${kind}, ${body.length} bytes → ${hash}`);
+    console.log(`  MISSING  ${url}\n           inline JS, ${body.length} bytes → ${hash}`);
   }
+}
+
+if (jsonLd) {
+  console.log(`\n${jsonLd} bloque(s) JSON-LD: son datos, no código — no necesitan hash y no cuentan como fallo.`);
 }
 
 if (cfInjected) {
