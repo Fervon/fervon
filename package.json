@@ -38,7 +38,8 @@
     "revisar": "node scripts/revisar-publicado.mjs",
     "seo:check": "node scripts/seo-check.mjs",
     "seo:full": "node scripts/seo-audit-full.mjs .",
-    "seo:live": "node scripts/seo-check.mjs --live"
+    "seo:live": "node scripts/seo-check.mjs --live",
+    "sitemap:lastmod": "node scripts/sitemap-lastmod.mjs"
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",
