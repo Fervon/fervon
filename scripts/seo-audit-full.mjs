@@ -1,8 +1,32 @@
-// Auditoría SEO exhaustiva, página a página. Solo lectura, no escribe nada.
+/* ============================================================================
+   scripts/seo-audit-full.mjs
+   ----------------------------------------------------------------------------
+   Auditoría SEO página a página de todo lo que se publica. Solo lectura: no
+   escribe ni un byte en el sitio.
+
+   Comprueba, por página: title y description (presencia y longitud), canonical
+   auto-referencial, hreflang recíproco y absoluto con x-default, Open Graph y
+   Twitter Card, JSON-LD que parsee, un solo h1 y sin saltos de nivel, imágenes
+   con alt/dimensiones/lazy y que existan, enlaces internos rotos, enlaces
+   externos sin rel=noopener, anclas sin texto, contenido pobre y si el idioma
+   del texto casa con la ruta. Y de todo el sitio: títulos, descripciones y
+   canonicals duplicados, cobertura del sitemap, páginas huérfanas y hreflang
+   sin reciprocidad.
+
+   A las páginas `noindex` (la 404) se le saltan las comprobaciones de indexación
+   a propósito: no le toca canonical, ni hreflang, ni Open Graph, ni longitud
+   mínima, ni enlaces entrantes.
+
+   Uso:  npm run seo:full                informe legible
+         npm run seo:full -- --paginas   + la ficha de cada página
+         npm run seo:full -- --json      salida en bruto para encadenar
+
+   Sale con 1 si hay algo crítico o alto, para poder usarlo en CI.
+   ========================================================================== */
 import fs from 'node:fs';
 import path from 'node:path';
 
-const ROOT = path.resolve(process.argv[2] || '.');
+const ROOT = path.resolve(process.argv.slice(2).find((a) => !a.startsWith('--')) || '.');
 const ORIGIN = 'https://fervon.dev';
 
 // ---------- descubrir páginas publicadas (lo que sale en el deploy) ----------
@@ -320,4 +344,70 @@ for (const p of pages) {
   }
 }
 
-console.log(JSON.stringify({ pages, global, inbound: Object.fromEntries(inbound), sitemapUrls }, null, 1));
+// ---------- salida ----------
+const datos = { pages, global, inbound: Object.fromEntries(inbound), sitemapUrls };
+
+if (process.argv.includes('--json')) {
+  console.log(JSON.stringify(datos, null, 1));
+  process.exit(0);
+}
+
+/* Informe legible. Es la salida POR DEFECTO a propósito: quien ejecuta esto
+   quiere saber qué está mal, no 5.000 líneas de JSON. Para encadenarlo con otra
+   herramienta, `--json`; para la ficha de cada página, `--paginas`. */
+const ORDEN = { critica: 0, alta: 1, media: 2, baja: 3, info: 4 };
+const sinOrigen = (u) => u.replace(ORIGIN, '') || '/';
+
+const todas = pages.flatMap((p) => p.issues.map((i) => ({ ...i, url: p.url })));
+const porSev = {};
+for (const i of [...todas, ...global]) porSev[i.sev] = (porSev[i.sev] || 0) + 1;
+
+console.log('\n' + '═'.repeat(72));
+console.log('  AUDITORÍA SEO DE ' + ORIGIN.replace('https://', '').toUpperCase());
+console.log('═'.repeat(72));
+console.log('  ' + pages.length + ' páginas publicadas · ' +
+  pages.reduce((a, p) => a + p.words, 0).toLocaleString('es-ES') + ' palabras · ' +
+  pages.filter((p) => !p.issues.length).length + ' sin ninguna incidencia');
+const resumen = ['critica', 'alta', 'media', 'baja', 'info']
+  .filter((s) => porSev[s]).map((s) => porSev[s] + ' ' + s).join(' · ');
+console.log('  ' + (resumen || 'ninguna incidencia'));
+
+if (global.length) {
+  console.log('\n── DE TODO EL SITIO ' + '─'.repeat(52));
+  for (const g of [...global].sort((a, b) => ORDEN[a.sev] - ORDEN[b.sev])) {
+    console.log('  [' + g.sev.toUpperCase() + '] ' + g.code + ': ' + g.msg);
+  }
+}
+
+if (todas.length) {
+  console.log('\n── POR TIPO ' + '─'.repeat(60));
+  const porCodigo = {};
+  for (const i of todas) (porCodigo[i.code] = porCodigo[i.code] || []).push(i);
+  const codigos = Object.entries(porCodigo)
+    .sort((a, b) => ORDEN[a[1][0].sev] - ORDEN[b[1][0].sev] || b[1].length - a[1].length);
+  for (const [codigo, xs] of codigos) {
+    console.log('\n  [' + xs[0].sev.toUpperCase() + '] ' + codigo + '  ×' + xs.length);
+    for (const x of xs) console.log('     ' + sinOrigen(x.url) + ' — ' + x.msg);
+  }
+} else {
+  console.log('\n  Ninguna página tiene incidencias.');
+}
+
+if (process.argv.includes('--paginas')) {
+  console.log('\n── FICHA DE CADA PÁGINA ' + '─'.repeat(48));
+  for (const p of pages) {
+    console.log('\n  ' + sinOrigen(p.url) + '   (' + p.file + ')');
+    console.log('    lang=' + p.lang + ' palabras=' + p.words + ' imgs=' + p.imgs +
+      ' encabezados=' + p.headCount + ' enlaces-entrantes=' + (inbound.get(new URL(p.url).pathname) ?? '?'));
+    console.log('    title(' + (p.title || '').length + '): ' + p.title);
+    console.log('    desc(' + (p.desc || '').length + '): ' + (p.desc || '').slice(0, 160));
+    console.log('    h1: ' + (p.h1[0] || '—'));
+    console.log('    canonical: ' + p.canonical);
+    console.log('    hreflang: ' + (p.hreflang.map((h) => h.lang + '→' + sinOrigen(h.href)).join(' | ') || '—'));
+    console.log('    datos estructurados: ' + ([...new Set(p.ldTypes)].join(', ') || '—'));
+    console.log('    incidencias: ' + (p.issues.map((i) => i.sev + ':' + i.code).join(' ') || 'ninguna'));
+  }
+}
+
+console.log('\n  Opciones:  --paginas  ficha de cada página   ·   --json  salida en bruto\n');
+process.exit(porSev.critica || porSev.alta ? 1 : 0);
