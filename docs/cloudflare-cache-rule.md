@@ -33,7 +33,7 @@ Cloudflare → zona `fervon.dev` → **Rules → Cache Rules → Create rule**:
 - **When incoming requests match** (expresión personalizada):
 
   ```
-  (http.request.uri.path.extension in {"css" "js" "woff2" "webp" "png" "jpg" "svg" "ico"})
+  (http.request.uri.path.extension in {"css" "js" "woff2" "webp" "png" "jpg" "jpeg" "svg" "ico" "mp4" "webm"})
   ```
 
 - **Then:**
@@ -43,6 +43,12 @@ Cloudflare → zona `fervon.dev` → **Rules → Cache Rules → Create rule**:
 
 **NO** aplicar a HTML (la expresión de arriba ya lo excluye por extensión): las
 páginas deben poder actualizarse al momento.
+
+> Extensiones tomadas de lo que se publica de verdad (`npm run pages:build`
+> y contar): html 50, css 25, jpg 18, js 18, webp 8, png 5, svg 4, mp4 3,
+> webm 3, woff2 1. Los `mp4`/`webm` son las demos de producto desde el
+> 2026-08-20 y pesan 130-620 KB cada una: si se quedan fuera de la regla, son
+> lo más caro que se vuelve a bajar en cada visita.
 
 ## Trampa conocida
 
