@@ -8,6 +8,20 @@ defecto de Cloudflare («Browser Cache TTL» global). GitHub Pages envía
 `max-age=600` y Cloudflare lo sobreescribe a 4 h — ninguno de los dos sirve para
 visitas repetidas.
 
+**SIGUE SIN HACERSE (medido el 2026-08-20).** El mismo aviso reaparece en PSI,
+ahora con «ahorro de 100 KiB» y **TTL de 10 minutos** en los seis assets. O sea
+que el TTL de navegador ya no lo pisa Cloudflare a 4 h: pasa tal cual el
+`max-age=600` de GitHub Pages, que es todavía peor. Comprobado en vivo:
+
+```
+Invoke-WebRequest -Uri "https://fervon.dev/assets/shared.css?v=20260820" -UseBasicParsing -Method Head
+# cache-control: max-age=600
+```
+
+Esto **no se puede arreglar desde el repo**: el sitio vive en GitHub Pages, que
+manda `max-age=600` fijo y no lee `_headers`. O se crea la regla de abajo en el
+panel, o se migra el hosting (ver `cloudflare-pages-migration.md`).
+
 Los CSS/JS van versionados con `?v=` (ver `scripts/bump-cache-buster.mjs`), así
 que un TTL largo es seguro: cada cambio publica una URL nueva.
 
@@ -43,7 +57,7 @@ las referencias.
 Tras crear la regla:
 
 ```bash
-curl -sI https://fervon.dev/assets/shared.css?v=20260817d | grep -i cache-control
+curl -sI https://fervon.dev/assets/shared.css?v=20260820 | grep -i cache-control
 ```
 
-Debe salir `cache-control: max-age=31536000` (o similar de 1 año), no `max-age=14400`.
+Debe salir `cache-control: max-age=31536000` (o similar de 1 año), no `max-age=600`.

@@ -161,18 +161,26 @@
    CSS backdrop remains) and pauses while the tab is hidden so it costs
    nothing in the background. */
 (function(){
+function start(){
   if(!document.body || document.getElementById("fv-embers")) return;
   if(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  // Las medidas del viewport, ANTES de tocar el DOM. innerWidth/innerHeight/
+  // pageYOffset obligan a recalcular la maqueta si el árbol está sucio, y el
+  // insertBefore de abajo la ensucia: leerlas después costaba una
+  // redistribución forzada de 41 ms (PSI móvil 2026-08-20, señalando justo
+  // este innerWidth).
+  var W=innerWidth, H=innerHeight, MOBILE=W<720, sy0=window.pageYOffset||0;
 
   var cv=document.createElement("canvas");
   cv.id="fv-embers"; cv.setAttribute("aria-hidden","true");
   document.body.insertBefore(cv, document.body.firstChild);
   var ctx=cv.getContext("2d");
-  var W,H,DPR=1,TAU=Math.PI*2,running=true;
-  var MOBILE=window.innerWidth<720;
+  var DPR=1,TAU=Math.PI*2,running=true;
 
-  function resize(){ W=innerWidth;H=innerHeight;cv.width=W*DPR;cv.height=H*DPR;cv.style.width=W+"px";cv.style.height=H+"px";ctx.setTransform(DPR,0,0,DPR,0,0); }
-  resize(); addEventListener("resize",resize);
+  function apply(){ cv.width=W*DPR;cv.height=H*DPR;cv.style.width=W+"px";cv.style.height=H+"px";ctx.setTransform(DPR,0,0,DPR,0,0); }
+  function resize(){ W=innerWidth;H=innerHeight;apply(); }
+  apply(); addEventListener("resize",resize);
 
   // 4 temperature-tinted sprites — IDENTICAL to the hero forge emitter, so the
   // page-wide field reads as the same fire. Centres aren't pure alpha-1 (except
@@ -295,7 +303,7 @@
     addEventListener("pointermove",function(e){ mx=e.clientX; my=e.clientY; },{passive:true});
 
   var glowPhase=0, bedPhase=[Math.random()*TAU,Math.random()*TAU,Math.random()*TAU];
-  var lastSy=window.pageYOffset||0;
+  var lastSy=sy0;
   // All physics is tuned per-frame at 60fps; gate the loop so high-refresh
   // displays don't run the whole forge at 2-3x speed. Accumulator (not a snap
   // to the vsync timestamp) so 75/90/144Hz still average ~60fps instead of
@@ -439,6 +447,12 @@
     ctx.globalCompositeOperation="source-over";
   }
   rafId=requestAnimationFrame(tick);   // store the id: a hide/show before the first tick must not fork a second chain
+}
+// Doble rAF = después del primer pintado. El fondo es decorativo (el degradado
+// estático ya lo pinta body::before en shared.css), así que no tiene por qué
+// competir con el primer render; y al arrancar con la maqueta ya limpia,
+// ninguna de sus lecturas fuerza un recálculo.
+requestAnimationFrame(function(){ requestAnimationFrame(start); });
 })();
 
 /* ============================================================
