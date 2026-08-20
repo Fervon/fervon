@@ -31,9 +31,13 @@
     "csp:check": "node scripts/csp-check.mjs",
     "demos:video": "node scripts/gen-demos-video.mjs",
     "escape:check": "node scripts/check-data-attr-escape.mjs",
+    "headers:build": "node scripts/gen-headers.mjs",
+    "headers:check": "node scripts/gen-headers.mjs --check",
     "i18n:build": "node scripts/i18n-build.mjs && node scripts/fix-breadcrumbs-trace.mjs && node scripts/check-data-attr-escape.mjs",
     "landing:mac": "node scripts/gen-landing-mac.mjs",
     "og:veredicto": "node scripts/render-og-veredicto.mjs",
+    "pages:build": "node scripts/build-pages.mjs",
+    "pages:check": "node scripts/pages-check.mjs",
     "relacionadas:fix": "node scripts/fix-relacionadas-trace.mjs",
     "revisar": "node scripts/revisar-publicado.mjs",
     "seo:check": "node scripts/seo-check.mjs",
@@ -43,6 +47,7 @@
   },
   "devDependencies": {
     "@resvg/resvg-js": "^2.6.2",
+    "esbuild": "^0.28.2",
     "puppeteer-core": "^25.8.0"
   }
 }

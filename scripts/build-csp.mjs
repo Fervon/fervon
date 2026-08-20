@@ -30,6 +30,7 @@
 import { readFileSync, writeFileSync, existsSync, readdirSync, statSync } from 'node:fs';
 import { join, dirname, basename, extname, relative } from 'node:path';
 import { createHash } from 'node:crypto';
+import { CSP } from './site-headers.mjs';
 
 const ROOT = process.cwd();
 
@@ -119,10 +120,6 @@ for (const file of walk(ROOT)) {
   writeFileSync(file, html, 'utf8');
 }
 
-// Cloudflare Web Analytics beacon (script + connect-back).
-const CF_INSIGHTS_SCRIPT = 'https://static.cloudflareinsights.com';
-const CF_INSIGHTS_CONNECT = 'https://cloudflareinsights.com';
-
 /* Salvaguarda: la política corta sólo es válida mientras no haya JavaScript
    inline ejecutable. Si aparece alguno, hay que externalizarlo o hashearlo. */
 let inlineJsRestante = 0;
@@ -135,29 +132,12 @@ for (const f of walk(ROOT)) {
 }
 
 const hashesArr = [...jsonLdHashes].sort();
-// Refleja la CSP que sirve la Transform Rule de Cloudflare en fervon.dev.
-// `style-src-attr 'unsafe-inline'` se quitó (ya no hay style="" en el HTML) y
-// los hashes de JSON-LD también: ver la explicación de la cabecera — son data
-// blocks y la CSP nunca los evalúa. La política es estricta y CONSTANTE, así
-// que sólo hay que pegarla cuando cambien los ORÍGENES permitidos, no cuando
-// cambie el contenido.
-const csp = [
-  "default-src 'none'",
-  `script-src 'self' ${CF_INSIGHTS_SCRIPT}`.replace(/\s+/g, ' ').trim(),
-  "style-src 'self'",
-  "img-src 'self' data:",
-  // Las demos de producto de /inferbench/, /launchpad/ y /claudescope/ son
-  // <video> desde el 2026-08-20. Sin esta línea caen en `default-src 'none'`,
-  // no cargan, y sólo se ve su póster (que va por img-src).
-  "media-src 'self'",
-  "font-src 'self'",
-  `connect-src 'self' https://formspree.io ${CF_INSIGHTS_CONNECT}`,
-  "form-action 'self' https://formspree.io",
-  "frame-ancestors 'none'",
-  "base-uri 'none'",
-  "object-src 'none'",
-  "upgrade-insecure-requests",
-].join('; ');
+
+/* La CSP vive en scripts/site-headers.mjs: es la MISMA que consume
+   gen-headers.mjs para escribir el `_headers` de Cloudflare Pages. Antes estaba
+   escrita aquí y pegada a mano en el panel, es decir, en dos sitios que no se
+   avisan cuando uno cambia. */
+const csp = CSP;
 
 console.log('\n=== Summary ===');
 for (const s of summary) console.log('  ' + s);

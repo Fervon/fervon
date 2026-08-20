@@ -56,7 +56,10 @@ jobs:
             --exclude 'LICENSE' \
             --exclude 'og-test-*' \
             --exclude 'og-zoom-*' \
-            --exclude 'wrangler.toml'
+            --exclude 'wrangler.toml' \
+            --exclude 'docs' \
+            --exclude '.gitattributes' \
+            --exclude '_headers'
           echo "Published files:"; find _site -maxdepth 1 | sort
 
       # Minifica CSS/JS solo en la salida publicada; las fuentes del repo se

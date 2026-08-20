@@ -1,0 +1,27 @@
+# GENERADO por scripts/gen-headers.mjs — no editar a mano.
+# Fuente: scripts/site-headers.mjs · regenerar con `npm run headers:build`.
+#
+# Sólo lo lee Cloudflare Pages. Con el dominio en GitHub Pages es inerte.
+# Al mover el dominio a Pages hay que BORRAR la Transform Rule de la CSP en
+# el panel: dos cabeceras CSP se aplican como intersección y bloquean cosas
+# en silencio.
+
+/*
+  Content-Security-Policy: default-src 'none'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self'; img-src 'self' data:; media-src 'self'; font-src 'self'; connect-src 'self' https://formspree.io https://cloudflareinsights.com; form-action 'self' https://formspree.io; frame-ancestors 'none'; base-uri 'none'; object-src 'none'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=15552000; includeSubDomains; preload
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+  Cache-Control: public, max-age=0, must-revalidate
+
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.css
+  Cache-Control: public, max-age=31536000, immutable
+
+/*.js
+  Cache-Control: public, max-age=31536000, immutable
