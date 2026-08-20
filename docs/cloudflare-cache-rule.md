@@ -1,5 +1,28 @@
 # Regla de caché de Cloudflare — TTL de navegador para los assets
 
+> ## ✅ HECHA el 2026-08-20 — regla `assets-larga-vida`, en producción
+>
+> Comprobado en vivo sobre 16 rutas: los 10 tipos de asset (css, js, woff2,
+> webp, png, jpg, svg, ico, mp4, webm) salen con `max-age=31536000`, y el HTML,
+> el sitemap y robots.txt **siguen en `max-age=600`** — que es justo lo que se
+> quería: una corrección se sigue viendo al momento.
+>
+> **Medido después** (móvil 412×823, CPU ×4, 1,6 Mbps / 150 ms, mediana de 5):
+> la visita repetida pasa de **2128 ms de LCP y 97 KiB** a **788 ms y 0 KiB**.
+> La primera visita no cambia (2120 ms), y es lo esperado: esta regla es para
+> quien vuelve.
+>
+> **Al crearla, Cloudflare avisa:** «This rule may not apply to your traffic…
+> your DNS configuration may not be proxying traffic for (expresión)». Es un
+> **falso positivo**: la expresión sólo mira la extensión y no nombra ningún
+> hostname, así que Cloudflare no puede deducir a qué registro DNS aplica. El
+> tráfico sí está proxeado (`server: cloudflare`, `cf-ray`, y fervon.dev
+> resuelve a 104.21.x / 172.67.x). Se marca **«Ignore and deploy rule anyway»**.
+> Lo que NO hay que elegir es «Create a new proxied DNS record»: crearía un
+> registro DNS basura con el nombre de la expresión.
+>
+> Lo de abajo se conserva como registro de por qué existe y de cómo rehacerla.
+
 **Por qué existe esto (PageSpeed 2026-08-17):** PSI móvil señala «Usar tiempos de
 vida de caché eficientes — ahorro de 83 KiB». Todos los assets
 (`inter-var.woff2` 49 KiB, `textura-forja.webp` 32 KiB, `shared.js`, `index.css`,
