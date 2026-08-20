@@ -17,9 +17,9 @@
   },
   "/blog/": {
     "en": {
-      "title": "News · Fervon",
+      "title": "News on AI agents and autonomous software | Fervon",
       "desc": "Releases from Trace, Veredicto, Lookspan, ClaudeScope, inferbench and launchpad, plus articles on building software with fleets of AI agents.",
-      "ogTitle": "News · Fervon",
+      "ogTitle": "News. What comes out of the workshop.",
       "ogDesc": "Fervon project releases and the method they are built with: fleets of AI agents, measured and reviewed."
     }
   },
@@ -65,9 +65,9 @@
   },
   "/contacto/": {
     "en": {
-      "title": "Contact · Fervon",
+      "title": "Contact · Bespoke development with AI agents | Fervon",
       "desc": "A product, a service or just to say hello? Write to me directly. You get me, with no middlemen. Fervon — autonomous software studio.",
-      "ogTitle": "Contact · Fervon",
+      "ogTitle": "Let's build something. Forged red-hot.",
       "ogDesc": "Bespoke development driven by fleets of AI agents. Per-project pricing, closed scope, and the code is yours."
     }
   },

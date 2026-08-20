@@ -238,7 +238,12 @@ for (const f of files) {
   for (const m of anchorText) {
     const inner = m[1].replace(/<svg[\s\S]*?<\/svg>/gi, '').replace(/<[^>]+>/g, '').trim();
     const tag = m[0].match(/<a\b[^>]*>/i)[0];
-    if (!inner && !attr(tag, 'aria-label') && !/\<img/i.test(m[1])) emptyAnchor.push((attr(tag, 'href') || '?'));
+    /* Un enlace con `aria-hidden="true"` + `tabindex="-1"` es decorativo a
+       propósito: duplica visualmente otro que sí tiene texto y se esconde para
+       que los lectores de pantalla no lo anuncien dos veces. Eso es lo CORRECTO,
+       no un fallo — es el caso de los iconos grandes del megamenú. */
+    const decorativa = attr(tag, 'aria-hidden') === 'true' && attr(tag, 'tabindex') === '-1';
+    if (!inner && !decorativa && !attr(tag, 'aria-label') && !/\<img/i.test(m[1])) emptyAnchor.push((attr(tag, 'href') || '?'));
   }
   if (extNoRel.length) add('baja', 'rel-noopener', extNoRel.length + ' enlaces target=_blank sin rel=noopener');
   if (emptyAnchor.length) add('media', 'anchor-vacio', emptyAnchor.length + ' enlaces sin texto ni aria-label: ' + [...new Set(emptyAnchor)].slice(0, 3).join(', '));
