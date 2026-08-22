@@ -69,7 +69,6 @@ const LANGS = {
   en: { htmlLang: 'en', hreflang: 'en', ogLocale: 'en_US', label: 'EN', navLabel: 'Language' },
   zh: { htmlLang: 'zh-Hans', hreflang: 'zh-Hans', ogLocale: 'zh_CN', label: '中文', navLabel: '语言' },
 };
-const X_DEFAULT = 'es';
 
 const PAGES = [
   { src: 'index.html', url: '/', lang: 'es' },
@@ -359,7 +358,7 @@ for (const page of PAGES) {
     const alts = LANGS_ACTIVOS
       .filter((l) => l === page.lang || nTrad > 0)
       .map((l) => ({ hreflang: LANGS[l].hreflang, href: ORIGIN + urlFor(page, l) }));
-    alts.push({ hreflang: 'x-default', href: ORIGIN + urlFor(page, nTrad > 0 ? X_DEFAULT : page.lang) });
+    alts.push({ hreflang: 'x-default', href: ORIGIN + urlFor(page, page.lang) });   /* x-default = el idioma ORIGINAL de la página, no un global: las landings de Trace son EN y mandaban a Google al árbol /es/ */
 
     const mapa = {};
     for (const p of PAGES) mapa[p.url] = urlFor(p, (FUENTE.get(p.src).n > 0 || p.lang === lang) ? lang : p.lang);

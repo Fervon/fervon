@@ -68,7 +68,10 @@ await new Promise(r => srv.listen(PUERTO, '127.0.0.1', r));
 // --- recorrido -----------------------------------------------------------
 function paginas(dir, out = []) {
   for (const f of readdirSync(dir)) {
-    if (['node_modules', '.git', '.wrangler', 'scripts'].includes(f)) continue;
+    /* dist es la copia de build, src-i18n las fuentes con data-en y .claude puede
+       guardar worktrees de agentes: ninguna se publica, y recorrerlas multiplicaba
+       por 4 el tiempo de Chrome sobre páginas que nadie sirve. */
+    if (['node_modules', '.git', '.wrangler', 'scripts', 'dist', 'src-i18n', '.claude'].includes(f)) continue;
     const p = join(dir, f);
     if (statSync(p).isDirectory()) paginas(p, out);
     else if (p.endsWith('.html')) out.push('/' + relative(ROOT, p).replace(/\\/g, '/'));

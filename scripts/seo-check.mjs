@@ -29,10 +29,10 @@ const rd = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8').replace(/\r\n/g, '
 const PAGES = [];
 (function walk(dir) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (['node_modules', '.git', '.claude', 'src-i18n'].includes(e.name)) continue;   // src-i18n son las fuentes del generador, no se publican
+    if (['node_modules', '.git', '.claude', 'src-i18n', 'dist'].includes(e.name)) continue;   // src-i18n son las fuentes del generador, no se publican
     const p = path.join(dir, e.name);
     if (e.isDirectory()) walk(p);
-    else if (e.name.endsWith('.html')) PAGES.push(path.relative(ROOT, p).split(path.sep).join('/'));
+    else if (e.name.endsWith('.html') && e.name !== '404.html') PAGES.push   /* la 404 no se indexa: no lleva FAQ, ni CTA, ni va en el sitemap */(path.relative(ROOT, p).split(path.sep).join('/'));
   }
 })(ROOT);
 PAGES.sort();
