@@ -6,6 +6,7 @@
   <title>Fervon · Estudio de software autónomo</title>
   <meta name="description" content="Estudio de software autónomo de Jonathan Martín: Trace, Veredicto y herramientas open source local-first, hechas con flotas de agentes de IA.">
   <link rel="canonical" href="https://fervon.dev/"><link rel="alternate" hreflang="es" href="https://fervon.dev/"><link rel="alternate" hreflang="en" href="https://fervon.dev/en/"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/">
+  <link rel="alternate" type="application/rss+xml" title="Fervon" href="/blog/feed.xml">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="author" content="Fervon">
   <meta name="theme-color" content="#0E0B0A">
@@ -190,6 +191,16 @@
             "url": "https://fervon.dev/veredicto/",
             "price": "19",
             "priceCurrency": "USD",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "19",
+              "priceCurrency": "USD",
+              "referenceQuantity": {
+                "@type": "QuantitativeValue",
+                "value": 1,
+                "unitCode": "MON"
+              }
+            },
             "itemOffered": {
               "@type": "SoftwareApplication",
               "name": "Veredicto",
@@ -247,7 +258,7 @@
       "name": "¿Qué productos hay y cuáles son gratis?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "De pago: Trace (memoria personal local, $39 de pago único) y Veredicto (check de CI contra tests amañados, $19 por repositorio). Gratis y open source: inferbench, Lookspan, ClaudeScope, Mission Control y Pregón."
+        "text": "De pago: Trace (memoria personal local, $39 de pago único) y Veredicto (check de CI contra tests amañados, $19 por repositorio y mes). Gratis y open source: inferbench, Lookspan, ClaudeScope, Mission Control y Pregón."
       }
     },
     {
@@ -313,8 +324,8 @@
   <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin="">
   <link rel="preload" as="image" href="/assets/textura-forja.webp" media="(max-width:899.98px)" fetchpriority="high">
   <link rel="preload" as="image" href="/assets/hero-home.webp" media="(min-width:900px)" fetchpriority="high">
-  <link rel="stylesheet" href="/index.css?v=20260820">
-  <link rel="stylesheet" href="/assets/shared.css?v=20260820">
+  <link rel="stylesheet" href="/index.css?v=20260822">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260822">
 </head>
 <body>
   <a class="skip" href="#top">Saltar al contenido</a>
@@ -375,8 +386,8 @@
           <h2 id="resumen-h">En 30 segundos</h2>
           <ul>
         <li><b>Fervon</b> es el estudio de software autónomo de Jonathan Martín: una persona dirigiendo flotas de agentes de IA.</li>
-        <li>Dos productos de pago —<b>Trace</b> ($39, pago único) y <b>Veredicto</b> ($19/repo)— y cinco herramientas <b>open source y gratis</b>.</li>
-        <li>Todo es <b>local-first</b>: sin nube obligatoria, sin suscripción y sin telemetría por defecto.</li>
+        <li>Dos productos de pago —<b>Trace</b> ($39, pago único) y <b>Veredicto</b> ($19/repo al mes)— y cinco herramientas <b>open source y gratis</b>.</li>
+        <li>Todo es <b>local-first</b>: sin nube obligatoria y sin telemetría por defecto.</li>
         <li>También hago <b>desarrollo a medida</b> con el mismo método. Hablas conmigo, no con un comercial.</li>
           </ul>
       <div class="cta-row s-tldrcta">
@@ -566,7 +577,7 @@
         </details>
         <details>
           <summary>¿Qué productos hay y cuáles son gratis?</summary>
-          <p>De pago: Trace (memoria personal local, $39 de pago único) y Veredicto (check de CI contra tests amañados, $19 por repositorio). Gratis y open source: inferbench, Lookspan, ClaudeScope, Mission Control y Pregón.</p>
+          <p>De pago: Trace (memoria personal local, $39 de pago único) y Veredicto (check de CI contra tests amañados, $19 por repositorio y mes). Gratis y open source: inferbench, Lookspan, ClaudeScope, Mission Control y Pregón.</p>
         </details>
         <details>
           <summary>¿Se puede comprar sin hablar con nadie?</summary>
@@ -616,7 +627,7 @@
             </thead>
             <tbody>
           <tr><th><a href="/trace/">Trace</a></th><td>Memoria personal buscable</td><td>$39 pago único</td><td>Comercial</td><td>Windows · macOS · Linux</td></tr>
-          <tr><th><a href="/veredicto/">Veredicto</a></th><td>Pillar tests amañados en CI</td><td>$19 por repo</td><td>Comercial</td><td>GitHub Actions</td></tr>
+          <tr><th><a href="/veredicto/">Veredicto</a></th><td>Pillar tests amañados en CI</td><td>$19 por repo y mes</td><td>Comercial</td><td>GitHub Actions</td></tr>
           <tr><th><a href="/inferbench/">inferbench</a></th><td>Benchmark de LLM locales</td><td>Gratis</td><td>MIT</td><td>Windows · macOS · Linux</td></tr>
           <tr><th><a href="/lookspan/">Lookspan</a></th><td>Observabilidad de agentes</td><td>Gratis</td><td>MIT</td><td>Windows · macOS · Linux</td></tr>
           <tr><th><a href="/claudescope/">ClaudeScope</a></th><td>Buscar sesiones de Claude Code</td><td>Gratis</td><td>MIT</td><td>Windows · macOS · Linux</td></tr>
@@ -683,8 +694,8 @@
     <div class="copy">Forjado al rojo vivo · © 2026 Fervon</div>
   </div></footer>
 
-  <script src="/index.client.js?v=20260820" defer=""></script>
-  <script src="/assets/shared.js?v=20260820" defer=""></script>
+  <script src="/index.client.js?v=20260822" defer=""></script>
+  <script src="/assets/shared.js?v=20260822" defer=""></script>
 
 
 </body></html>

@@ -13,11 +13,11 @@ no subscription, no data leaving the user's machine. Sitio: https://fervon.dev
 ## Productos de pago
 
 - [Trace](https://fervon.dev/trace/): memoria personal local-first y multiplataforma. Encuentra cualquier cosa que viste, leíste o hiciste sin grabar la pantalla, sin nube y sin suscripción. Alternativa independiente a Rewind AI, Limitless y Microsoft Recall. Pago único de $39. Windows, macOS y Linux.
-- [Veredicto](https://fervon.dev/veredicto/): check de CI que detecta tests escritos por agentes de IA que no prueban nada — over-mocking, asserts tautológicos y mocks de justo aquello que se debía testear. GitHub Action, 11 reglas, nada sale del runner. $19 por repositorio.
+- [Veredicto](https://fervon.dev/veredicto/): check de CI que detecta tests escritos por agentes de IA que no prueban nada — over-mocking, asserts tautológicos y mocks de justo aquello que se debía testear. GitHub Action, 11 reglas, nada sale del runner. $19 por repositorio y mes, recurrente.
 
 ## Herramientas open source (gratis)
 
-- [inferbench](https://fervon.dev/inferbench/): descarga, arranca y benchmarkea motores de inferencia LLM locales con un click. Mide tok/s, TTFT y VRAM reales para saber qué modelo cabe y corre en tu GPU.
+- [inferbench](https://fervon.dev/inferbench/): descarga, arranca y benchmarkea motores de inferencia LLM locales con un click. Mide tok/s, TTFT y VRAM reales para saber qué modelo cabe y corre en tu GPU. Es una aplicación de escritorio: se descarga como instalador (.exe, .dmg o .AppImage) desde https://github.com/JoniMartin27/inferbench/releases/latest — no se instala con npm.
 - [Lookspan](https://fervon.dev/lookspan/): observabilidad local-first para agentes de IA. Captura cada llamada LLM, cada herramienta MCP y cada token de coste de agentes LangGraph, CrewAI y MCP. Dashboard en 127.0.0.1:3100 con `npx lookspan`.
 - [ClaudeScope](https://fervon.dev/claudescope/): búsqueda full-text sobre todas tus sesiones de Claude Code, más un panel de uso. 100% local, un solo comando: `npx claudescope-cli`.
 - [Mission Control (launchpad)](https://fervon.dev/launchpad/): descubre todos los proyectos de una carpeta y los arranca a la vez en puertos sin colisión, con logs en vivo, estado de git y salud de cada servicio. Solo local.
@@ -48,6 +48,11 @@ no subscription, no data leaving the user's machine. Sitio: https://fervon.dev
 - [Memoria personal sin grabar la pantalla](https://fervon.dev/trace/personal-memory-tool-without-screen-recording): historial de navegador, ventana activa y portapapeles, sin vídeo 24/7 ni capturas almacenadas.
 - [Informe: la IA escribió los tests y el bug se publicó igual](https://fervon.dev/veredicto/report): experimento reproducible con 20 módulos con bugs reales. Los agentes escribieron tests "exhaustivos", el 100% pasó en verde y ninguno detectó el bug.
 
+## Feeds
+
+- [RSS en español](https://fervon.dev/blog/feed.xml)
+- [RSS in English](https://fervon.dev/en/blog/feed.xml)
+
 ## Contacto
 
 - [Contacto](https://fervon.dev/contacto/): formulario directo con Jonathan Martín. Sin intermediarios ni comerciales.
@@ -58,7 +63,8 @@ no subscription, no data leaving the user's machine. Sitio: https://fervon.dev
 
 - Fervon NO vende de forma saliente ni hace prospección: todos los productos son
   self-serve y se compran o descargan directamente desde fervon.dev.
-- Los precios indicados son de pago único por licencia, no suscripciones.
+- Trace es de pago único ($39, licencia perpetua). Veredicto es recurrente:
+  $19 por repositorio y mes. No hay ningún otro producto de pago.
 - Las herramientas open source no requieren cuenta, API key ni registro.
 - Fervon es una marca distinta de "Fervon Store" (bisutería), "FERVON INVESTMENT SL"
   (sociedad española), "El Fervón" (cascada en León) y "Fervon-XT" (medicamento).

@@ -24,6 +24,7 @@
   ],
   "scripts": {
     "about:gen": "node scripts/gen-about.mjs",
+    "analitica:check": "node scripts/analitica-check.mjs",
     "blog:gen": "node scripts/gen-blog.mjs",
     "blog:og": "node scripts/render-og-blog.mjs",
     "breadcrumbs:fix": "node scripts/fix-breadcrumbs-trace.mjs",
@@ -31,6 +32,7 @@
     "csp:check": "node scripts/csp-check.mjs",
     "demos:video": "node scripts/gen-demos-video.mjs",
     "escape:check": "node scripts/check-data-attr-escape.mjs",
+    "feed:gen": "node scripts/gen-feed.mjs",
     "headers:build": "node scripts/gen-headers.mjs",
     "headers:check": "node scripts/gen-headers.mjs --check",
     "i18n:build": "node scripts/i18n-build.mjs && node scripts/fix-breadcrumbs-trace.mjs && node scripts/check-data-attr-escape.mjs",
