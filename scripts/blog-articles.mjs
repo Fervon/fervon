@@ -470,6 +470,17 @@ export const ARTICLES = [
    versión publicada y su entrada de CHANGELOG. Nada «en camino».
    Para añadir una: copia el bloque de arriba y ponlo el primero.
    ══════════════════════════════════════════════════════════════════════════ */
+/* El ancla de cada novedad. Vive AQUÍ y no en el generador porque la usan dos:
+   gen-blog.mjs la pinta en el <li> y gen-feed.mjs la mete en el <guid> del
+   feed. Si cada uno la calculara por su cuenta, el día que cambie una, los
+   lectores de feeds verían todas las novedades como nuevas otra vez. */
+export const anclaNovedad = (n) =>
+  'nov-' + `${n.proyecto}-${n.version}`
+    .toLowerCase()
+    .normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-|-$/g, '');
+
 export const NOVEDADES = [
   {
     fecha: '2026-08-12',

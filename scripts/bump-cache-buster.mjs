@@ -36,7 +36,10 @@ const V = process.argv[2] || (() => {
 const PAGES = [];
 (function walk(dir) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (['node_modules', '.git', '.claude'].includes(e.name)) continue;
+    /* dist/ lo borra y lo rehace build-pages.mjs entero (`rmSync` + copia),
+       así que tocarlo aquí sólo infla el recuento y hace pensar que se han
+       actualizado el doble de páginas de las que existen. */
+    if (['node_modules', '.git', '.claude', 'dist'].includes(e.name)) continue;
     const p = path.join(dir, e.name);
     if (e.isDirectory()) walk(p);
     else if (e.name.endsWith('.html')) PAGES.push(path.relative(ROOT, p).split(path.sep).join('/'));

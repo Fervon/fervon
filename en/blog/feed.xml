@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Fervon — News</title>
+    <link>https://fervon.dev/en/blog/</link>
+    <description>Long reads and project releases from Fervon: local-first developer tools, AI agents and observability.</description>
+    <language>en-US</language>
+    <copyright>Fervon</copyright>
+    <generator>scripts/gen-feed.mjs</generator>
+    <atom:link href="https://fervon.dev/en/blog/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 19 Aug 2026 09:00:00 +0000</lastBuildDate>
+    <item>
+      <title>How to direct a fleet of AI agents</title>
+      <link>https://fervon.dev/en/blog/flotas-agentes-ia/</link>
+      <guid isPermaLink="false">https://fervon.dev/en/blog/flotas-agentes-ia/</guid>
+      <pubDate>Wed, 19 Aug 2026 09:00:00 +0000</pubDate>
+      <category>Long read</category>
+      <description>Isolation with git worktrees, how many agents in parallel, measuring before fixing, and an adversarial judge panel. The real method, limits included.</description>
+      <enclosure url="https://fervon.dev/assets/blog/flotas-agentes-ia.jpg" type="image/jpeg" length="0" />
+    </item>
+    <item>
+      <title>How to tell when an agent is gaming your tests</title>
+      <link>https://fervon.dev/en/blog/tests-amanados-agentes/</link>
+      <guid isPermaLink="false">https://fervon.dev/en/blog/tests-amanados-agentes/</guid>
+      <pubDate>Wed, 19 Aug 2026 09:00:00 +0000</pubDate>
+      <category>Long read</category>
+      <description>Six ways an agent turns a test green without fixing anything, how to detect each one, and the one check that cannot be faked.</description>
+      <enclosure url="https://fervon.dev/assets/blog/tests-amanados-agentes.jpg" type="image/jpeg" length="0" />
+    </item>
+    <item>
+      <title>Lookspan v0.5.3 — Hardened security and external Postgres</title>
+      <link>https://fervon.dev/en/blog/#nov-lookspan-v0-5-3</link>
+      <guid isPermaLink="false">https://fervon.dev/blog/en/nov-lookspan-v0-5-3</guid>
+      <pubDate>Wed, 19 Aug 2026 09:00:00 +0000</pubDate>
+      <category>Releases</category>
+      <description>Lookspan can now sit on an external Postgres alongside local storage, and ships a security hardening pass on the ingest server. It stays local-first: the dashboard lives at 127.0.0.1:3100 via npx lookspan and no span leaves your machine unless you ask it to.</description>
+    </item>
+    <item>
+      <title>What an AI agent really costs</title>
+      <link>https://fervon.dev/en/blog/coste-real-agentes-ia/</link>
+      <guid isPermaLink="false">https://fervon.dev/en/blog/coste-real-agentes-ia/</guid>
+      <pubDate>Wed, 19 Aug 2026 09:00:00 +0000</pubDate>
+      <category>Long read</category>
+      <description>The provider invoice is not the cost. Where an agent&apos;s spend actually hides, how to measure it locally, and when moving the model to your own GPU pays off.</description>
+      <enclosure url="https://fervon.dev/assets/blog/coste-real-agentes-ia.jpg" type="image/jpeg" length="0" />
+    </item>
+    <item>
+      <title>What an autonomous software studio is</title>
+      <link>https://fervon.dev/en/blog/estudio-software-autonomo/</link>
+      <guid isPermaLink="false">https://fervon.dev/en/blog/estudio-software-autonomo/</guid>
+      <pubDate>Wed, 19 Aug 2026 09:00:00 +0000</pubDate>
+      <category>Long read</category>
+      <description>An autonomous software studio is a workshop where AI agents do the execution and one person supplies the judgement. What actually changes, and what does not.</description>
+      <enclosure url="https://fervon.dev/assets/blog/estudio-software-autonomo.jpg" type="image/jpeg" length="0" />
+    </item>
+    <item>
+      <title>ClaudeScope v0.5 — Jump to the message, a weekly digest and an HTML report that opens offline</title>
+      <link>https://fervon.dev/en/blog/#nov-claudescope-v0-5</link>
+      <guid isPermaLink="false">https://fervon.dev/blog/en/nov-claudescope-v0-5</guid>
+      <pubDate>Wed, 12 Aug 2026 09:00:00 +0000</pubDate>
+      <category>Releases</category>
+      <description>Opening a session from a search result now scrolls to the matched message and highlights it, which was the missing half of find→read. There is also --weekly, a plain-text &quot;Scope Report&quot; —this week versus last, streak, archetype, top project, percentile— meant for a scheduled task, and export to a self-contained .html that opens offline. Plus local team mode: --dump-sessions writes a session dump and --merge aggregates several dumps into shared analytics. Zero infrastructure and nothing gets uploaded.</description>
+    </item>
+    <item>
+      <title>launchpad v1.3.0 — Open a project in your editor from the panel — and a security hole closed</title>
+      <link>https://fervon.dev/en/blog/#nov-launchpad-v1-3-0</link>
+      <guid isPermaLink="false">https://fervon.dev/blog/en/nov-launchpad-v1-3-0</guid>
+      <pubDate>Wed, 12 Aug 2026 09:00:00 +0000</pubDate>
+      <category>Releases</category>
+      <description>The detail drawer now opens any project in your editor, your file manager or a terminal: the cd the README promised to save you. The endpoint existed but no button ever called it, and it only knew about VS Code; the editor now comes from settings.editorCommand, so subl, webstorm or nvim work just as well. Something more serious got closed along the way: the old route used execFile(cmd, [path], { shell: true }), which concatenates arguments into a shell string without escaping them — a project folder name could run commands.</description>
+    </item>
+    <item>
+      <title>Veredicto v0.4.0 — Veredicto goes paid, with the licence verified without leaving the runner</title>
+      <link>https://fervon.dev/en/blog/#nov-veredicto-v0-4-0</link>
+      <guid isPermaLink="false">https://fervon.dev/blog/en/nov-veredicto-v0-4-0</guid>
+      <pubDate>Wed, 12 Aug 2026 09:00:00 +0000</pubDate>
+      <category>Releases</category>
+      <description>One product, $19 per repository, self-serve and with no tiers. The interesting part is how the licence is checked: an Ed25519 signature validated locally against a public key embedded in the source. No licence server, no phone-home and no telemetry — on a runner with no egress it still works. A tool that reads your diffs has no business reporting on them, and that applies to its own billing too. The gate is fail-closed and runs before the diff is read: an unlicensed run fails and says why, and never resembles &quot;Veredicto ran and your PR is clean&quot;. Everything up to 0.3.3 stays MIT, irrevocably.</description>
+    </item>
+  </channel>
+</rss>

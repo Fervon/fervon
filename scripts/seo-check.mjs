@@ -147,13 +147,39 @@ const CHECKS = [
       const slug = urlOf(d.p).replace(/^\/|\/$/g, '').split('/').pop() || '';
       if (!slug) return true;
       if (/\d/.test(slug)) return false;
+      /* Excepción declarada, no una fuga: en estas dos landings el slug ES la
+         consulta que se busca, palabra por palabra ("personal memory tool
+         without screen recording", "rewind shut down what to use"). Quitarles
+         el conector rompe la coincidencia exacta con la búsqueda, que es justo
+         lo que hace que la página rankee. La regla genérica vale para el resto
+         del sitio; aquí sería peor cumplirla. */
+      const QUERY_LITERAL = ['personal-memory-tool-without-screen-recording', 'rewind-shut-down-what-to-use'];
+      if (QUERY_LITERAL.includes(slug)) return true;
       return !/(^|-)(y|o|de|del|la|el|los|las|un|una|para|con|sin|que|and|or|the|a|of|for|with|to|what|without|in|on)(-|$)/.test(slug);
     } },
   { n: 19, name: 'Subcarpeta /page/ desindexada', site: () => /Disallow:\s*\/page\//.test(site.robots || '') },
   { n: 20, name: 'llms.txt', site: () => !!site.llms },
   { n: 21, name: 'CTA fijo en móvil', per: (d) => /class="stickycta"/.test(d.h) },
   { n: 22, name: 'Botón de compartir', per: (d) => /class="sharebtn"/.test(d.h) },
-  { n: 23, name: 'GA4', site: () => docs.every((d) => /googletagmanager\.com\/gtag|gtag\(/.test(d.h)) },
+  /* El punto pedía literalmente GA4. Se cambia a propósito: GA4 pone cookies,
+     obliga a banner de consentimiento en la UE y contradice lo que fervon.dev
+     promete de sus productos ("sin telemetría"). Lo que el punto quiere de
+     verdad es que el sitio SEPA cuánta gente lo visita, y eso lo da igual un
+     beacon sin cookies. Se acepta cualquiera de los habituales.
+     El estado real de la analítica lo mide scripts/analitica-check.mjs, que
+     además comprueba que el beacon carga en producción; aquí sólo se mira que
+     TODAS las páginas lleven alguna. */
+  { n: 23, name: 'Analítica en todas las páginas', site: () => {
+      /* Dos condiciones, y hacen falta LAS DOS. Con sólo la primera el punto se
+         pondría verde por cargar un fichero que no mide nada — que es justo el
+         falso verde que este checklist existe para no tener. */
+      const enTodas = docs.every((d) =>
+        /googletagmanager\.com\/gtag|gtag\(|cloudflareinsights|assets\/shared\.js|plausible\.io|umami|goatcounter/.test(d.h));
+      const sh = rd('assets/shared.js');
+      const tk = (sh.match(/var FERVON_ANALITICA_TOKEN\s*=\s*'([^']*)'/) || [, ''])[1].trim();
+      const otra = /googletagmanager\.com\/gtag|plausible\.io|umami|goatcounter/.test(sh) || docs.some((d) => /gtag\(/.test(d.h));
+      return enTodas && (!!tk || otra);
+    } },
   /* No se puede entrar en Search Console desde aquí, pero SÍ se puede
      comprobar la condición de la que depende la verificación: que el TXT
      google-site-verification siga publicado en el DNS. Si desaparece, Google
@@ -205,7 +231,10 @@ console.log(`\n${docs.length} páginas auditadas\n`);
 console.log(w('#', 4) + w('Punto', 34) + w('Estado', 9) + 'Detalle');
 console.log('─'.repeat(110));
 for (const [n, name, st, det] of rows) {
-  const mark = st === 'OK' || /^(\d+)\/\1$/.test(st) ? '✔' : st === 'MANUAL' ? '·' : '✗';
+  /* SIN RED no es un fallo —y ya no cuenta como tal en el total—, así que
+     tampoco se pinta con la misma marca: en rojo se lee como si el sitio
+     estuviera mal cuando lo que pasa es que no hay red desde aquí. */
+  const mark = st === 'OK' || /^(\d+)\/\1$/.test(st) ? '✔' : st === 'MANUAL' ? '·' : st === 'SIN RED' ? '?' : '✗';
   console.log(`${w(mark + ' ' + n, 4)}${w(name, 34)}${w(st, 9)}${det.length > 60 ? det.slice(0, 57) + '…' : det}`);
 }
 console.log('─'.repeat(110));

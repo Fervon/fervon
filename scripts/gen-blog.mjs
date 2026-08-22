@@ -18,7 +18,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { ARTICLES, NOVEDADES } from './blog-articles.mjs';
+import { ARTICLES, NOVEDADES, anclaNovedad } from './blog-articles.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ORIGIN = 'https://fervon.dev';
@@ -154,6 +154,7 @@ const head = ({ url, title, desc, ogTitle, ogDesc, img, jsonld, tipo = 'website'
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(desc)}" />
   <link rel="canonical" href="${ORIGIN}${url}" />
+  <link rel="alternate" type="application/rss+xml" title="Fervon" href="/blog/feed.xml" data-i18n-attr="href" data-en="/en/blog/feed.xml" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta name="author" content="Fervon" />
   <meta name="theme-color" content="#0E0B0A" />
@@ -386,7 +387,7 @@ ${tldrSec([
       <h2 ${t({ es: 'Novedades de los proyectos', en: 'Project releases' })}</h2>
       <p class="sub" ${t({ es: 'Lo que ha ido saliendo del catálogo, con la versión y lo que cambia de verdad.', en: 'What has shipped from the catalogue, with the version and what actually changes.' })}</p>
       <ol class="novedades reveal">
-${[...NOVEDADES].sort((a, b) => b.fecha.localeCompare(a.fecha)).map((n) => `        <li>
+${[...NOVEDADES].sort((a, b) => b.fecha.localeCompare(a.fecha)).map((n) => `        <li id="${anclaNovedad(n)}">
           <div class="nv-h">
             <time datetime="${n.fecha}" ${t({ es: fechaLarga(n.fecha, false), en: fechaLarga(n.fecha, true) })}</time>
             <a class="nv-p" href="${n.url}">${n.proyecto}</a>

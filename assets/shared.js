@@ -525,3 +525,41 @@ requestAnimationFrame(function(){ requestAnimationFrame(start); });
   bar.style.transition='transform .22s ease';
   io.observe(heroCta);
 })();
+
+/* ============================================================
+   Analítica (punto 23).
+
+   Cloudflare Web Analytics, y NO Google Analytics, a propósito:
+   no pone cookies, no necesita banner de consentimiento en la UE
+   y no contradice lo que fervon.dev promete de sus productos
+   ("sin telemetría"). La CSP ya autoriza el dominio del beacon
+   desde junio: script-src incluye static.cloudflareinsights.com.
+
+   POR QUÉ AQUÍ Y NO EN EL <head> DE CADA PÁGINA: son 49 páginas
+   generadas por tres scripts distintos. Metido en shared.js —que
+   cargan las 49— basta cambiar UNA línea, y las páginas futuras
+   quedan cubiertas sin acordarse de nada.
+
+   PARA ENCENDERLA: pega abajo el token del panel de Cloudflare
+   (Web Analytics -> Add a site -> fervon.dev -> copia el token
+   del snippet) y sube el cache-buster con:
+       node scripts/bump-cache-buster.mjs
+   Sin ese bump, el borde de Cloudflare sigue sirviendo el
+   shared.js viejo durante horas y parece que no funciona.
+
+   Mientras el token esté vacío no se pide NADA: ni una petición
+   de más, ni un error en consola. Comprobar con:
+       node scripts/analitica-check.mjs
+   ============================================================ */
+var FERVON_ANALITICA_TOKEN = '';   /* <- el token de Cloudflare Web Analytics va aquí */
+
+(function(){
+  if(!FERVON_ANALITICA_TOKEN) return;
+  /* Respetar Do Not Track: si el visitante lo pide, no se le mide. */
+  if(navigator.doNotTrack==='1'||window.doNotTrack==='1') return;
+  var s=document.createElement('script');
+  s.defer=true;
+  s.src='https://static.cloudflareinsights.com/beacon.min.js';
+  s.setAttribute('data-cf-beacon', JSON.stringify({ token: FERVON_ANALITICA_TOKEN }));
+  document.head.appendChild(s);
+})();
