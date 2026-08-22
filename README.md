@@ -45,6 +45,45 @@ npm run csp:check   # sirve el sitio con la CSP real de producción y recorre to
 `npm run csp:build` extrae `<style>`/`<script>` a ficheros externos, recalcula los
 hashes JSON-LD e imprime el valor de la CSP para pegar en la Transform Rule.
 
+### Analítica
+
+El sitio mide con **Cloudflare Web Analytics**, no con GA4: sin cookies, sin
+banner de consentimiento y sin contradecir el «sin telemetría» que prometen los
+productos. El beacon se inyecta desde `assets/shared.js`, que cargan las 49
+páginas, así que se enciende cambiando **una línea**.
+
+```bash
+npm run analitica:check   # ¿mide algo de verdad? lo comprueba con Chrome contra producción
+```
+
+Da tres veredictos y ninguno es ambiguo: **SIN TOKEN** (y dice el paso que falta),
+**ROTO** (CSP, caché vieja o token mal pegado) y **MIDIENDO**. Si la máquina desde
+la que mides no llega al beacon, lo dice en vez de inventarse un veredicto.
+
+Para encenderla: Cloudflare → *Web Analytics* → *Add a site* → `fervon.dev`, pegar
+el token en `FERVON_ANALITICA_TOKEN` y correr `node scripts/bump-cache-buster.mjs`
+— sin ese bump el borde sigue sirviendo el `shared.js` viejo durante horas.
+
+### Feed
+
+```bash
+npm run feed:gen   # regenera /blog/feed.xml y /en/blog/feed.xml
+```
+
+RSS 2.0 en los dos idiomas, con los artículos y las novedades. Se regenera
+**después** de `blog:gen` e `i18n:build`, porque las anclas de las novedades las
+pinta el generador del blog y el feed las enlaza.
+
+⚠️ El `guid` de cada entrada no puede cambiar nunca: si cambia, todos los
+suscriptores ven el feed entero como no leído. Por eso el ancla vive en
+`scripts/blog-articles.mjs` (`anclaNovedad`) y la comparten los dos generadores.
+
+⚠️ La regla de caché de Cloudflare cubre los `.xml` con un TTL largo, y eso vale
+también para los **404**: si pides una URL de feed antes de desplegarla, el borde
+se queda con el 404 durante más de una hora. Comprobado el 2026-08-22 con
+`/blog/feed.xml` (`Age: 3723`, `cf-cache-status: HIT`) mientras el origen ya
+servía 200. Se arregla purgando esa URL en Cloudflare.
+
 ## Licencia
 
 MIT © Jonathan Martín
