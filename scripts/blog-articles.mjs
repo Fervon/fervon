@@ -486,6 +486,17 @@ export const NOVEDADES = [
     fecha: '2026-08-12',
     proyecto: 'Veredicto',
     url: '/veredicto/',
+    version: 'v0.3.3',
+    titulo: { es: 'Cuatro trampas en un PR real, el check en rojo, y la contraprueba de que no grita de más', en: 'Four cheats in a real pull request, a red check, and the counter-proof that it does not cry wolf' },
+    cuerpo: {
+      es: 'La verificación que faltaba no era otro test unitario: fue abrir un <b>pull request de verdad</b>, en un repositorio de verdad, con cuatro trampas dentro. Veredicto se disparó en <code>pull_request</code>, diffeó <code>base..head</code> y marcó las cuatro — un test borrado, un test <b>vaciado</b> (el caso sigue ahí, el assert no), un <code>.skip</code> y un assert tautológico —, publicó su comentario en el PR y, en modo <code>block</code>, dejó el check en rojo. El vaciado es el que importa: hasta la 0.3.0 ese diff daba <b>cero señales</b>, porque solo contiene borrados y no hay ninguna línea añadida que leer. Y la mitad que hace que la prueba valga algo: en la misma pasada, una frase en prosa acabada en <code>expect.</code> <b>no</b> disparó, y la directiva de supresión bajó las señales de 4 a 3 — al quitarla volvieron a 4. Un detector que solo se prueba con trampas no se distingue de uno que grita siempre.',
+      en: 'The verification that was missing was not another unit test: it was opening a <b>real pull request</b>, on a real repository, with four cheats inside. Veredicto fired on <code>pull_request</code>, diffed <code>base..head</code> and flagged all four — a deleted test, a <b>gutted</b> test (the case is still there, the assertion is not), a <code>.skip</code> and a tautological assertion —, posted its comment on the PR and, in <code>block</code> mode, left the check red. The gutted one is what matters: until 0.3.0 that diff produced <b>zero signals</b>, because it contains only deletions and there is no added line to read. And the half that makes the test worth anything: in the same run, a prose sentence ending in <code>expect.</code> did <b>not</b> fire, and the suppression directive took the signals from 4 down to 3 — removing it brought them back to 4. A detector only ever tried against cheats is indistinguishable from one that always cries wolf.',
+    },
+  },
+  {
+    fecha: '2026-08-12',
+    proyecto: 'Veredicto',
+    url: '/veredicto/',
     version: 'v0.4.0',
     titulo: { es: 'Veredicto pasa a ser de pago, con la licencia verificada sin salir del runner', en: 'Veredicto goes paid, with the licence verified without leaving the runner' },
     cuerpo: {

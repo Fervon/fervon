@@ -70,6 +70,14 @@
       <description>El cajón de detalle ya abre cualquier proyecto en tu editor, tu explorador de archivos o una terminal: el cd que el README prometía ahorrarte. El endpoint existía pero ningún botón lo llamaba, y solo sabía de VS Code; ahora el editor sale de settings.editorCommand, así que subl, webstorm o nvim valen igual. De paso se cerró algo más serio: la ruta antigua usaba execFile(cmd, [path], { shell: true }), que concatena los argumentos en una cadena de shell sin escaparlos — el nombre de una carpeta de proyecto podía ejecutar comandos.</description>
     </item>
     <item>
+      <title>Veredicto v0.3.3 — Cuatro trampas en un PR real, el check en rojo, y la contraprueba de que no grita de más</title>
+      <link>https://fervon.dev/blog/#nov-veredicto-v0-3-3</link>
+      <guid isPermaLink="false">https://fervon.dev/blog/es/nov-veredicto-v0-3-3</guid>
+      <pubDate>Wed, 12 Aug 2026 09:00:00 +0000</pubDate>
+      <category>Novedades</category>
+      <description>La verificación que faltaba no era otro test unitario: fue abrir un pull request de verdad, en un repositorio de verdad, con cuatro trampas dentro. Veredicto se disparó en pull_request, diffeó base..head y marcó las cuatro — un test borrado, un test vaciado (el caso sigue ahí, el assert no), un .skip y un assert tautológico —, publicó su comentario en el PR y, en modo block, dejó el check en rojo. El vaciado es el que importa: hasta la 0.3.0 ese diff daba cero señales, porque solo contiene borrados y no hay ninguna línea añadida que leer. Y la mitad que hace que la prueba valga algo: en la misma pasada, una frase en prosa acabada en expect. no disparó, y la directiva de supresión bajó las señales de 4 a 3 — al quitarla volvieron a 4. Un detector que solo se prueba con trampas no se distingue de uno que grita siempre.</description>
+    </item>
+    <item>
       <title>Veredicto v0.4.0 — Veredicto pasa a ser de pago, con la licencia verificada sin salir del runner</title>
       <link>https://fervon.dev/blog/#nov-veredicto-v0-4-0</link>
       <guid isPermaLink="false">https://fervon.dev/blog/es/nov-veredicto-v0-4-0</guid>

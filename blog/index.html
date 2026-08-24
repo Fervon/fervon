@@ -174,9 +174,9 @@
   </script>
 
   <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin="">
-  <link rel="stylesheet" href="/index.css?v=20260822">
-  <link rel="stylesheet" href="/assets/blog.css?v=20260822">
-  <link rel="stylesheet" href="/assets/shared.css?v=20260822">
+  <link rel="stylesheet" href="/index.css?v=20260819a">
+  <link rel="stylesheet" href="/assets/blog.css?v=20260819a">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260819a">
 </head>
 <body class="blog-page blog-index">
   <a class="skip" href="#top">Saltar al contenido</a>
@@ -252,6 +252,15 @@
           </div>
           <h3>Seguridad endurecida y Postgres externo</h3>
           <p>Lookspan puede apoyarse ahora en un <b>Postgres externo</b> además del almacenamiento local, y trae un endurecimiento de seguridad en el servidor de ingesta. Sigue siendo local-first: el dashboard vive en <code>127.0.0.1:3100</code> con <code>npx lookspan</code> y ningún span sale de tu máquina si no se lo pides.</p>
+        </li>
+        <li id="nov-veredicto-v0-3-3">
+          <div class="nv-h">
+            <time datetime="2026-08-12">12 de agosto de 2026</time>
+            <a class="nv-p" href="/veredicto/">Veredicto</a>
+            <span class="nv-v">v0.3.3</span>
+          </div>
+          <h3>Cuatro trampas en un PR real, el check en rojo, y la contraprueba de que no grita de más</h3>
+          <p>La verificación que faltaba no era otro test unitario: fue abrir un <b>pull request de verdad</b>, en un repositorio de verdad, con cuatro trampas dentro. Veredicto se disparó en <code>pull_request</code>, diffeó <code>base..head</code> y marcó las cuatro — un test borrado, un test <b>vaciado</b> (el caso sigue ahí, el assert no), un <code>.skip</code> y un assert tautológico —, publicó su comentario en el PR y, en modo <code>block</code>, dejó el check en rojo. El vaciado es el que importa: hasta la 0.3.0 ese diff daba <b>cero señales</b>, porque solo contiene borrados y no hay ninguna línea añadida que leer. Y la mitad que hace que la prueba valga algo: en la misma pasada, una frase en prosa acabada en <code>expect.</code> <b>no</b> disparó, y la directiva de supresión bajó las señales de 4 a 3 — al quitarla volvieron a 4. Un detector que solo se prueba con trampas no se distingue de uno que grita siempre.</p>
         </li>
         <li id="nov-veredicto-v0-4-0">
           <div class="nv-h">
@@ -409,7 +418,7 @@
     <div class="copy">Forjado al rojo vivo · © 2026 Fervon</div>
   </div></footer>
 
-  <script src="/assets/shared.js?v=20260822" defer=""></script>
+  <script src="/assets/shared.js?v=20260819a" defer=""></script>
 
 
 </body></html>

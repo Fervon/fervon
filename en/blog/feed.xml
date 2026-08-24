@@ -70,6 +70,14 @@
       <description>The detail drawer now opens any project in your editor, your file manager or a terminal: the cd the README promised to save you. The endpoint existed but no button ever called it, and it only knew about VS Code; the editor now comes from settings.editorCommand, so subl, webstorm or nvim work just as well. Something more serious got closed along the way: the old route used execFile(cmd, [path], { shell: true }), which concatenates arguments into a shell string without escaping them — a project folder name could run commands.</description>
     </item>
     <item>
+      <title>Veredicto v0.3.3 — Four cheats in a real pull request, a red check, and the counter-proof that it does not cry wolf</title>
+      <link>https://fervon.dev/en/blog/#nov-veredicto-v0-3-3</link>
+      <guid isPermaLink="false">https://fervon.dev/blog/en/nov-veredicto-v0-3-3</guid>
+      <pubDate>Wed, 12 Aug 2026 09:00:00 +0000</pubDate>
+      <category>Releases</category>
+      <description>The verification that was missing was not another unit test: it was opening a real pull request, on a real repository, with four cheats inside. Veredicto fired on pull_request, diffed base..head and flagged all four — a deleted test, a gutted test (the case is still there, the assertion is not), a .skip and a tautological assertion —, posted its comment on the PR and, in block mode, left the check red. The gutted one is what matters: until 0.3.0 that diff produced zero signals, because it contains only deletions and there is no added line to read. And the half that makes the test worth anything: in the same run, a prose sentence ending in expect. did not fire, and the suppression directive took the signals from 4 down to 3 — removing it brought them back to 4. A detector only ever tried against cheats is indistinguishable from one that always cries wolf.</description>
+    </item>
+    <item>
       <title>Veredicto v0.4.0 — Veredicto goes paid, with the licence verified without leaving the runner</title>
       <link>https://fervon.dev/en/blog/#nov-veredicto-v0-4-0</link>
       <guid isPermaLink="false">https://fervon.dev/blog/en/nov-veredicto-v0-4-0</guid>

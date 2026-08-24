@@ -174,9 +174,9 @@
   </script>
 
   <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin="">
-  <link rel="stylesheet" href="/index.css?v=20260822">
-  <link rel="stylesheet" href="/assets/blog.css?v=20260822">
-  <link rel="stylesheet" href="/assets/shared.css?v=20260822">
+  <link rel="stylesheet" href="/index.css?v=20260819a">
+  <link rel="stylesheet" href="/assets/blog.css?v=20260819a">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260819a">
 </head>
 <body class="blog-page blog-index">
   <a class="skip" href="#top">Skip to content</a>
@@ -252,6 +252,15 @@
           </div>
           <h3>Hardened security and external Postgres</h3>
           <p>Lookspan can now sit on an <b>external Postgres</b> alongside local storage, and ships a security hardening pass on the ingest server. It stays local-first: the dashboard lives at <code>127.0.0.1:3100</code> via <code>npx lookspan</code> and no span leaves your machine unless you ask it to.</p>
+        </li>
+        <li id="nov-veredicto-v0-3-3">
+          <div class="nv-h">
+            <time datetime="2026-08-12">August 12, 2026</time>
+            <a class="nv-p" href="/en/veredicto/">Veredicto</a>
+            <span class="nv-v">v0.3.3</span>
+          </div>
+          <h3>Four cheats in a real pull request, a red check, and the counter-proof that it does not cry wolf</h3>
+          <p>The verification that was missing was not another unit test: it was opening a <b>real pull request</b>, on a real repository, with four cheats inside. Veredicto fired on <code>pull_request</code>, diffed <code>base..head</code> and flagged all four — a deleted test, a <b>gutted</b> test (the case is still there, the assertion is not), a <code>.skip</code> and a tautological assertion —, posted its comment on the PR and, in <code>block</code> mode, left the check red. The gutted one is what matters: until 0.3.0 that diff produced <b>zero signals</b>, because it contains only deletions and there is no added line to read. And the half that makes the test worth anything: in the same run, a prose sentence ending in <code>expect.</code> did <b>not</b> fire, and the suppression directive took the signals from 4 down to 3 — removing it brought them back to 4. A detector only ever tried against cheats is indistinguishable from one that always cries wolf.</p>
         </li>
         <li id="nov-veredicto-v0-4-0">
           <div class="nv-h">
@@ -409,7 +418,7 @@
     <div class="copy">Forged red-hot · © 2026 Fervon</div>
   </div></footer>
 
-  <script src="/assets/shared.js?v=20260822" defer=""></script>
+  <script src="/assets/shared.js?v=20260819a" defer=""></script>
 
 
 </body></html>
