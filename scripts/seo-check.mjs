@@ -184,10 +184,27 @@ const CHECKS = [
      comprobar la condición de la que depende la verificación: que el TXT
      google-site-verification siga publicado en el DNS. Si desaparece, Google
      revoca la propiedad. */
+  /* Se pregunta PRIMERO al resolutor del sistema y solo después a DNS-over-HTTPS.
+     Al revés fallaba en falso: esta máquina tiene filtrado de DNS en la red de
+     casa y `dns.google` no resuelve (ENOENT en getaddrinfo), así que el punto
+     salía "SIN RED" mientras el TXT llevaba meses publicado. Un chequeo que
+     grita en falso deja de leerse. */
   { n: 24, name: 'Search Console verificado', site: async () => {
-      const r = await fetch('https://dns.google/resolve?name=fervon.dev&type=TXT');
-      const j = await r.json();
-      return (j.Answer || []).some((a) => /google-site-verification=/.test(a.data));
+      const tieneTxt = (registros) => registros.some((t) => /google-site-verification=/.test(t));
+      try {
+        const dns = await import('node:dns/promises');
+        const txt = await dns.resolveTxt('fervon.dev');
+        if (tieneTxt(txt.map((partes) => partes.join('')))) return true;
+      } catch { /* sin resolutor: se intenta por HTTPS */ }
+      for (const url of ['https://dns.google/resolve?name=fervon.dev&type=TXT',
+                         'https://cloudflare-dns.com/dns-query?name=fervon.dev&type=TXT']) {
+        try {
+          const r = await fetch(url, { headers: { accept: 'application/dns-json' } });
+          const j = await r.json();
+          if (tieneTxt((j.Answer || []).map((a) => a.data))) return true;
+        } catch { /* siguiente */ }
+      }
+      return false;
     } },
   { n: 25, name: 'Sitemap con todas las páginas', site: () => docs.every((d) => sitemapUrls.includes(urlOf(d.p))) },
   /* El envío en sí se hace en la interfaz de Search Console y no deja rastro

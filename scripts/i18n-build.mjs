@@ -172,7 +172,14 @@ const traducibles = (html) => (html.match(/ data-(?:en|es)="/g) || []).length;
    siempre un artefacto reproducible desde src-i18n/. */
 const SRC = path.join(ROOT, 'src-i18n');
 const FUENTE = new Map(PAGES.map((p) => {
-  const html = fs.readFileSync(path.join(SRC, p.src), 'utf8').replace(/\r\n/g, '\n');
+  /* El BOM se quita SIEMPRE y antes de nada. Para el DOMParser un U+FEFF es
+     contenido no-espacio: cierra el <head> implícitamente y mete todos los
+     <meta>, el canonical y los hreflang dentro del <body>. Así se sirvieron 24
+     páginas con el <head> vacío hasta el 2026-08-25 — y ninguna comprobación
+     por expresión regular lo vio, porque las etiquetas estaban; solo que en el
+     sitio que Google ignora. Ver scripts/fix-head-vacio.mjs. */
+  const html = fs.readFileSync(path.join(SRC, p.src), 'utf8')
+    .replace(/\uFEFF/g, '').replace(/\r\n/g, '\n');
   return [p.src, { html, n: (html.match(/ data-(?:en|es)="/g) || []).length }];
 }));
 
@@ -387,6 +394,16 @@ for (const page of PAGES) {
     let html = await transformar(srcHtml, cfg);
     html = ogImagePorIdioma(html, lang);
     const out = esOriginal ? page.src : fileFor(page, lang);
+    /* Fail-closed: si la serialización deja el <head> sin una sola etiqueta,
+       la página saldría sin canonical ni hreflang efectivos. Antes que
+       publicar eso, se para el build. */
+    const cabecera = /<head>([\s\S]*?)<\/head>/i.exec(html);
+    if (!cabecera || !/<[a-z]/i.test(cabecera[1])) {
+      console.error(`\n✗ ${out}: el <head> ha quedado VACÍO tras serializar.`);
+      console.error('  Casi seguro un BOM u otro carácter antes del primer <meta> en src-i18n/.');
+      console.error('  Google ignora canonical, hreflang, robots y description fuera del <head>.');
+      process.exit(1);
+    }
     if (!CHECK) {
       fs.mkdirSync(path.join(ROOT, path.dirname(out)), { recursive: true });
       fs.writeFileSync(path.join(ROOT, out), html);
