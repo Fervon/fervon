@@ -5,7 +5,8 @@
 
   <title>AI wrote tests for 20 buggy modules. None caught the bug</title>
   <meta name="description" content="A reproducible experiment: AI agents wrote tests for 20 modules with real bugs. All 20 suites passed; none caught the bug. Data and method inside.">
-  <link rel="canonical" href="https://fervon.dev/veredicto/report"><link rel="alternate" hreflang="en" href="https://fervon.dev/veredicto/report"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/veredicto/report">
+  <link rel="canonical" href="https://fervon.dev/veredicto/report">
+  <link rel="alternate" type="application/rss+xml" title="Fervon · News" href="/en/blog/feed.xml"><link rel="alternate" hreflang="en" href="https://fervon.dev/veredicto/report"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/veredicto/report">
   <meta name="keywords" content="AI generated tests, over-mocking, false confidence, test-gaming, coverage is not enough, AI test quality, mutation testing, agent PRs">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#0E0B0A">
@@ -19,6 +20,8 @@
   <meta property="og:description" content="Every AI-written suite went green against code with a real bug. 75% asserted the buggy output as 'correct'. A reproducible look at why AI-written tests give false confidence.">
   <meta property="og:url" content="https://fervon.dev/veredicto/report">
   <meta property="og:image" content="https://fervon.dev/assets/og-veredicto-en.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:image" content="https://fervon.dev/assets/og-veredicto-en.jpg">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
@@ -84,6 +87,32 @@
   ]
 }
   </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://fervon.dev/en/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Veredicto",
+      "item": "https://fervon.dev/en/veredicto/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "AI wrote the tests",
+      "item": "https://fervon.dev/veredicto/report"
+    }
+  ]
+}
+  </script>
 
   <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin="">
   <link rel="stylesheet" href="/assets/core.css?v=20260822">
@@ -96,7 +125,7 @@
 
   <header class="nav"><div class="glass bar">
     <a class="crumb" href="/en/">
-      <span class="fv"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> fervon</span><span class="sep">›</span>
+      <span class="fv"><img src="/assets/logo-icon.svg" width="17" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> fervon</span><span class="sep">›</span>
       <span><svg class="mark" width="17" height="17" viewBox="0 0 26 26" aria-hidden="true"><path d="M5 13 L11 19 L21 7" fill="none" stroke="var(--amber)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg></span></a><a href="/en/veredicto/">Veredicto</a>
     
     <div class="act">
@@ -324,7 +353,7 @@
   </div>
 
   <footer><div class="wrap foot">
-    <span>Veredicto is a project by <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forged red-hot</span>
+    <span>Veredicto is a project by <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" width="17" height="17" loading="lazy" alt="" aria-hidden="true" class="s-bSSWIDXh"> Fervon</a> · Forged red-hot</span>
     <span>© 2026 Jonathan Martín · Source-available by design</span>
   </div></footer>
 

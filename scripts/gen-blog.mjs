@@ -354,7 +354,10 @@ const idxJsonld = {
 
 const idx = `${head({
   url: '/blog/',
-  title: 'Noticias · Fervon',
+  /* "Noticias · Fervon" gastaba 17 de los ~60 caracteres que enseña Google y no
+     decía de qué van las noticias — su gemela inglesa sí. Ahora las dos llevan
+     los términos por los que alguien buscaría esto. */
+  title: 'Noticias de IA y software autónomo · Fervon',
   desc: 'Novedades de Trace, Veredicto, Lookspan, ClaudeScope, inferbench y launchpad, y artículos sobre cómo se construye software con flotas de agentes de IA.',
   ogTitle: 'Noticias · Fervon',
   ogDesc: 'Novedades de los proyectos de Fervon y el método con el que se construyen: flotas de agentes de IA, medidas y revisadas.',
