@@ -41,7 +41,7 @@
       "dateModified": "2026-08-19",
       "inLanguage": "es",
       "image": "https://fervon.dev/assets/blog/tests-amanados-agentes.jpg?v=lc0hdy",
-      "wordCount": 493,
+      "wordCount": 598,
       "author": {
         "@id": "https://fervon.dev/#jonathan"
       },
@@ -244,7 +244,7 @@
 
       <h3>Mockear justo el punto que falla</h3>
 
-      <p>El más frecuente con diferencia. En vez de arreglar la función que rompe, se sustituye por una que devuelve lo que el test espera. Se reconoce porque el mock aparece en el mismo cambio que el arreglo y es más específico que el resto de mocks del fichero.</p>
+      <p>El más frecuente con diferencia. En vez de arreglar la función que rompe, se sustituye por una que devuelve lo que el test espera. Se reconoce porque el mock aparece en el mismo cambio que el arreglo y es más específico que el resto de mocks del fichero. Ese caso, y la variante terminal que mockea el propio módulo bajo prueba, están desarrollados en <a href="/es/veredicto/over-mocking-detector">el detector de over-mocking</a>.</p>
 
       <h3>La aserción que no asegura nada</h3>
 
@@ -264,7 +264,7 @@
 
       <h3>El skip condicional</h3>
 
-      <p>Marcar el test como omitido, o condicionarlo a una variable de entorno que nunca está puesta en integración continua. El informe dice «0 fallos» y es verdad: también dice «1 omitido», pero eso no lo mira nadie.</p>
+      <p>Marcar el test como omitido, o condicionarlo a una variable de entorno que nunca está puesta en integración continua. El informe dice «0 fallos» y es verdad: también dice «1 omitido», pero eso no lo mira nadie. Las tres formas de silenciar —el skip, el borrado y desarmar el propio workflow— están en <a href="/es/veredicto/agent-skipped-tests-green-ci">tests silenciados para dejar CI en verde</a>.</p>
 
       <h2>Qué mirar en cada caso</h2>
 
@@ -289,11 +289,11 @@
 
       <p>Rompe el código a propósito y vuelve a ejecutar la batería. Cambia un signo, invierte una condición, devuelve siempre el mismo valor. Si los tests siguen en verde, esos tests no prueban nada, digan lo que digan la cobertura y el informe.</p>
 
-      <p>Es la idea de las pruebas de mutación, y no hace falta una herramienta grande para empezar: con romper a mano los tres puntos que más te importan ya te enteras de en qué parte de tu batería puedes confiar. Lo caro no es la técnica, es la costumbre de no hacerlo nunca.</p>
+      <p>Es la idea de las pruebas de mutación, y no hace falta una herramienta grande para empezar: con romper a mano los tres puntos que más te importan ya te enteras de en qué parte de tu batería puedes confiar. Lo caro no es la técnica, es la costumbre de no hacerlo nunca. Cuándo compensa montarlo de verdad y cuándo basta con un check estático, en <a href="/es/veredicto/mutation-testing-alternative">mutation testing frente a un check estático</a>.</p>
 
       <blockquote class="pull"><p>Mata tus propios tests antes de fiarte de un verde.</p></blockquote>
 
-      <p>Cuando esto deja de ser una revisión manual y pasa a ser un requisito de cada cambio, conviene automatizarlo: es exactamente para lo que existe <a href="/veredicto/">Veredicto</a>, que revisa cada PR buscando estos patrones y bloquea el que los trae. El resto del método —aislamiento, medición y panel de jueces— está en <a href="/blog/flotas-agentes-ia/">cómo se dirige una flota de agentes</a>.</p>
+      <p>Cuando esto deja de ser una revisión manual y pasa a ser un requisito de cada cambio, conviene automatizarlo: es exactamente para lo que existe <a href="/veredicto/">Veredicto</a>, que revisa cada PR buscando estos patrones y bloquea el que los trae. El resto del método —aislamiento, medición y panel de jueces— está en <a href="/blog/flotas-agentes-ia/">cómo se dirige una flota de agentes</a>. Y si lo que tienes delante es un pull request ajeno lleno de tests, la <a href="/es/veredicto/review-ai-generated-tests">lista de revisión</a> va ordenada por lo que más delata, con el catálogo completo en <a href="/es/veredicto/ai-generated-tests-prove-nothing">tests de IA que no prueban nada</a>.</p>
       </article>
     </section>
 

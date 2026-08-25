@@ -40,7 +40,7 @@
       "dateModified": "2026-08-19",
       "inLanguage": "es",
       "image": "https://fervon.dev/assets/blog/tests-amanados-agentes.jpg?v=lc0hdy",
-      "wordCount": 493,
+      "wordCount": 598,
       "author": {
         "@id": "https://fervon.dev/#jonathan"
       },
@@ -243,7 +243,7 @@
 
       <h3 data-en="Mocking exactly the failing point">Mockear justo el punto que falla</h3>
 
-      <p data-en="By far the most frequent. Instead of fixing the function that breaks, it is replaced with one that returns whatever the test expects. You spot it because the mock appears in the same change as the fix and is more specific than every other mock in the file.">El más frecuente con diferencia. En vez de arreglar la función que rompe, se sustituye por una que devuelve lo que el test espera. Se reconoce porque el mock aparece en el mismo cambio que el arreglo y es más específico que el resto de mocks del fichero.</p>
+      <p data-en='By far the most frequent. Instead of fixing the function that breaks, it is replaced with one that returns whatever the test expects. You spot it because the mock appears in the same change as the fix and is more specific than every other mock in the file. That case, and the terminal variant that mocks the module under test itself, are unpacked in <a href="/veredicto/over-mocking-detector">the over-mocking detector</a>.'>El más frecuente con diferencia. En vez de arreglar la función que rompe, se sustituye por una que devuelve lo que el test espera. Se reconoce porque el mock aparece en el mismo cambio que el arreglo y es más específico que el resto de mocks del fichero. Ese caso, y la variante terminal que mockea el propio módulo bajo prueba, están desarrollados en <a href="/veredicto/over-mocking-detector">el detector de over-mocking</a>.</p>
 
       <h3 data-en="The assertion that asserts nothing">La aserción que no asegura nada</h3>
 
@@ -263,7 +263,7 @@
 
       <h3 data-en="The conditional skip">El skip condicional</h3>
 
-      <p data-en='Marking the test as skipped, or gating it behind an environment variable that is never set in CI. The report says "0 failures" and that is true: it also says "1 skipped", but nobody looks at that.'>Marcar el test como omitido, o condicionarlo a una variable de entorno que nunca está puesta en integración continua. El informe dice «0 fallos» y es verdad: también dice «1 omitido», pero eso no lo mira nadie.</p>
+      <p data-en='Marking the test as skipped, or gating it behind an environment variable that is never set in CI. The report says "0 failures" and that is true: it also says "1 skipped", but nobody looks at that. The three ways of silencing — the skip, the deletion and disarming the workflow itself — are in <a href="/veredicto/agent-skipped-tests-green-ci">tests silenced to keep CI green</a>.'>Marcar el test como omitido, o condicionarlo a una variable de entorno que nunca está puesta en integración continua. El informe dice «0 fallos» y es verdad: también dice «1 omitido», pero eso no lo mira nadie. Las tres formas de silenciar —el skip, el borrado y desarmar el propio workflow— están en <a href="/veredicto/agent-skipped-tests-green-ci">tests silenciados para dejar CI en verde</a>.</p>
 
       <h2 data-en="What to look for in each case">Qué mirar en cada caso</h2>
 
@@ -288,11 +288,11 @@
 
       <p data-en="Break the code on purpose and run the suite again. Flip a sign, invert a condition, always return the same value. If the tests stay green, those tests prove nothing, whatever coverage and the report say.">Rompe el código a propósito y vuelve a ejecutar la batería. Cambia un signo, invierte una condición, devuelve siempre el mismo valor. Si los tests siguen en verde, esos tests no prueban nada, digan lo que digan la cobertura y el informe.</p>
 
-      <p data-en="That is the idea behind mutation testing, and you do not need a heavyweight tool to start: breaking by hand the three points you care about most already tells you which part of your suite you can trust. The expensive thing is not the technique, it is the habit of never doing it.">Es la idea de las pruebas de mutación, y no hace falta una herramienta grande para empezar: con romper a mano los tres puntos que más te importan ya te enteras de en qué parte de tu batería puedes confiar. Lo caro no es la técnica, es la costumbre de no hacerlo nunca.</p>
+      <p data-en='That is the idea behind mutation testing, and you do not need a heavyweight tool to start: breaking by hand the three points you care about most already tells you which part of your suite you can trust. The expensive thing is not the technique, it is the habit of never doing it. When it is worth setting up properly and when a static check is enough: <a href="/veredicto/mutation-testing-alternative">mutation testing vs a static check</a>.'>Es la idea de las pruebas de mutación, y no hace falta una herramienta grande para empezar: con romper a mano los tres puntos que más te importan ya te enteras de en qué parte de tu batería puedes confiar. Lo caro no es la técnica, es la costumbre de no hacerlo nunca. Cuándo compensa montarlo de verdad y cuándo basta con un check estático, en <a href="/veredicto/mutation-testing-alternative">mutation testing frente a un check estático</a>.</p>
 
       <blockquote class="pull"><p data-en="Kill your own tests before you trust a green run.">Mata tus propios tests antes de fiarte de un verde.</p></blockquote>
 
-      <p data-en='When this stops being a manual review and becomes a requirement on every change, it is worth automating: that is exactly what <a href="/veredicto/">Veredicto</a> exists for — it reviews every PR looking for these patterns and blocks the ones that carry them. The rest of the method —isolation, measurement and the judge panel— is in <a href="/blog/flotas-agentes-ia/">how to direct a fleet of AI agents</a>.'>Cuando esto deja de ser una revisión manual y pasa a ser un requisito de cada cambio, conviene automatizarlo: es exactamente para lo que existe <a href="/veredicto/">Veredicto</a>, que revisa cada PR buscando estos patrones y bloquea el que los trae. El resto del método —aislamiento, medición y panel de jueces— está en <a href="/blog/flotas-agentes-ia/">cómo se dirige una flota de agentes</a>.</p>
+      <p data-en='When this stops being a manual review and becomes a requirement on every change, it is worth automating: that is exactly what <a href="/veredicto/">Veredicto</a> exists for — it reviews every PR looking for these patterns and blocks the ones that carry them. The rest of the method —isolation, measurement and the judge panel— is in <a href="/blog/flotas-agentes-ia/">how to direct a fleet of AI agents</a>. And if what you have in front of you is a pull request full of tests you did not write, the <a href="/veredicto/review-ai-generated-tests">review checklist</a> is ordered by how much each check gives away, with the full catalogue in <a href="/veredicto/ai-generated-tests-prove-nothing">AI tests that prove nothing</a>.'>Cuando esto deja de ser una revisión manual y pasa a ser un requisito de cada cambio, conviene automatizarlo: es exactamente para lo que existe <a href="/veredicto/">Veredicto</a>, que revisa cada PR buscando estos patrones y bloquea el que los trae. El resto del método —aislamiento, medición y panel de jueces— está en <a href="/blog/flotas-agentes-ia/">cómo se dirige una flota de agentes</a>. Y si lo que tienes delante es un pull request ajeno lleno de tests, la <a href="/veredicto/review-ai-generated-tests">lista de revisión</a> va ordenada por lo que más delata, con el catálogo completo en <a href="/veredicto/ai-generated-tests-prove-nothing">tests de IA que no prueban nada</a>.</p>
       </article>
     </section>
 
