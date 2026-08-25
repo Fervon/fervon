@@ -81,3 +81,32 @@ export const CACHE = [
   { ruta: '/*.css', cabeceras: { 'Cache-Control': UN_ANIO } },
   { ruta: '/*.js', cabeceras: { 'Cache-Control': UN_ANIO } },
 ];
+
+/* ── Descubrimiento para agentes (RFC 8288 · RFC 9727 §3) ───────────────────
+ * Cabeceras `Link` que apuntan a los recursos LEGIBLES POR MÁQUINA del sitio,
+ * para que un agente los encuentre sin tener que parsear el HTML ni adivinar
+ * rutas. Se emiten como varias cabeceras `Link` (RFC 8288 §3 lo permite igual
+ * que una sola separada por comas; varias son más fáciles de parsear mal-que-
+ * bien por clientes simples).
+ *
+ * Los destinos EXISTEN los cuatro — si se renombra alguno hay que tocarlos
+ * aquí Y en la Transform Rule (ver el aviso de arriba):
+ *   /.well-known/api-catalog  linkset RFC 9727 con todo lo demás dentro
+ *   /llms.txt                 descripción del sitio para agentes
+ *   /about/                   documentación humana de la entidad
+ *
+ * ⚠ Igual que la CSP, HOY las pone una Transform Rule del panel de Cloudflare
+ *   (regla «Link headers — descubrimiento para agentes», operación ADD, no
+ *   SET: SET machacaría cualquier Link que pusiera el origen). GitHub Pages no
+ *   sabe poner cabeceras. Al migrar a Pages las pondrá `_headers` y hay que
+ *   BORRAR la regla del panel, o se sirven duplicadas.
+ *
+ * Se aplican a TODAS las rutas a propósito: así el agente las ve caiga donde
+ * caiga, y no hay dos criterios (uno aquí y otro en el panel) que se separen.
+ */
+export const ENLACES = [
+  '</.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"',
+  '</llms.txt>; rel="service-desc"; type="text/plain"',
+  '</about/>; rel="service-doc"; type="text/html"',
+  '</llms.txt>; rel="describedby"; type="text/plain"',
+];

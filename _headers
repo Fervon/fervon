@@ -15,6 +15,10 @@
   Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()
   Cross-Origin-Opener-Policy: same-origin
   Cross-Origin-Resource-Policy: same-origin
+  Link: </.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json"
+  Link: </llms.txt>; rel="service-desc"; type="text/plain"
+  Link: </about/>; rel="service-doc"; type="text/html"
+  Link: </llms.txt>; rel="describedby"; type="text/plain"
   Cache-Control: public, max-age=0, must-revalidate
 
 /assets/*

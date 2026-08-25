@@ -1,0 +1,82 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://fervon.dev/.well-known/api-catalog",
+      "item": [
+        {
+          "href": "https://fervon.dev/",
+          "title": "fervon.dev — public, read-only content surface for agents"
+        }
+      ]
+    },
+    {
+      "anchor": "https://fervon.dev/",
+      "service-desc": [
+        {
+          "href": "https://fervon.dev/llms.txt",
+          "type": "text/plain",
+          "title": "llms.txt — machine-readable description of Fervon's products, tools and pages"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://fervon.dev/about/",
+          "type": "text/html",
+          "hreflang": ["es"],
+          "title": "Sobre Fervon"
+        },
+        {
+          "href": "https://fervon.dev/en/about/",
+          "type": "text/html",
+          "hreflang": ["en"],
+          "title": "About Fervon"
+        }
+      ],
+      "service-meta": [
+        {
+          "href": "https://fervon.dev/auth.md",
+          "type": "text/markdown",
+          "title": "auth.md — authentication and credential provisioning for agents (no OAuth: the site is fully public)"
+        },
+        {
+          "href": "https://fervon.dev/robots.txt",
+          "type": "text/plain",
+          "title": "robots.txt — crawling policy: search and citation bots allowed, training crawlers denied"
+        },
+        {
+          "href": "https://fervon.dev/.well-known/security.txt",
+          "type": "text/plain",
+          "title": "security.txt — vulnerability disclosure contact (RFC 9116)"
+        }
+      ],
+      "describedby": [
+        {
+          "href": "https://fervon.dev/llms.txt",
+          "type": "text/plain",
+          "title": "llms.txt"
+        }
+      ],
+      "sitemap": [
+        {
+          "href": "https://fervon.dev/sitemap.xml",
+          "type": "application/xml",
+          "title": "Sitemap (es + en)"
+        }
+      ],
+      "alternate": [
+        {
+          "href": "https://fervon.dev/blog/feed.xml",
+          "type": "application/rss+xml",
+          "hreflang": ["es"],
+          "title": "Fervon — Noticias"
+        },
+        {
+          "href": "https://fervon.dev/en/blog/feed.xml",
+          "type": "application/rss+xml",
+          "hreflang": ["en"],
+          "title": "Fervon — News"
+        }
+      ]
+    }
+  ]
+}

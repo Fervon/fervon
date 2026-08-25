@@ -15,7 +15,7 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { CSP, SEGURIDAD, CACHE } from './site-headers.mjs';
+import { CSP, SEGURIDAD, CACHE, ENLACES } from './site-headers.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DESTINO = join(ROOT, '_headers');
@@ -38,6 +38,9 @@ const lineas = [
 const primera = CACHE[0];
 lineas.push(primera.ruta);
 for (const [k, v] of Object.entries(SEGURIDAD)) lineas.push(`  ${k}: ${v}`);
+/* Varias cabeceras `Link` con el mismo nombre: en `_headers` de Pages cada
+   línea repetida se AÑADE, no se pisa (a diferencia de las de arriba). */
+for (const enlace of ENLACES) lineas.push(`  Link: ${enlace}`);
 for (const [k, v] of Object.entries(primera.cabeceras)) lineas.push(`  ${k}: ${v}`);
 lineas.push('');
 
@@ -60,5 +63,5 @@ if (soloComprobar) {
 }
 
 writeFileSync(DESTINO, salida, 'utf8');
-console.log(`✔ _headers escrito (${salida.length} bytes, CSP de ${CSP.length} chars)`);
+console.log(`✔ _headers escrito (${salida.length} bytes, CSP de ${CSP.length} chars, ${ENLACES.length} cabeceras Link)`);
 console.log(salida);
