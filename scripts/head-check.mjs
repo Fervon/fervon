@@ -15,9 +15,11 @@
    Se ignoran, ahí sí, las etiquetas del <body>: OG y Twitter en el cuerpo son
    síntoma del mismo fallo, así que también se exige que estén arriba.
 
-   NO CUENTA COMO VISITA: con `--live` se aborta `static.cloudflareinsights.com`
-   y se fija el viewport, para no ensuciar la analítica del sitio ni disfrazar
-   el ruido de visitante. Ver el bloque de arranque del navegador.
+   NO DEBE CONTAR COMO VISITA: con `--live` se aborta `cloudflareinsights.com` y
+   se fija el viewport, para no poder ensuciar la analítica del sitio. Desde la
+   red de casa eso es redundante —el beacon no resuelve— y sirve para cualquier
+   otra. Ver el bloque de arranque del navegador, que dice qué está medido y qué
+   no.
 
    Uso:  node scripts/head-check.mjs                  todo el sitio, en local
          node scripts/head-check.mjs --live           lo que sirve fervon.dev
@@ -58,15 +60,31 @@ const browser = await puppeteer.launch({ executablePath: CHROME, headless: 'new'
 const page = await browser.newPage();
 
 /* ── Dos cosas para que COMPROBAR el sitio no sea VISITAR el sitio ──────────
-   MEDIDO el 2026-08-25: este script cargaba producción con Chrome y sin tocar
-   nada más, así que el beacon de Cloudflare Web Analytics —que el borde inyecta
-   en el HTML— se disparaba en cada página. Cada pasada de `--live` metía 59
-   visitas falsas en la analítica del sitio, y encima con el viewport por
-   defecto de Puppeteer, 800x600, que no es el de nadie. Las dos cosas juntas
-   contaminaron una investigación de CLS: el 800x600 del Debug View resultó ser
-   nuestro, no de un visitante.
+   Este script cargaba producción con Chrome sin fijar viewport y sin tocar la
+   red, así que heredaba el 800x600 por defecto de Puppeteer y dejaba libre al
+   beacon de Cloudflare Web Analytics, que el borde inyecta en el HTML. Un
+   medidor que puede alterar lo que mide no sirve para medir.
 
-   Un medidor que altera lo que mide no sirve para medir. */
+   PERO OJO CON EL ALCANCE, y esto está MEDIDO el 2026-08-25: desde la red de
+   casa el arreglo NO CAMBIA NADA. Con y sin el abort() salen exactamente
+   1 petición y 0 respuestas, porque el filtro DNS resuelve a 0.0.0.0 tanto
+   `static.cloudflareinsights.com` como `cloudflareinsights.com` — el del script
+   y el del envío de datos. Sin el .js cargado no hay POST de RUM, y su host
+   también está anulado: las pasadas de `--live` de aquí NUNCA generaron una
+   visita.
+
+   Así que esto no corrige una contaminación que hubiera: la evita si alguna vez
+   la hay, desde otra máquina, otra red o con el filtro apagado. **El abort() no
+   está probado en un entorno donde el host resuelva**, y hoy no se puede probar
+   desde aquí.
+
+   NO ATRIBUIRSE EL CLS DEL PANEL. Hubo una investigación el 2026-08-25 sobre un
+   CLS de 0.707 con el rect del nav a 800x600, y llegó a parecer que el cliente
+   éramos nosotros por este viewport. NO ERA ASÍ: nuestro Chrome aplica la hoja
+   de estilos y da x=0 w=800, que no puede producir ese rect (784@8 solo sale
+   sin CSS), y encima el beacon no resuelve, así que ni siquiera se registran.
+   Esas muestras son externas y su causa sigue abierta. Si alguien llega aquí
+   buscando el CLS: este fichero no lo explica. */
 
 /* 1. Viewport explícito. El valor da igual para lo que este script comprueba
       —dónde acaban las etiquetas del <head> no depende del ancho— pero
