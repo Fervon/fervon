@@ -84,6 +84,52 @@ se queda con el 404 durante más de una hora. Comprobado el 2026-08-22 con
 `/blog/feed.xml` (`Age: 3723`, `cf-cache-status: HIT`) mientras el origen ya
 servía 200. Se arregla purgando esa URL en Cloudflare.
 
+### SEO
+
+```bash
+npm run seo:check     # los 26 puntos del checklist, página a página
+npm run seo:live      # los mismos, contra lo que sirve fervon.dev
+npm run seo:full      # auditoría técnica + rendimiento de todo el sitio
+npm run head:check    # ¿está la cabecera DENTRO del <head>? (parser de Chrome)
+npm run head:live     # lo mismo contra producción
+npm run cabecera:check  # ¿falta breadcrumb, feed, medidas de la OG o el ancho del logo?
+```
+
+⚠️ **`head:check` no es redundante con `seo:check`, y esta es la razón.** El
+2026-08-25, **24 de las 50 páginas** servían el `<head>` completamente vacío y
+toda la cabecera dentro del `<body>`:
+
+```html
+<html lang="es"><head></head><body>
+  <meta charset="UTF-8">
+  <link rel="canonical" ...>
+  <link rel="alternate" hreflang=...>
+```
+
+`seo:check` las daba por buenas **49/49, en local y en vivo**, porque busca las
+etiquetas con expresiones regulares sobre el HTML — y ahí estaban. Pero Google
+solo respeta dentro del `<head>` el `canonical`, los `hreflang`, el `meta
+robots` y la `description`: fuera de él los ignora. O sea que media web estaba
+sin canonical efectivo y con todo el trabajo de multiidioma muerto, sin que una
+sola comprobación se quejara.
+
+Lo único que distingue un caso del otro es **dónde coloca las etiquetas el
+parser**, así que `head:check` se lo pregunta al parser de Chrome en vez de a
+una expresión regular. Si alguna vez vuelve a fallar, `node
+scripts/fix-head-vacio.mjs` lo arregla.
+
+La causa fue un **BOM (U+FEFF)** al principio de 12 fuentes de `src-i18n/`: para
+el DOMParser es contenido no-espacio, así que cierra el `<head>` implícitamente
+antes de leer el primer `<meta>`, y cada fuente genera 2 páginas. `i18n-build`
+ahora quita el BOM al leer **y aborta con exit 1** si una página sale con el
+`<head>` vacío: antes que publicar eso, no publica.
+
+`seo-cabecera.mjs` completa lo que faltaba en la cabecera —`BreadcrumbList`,
+enlace al feed del idioma, `og:image:width/height` y el ancho del logo— y va
+encadenado en `npm run i18n:build` **después** del generador, no antes: el
+breadcrumb y el feed dependen del idioma de cada página, y una fuente bilingüe
+de `src-i18n/` genera las dos.
+
 ## Licencia
 
 MIT © Jonathan Martín
