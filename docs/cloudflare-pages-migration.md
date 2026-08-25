@@ -1,5 +1,45 @@
 # Migrar fervon.dev a Cloudflare Pages
 
+> **Estado (2026-08-25): esto ya no es una mejora de rendimiento pendiente, es
+> el arreglo de un fallo abierto.** Cloudflare levantó un aviso *«Dangling A
+> Record detected»* sobre `fervon.dev` → `185.199.109.153` (Fastly / GitHub
+> Pages). No es un dominio abandonado —el origen responde con el sitio bueno—,
+> pero lo que salió al medirlo es peor que el aviso. Ver «El aviso que destapó
+> esto».
+
+
+## El aviso que destapó esto
+
+Medido el 2026-08-25, y es la razón por la que este documento dejó de poder
+esperar:
+
+| Comprobación | Resultado |
+|---|---|
+| `curl --resolve fervon.dev:80:185.199.10x.153` | **200**, `Server: GitHub.com` — en los 4 IPs |
+| `curl --resolve fervon.dev:443:185.199.109.153` | **falla**: el origen presenta `CN=*.github.io` |
+| `gh api repos/Fervon/fervon/pages` | `https_enforced: false`, `https_certificate_state:` **`null`** |
+| `hstspreload.org/api/v2/status?domain=fervon.dev` | `status: preloaded`, `preloadedDomain:` **`dev`** |
+
+Léelo junto:
+
+1. **GitHub Pages nunca emitió el certificado de `fervon.dev`.** Por eso la sonda
+   de Cloudflare prueba HTTPS, recibe un cert que no casa y lo da por
+   abandonado. El aviso es un falso positivo en cuanto a *takeover*, pero el
+   certificado que falta es real.
+2. **La zona no puede estar en Full (Strict).** Si lo estuviera, el sitio
+   devolvería 526. Que cargue demuestra que el tramo Cloudflare→GitHub va en
+   claro (Flexible) o cifrado sin verificar (Full a secas).
+3. **`.dev` es un TLD con `force-https` de fábrica** en la lista de preload de
+   Chromium. Ningún navegador cargará `fervon.dev` por HTTP, jamás. Y GitHub
+   Pages **sólo** responde a este dominio por HTTP.
+
+> ⚠ **No borres los registros A a mano para callar el aviso.** Las cuatro IPs de
+> GitHub Pages tienen exactamente el mismo problema —ninguna tiene certificado
+> para `fervon.dev`—, así que quitar una no arregla nada y el aviso vuelve. Y
+> quitar las cuatro **tira el sitio entero**: hoy no hay ningún otro origen. El
+> aviso se apaga solo cuando el A deje de existir *porque el hosting ya está en
+> Pages*, no antes.
+
 ## Qué se gana (y qué no)
 
 Hoy fervon.dev se sirve desde **GitHub Pages** detrás del proxy de Cloudflare.
@@ -92,19 +132,56 @@ curl -sI https://fervon.dev/SETUP.md             # 404 (no se filtran dev files)
 curl -sI https://fervon.dev/_headers             # 404 (Pages lo consume, no lo sirve)
 curl -sI https://fervon.dev/assets/shared.css    # max-age=31536000
 curl -sI https://fervon.dev | grep -ci content-security-policy   # 1, no 2
+curl -sI https://fervon.dev | grep -ci x-github-request-id       # 0 -> ya no pasa por GitHub
+```
+
+La cabecera `x-github-request-id` es el testigo que dice si el corte se ha
+consumado: mientras aparezca, Cloudflare sigue yendo a GitHub Pages. Fuérzalo a
+ir al origen para no leer una respuesta de caché:
+
+```
+curl -sI "https://fervon.dev/?cachebust=$(date +%s)" | grep -iE "cf-cache-status|x-github"
 ```
 
 Y en **SSL/TLS → Edge Certificates**, el modo debe figurar como **Full (Strict)**.
+Comprobación de que es real: con Pages sirviendo, `Full (Strict)` **no** debe dar
+526. Si lo da, el custom domain no está bien enganchado — no lo tapes bajándolo
+a "Full".
+
+Por último, el aviso *«Dangling A Record»* de Security → Alerts se apaga solo en
+cuanto el registro A a `185.199.10x.153` deja de existir (lo retira el propio
+paso 4 al reescribir el DNS). Si sigue ahí después del corte, es que quedó un
+registro suelto.
 
 ## Rollback
 
+**El rollback es volver a Pages→GitHub por el proxy, nunca quitar el proxy.**
 Quita el custom domain en Pages y reactiva GitHub Pages (Settings → Pages →
 Source = GitHub Actions); vuelve a pegar la Transform Rule de la CSP (la imprime
-`npm run csp:build`) y pon SSL/TLS en "Full". El DNS vuelve solo. **Nada de lo
-que hay en `main` rompe el deploy actual mientras no toques el dashboard.**
+`npm run csp:build`) y baja SSL/TLS a "Full". El DNS vuelve solo.
+
+> ⚠ **La nube naranja no se toca ni en una emergencia.** Por el punto 3 de
+> arriba, con el DNS en *DNS-only* el sitio queda inalcanzable en todos los
+> navegadores: `.dev` exige HTTPS y el origen no tiene certificado válido.
+> Cloudflare terminando el TLS es lo único que mantiene `fervon.dev` en pie hoy.
+
+**Nada de lo que hay en `main` rompe el deploy actual mientras no toques el
+dashboard**: GitHub Pages ignora `_headers` por completo.
 
 ## El negativo que no se arregla con una lista de comprobación
 
-Hoy, si Cloudflare falla, puedes quitar la nube naranja del DNS y GitHub Pages
-sigue sirviendo el sitio. Después de migrar no hay segundo origen: Cloudflare es
-DNS, CDN, WAF, hosting y analítica a la vez. Es el precio real de esta migración.
+Después de migrar, Cloudflare es DNS, CDN, WAF, hosting y analítica a la vez.
+Ese sigue siendo el precio.
+
+Lo que **ya no** es un argumento en contra: *«hoy tienes un segundo origen y lo
+pierdes»*. No lo tienes. Se comprobó el 2026-08-25 y falla por los dos lados:
+
+- **Por el navegador**, `.dev` obliga a HTTPS y GitHub Pages no tiene cert para
+  este dominio → quitar la nube naranja no degrada el servicio, lo apaga.
+- **Por el DNS**, los autoritativos ya son `fred.ns.cloudflare.com` y
+  `nelci.ns.cloudflare.com`. Si Cloudflare cae de verdad, el dominio ni
+  resuelve; GitHub Pages no te salva de nada.
+
+El «segundo origen» sólo cubría el caso *«Cloudflare mal configurado»*, y por el
+primer punto ni eso. Migrar no destruye una redundancia: la redundancia ya
+estaba rota, y esto lo que hace es dejar de fingir que existe.
