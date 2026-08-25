@@ -113,6 +113,19 @@ nav .bar,.nav .bar{position:relative}
   .crumb .fv{font-size:0}
   .crumb .fv img{margin-right:0}
   .crumb .fv + .sep{display:none}
+  /* En las landings el logo va DENTRO de un <a>, asi que .fv + .sep no llega a
+     casar y quedaba un separador suelto al principio de la miga. */
+  .crumb > a:first-child:has(.fv) + .sep{display:none}
+  /* Con TRES niveles ("fervon > Veredicto > Detector de over-mocking") no cabe
+     ni ocultando la palabra. MEDIDO el 2026-08-25: en /veredicto/
+     over-mocking-detector el bloque de acciones acababa en 394 con la barra en
+     390, o sea que el boton salia cortado en un movil normal, no solo a 320.
+     No lo veia ninguna comprobacion de scrollWidth porque la barra recorta por
+     dentro y el documento nunca llega a desbordar: solo se ve en la captura.
+     Se deja encoger el breadcrumb y truncar su ultimo tramo, que es lo
+     prescindible; el boton no se recorta nunca. */
+  .nav .bar .crumb{min-width:0;overflow:hidden}
+  .nav .bar .crumb>:last-child{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 }
 @media(max-width:380px){
   .nav .bar{padding:9px 12px}
@@ -233,6 +246,12 @@ figure img[width][height]{height:auto}
 
 /* Detalles del TL;DR */
 .tldr .cta-row{margin-top:20px;justify-content:flex-start}
+/* Un fragmento de codigo largo dentro de un parrafo no rompe por si solo y
+   empuja el documento entero: MEDIDO el 2026-08-25, un
+   <code>expect(repo.save).toHaveBeenCalled()</code> media 317px y sacaba la
+   pagina a 333 con el movil en 320. Las tablas anchas ya scrollean dentro de
+   .tablewrap; el codigo en prosa no tenia donde. */
+code{overflow-wrap:anywhere}
 .tldr code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.9em;
   background:rgba(255,106,0,.10);border:1px solid var(--line,#2C211B);border-radius:6px;padding:1px 6px;color:var(--amber,#FFB02E)}
 
