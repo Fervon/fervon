@@ -169,16 +169,41 @@ const CHECKS = [
      El estado real de la analítica lo mide scripts/analitica-check.mjs, que
      además comprueba que el beacon carga en producción; aquí sólo se mira que
      TODAS las páginas lleven alguna. */
-  { n: 23, name: 'Analítica en todas las páginas', site: () => {
-      /* Dos condiciones, y hacen falta LAS DOS. Con sólo la primera el punto se
-         pondría verde por cargar un fichero que no mide nada — que es justo el
-         falso verde que este checklist existe para no tener. */
+  /* MEDIDO el 2026-08-25: este punto llevaba días en ROJO mientras el sitio SÍ
+     medía. Miraba si `assets/shared.js` traía token, y está vacío — pero
+     Cloudflare inyecta su propio beacon en el BORDE (Web Analytics con
+     "Automatic Setup"), así que la medición existe por otra vía y el panel
+     llevaba una semana con datos. Un rojo falso es tan malo como un verde
+     falso: hay que preguntárselo al sitio.
+
+     La trampa: Cloudflare NO inyecta el beacon a cualquiera. A un `fetch` sin
+     User-Agent de navegador le sirve el HTML pelado. Hay que pedirlo como lo
+     pediría un visitante. */
+  { n: 23, name: 'Analítica en todas las páginas', site: async () => {
+      /* Primero el cableado: si una página no carga shared.js, esa no se mide
+         aunque el resto sí. */
       const enTodas = docs.every((d) =>
         /googletagmanager\.com\/gtag|gtag\(|cloudflareinsights|assets\/shared\.js|plausible\.io|umami|goatcounter/.test(d.h));
+      if (!enTodas) return false;
+
       const sh = rd('assets/shared.js');
       const tk = (sh.match(/var FERVON_ANALITICA_TOKEN\s*=\s*'([^']*)'/) || [, ''])[1].trim();
       const otra = /googletagmanager\.com\/gtag|plausible\.io|umami|goatcounter/.test(sh) || docs.some((d) => /gtag\(/.test(d.h));
-      return enTodas && (!!tk || otra);
+      if (tk || otra) return true;
+
+      /* Sin analítica propia en el repo, la única respuesta honesta viene del
+         sitio: ¿le llega al visitante algún beacon? */
+      if (!LIVE) {
+        console.error('   23: sin analítica en el repo. Corre --live o `npm run analitica:check` para saber si el borde la inyecta.');
+        return false;
+      }
+      const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 ' +
+                 '(KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36';
+      const r = await fetch(`${ORIGIN}/?cb=${Math.random()}`, { headers: { 'user-agent': UA, accept: 'text/html' } });
+      const html = await r.text();
+      const inyectado = /static\.cloudflareinsights\.com\/beacon\.min\.js/.test(html);
+      if (inyectado) console.error('   23: mide con el beacon que INYECTA Cloudflare en el borde, no con el del repo.');
+      return inyectado;
     } },
   /* No se puede entrar en Search Console desde aquí, pero SÍ se puede
      comprobar la condición de la que depende la verificación: que el TXT

@@ -64,21 +64,18 @@ if (sinShared.length) {
   for (const p of sinShared) console.log(`    · /${p}`);
 }
 
+/* NO se sale aquí aunque el token esté vacío, y esta es la razón: hasta el
+   2026-08-25 este script hacía `exit 1` en este punto y NUNCA llegaba al paso
+   2, que es el único que mira el sitio de verdad. Mientras tanto fervon.dev
+   llevaba una semana midiendo — Cloudflare inyecta su propio beacon en el
+   BORDE cuando Web Analytics está en "Automatic Setup", sin tocar el HTML del
+   repo. O sea que el script decía «no mide nada» de una web que medía.
+   El token del fichero es una PISTA, no la respuesta; la respuesta la da el
+   navegador en el paso 2. */
 if (!token) {
-  console.log(`
-✗ SIN TOKEN — fervon.dev no está midiendo nada.
-
-  El cableado está puesto y la CSP ya autoriza el beacon. Falta un solo paso,
-  que es de panel porque el token de la API no tiene permiso de Web Analytics:
-
-    1. Cloudflare -> Analytics & Logs -> Web Analytics -> Add a site
-    2. Hostname: fervon.dev
-    3. Copia el token del snippet que te enseña (el valor de data-cf-beacon)
-    4. Pégalo en assets/shared.js, en FERVON_ANALITICA_TOKEN
-    5. node scripts/bump-cache-buster.mjs     (si no, el borde sirve el viejo)
-    6. node scripts/analitica-check.mjs       (esto debería salir en verde)
-`);
-  process.exit(1);
+  console.log('\n· assets/shared.js no lleva token propio. Puede que igualmente mida:');
+  console.log('  Cloudflare inyecta su beacon en el borde si Web Analytics está en modo automático.');
+  console.log('  Se comprueba abajo, con Chrome, contra el sitio de verdad.');
 }
 
 /* -- 2. ¿Carga de verdad? -------------------------------------------------- */
@@ -155,7 +152,16 @@ await nav.close();
 if (servidor) servidor.close();
 
 if (fallos) {
-  console.log(`\n✗ ROTO — hay token pero ${fallos} de ${MUESTRA.length} páginas no llegan a medir.`);
+  /* En --local el beacon del borde no existe: lo inyecta Cloudflare, no el
+     repo. Sin token propio, que falle en local es lo esperado y no es un
+     fallo del sitio; decirlo evita mandar a nadie a arreglar lo que funciona. */
+  if (LOCAL && !token) {
+    console.log(`\n· EN LOCAL NO SE PUEDE SABER — no hay token en el repo, y el beacon que mide
+  fervon.dev lo inyecta Cloudflare en el borde, que aquí no existe.
+  Corre este script SIN --local para el veredicto de verdad.`);
+    process.exit(0);
+  }
+  console.log(`\n✗ ROTO — ${fallos} de ${MUESTRA.length} páginas no llegan a medir.`);
   process.exit(1);
 }
 if (sinRed) {
@@ -165,3 +171,13 @@ if (sinRed) {
   process.exit(2);
 }
 console.log(`\n✓ MIDIENDO — el beacon carga en las ${MUESTRA.length} páginas de muestra, sin cookies y sin violar la CSP.`);
+if (!token) {
+  console.log(`
+  Y lo hace SIN token en el repo: quien lo inyecta es Cloudflare en el borde
+  (Web Analytics en modo automático). Funciona, pero conviene saber dos cosas:
+
+    · NO pegues el token en assets/shared.js «para arreglarlo». Tendrías DOS
+      beacons en cada página y las visitas se contarían por duplicado.
+    · Deja de medir solo si se quita el proxy naranja de Cloudflare. Si algún
+      día pasa, entonces sí: token en shared.js + bump-cache-buster.`);
+}

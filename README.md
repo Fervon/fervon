@@ -56,13 +56,29 @@ páginas, así que se enciende cambiando **una línea**.
 npm run analitica:check   # ¿mide algo de verdad? lo comprueba con Chrome contra producción
 ```
 
-Da tres veredictos y ninguno es ambiguo: **SIN TOKEN** (y dice el paso que falta),
-**ROTO** (CSP, caché vieja o token mal pegado) y **MIDIENDO**. Si la máquina desde
-la que mides no llega al beacon, lo dice en vez de inventarse un veredicto.
+**YA ESTÁ MIDIENDO, y no con el beacon de este repo.** `FERVON_ANALITICA_TOKEN`
+está vacío a propósito: Web Analytics está en **modo automático**, así que quien
+inyecta el beacon es **Cloudflare en el borde**, sin tocar el HTML.
 
-Para encenderla: Cloudflare → *Web Analytics* → *Add a site* → `fervon.dev`, pegar
-el token en `FERVON_ANALITICA_TOKEN` y correr `node scripts/bump-cache-buster.mjs`
-— sin ese bump el borde sigue sirviendo el `shared.js` viejo durante horas.
+⚠️ **No pegues el token en `shared.js` «para arreglarlo».** Tendrías dos beacons
+por página y cada visita se contaría dos veces. El token del repo solo hace falta
+si algún día se quita el proxy naranja de Cloudflare: entonces sí, token +
+`node scripts/bump-cache-buster.mjs` (sin ese bump el borde sirve el `shared.js`
+viejo durante horas).
+
+⚠️ **Cloudflare NO inyecta el beacon a cualquiera.** A un `fetch` sin User-Agent
+de navegador le sirve el HTML pelado. Eso tuvo en rojo el punto 23 del checklist
+durante días mientras el panel acumulaba visitas: el comprobador miraba si había
+token en el fichero, salía con `exit 1` y **nunca llegaba a preguntarle al
+sitio**. Un rojo falso es tan malo como un verde falso. Ahora los dos scripts
+piden la página como la pediría un visitante.
+
+Veredictos, ninguno ambiguo: **MIDIENDO** (dice si es con beacon propio o con el
+del borde), **ROTO** (CSP, caché vieja o token mal pegado), **SIN VEREDICTO** (la
+página pide el beacon pero *esta* máquina no resuelve
+`static.cloudflareinsights.com` — filtro de DNS en la red desde la que mides, no
+un fallo del sitio) y **en local no se puede saber**, porque el borde no existe
+ahí.
 
 ### Feed
 
