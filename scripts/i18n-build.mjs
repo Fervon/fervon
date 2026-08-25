@@ -55,7 +55,10 @@ const CHROME = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
    donde no hay `fs` para comprobar si la variante existe. */
 function ogImagePorIdioma(html, lang) {
   return html.replace(
-    /((?:property="og:image"|name="twitter:image") content=")(https:\/\/fervon\.dev\/assets\/[a-z0-9-]+?)(?:-[a-z]{2})?(\.jpg)(")/g,
+    /* Admite subcarpeta: las portadas de las guias viven en
+       assets/veredicto/<slug>.jpg y el patron anterior, sin la barra, no las
+       casaba — la version espanola se habria quedado con la portada inglesa. */
+    /((?:property="og:image"|name="twitter:image") content=")(https:\/\/fervon\.dev\/assets\/(?:[a-z0-9-]+\/)?[a-z0-9-]+?)(?:-[a-z]{2})?(\.jpg)(")/g,
     (todo, pre, base, ext, post) => {
       const cand = lang === 'es' ? base + ext : `${base}-${lang}${ext}`;
       const local = path.join(ROOT, cand.replace(ORIGIN, ''));
