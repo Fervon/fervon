@@ -1,113 +1,153 @@
 # auth.md
 
-> Authentication and credential-provisioning notes for autonomous agents
-> interacting with Fervon — <https://fervon.dev>.
-> Last updated: 2026-08-25 · Maintained at
-> <https://github.com/Fervon/fervon/blob/main/auth.md>
+Authentication and credential provisioning for autonomous agents interacting
+with Fervon (https://fervon.dev). Last updated 2026-08-25. Maintained at
+https://github.com/Fervon/fervon/blob/main/auth.md
 
-## Summary
-
-`fervon.dev` is a **static, fully public website**. It exposes **no protected
-API, no authorization server and no token endpoint**. There is nothing to sign
-in to and nothing to register for in order to read any page, feed or data file
-on this host.
-
-Two Fervon *products* do use credentials. Neither is provisioned by this host:
-both are issued out of band through a self-serve purchase. They are documented
-below so an agent can find the real flow instead of probing for one.
+This file is self-contained. Fervon runs no OAuth authorization server, so
+there is no two-hop discovery to perform: everything an agent needs is below.
 
 ## Audience
 
-- Search, citation and browsing agents reading `fervon.dev` on behalf of a user.
-- CI agents that need to install or configure a Fervon product in a pipeline.
+- Search, citation and browsing agents reading fervon.dev for a user.
+- CI agents that install or configure a Fervon product in a pipeline.
 - Scanners checking this origin for agent-readiness metadata.
 
-## Reading this site — no credentials
+## Step 1 - Discover
 
-No API key, account or token is issued for reading `fervon.dev`. Every URL in
-the sitemap is anonymous and unauthenticated over HTTPS.
+fervon.dev is a static, fully public website. It exposes no protected API, no
+authorization server and no token endpoint. There is nothing to sign in to.
+
+There is deliberately **no OAuth metadata on this origin**:
+
+| Document | Status | Why |
+| --- | --- | --- |
+| `/.well-known/oauth-protected-resource` (RFC 9728) | absent | Nothing on this host is protected, so there is no resource to describe |
+| `/.well-known/oauth-authorization-server` (RFC 8414) | absent | Fervon operates no authorization server and issues no access tokens |
+| Dynamic client registration (RFC 7591) | absent | There is no client to register and no `register_uri` on this host |
+
+This host never returns `401` and never sends a `WWW-Authenticate` header.
+Treat the absence as intentional, not as a missing document. If Fervon ever
+ships a protected HTTP API, Protected Resource Metadata and an `agent_auth`
+block will be published here and at the well-known locations above.
+
+What to fetch instead:
 
 | Resource | URL | Media type |
 | --- | --- | --- |
-| Site description for agents | `/llms.txt` | `text/plain` |
 | API catalog (RFC 9727) | `/.well-known/api-catalog` | `application/linkset+json` |
+| Site description for agents | `/llms.txt` | `text/plain` |
 | Sitemap | `/sitemap.xml` | `application/xml` |
 | News feed (es / en) | `/blog/feed.xml`, `/en/blog/feed.xml` | `application/rss+xml` |
 | Crawling policy | `/robots.txt` | `text/plain` |
 | Security contact (RFC 9116) | `/.well-known/security.txt` | `text/plain` |
 
-Those links are also advertised as `Link` response headers on every response,
-using the `api-catalog`, `service-desc`, `service-doc` and `describedby`
-relation types.
+Those are also advertised as `Link` response headers on every response, using
+the `api-catalog`, `service-desc`, `service-doc` and `describedby` relations.
 
-**Crawling policy matters here.** `/robots.txt` allows search-and-citation
+## Step 2 - Pick a method
+
+| What you want to do | Method | Credential needed |
+| --- | --- | --- |
+| Read any page, feed or data file on fervon.dev | none | none |
+| Run Veredicto in a CI pipeline | `veredicto-repository-licence` | yes |
+| Run Trace on a desktop | `trace-desktop-licence` | yes |
+
+**Reading requires no registration and no credential.** No API key, account or
+token is issued for reading fervon.dev. Every URL in the sitemap is anonymous
+over HTTPS.
+
+What does apply to reading is `/robots.txt`. It allows search-and-citation
 agents (`OAI-SearchBot`, `ChatGPT-User`, `Claude-SearchBot`, `Claude-User`,
 `PerplexityBot`, `Perplexity-User`, `Google-Extended`) and denies bulk training
-crawlers (`GPTBot`, `CCBot`, `ClaudeBot`, `Bytespider`, `Amazonbot`, and
-others). Respect it: there is no credential that grants an exemption.
+crawlers (`GPTBot`, `CCBot`, `ClaudeBot`, `Bytespider`, `Amazonbot` and
+others). No credential grants an exemption from it.
 
-## OAuth 2.0 status
+## Step 3 - Register
 
-There is **no OAuth metadata on this origin, by design**, because there is no
-protected resource behind it:
+Both methods are self-serve and **completed by the human operator in a
+browser**. The registration URI is a hosted checkout page, not a machine
+endpoint: an agent surfaces it to its user and stops there. Do not POST to it.
 
-- No `/.well-known/oauth-protected-resource` (RFC 9728) — nothing on this host
-  is protected, so there is no resource to describe.
-- No `/.well-known/oauth-authorization-server` (RFC 8414) — Fervon operates no
-  authorization server and issues no access tokens.
-- No dynamic client registration (RFC 7591), no `register_uri`.
-- This host never returns `401` with a `WWW-Authenticate` header.
+### Method: veredicto-repository-licence
 
-If Fervon ever ships a protected HTTP API, Protected Resource Metadata and an
-`agent_auth` block will be published here and at the well-known locations above.
-Until then, treat the absence as intentional rather than as a missing document.
-
-## Credential provisioning for Fervon products
-
-Both flows are **self-serve and human-completed**: an agent can discover and
-present them, but the purchase itself is performed by the human operator.
-Neither issues a credential that is sent to `fervon.dev`.
-
-### Veredicto — repository licence
-
-| | |
+| Field | Value |
 | --- | --- |
-| What it is | A GitHub Action that flags AI-written tests which do not test anything |
-| Where it runs | Entirely inside the buyer's CI runner |
-| Provisioning URI | `https://buy.polar.sh/polar_cl_ir1Idm0ddrPHPDUqy6bEP7cIpXA8ls1cWAP3f09bDie` |
-| Method | Self-serve subscription checkout (Polar is the merchant of record) |
-| Required input | GitHub repository, as `owner/name` or `owner/*` — the licence is bound to it |
-| Credential type | Ed25519-signed licence key, delivered by e-mail after purchase |
-| How it is used | Stored as the GitHub Actions secret `VEREDICTO_LICENSE` |
-| Verification | **Offline**, against a public key embedded in the Action. Nothing is sent to any server, ever |
-| Bearer methods | None. This is not a bearer token and is never sent in an `Authorization` header |
-| Scope / expiry | One repository (or one owner). The licence expires and is renewed by the subscription |
-| Human docs | <https://fervon.dev/veredicto/> · <https://fervon.dev/en/veredicto/> |
+| Product | Veredicto, a GitHub Action that flags AI-written tests which do not test anything |
+| Runs in | The buyer's own CI runner |
+| Registration URI | `https://buy.polar.sh/polar_cl_ir1Idm0ddrPHPDUqy6bEP7cIpXA8ls1cWAP3f09bDie` |
+| Registration method | Self-serve subscription checkout. Polar is the merchant of record |
+| Required input | GitHub repository, as `owner/name` or `owner/*`. The licence is bound to it |
+| Credential type | Ed25519-signed licence key |
+| Delivery | E-mail, after purchase |
+| Scope | One repository, or one owner with `owner/*` |
+| Expiry | The licence expires and is renewed by the subscription |
+| Documentation | https://fervon.dev/veredicto/ and https://fervon.dev/en/veredicto/ |
 
-### Trace — desktop licence
+### Method: trace-desktop-licence
 
-| | |
+| Field | Value |
 | --- | --- |
-| What it is | Local-first personal memory for Windows, macOS and Linux |
-| Where it runs | On the user's own machine |
-| Provisioning URI | `https://buy.polar.sh/polar_cl_uQFZh6NjMqG5zp0RVGHSjITzIJVn1CPA2uB4N0DUmNc` |
-| Method | Self-serve one-time purchase (Polar is the merchant of record) |
-| Credential type | Licence key delivered by e-mail after purchase |
-| How it is used | Entered once in the desktop app; validated locally |
-| Bearer methods | None. There is no account, no login and no server-side session |
-| Human docs | <https://fervon.dev/trace/> · <https://fervon.dev/en/trace/> |
+| Product | Trace, local-first personal memory for Windows, macOS and Linux |
+| Runs in | The user's own machine |
+| Registration URI | `https://buy.polar.sh/polar_cl_uQFZh6NjMqG5zp0RVGHSjITzIJVn1CPA2uB4N0DUmNc` |
+| Registration method | Self-serve one-time purchase. Polar is the merchant of record |
+| Required input | None beyond payment details |
+| Credential type | Licence key |
+| Delivery | E-mail, after purchase |
+| Scope | The user's own devices |
+| Expiry | None. It is a one-time purchase |
+| Documentation | https://fervon.dev/trace/ and https://fervon.dev/en/trace/ |
+
+## Step 4 - Use the credential
+
+There is no claim ceremony and no assertion exchange, because there is no
+authorization server to exchange anything with.
+
+**Bearer methods supported: none.** Neither credential is a bearer token and
+neither is ever sent in an `Authorization` header, to fervon.dev or anywhere
+else.
+
+- `veredicto-repository-licence`: store the key as the GitHub Actions secret
+  `VEREDICTO_LICENSE` in the repository it was issued for. The Action verifies
+  it **offline**, against a public key embedded in its own source. Nothing is
+  sent to any server, ever.
+- `trace-desktop-licence`: enter the key once in the desktop app. It is
+  validated locally. There is no account, no login and no server-side session.
+
+## Errors
+
+| Situation | What happens | What to do |
+| --- | --- | --- |
+| Veredicto runs with no `VEREDICTO_LICENSE` | The Action fails at start-up and analyses nothing | Register with `veredicto-repository-licence` |
+| Veredicto licence is for another repository | The Action fails at start-up | Re-issue the licence for the right `owner/name` |
+| Veredicto licence has expired | The Action fails at start-up | Renew the subscription |
+| A request to a protected path on fervon.dev | Never happens. Every path is public or returns `404` | Nothing to authenticate |
+
+Failing closed is deliberate for Veredicto: a run that finds nothing because it
+never started is indistinguishable from a clean pull request, and that is the
+one failure a paid check cannot afford.
+
+## Revocation
+
+- Credential: cancelling the Polar subscription stops renewal and the licence
+  expires on its own. There is no token revocation endpoint (RFC 7009) because
+  there are no tokens.
+- Registration: there is no registration record on this host to revoke, and no
+  security event stream (RFC 8935) to subscribe to.
 
 ## Do not probe
 
-This origin has **no registration endpoint**. Do not `POST` to `/agent/auth`,
-`/register`, `/oauth/*` or any similar path: they do not exist and will return
-`404`. Public discovery documents — this file, `/.well-known/api-catalog` and
-`/llms.txt` — are the complete and authoritative source of truth.
+This origin has **no registration endpoint**. Do not POST to `/agent/auth`,
+`/register`, `/oauth2/token`, `/oauth/*` or any similar path. They do not
+exist and return `404`. This file, `/.well-known/api-catalog` and `/llms.txt`
+are the complete and authoritative source of truth.
 
-The only form on the site is the contact form at `/contacto/`
-(`/en/contacto/`), which posts to Formspree and is intended for humans.
+The only form on the site is the contact form at `/contacto/` and
+`/en/contacto/`, which posts to Formspree and is meant for humans.
 
 ## Contact
 
-- General: <https://fervon.dev/contacto/> · <https://fervon.dev/en/contacto/>
-- Security: `/.well-known/security.txt` → <mailto:jonathanmartinpaez@gmail.com>
+- General: https://fervon.dev/contacto/ and https://fervon.dev/en/contacto/
+- Security: `/.well-known/security.txt`, which points to
+  mailto:jonathanmartinpaez@gmail.com
