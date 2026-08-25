@@ -11,11 +11,26 @@
    llevaba desde junio autorizando `static.cloudflareinsights.com`. Nadie se
    enteró porque no había ninguna comprobación que lo mirara. Ahora la hay.
 
-   Tres estados posibles y ninguno es ambiguo:
+   Cuatro estados posibles y ninguno es ambiguo:
      · SIN TOKEN  — el sitio no mide. Sale 1 y dice el paso exacto que falta.
      · ROTO       — hay token pero el beacon no carga (CSP, caché vieja,
                     token mal pegado). Sale 1 con el motivo.
      · MIDIENDO   — el beacon carga y responde. Sale 0.
+     · SIN PODER COMPROBARLO — el DNS de esta red anula el host del beacon.
+                    Sale 2 ANTES de abrir Chrome, y lo dice con esas palabras.
+
+   EL CUARTO ESTADO NO ES COSMÉTICO, es la razón de que exista la sonda de más
+   abajo. Sin él, «el sitio no mide» y «mide y yo no puedo verlo» daban la misma
+   salida, y el script parecía prudente mientras no comprobaba nada. El filtro
+   se quitó el 2026-08-25 poniendo el host en la lista blanca del Pi-hole (lo
+   bloqueaba el adlist StevenBlack/hosts), pero vuelve en cuanto se actualicen
+   las listas: el aviso se queda.
+
+   TRAMPA HERMANA, medida el mismo día: mientras el host estuvo a 0.0.0.0,
+   abortar el POST de RUM y no abortarlo daban EL MISMO resultado, así que esa
+   comprobación salía «bien» sin probar nada. Antes de dar por bueno que
+   bloqueas algo, comprueba que sin el bloqueo llegaría — si no, estás midiendo
+   el bloqueo del vecino.
 
    Uso:  node scripts/analitica-check.mjs            # contra producción
          node scripts/analitica-check.mjs --local    # contra los ficheros
@@ -90,10 +105,15 @@ if (!token) {
    en «SIN VEREDICTO», que suena prudente y se lee como normalidad. Medido el
    2026-08-25: el resolver de casa devuelve 0.0.0.0 para los dos hosts del
    beacon —es un bloqueador de rastreadores haciendo su trabajo, no una averia—
-   mientras 1.1.1.1, 8.8.8.8 y 9.9.9.9 devuelven la IP real. Consecuencia que
-   conviene tener escrita: desde esta red el beacon NUNCA sale, asi que ninguna
-   pasada de este script aparece en Web Analytics, y este script no puede dar
-   un veredicto sobre la analitica hasta que se ponga el host en lista blanca. */
+   mientras 1.1.1.1, 8.8.8.8 y 9.9.9.9 devolvian la IP real. Era el adlist
+   StevenBlack/hosts del Pi-hole de casa, y con la lista blanca puesta el host
+   ya resuelve; esta sonda se queda porque el bloqueo puede volver con
+   cualquier actualizacion de listas, y sin ella el sintoma es un «SIN
+   VEREDICTO» que suena prudente y se lee como normalidad.
+   La trampa que dejo, y que casi cuesta cara: mientras el DNS estuvo a
+   0.0.0.0, poner el abort() del ping y no ponerlo daban EXACTAMENTE el mismo
+   resultado. La comprobacion salia bien por el motivo equivocado. Antes de
+   validar nada de esto, mirar que el host resuelva. */
 async function sondaBeacon() {
   let local = null;
   try {
@@ -164,6 +184,7 @@ if (LOCAL) {
 }
 
 let sinRed = 0;
+const cspAjenas = new Set();
 /* Viewport FIJADO a proposito. Sin `defaultViewport` puppeteer usa 800x600,
    que no es ningun dispositivo real: ensuciaba el panel con un tamano
    inventado y ademas mando a investigar un CLS que no era nuestro. */
@@ -205,7 +226,20 @@ for (const ruta of MUESTRA) {
   await new Promise((r) => setTimeout(r, 1500));
 
   const cargado = respuestas.some((c) => c >= 200 && c < 300);
-  const csp = violaciones.filter((v) => v.includes('cloudflareinsights'));
+  /* Chrome mete la POLITICA ENTERA en el texto de la violacion, y esa politica
+     nombra a https://static.cloudflareinsights.com. Asi que buscar
+     'cloudflareinsights' en el mensaje casaba con CUALQUIER violacion de
+     script-src, incluida la del script inline de Bot Fight Mode, que no es
+     nuestro. Efecto medido el 2026-08-25, la primera vez que este script llego
+     a dar veredicto tras desbloquearse el DNS: dijo «ROTO, 3 de 3» de un sitio
+     que SI mide. Comprobado aparte que el beacon iba bien -> HTTP 200 y POST a
+     /cdn-cgi/rum intentado- con dos violaciones ajenas en la misma pagina (un
+     style inline y el script de Bot Fight Mode).
+     Una violacion cuenta contra el beacon solo si el recurso BLOQUEADO es el:
+     el beacon es un script EXTERNO, asi que Chrome diria «Refused to load the
+     script '<url>'»; un «Executing inline script» nunca puede ser suyo. */
+  const csp = violaciones.filter((v) => /Refused to load the script '[^']*cloudflareinsights/i.test(v));
+  for (const v of violaciones) if (!csp.includes(v)) cspAjenas.add(v.split(' Either')[0].slice(0, 120));
 
   if (cargado && !csp.length) {
     console.log(`ok    ${ruta}`);
@@ -249,7 +283,17 @@ if (sinRed) {
   Vuelve a correrlo desde una red sin filtro de DNS.`);
   process.exit(2);
 }
-console.log(`\n✓ MIDIENDO — el beacon carga en las ${MUESTRA.length} páginas de muestra, sin cookies y sin violar la CSP.`);
+console.log(`
+✓ MIDIENDO — el beacon carga y se ejecuta en las ${MUESTRA.length} páginas de muestra, sin cookies.`);
+/* Se dice «la CSP no lo bloquea a EL», no «la pagina no viola la CSP»: son
+   cosas distintas y confundirlas ya costo un falso ROTO. Si hay violaciones
+   ajenas se avisan, porque el script las tiene en la mano y tirarlas seria
+   esconder informacion que a alguien le hace falta. */
+if (cspAjenas.size) {
+  console.log(`
+· Aviso aparte: la pagina tiene ${cspAjenas.size} violacion(es) de CSP que NO son del beacon:`);
+  for (const v of cspAjenas) console.log(`    · ${v}`);
+}
 if (!token) {
   console.log(`
   Y lo hace SIN token en el repo: quien lo inyecta es Cloudflare en el borde
