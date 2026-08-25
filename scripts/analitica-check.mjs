@@ -24,6 +24,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { createServer } from 'node:http';
+import dns from 'node:dns/promises';
 import { fileURLToPath } from 'node:url';
 import puppeteer from 'puppeteer-core';
 
@@ -33,6 +34,12 @@ const ORIGIN = 'https://fervon.dev';
 const PUERTO = 4089;
 const CHROME = process.env.CHROME_PATH || 'C:/Program Files/Google/Chrome/Application/chrome.exe';
 const BEACON = 'static.cloudflareinsights.com';
+/* El .js que hay que ver cargar y el POST que crea la visita son cosas
+   distintas: `beacon.min.js` sale de static.cloudflareinsights.com y es lo
+   que este script verifica; la visita la crea el POST a /cdn-cgi/rum. Se
+   aborta el segundo y se deja pasar el primero, para no contarnos a
+   nosotros mismos en la analitica que venimos a comprobar. */
+const PING_RUM = '/cdn-cgi/rum';
 
 /* Una muestra, no las 49: con tres páginas de tres generadores distintos ya se
    ve si shared.js llega a todas. La cobertura completa la comprueba el paso 1. */
@@ -78,6 +85,61 @@ if (!token) {
   console.log('  Se comprueba abajo, con Chrome, contra el sitio de verdad.');
 }
 
+/* -- 1 bis. ¿Puede este equipo llegar al beacon? ---------------------------- */
+/* Sin esto el script gastaba tres cargas y tres timeouts de 45 s para acabar
+   en «SIN VEREDICTO», que suena prudente y se lee como normalidad. Medido el
+   2026-08-25: el resolver de casa devuelve 0.0.0.0 para los dos hosts del
+   beacon —es un bloqueador de rastreadores haciendo su trabajo, no una averia—
+   mientras 1.1.1.1, 8.8.8.8 y 9.9.9.9 devuelven la IP real. Consecuencia que
+   conviene tener escrita: desde esta red el beacon NUNCA sale, asi que ninguna
+   pasada de este script aparece en Web Analytics, y este script no puede dar
+   un veredicto sobre la analitica hasta que se ponga el host en lista blanca. */
+async function sondaBeacon() {
+  let local = null;
+  try {
+    local = (await dns.lookup(BEACON)).address;
+  } catch (e) {
+    local = 'no resuelve (' + (e.code || 'sin respuesta') + ')';
+  }
+  if (local !== '0.0.0.0' && local !== '::' && !local.startsWith('no resuelve')) return { ok: true, local };
+  /* Separar «lo bloquean aqui» de «el host esta caido»: son fallos opuestos. */
+  let publico = null;
+  try {
+    const r = new dns.Resolver();
+    r.setServers(['1.1.1.1', '8.8.8.8']);
+    publico = (await r.resolve4(BEACON))[0];
+  } catch { publico = null; }
+  return { ok: false, local, publico };
+}
+
+if (!LOCAL) {
+  const sonda = await sondaBeacon();
+  if (!sonda.ok) {
+    console.log(`\n\u26a0 NO SE PUEDE COMPROBAR DESDE ESTE EQUIPO`);
+    console.log(`\n  ${BEACON} resuelve aqui a: ${sonda.local}`);
+    if (sonda.publico) {
+      console.log(`  y en un resolver publico a: ${sonda.publico}`);
+      console.log(`
+  O sea: el host esta VIVO y lo esta anulando el DNS de esta red (un bloqueador
+  de rastreadores). Dos consecuencias:
+
+    \u00b7 Este script no puede dar veredicto sobre la analitica desde aqui: el
+      beacon no llega a cargar, asi que «no mide» y «mide y yo no lo veo» dan
+      exactamente la misma salida.
+    \u00b7 Ninguna visita hecha desde esta red aparece en Web Analytics. Si el
+      panel de fervon.dev tiene datos, son todos de fuera de casa.
+
+  Arreglo: poner ${BEACON} y cloudflareinsights.com en la lista blanca del
+  bloqueador (AdGuard/Pi-hole), o correr esto desde otra red.`);
+    } else {
+      console.log(`
+  Y tampoco resuelve contra un resolver publico, asi que esto no parece un
+  filtro local: o no hay salida a Internet, o el host esta caido de verdad.`);
+    }
+    process.exit(2);
+  }
+}
+
 /* -- 2. ¿Carga de verdad? -------------------------------------------------- */
 let servidor = null;
 let base = ORIGIN;
@@ -102,7 +164,15 @@ if (LOCAL) {
 }
 
 let sinRed = 0;
-const nav = await puppeteer.launch({ executablePath: CHROME, headless: 'new', args: ['--no-sandbox'] });
+/* Viewport FIJADO a proposito. Sin `defaultViewport` puppeteer usa 800x600,
+   que no es ningun dispositivo real: ensuciaba el panel con un tamano
+   inventado y ademas mando a investigar un CLS que no era nuestro. */
+const nav = await puppeteer.launch({
+  executablePath: CHROME,
+  headless: 'new',
+  args: ['--no-sandbox'],
+  defaultViewport: { width: 1280, height: 900 },
+});
 let fallos = 0;
 
 for (const ruta of MUESTRA) {
@@ -111,7 +181,16 @@ for (const ruta of MUESTRA) {
   const respuestas = [];
   const caidas = [];
   const violaciones = [];
-  pag.on('request', (r) => { if (r.url().includes(BEACON)) peticiones.push(r.url()); });
+  /* Con la intercepcion activada hay que continuar TODAS las ramas que no
+     se aborten: una peticion sin continuar se queda colgada hasta el
+     timeout de 45 s del goto y parece un problema de red. */
+  let pings = 0;
+  await pag.setRequestInterception(true);
+  pag.on('request', (r) => {
+    if (r.url().includes(BEACON)) peticiones.push(r.url());
+    if (r.url().includes(PING_RUM)) { pings++; return r.abort(); }
+    return r.continue();
+  });
   pag.on('response', (r) => { if (r.url().includes(BEACON)) respuestas.push(r.status()); });
   /* Sin esto no se distingue «la página no pide el beacon» de «esta máquina no
      llega a Cloudflare». Son fallos opuestos y el arreglo no tiene nada que ver:
