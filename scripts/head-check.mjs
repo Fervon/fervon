@@ -15,11 +15,10 @@
    Se ignoran, ahí sí, las etiquetas del <body>: OG y Twitter en el cuerpo son
    síntoma del mismo fallo, así que también se exige que estén arriba.
 
-   NO DEBE CONTAR COMO VISITA: con `--live` se aborta `cloudflareinsights.com` y
-   se fija el viewport, para no poder ensuciar la analítica del sitio. Desde la
-   red de casa eso es redundante —el beacon no resuelve— y sirve para cualquier
-   otra. Ver el bloque de arranque del navegador, que dice qué está medido y qué
-   no.
+   NO CUENTA COMO VISITA: con `--live` se aborta `cloudflareinsights.com` y se
+   fija el viewport, para no ensuciar la analítica del sitio. Medido: sin el
+   aborto el beacon responde 200 y la pasada se registra; con él, no. Ver el
+   bloque de arranque del navegador.
 
    Uso:  node scripts/head-check.mjs                  todo el sitio, en local
          node scripts/head-check.mjs --live           lo que sirve fervon.dev
@@ -65,26 +64,28 @@ const page = await browser.newPage();
    beacon de Cloudflare Web Analytics, que el borde inyecta en el HTML. Un
    medidor que puede alterar lo que mide no sirve para medir.
 
-   PERO OJO CON EL ALCANCE, y esto está MEDIDO el 2026-08-25: desde la red de
-   casa el arreglo NO CAMBIA NADA. Con y sin el abort() salen exactamente
-   1 petición y 0 respuestas, porque el filtro DNS resuelve a 0.0.0.0 tanto
-   `static.cloudflareinsights.com` como `cloudflareinsights.com` — el del script
-   y el del envío de datos. Sin el .js cargado no hay POST de RUM, y su host
-   también está anulado: las pasadas de `--live` de aquí NUNCA generaron una
-   visita.
+   FUNCIONA, y está MEDIDO el 2026-08-25 con el host resolviendo de verdad:
 
-   Así que esto no corrige una contaminación que hubiera: la evita si alguna vez
-   la hay, desde otra máquina, otra red o con el filtro apagado. **El abort() no
-   está probado en un entorno donde el host resuelva**, y hoy no se puede probar
-   desde aquí.
+       sin abort()  ->  1 peticion a cloudflareinsights, 1 respuesta 200
+       con abort()  ->  1 peticion,                      0 respuestas
 
-   NO ATRIBUIRSE EL CLS DEL PANEL. Hubo una investigación el 2026-08-25 sobre un
-   CLS de 0.707 con el rect del nav a 800x600, y llegó a parecer que el cliente
-   éramos nosotros por este viewport. NO ERA ASÍ: nuestro Chrome aplica la hoja
-   de estilos y da x=0 w=800, que no puede producir ese rect (784@8 solo sale
-   sin CSS), y encima el beacon no resuelve, así que ni siquiera se registran.
-   Esas muestras son externas y su causa sigue abierta. Si alguien llega aquí
-   buscando el CLS: este fichero no lo explica. */
+   Sin esa respuesta el beacon no se ejecuta y no hay visita. Ojo a la trampa
+   que casi nos come: durante unas horas de ese mismo dia el Pi-hole de casa
+   resolvia `static.cloudflareinsights.com` y `cloudflareinsights.com` a 0.0.0.0
+   (adlist StevenBlack/hosts), y con eso el abort() daba EXACTAMENTE el mismo
+   resultado que no ponerlo — 0 respuestas en los dos casos. O sea que la
+   comprobacion salia "bien" por el motivo equivocado. Si vuelves a validar
+   esto, mira antes que el host resuelva; si no, no estas midiendo nada.
+
+   NO ATRIBUIRSE EL CLS DEL PANEL, que este viewport lo hizo parecer. El
+   2026-08-25 hubo un CLS de 0.707 con el rect del nav en 784x574@8,26 y llego a
+   pensarse que el cliente eramos nosotros. NO LO ERAMOS, y ya no es deduccion:
+   se sacaron los eventos crudos por GraphQL (`rumWebVitalsEventsAdaptive`, que
+   trae el campo `bot`, invisible en la interfaz del panel) y los tres eventos
+   son `bot:1`, ChromeHeadless/Linux, pais NL. Un escaner de datacenter que
+   pinta sin esperar la hoja de estilos. **El peor visitante humano de esa
+   ventana tuvo 0.02, con el umbral de "bueno" en 0.1.** El nav esta sano y no
+   habia nada que arreglar ahi. */
 
 /* 1. Viewport explícito. El valor da igual para lo que este script comprueba
       —dónde acaban las etiquetas del <head> no depende del ancho— pero
