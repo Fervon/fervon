@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Detector de over-mocking en tests | Veredicto</title>
+  <meta name="description" content="Cuándo un mock deja de aislar y empieza a tapar: el caso que siempre pasa, mockear el módulo bajo prueba, y cómo detectarlo en el pull request.">
+  <link rel="canonical" href="https://fervon.dev/es/veredicto/over-mocking-detector">
+  <link rel="alternate" type="application/rss+xml" title="Fervon · Noticias" href="/blog/feed.xml"><link rel="alternate" hreflang="es" href="https://fervon.dev/es/veredicto/over-mocking-detector"><link rel="alternate" hreflang="en" href="https://fervon.dev/veredicto/over-mocking-detector"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/veredicto/over-mocking-detector">
+  <meta name="keywords" content="over-mocking detector, circular mocks, mocking the unit under test, test doubles, AI generated tests, CI check, pull request">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#0E0B0A">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-192.png" sizes="192x192" type="image/png">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Fervon">
+  <meta property="og:title" content="El test mockeó justo lo que debía probar">
+  <meta property="og:description" content="Un mock del propio módulo bajo prueba es un espejo comprobando su reflejo: pasa siempre y no toca el código real. Cómo se detecta en el PR.">
+  <meta property="og:url" content="https://fervon.dev/es/veredicto/over-mocking-detector">
+  <meta property="og:image" content="https://fervon.dev/assets/og-veredicto.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-veredicto.jpg">
+  <meta property="og:locale" content="es_ES">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Over-mocking detector for pull requests",
+    "author": { "@type": "Person", "name": "Jonathan Martín" },
+    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
+    "mainEntityOfPage": "https://fervon.dev/veredicto/over-mocking-detector",
+    "description": "When a mock stops isolating and starts hiding, and how a deterministic check spots it in the diff."
+  }
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Cuántos mocks son demasiados?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No es una cuestión de cantidad. Un test con seis mocks de dependencias externas puede estar perfectamente bien, y uno con un solo mock puede estar vacío si ese mock es justo el objeto de la prueba. La pregunta no es cuántos, sino qué."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿No es esto lo que hace un linter?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Un linter mira estilo y errores dentro de un fichero. Esto mira la relación entre lo que un test dice probar y lo que sustituye, y lo hace sobre el diff del pull request, no sobre el repositorio entero. Son capas distintas y conviven bien."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Y si mi arquitectura obliga a mockear mucho?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Suele ser la señal más útil que da la herramienta. Si para probar una unidad hay que doblar media aplicación, el problema no está en el test. Aun así, el modo «warn» y la directiva por línea existen precisamente para que puedas decidir tú caso por caso."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué lenguajes cubre?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Las reglas trabajan sobre el diff y reconocen los patrones de los ecosistemas de JavaScript y TypeScript y los de Python, incluidas las marcas de skip de pytest y unittest. El catálogo completo, con un ejemplo por regla, está en la documentación del repositorio."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Detecta un test que asevera el resultado equivocado?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, y conviene decirlo claro. Un test bien formado que asevera la salida de un código con bug no deja huella sintáctica en el diff. Para eso hace falta una persona o mutation testing. Veredicto es una primera línea barata, no una demostración de que tus tests sean buenos."
+      }
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://fervon.dev/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Veredicto",
+      "item": "https://fervon.dev/veredicto/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Un detector de over-mocking para tus pull requests",
+      "item": "https://fervon.dev/es/veredicto/over-mocking-detector"
+    }
+  ]
+}
+  </script>
+
+  <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin="">
+  <link rel="stylesheet" href="/assets/core.css?v=20260822">
+  <link rel="stylesheet" href="/veredicto/base.css?v=20260822">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260822">
+</head>
+<body>
+  <a class="skip" href="#top">Saltar al contenido</a>
+
+  <header class="nav"><div class="glass bar">
+    <nav class="crumb" aria-label="Ruta de navegación">
+      <a href="/"><span class="fv"><img src="/assets/logo-icon.svg" width="17" height="17" alt="" aria-hidden="true"> fervon</span></a><span class="sep">›</span>
+      <a href="/veredicto/"><svg class="mark" width="17" height="17" viewBox="0 0 26 26" aria-hidden="true"><path d="M5 13 L11 19 L21 7" fill="none" stroke="var(--amber)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>Veredicto</a><span class="sep">›</span>
+      <span aria-current="page">Detector de over-mocking</span>
+    </nav>
+    <div class="act">
+      <nav class="langseg" id="lang" aria-label="Idioma"><span class="langopt on" aria-current="true">ES</span><a class="langopt" href="/veredicto/over-mocking-detector" hreflang="en" lang="en">EN</a></nav>      <a class="btn btn-fire btn-sm" href="/veredicto/#pricing">Ver precio</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+
+    <section class="hero">
+      <div class="wrap">
+        <h1>Un detector de over-mocking para tus pull requests</h1>
+        <p class="sub">Un mock bien puesto aísla lo que no estás probando. Un mock de más sustituye justo lo que sí querías probar — y entonces el test pasa siempre, sin haber tocado una línea de tu código.</p>
+      </div>
+    </section>
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h">En 30 segundos</h2>
+          <ul>
+            <li>El <b>over-mocking</b> no es «usar muchos mocks»: es sustituir por un doble aquello cuyo comportamiento era el objeto de la prueba.</li>
+            <li>El caso terminal es el <b>mock circular</b>: el test importa el módulo bajo prueba, lo mockea y luego asevera sobre el mock. Un espejo comprobando su reflejo.</li>
+            <li>Los agentes caen aquí constantemente porque es la ruta más corta al verde: si el módulo real da problemas, se sustituye y el problema desaparece.</li>
+            <li>Se detecta <b>leyendo el diff</b>, sin ejecutar los tests: el patrón import + mock + assert sobre el mismo módulo es sintáctico.</li>
+            <li><b>Veredicto</b> lo marca como <code>circular-mocks</code> en el pull request, junto con otras 10 reglas. Sin API key y sin que nada salga del runner.</li>
+          </ul>
+          <div class="cta-row s-tldrcta">
+            <a class="btn btn-fire" href="/veredicto/#pricing">Ponerlo en mis PRs — $19/repo</a>
+            <a class="btn btn-ghost" href="/es/veredicto/ai-generated-tests-prove-nothing">Las otras seis trampas</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap prose">
+        <h2>Dónde está la frontera</h2>
+        <p>Mockear no es malo. Mockeas el reloj, la red, el sistema de ficheros y la pasarela de pago porque son lentos, caros o no deterministas, y porque no son lo que estás probando. Eso es aislamiento y está bien.</p>
+        <p>La frontera es sencilla de enunciar: <b>si sustituyes por un doble el comportamiento sobre el que va tu assert, el test ya no comprueba nada</b>. Ha pasado de verificar tu código a verificar tu configuración del mock.</p>
+        <p>El síntoma clásico es un test que asevera sobre llamadas en vez de sobre resultados. <code>expect(repo.save).toHaveBeenCalled()</code> comprueba que tu código llamó a algo. No comprueba que lo guardado sea correcto, ni que se guardara, ni que sirva de algo.</p>
+      </div>
+    </section>
+
+    <section class="sec alt">
+      <div class="wrap prose">
+        <h2>El caso terminal: mockear el módulo bajo prueba</h2>
+        <p>Hay un grado de over-mocking que ya no admite matiz, y es el que un agente produce con más facilidad. El test importa el módulo que dice estar probando, lo sustituye entero por un doble, le dice al doble qué debe devolver y después comprueba que devuelve eso.</p>
+        <p>El resultado es un test que <b>no puede fallar</b> y que seguiría pasando si borraras el módulo real entero. Y sube la cobertura, porque el fichero se importa.</p>
+        <ul class="bullets">
+          <li><b>La prueba de fuego:</b> borra mentalmente el cuerpo de la función real. ¿Sigue pasando el test? Entonces el test no la estaba probando.</li>
+          <li><b>La segunda:</b> ¿aparece el nombre del módulo bajo prueba tanto en el import como en la llamada al mock? Eso es sintaxis, y una máquina lo ve.</li>
+          <li><b>La tercera:</b> ¿todos los asserts del fichero son sobre llamadas y ninguno sobre un valor devuelto? Es un olor fuerte, no una prueba, pero merece una mirada.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- seo:table -->
+    <section class="sec seosec" id="tabla" aria-labelledby="tabla-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">Dónde cae cada uno</span>
+          <h2 id="tabla-h">Mock legítimo o mock de más</h2>
+        </div>
+        <div class="tablewrap reveal">
+          <table class="seotable">
+            <caption class="vh">Qué mocks aíslan de verdad y cuáles vacían el test.</caption>
+            <thead>
+              <tr>
+                <th>Qué se mockea</th>
+                <th>Veredicto</th>
+                <th>Por qué</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th>Reloj, aleatoriedad, UUID</th><td class="yes">Legítimo</td><td>No determinista y ajeno a lo que pruebas.</td></tr>
+              <tr><th>Red, HTTP de terceros</th><td class="yes">Legítimo</td><td>Lento, frágil y fuera de tu control.</td></tr>
+              <tr><th>Pagos, correo, SMS</th><td class="yes">Legítimo</td><td>Con efectos reales que no quieres en CI.</td></tr>
+              <tr><th>Base de datos con una en memoria</th><td class="warn">Depende</td><td>Mejor la versión en memoria que un doble: prueba comportamiento.</td></tr>
+              <tr><th>Un colaborador cuyo resultado aseveras</th><td class="no">Over-mocking</td><td>Aseveras tu propia configuración del mock.</td></tr>
+              <tr><th>El módulo bajo prueba</th><td class="no">Mock circular</td><td>No puede fallar. Pasaría aunque borraras el código.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec alt">
+      <div class="wrap prose">
+        <h2>Qué hace exactamente el detector</h2>
+        <p>Veredicto lee el diff del pull request y busca el patrón sintáctico, no la intención. Cuando un fichero de test mockea el mismo módulo que declara probar y luego asevera sobre ese doble, lo marca como <code>circular-mocks</code> con el fichero y la línea.</p>
+        <p>No ejecuta tus tests, no llama a ningún modelo y no necesita API key. Todo el análisis ocurre en tu runner y ni el código ni el diff salen de tu infraestructura. Por defecto va en modo «warn»: comenta en el PR, no bloquea.</p>
+        <p>Y cuando un caso es deliberado y está revisado, se silencia con una línea encima —<code>// veredicto-disable-next-line circular-mocks</code>— en vez de tener que apagar la regla entera para todo el repositorio.</p>
+        <div class="cta-row">
+          <a class="btn btn-fire" href="/veredicto/#pricing">Empezar — $19 por repo y mes</a>
+          <a class="btn btn-ghost" href="/veredicto/">Ver las 11 reglas</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:faq -->
+    <section class="sec seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">FAQ</span>
+          <h2 id="faq-h">Preguntas frecuentes</h2>
+        </div>
+        <div class="faq reveal">
+          <details>
+            <summary>¿Cuántos mocks son demasiados?</summary>
+            <p>No es una cuestión de cantidad. Un test con seis mocks de dependencias externas puede estar perfectamente bien, y uno con un solo mock puede estar vacío si ese mock es justo el objeto de la prueba. La pregunta no es cuántos, sino qué.</p>
+          </details>
+          <details>
+            <summary>¿No es esto lo que hace un linter?</summary>
+            <p>Un linter mira estilo y errores dentro de un fichero. Esto mira la relación entre lo que un test dice probar y lo que sustituye, y lo hace sobre el diff del pull request, no sobre el repositorio entero. Son capas distintas y conviven bien.</p>
+          </details>
+          <details>
+            <summary>¿Y si mi arquitectura obliga a mockear mucho?</summary>
+            <p>Suele ser la señal más útil que da la herramienta. Si para probar una unidad hay que doblar media aplicación, el problema no está en el test. Aun así, el modo «warn» y la directiva por línea existen precisamente para que puedas decidir tú caso por caso.</p>
+          </details>
+          <details>
+            <summary>¿Qué lenguajes cubre?</summary>
+            <p>Las reglas trabajan sobre el diff y reconocen los patrones de los ecosistemas de JavaScript y TypeScript y los de Python, incluidas las marcas de skip de pytest y unittest. El catálogo completo, con un ejemplo por regla, está en la documentación del repositorio.</p>
+          </details>
+          <details>
+            <summary>¿Detecta un test que asevera el resultado equivocado?</summary>
+            <p>No, y conviene decirlo claro. Un test bien formado que asevera la salida de un código con bug no deja huella sintáctica en el diff. Para eso hace falta una persona o mutation testing. Veredicto es una primera línea barata, no una demostración de que tus tests sean buenos.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">Seguir leyendo</span>
+          <h2 id="mas-h">Relacionado</h2>
+        </div>
+        <div class="related reveal">
+          <a class="relcard" href="/veredicto/">
+            <span class="rt">Veredicto</span>
+            <span class="rd">El check de CI que pilla los tests que no prueban nada.</span>
+          </a>
+          <a class="relcard" href="/es/veredicto/ai-generated-tests-prove-nothing">
+            <span class="rt">Tests que no prueban nada</span>
+            <span class="rd">Las siete formas de poner un build en verde sin trabajar.</span>
+          </a>
+          <a class="relcard" href="/es/veredicto/mutation-testing-alternative">
+            <span class="rt">Mutation testing</span>
+            <span class="rd">Qué pilla que un check estático no puede, y qué cuesta.</span>
+          </a>
+        </div>
+        <div class="fv-share">
+          <button type="button" class="sharebtn" aria-label="Compartir esta página">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
+            <span>Compartir</span>
+          </button>
+          <span class="sharemsg" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>Veredicto</b>
+      <span>$19 por repositorio</span>
+    </div>
+    <a class="btn btn-fire" href="/veredicto/#pricing">Ver precio</a>
+  </div>
+
+  <footer><div class="wrap foot">
+    <span>Veredicto es un proyecto de <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" width="17" height="17" loading="lazy" alt="" aria-hidden="true"> Fervon</a> · Forjado al rojo vivo</span>
+    <span>© 2026 Jonathan Martín · Código abierto a la vista, por diseño</span>
+  </div></footer>
+
+  <script src="/assets/shared.js?v=20260822" defer=""></script>
+
+
+</body></html>

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>How to review AI-generated tests | Veredicto</title>
+  <meta name="description" content="A checklist for reviewing a pull request full of tests you did not write: what to look at first, and the questions that expose a hollow suite." />
+  <link rel="canonical" href="https://fervon.dev/veredicto/review-ai-generated-tests" />
+  <meta name="keywords" content="review AI generated tests, code review checklist, agent pull request, test quality review, copilot tests, cursor tests, claude code tests" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#0E0B0A" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/assets/favicon-192.png" sizes="192x192" type="image/png" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Fervon" />
+  <meta property="og:title" content="How to review a PR full of tests you did not write" />
+  <meta property="og:description" content="Seven checks ordered by how much each one gives away, so you can review agent-written tests without reading all 800 lines." />
+  <meta property="og:url" content="https://fervon.dev/veredicto/review-ai-generated-tests" />
+  <meta property="og:image" content="https://fervon.dev/assets/og-veredicto-en.jpg" />
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-veredicto-en.jpg" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to review AI-generated tests",
+    "author": { "@type": "Person", "name": "Jonathan Martín" },
+    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
+    "mainEntityOfPage": "https://fervon.dev/veredicto/review-ai-generated-tests",
+    "description": "A checklist for reviewing a pull request full of tests written by an agent."
+  }
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "", "acceptedAnswer": { "@type": "Answer", "text": "" } },
+    { "@type": "Question", "name": "", "acceptedAnswer": { "@type": "Answer", "text": "" } },
+    { "@type": "Question", "name": "", "acceptedAnswer": { "@type": "Answer", "text": "" } },
+    { "@type": "Question", "name": "", "acceptedAnswer": { "@type": "Answer", "text": "" } },
+    { "@type": "Question", "name": "", "acceptedAnswer": { "@type": "Answer", "text": "" } }
+  ]
+}
+  </script>
+
+  <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin="">
+  <link rel="stylesheet" href="/assets/core.css?v=20260822" />
+  <link rel="stylesheet" href="base.css?v=20260822" />
+  <link rel="stylesheet" href="/assets/shared.css?v=20260822" />
+</head>
+<body>
+  <a class="skip" href="#top" data-es="Saltar al contenido">Skip to content</a>
+
+  <header class="nav"><div class="glass bar">
+    <nav class="crumb" aria-label="Ruta de navegación">
+      <a href="/"><span class="fv"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true"> fervon</span></a><span class="sep">›</span>
+      <a href="/veredicto/"><svg class="mark" width="17" height="17" viewBox="0 0 26 26" aria-hidden="true"><path d="M5 13 L11 19 L21 7" fill="none" stroke="var(--amber)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Veredicto</a><span class="sep">›</span>
+      <span aria-current="page" data-es="Revisar tests escritos por IA">Reviewing AI-generated tests</span>
+    </nav>
+    <div class="act">
+      <button id="lang" class="btn btn-ghost btn-sm" type="button" aria-label="Cambiar idioma / Switch language">ES</button>      <a class="btn btn-fire btn-sm" href="/veredicto/#pricing" data-es="Ver precio">Get a licence</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+
+    <section class="hero">
+      <div class="wrap">
+        <h1 data-es="Cómo revisar tests generados por IA que no escribiste tú">How to review AI-generated tests you did not write</h1>
+        <p class="sub" data-es="Te llega un pull request con 40 ficheros y 800 líneas de tests. Nadie los va a leer enteros, y quien diga lo contrario miente. Esto es lo que hay que mirar, en orden, para saber en cinco minutos si esa suite comprueba algo.">A pull request lands with 40 files and 800 lines of tests. Nobody is going to read them all, and anyone who says otherwise is lying. Here is what to look at, in order, to know within five minutes whether that suite checks anything.</p>
+      </div>
+    </section>
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h" data-es="En 30 segundos">In 30 seconds</h2>
+          <ul>
+            <li data-es="No <b>revises</b> los <b>tests generados</b> como si fueran código: revísalos como si fueran una afirmación que alguien tiene que demostrar.">Do not <b>review</b> the <b>generated tests</b> like code: review them like a claim someone has to back up.</li>
+            <li data-es="Empieza por el <b>contador</b>: si el PR toca código y hay menos tests que antes, ya tienes la conversación.">Start with the <b>count</b>: if the PR touches code and there are fewer tests than before, you already have the conversation.</li>
+            <li data-es="Sigue por los <b>asserts</b>: cuenta cuántos hay por caso. Cero asserts o un assert sobre una llamada no comprueban nada.">Move on to the <b>assertions</b>: count how many per case. Zero assertions, or one assertion about a call, check nothing.</li>
+            <li data-es="La pregunta que más delata: <b>«¿este test fallaría si rompo el código a propósito?»</b>. Si la respuesta no es obvia, rómpelo y mira.">The question that gives away the most: <b>"would this test fail if I broke the code on purpose?"</b>. If the answer is not obvious, break it and look.</li>
+            <li data-es="Las comprobaciones mecánicas conviene automatizarlas: eso es <b>Veredicto</b>, 11 reglas sobre el diff del PR, para que tu atención vaya a lo que solo puede juzgar una persona.">The mechanical checks are worth automating: that is <b>Veredicto</b>, 11 rules over the PR diff, so your attention goes to what only a person can judge.</li>
+          </ul>
+          <div class="cta-row s-tldrcta">
+            <a class="btn btn-fire" href="/veredicto/#pricing" data-es="Automatizar lo mecánico — $19/repo">Automate the mechanical part — $19/repo</a>
+            <a class="btn btn-ghost" href="/veredicto/report" data-es="Ver el experimento">See the experiment</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap prose">
+        <h2 data-es="Por qué la revisión de siempre no sirve aquí">Why ordinary review does not work here</h2>
+        <p data-es="Revisar código escrito por una persona funciona porque las dos partes comparten el contexto de lo difícil: sabes dónde está el riesgo y miras ahí. Un agente produce texto uniformemente plausible en las 800 líneas, sin picos de duda. No hay dónde mirar.">Reviewing code written by a person works because both sides share the context of what is hard: you know where the risk is, so you look there. An agent produces uniformly plausible text across all 800 lines, with no spikes of doubt. There is nowhere obvious to look.</p>
+        <p data-es="Y el volumen juega en contra: cuanto más grande es el PR de tests, menos probable es que alguien lo lea, y más cómodo resulta fiarse del check en verde. Que es exactamente la señal que el agente ha optimizado.">And volume works against you: the bigger the test PR, the less likely anyone reads it, and the more comfortable it feels to trust the green check — which is exactly the signal the agent optimised for.</p>
+        <p data-es="Por eso el orden importa más que la exhaustividad. Estas siete comprobaciones están ordenadas por cuánto delatan dividido por lo que cuestan.">That is why order matters more than completeness. These seven checks are ordered by how much each gives away, divided by what it costs.</p>
+      </div>
+    </section>
+
+    <section class="sec alt">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-es="La lista">The checklist</span>
+          <h2 data-es="Siete comprobaciones, en este orden">Seven checks, in this order</h2>
+        </div>
+        <div class="prose">
+          <h3 data-es="1. ¿Bajó el número de tests?">1. Did the test count go down?</h3>
+          <p data-es="Diez segundos y pilla el caso más común. Un PR que toca código y reduce el número de casos de prueba tiene que explicar por qué. A veces hay una razón buena; que la digan.">Ten seconds, and it catches the most common case. A PR that touches code and reduces the number of test cases owes an explanation. Sometimes there is a good reason; let them state it.</p>
+          <h3 data-es="2. ¿Cuántos asserts hay por caso?">2. How many assertions per case?</h3>
+          <p data-es="Busca los cuerpos vacíos y los casos con un solo assert. Un <code>it()</code> sin ningún assert no es un test: es una función que se ejecuta. Y sube la cobertura igual, que es lo que lo hace peligroso.">Look for empty bodies and cases with a single assertion. An <code>it()</code> with no assertion is not a test: it is a function that runs. And it raises coverage all the same, which is what makes it dangerous.</p>
+          <h3 data-es="3. ¿Los asserts son sobre resultados o sobre llamadas?">3. Are the assertions about results or about calls?</h3>
+          <p data-es="<code>toHaveBeenCalled</code> comprueba que tu código llamó a algo. No comprueba que el resultado sea correcto. Un fichero entero de asserts sobre llamadas describe la implementación en vez de comprobar el comportamiento, y se romperá en cuanto refactorices sin cambiar nada.">"<code>toHaveBeenCalled</code>" checks that your code called something. It does not check the result is right. A whole file of call assertions describes the implementation instead of checking behaviour, and it will break the moment you refactor without changing anything.</p>
+          <h3 data-es="4. ¿Hay algo silenciado?">4. Is anything silenced?</h3>
+          <p data-es="Busca <code>.skip</code>, <code>.only</code>, <code>xit</code>, <code>@pytest.mark.skip</code> y cualquier <code>|| true</code> detrás del comando de test. Un <code>.only</code> es especialmente traicionero: no silencia un test, silencia todos los demás.">Search for <code>.skip</code>, <code>.only</code>, <code>xit</code>, <code>@pytest.mark.skip</code> and any <code>|| true</code> after the test command. An <code>.only</code> is especially treacherous: it does not silence one test, it silences every other one.</p>
+          <h3 data-es="5. ¿Se ha tocado la configuración?">5. Was the config touched?</h3>
+          <p data-es="Un umbral de cobertura que baja, un <code>continue-on-error</code> nuevo en el workflow, un <code>--passWithNoTests</code>. Son cambios de una línea, en ficheros que nadie revisa, y desactivan la comprobación entera.">A coverage threshold going down, a new <code>continue-on-error</code> in the workflow, a <code>--passWithNoTests</code>. One-line changes, in files nobody reviews, that disable the whole check.</p>
+          <h3 data-es="6. ¿Qué se ha mockeado?">6. What got mocked?</h3>
+          <p data-es="Mockear el reloj y la red está bien. Mockear el módulo que el test dice probar es un espejo comprobando su reflejo: pasa siempre. Si el nombre del módulo aparece a la vez en el import y en la llamada al mock, párate ahí.">Mocking the clock and the network is fine. Mocking the module the test claims to test is a mirror checking its reflection: it always passes. If the module name appears both in the import and in the mock call, stop there.</p>
+          <h3 data-es="7. Rompe el código a propósito">7. Break the code on purpose</h3>
+          <p data-es="La única comprobación que no se puede falsear. Cambia un signo, invierte una condición, devuelve una constante. Si la suite sigue en verde, ya sabes lo que vale. Hazlo en una función, no en todas: con una basta para saber si esto va en serio.">The one check that cannot be faked. Flip a sign, invert a condition, return a constant. If the suite stays green, you know what it is worth. Do it on one function, not all of them: one is enough to know whether this is serious.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:table -->
+    <section class="sec seosec" id="tabla" aria-labelledby="tabla-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-es="Reparto de trabajo">Division of labour</span>
+          <h2 id="tabla-h" data-es="Qué automatizar y qué mirar tú">What to automate and what to look at yourself</h2>
+        </div>
+        <div class="tablewrap reveal">
+          <table class="seotable">
+            <caption class="vh" data-es="Qué comprobaciones de la revisión puede hacer una máquina y cuáles no.">Which review checks a machine can do and which it cannot.</caption>
+            <thead>
+              <tr>
+                <th data-es="Comprobación">Check</th>
+                <th data-es="Coste para ti">Cost to you</th>
+                <th data-es="¿Automatizable?">Automatable?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th data-es="Bajó el número de tests">Test count went down</th><td data-es="10 segundos">10 seconds</td><td class="yes" data-es="Sí">Yes</td></tr>
+              <tr><th data-es="Casos sin asserts">Cases with no assertions</th><td data-es="1 minuto">1 minute</td><td class="yes" data-es="Sí">Yes</td></tr>
+              <tr><th data-es="Asserts tautológicos">Tautological assertions</th><td data-es="1 minuto">1 minute</td><td class="yes" data-es="Sí">Yes</td></tr>
+              <tr><th data-es="Tests silenciados">Silenced tests</th><td data-es="30 segundos">30 seconds</td><td class="yes" data-es="Sí">Yes</td></tr>
+              <tr><th data-es="Configuración o CI rebajados">Config or CI weakened</th><td data-es="1 minuto">1 minute</td><td class="yes" data-es="Sí">Yes</td></tr>
+              <tr><th data-es="Mock del módulo bajo prueba">Mocking the module under test</th><td data-es="5 minutos">5 minutes</td><td class="yes" data-es="Sí">Yes</td></tr>
+              <tr><th data-es="¿Asevera el resultado correcto?">Asserts the right answer?</th><td data-es="Lo que haga falta">However long it takes</td><td class="no" data-es="No — es tuya">No — this one is yours</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="wrap prose">
+          <p data-es="Las seis primeras son mecánicas, y por eso conviene que las haga una máquina en cada pull request: son aburridas, se hacen mal cuando hay prisa y no mejoran con la experiencia. La séptima es la única que necesita a alguien que entienda qué debía hacer el código, y es justo donde quieres tener la cabeza fresca.">The first six are mechanical, which is exactly why a machine should do them on every pull request: they are boring, they get done badly under time pressure, and they do not improve with experience. The seventh is the only one that needs someone who understands what the code was supposed to do — and it is precisely where you want a fresh head.</p>
+          <div class="cta-row">
+            <a class="btn btn-fire" href="/veredicto/#pricing" data-es="Que las seis primeras se hagan solas">Have the first six run themselves</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:faq -->
+    <section class="sec alt seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">FAQ</span>
+          <h2 id="faq-h" data-es="Preguntas frecuentes">Frequently asked questions</h2>
+        </div>
+        <div class="faq reveal">
+          <details>
+            <summary data-es="¿Debería rechazar los PRs con tests escritos por IA?">Should I reject PRs with AI-written tests?</summary>
+            <p data-es="No. Los tests escritos por un agente valen como andamiaje de regresión y ahorran trabajo real. Lo que no pueden ser es la evidencia de que el código funciona, sobre todo si el mismo agente escribió las dos cosas en el mismo turno.">No. Agent-written tests have real value as regression scaffolding and save genuine work. What they cannot be is the evidence that the code works, especially when the same agent wrote both in the same turn.</p>
+          </details>
+          <details>
+            <summary data-es="¿Y si la cobertura sube?">What if coverage goes up?</summary>
+            <p data-es="La cobertura sube igual con tests que no comprueban nada, porque mide qué líneas se ejecutan, no si alguien miró el resultado. De hecho, vaciar un test de asserts deja la cobertura intacta. Es la métrica más fácil de satisfacer sin hacer el trabajo.">Coverage goes up just the same with tests that check nothing, because it measures which lines ran, not whether anyone looked at the result. In fact, gutting a test of its assertions leaves coverage untouched. It is the easiest metric to satisfy without doing the work.</p>
+          </details>
+          <details>
+            <summary data-es="¿Cuánto tarda de verdad esta revisión?">How long does this review actually take?</summary>
+            <p data-es="Las seis comprobaciones mecánicas son minutos si las haces a mano y son instantáneas si las automatizas. La séptima —romper el código a propósito— cuesta lo que cuesta, pero solo hace falta hacerla en una función para saber si la suite va en serio.">The six mechanical checks take minutes by hand and are instant if you automate them. The seventh — breaking the code on purpose — costs what it costs, but you only need to do it on one function to know whether the suite is serious.</p>
+          </details>
+          <details>
+            <summary data-es="¿Sirve esto para tests escritos por personas?">Does this work for human-written tests?</summary>
+            <p data-es="Sí, la lista es la misma. La diferencia es la frecuencia: una persona rara vez escribe cuarenta ficheros de test de golpe, y cuando toma un atajo suele saber que lo está tomando. Un agente lo hace a escala y sin señal.">Yes, the checklist is the same. The difference is frequency: a person rarely writes forty test files in one go, and when they take a shortcut they usually know they are taking it. An agent does it at scale and without a tell.</p>
+          </details>
+          <details>
+            <summary data-es="¿Bloqueo el PR o solo aviso?">Should it block the PR or just warn?</summary>
+            <p data-es="Empieza avisando. Veredicto viene en modo «warn» por defecto: comenta lo que encuentra y no bloquea nada. Cuando el equipo se fía de lo que marca, se pasa a «block» y solo fallan las señales duras.">Start by warning. Veredicto ships in "warn" mode by default: it comments on what it finds and blocks nothing. Once the team trusts what it flags, you move to "block" and only the hard signals fail the check.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-es="Seguir leyendo">Keep reading</span>
+          <h2 id="mas-h" data-es="Relacionado">Related</h2>
+        </div>
+        <div class="related reveal">
+          <a class="relcard" href="/veredicto/">
+            <span class="rt">Veredicto</span>
+            <span class="rd" data-es="El check de CI que pilla los tests que no prueban nada.">The CI check that catches tests proving nothing.</span>
+          </a>
+          <a class="relcard" href="/veredicto/agent-skipped-tests-green-ci">
+            <span class="rt" data-es="Tests silenciados">Silenced tests</span>
+            <span class="rd" data-es="Cuando el agente apaga la alarma en vez del fuego.">When the agent turns off the alarm instead of the fire.</span>
+          </a>
+          <a class="relcard" href="/blog/tests-amanados-agentes/">
+            <span class="rt" data-es="El artículo">The article</span>
+            <span class="rd" data-es="Seis formas de amañar un test y cómo se detecta cada una.">Six ways to game a test and how each is detected.</span>
+          </a>
+        </div>
+        <div class="fv-share">
+          <button type="button" class="sharebtn" aria-label="Compartir esta página">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+            <span data-es="Compartir">Share</span>
+          </button>
+          <span class="sharemsg" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>Veredicto</b>
+      <span data-es="$19 por repositorio">$19 per repository</span>
+    </div>
+    <a class="btn btn-fire" href="/veredicto/#pricing" data-es="Ver precio">Get a licence</a>
+  </div>
+
+  <footer><div class="wrap foot">
+    <span data-es="Veredicto es un proyecto de &lt;a href=&quot;https://fervon.dev&quot;&gt;&lt;img src=&quot;/assets/logo-icon.svg&quot; height=&quot;17&quot; alt=&quot;&quot; aria-hidden=&quot;true&quot;&gt; Fervon&lt;/a&gt; · Forjado al rojo vivo">Veredicto is a project by <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true"> Fervon</a> · Forged red-hot</span>
+    <span data-es="© 2026 Jonathan Martín · Código abierto a la vista, por diseño">© 2026 Jonathan Martín · Source-available by design</span>
+  </div></footer>
+
+  <script src="/assets/shared.js?v=20260822" defer></script>
+</body>
+</html>

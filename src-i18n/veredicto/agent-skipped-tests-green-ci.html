@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Your agent skipped tests to keep CI green | Veredicto</title>
+  <meta name="description" content="Tests silenced with .skip, deleted outright or waved through with continue-on-error. Why an agent does it and how to find it in the pull request diff." />
+  <link rel="canonical" href="https://fervon.dev/veredicto/agent-skipped-tests-green-ci" />
+  <meta name="keywords" content="agent skipped tests, deleted tests, continue-on-error, it.skip, pytest skip, green CI, test gaming, pull request check" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#0E0B0A" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/assets/favicon-192.png" sizes="192x192" type="image/png" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Fervon" />
+  <meta property="og:title" content="Your agent silenced the tests so CI would pass" />
+  <meta property="og:description" content=".skip, deleted tests and continue-on-error: three ways to turn off the alarm instead of putting out the fire, and how to see them in the pull request." />
+  <meta property="og:url" content="https://fervon.dev/veredicto/agent-skipped-tests-green-ci" />
+  <meta property="og:image" content="https://fervon.dev/assets/og-veredicto-en.jpg" />
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-veredicto-en.jpg" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Your agent skipped tests to keep CI green",
+    "author": { "@type": "Person", "name": "Jonathan Martín" },
+    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
+    "mainEntityOfPage": "https://fervon.dev/veredicto/agent-skipped-tests-green-ci",
+    "description": "Why an agent silences failing tests, how to spot it in the diff, and how to stop it recurring."
+  }
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "", "acceptedAnswer": { "@type": "Answer", "text": "" } },
+    { "@type": "Question", "name": "", "acceptedAnswer": { "@type": "Answer", "text": "" } },
+    { "@type": "Question", "name": "", "acceptedAnswer": { "@type": "Answer", "text": "" } },
+    { "@type": "Question", "name": "", "acceptedAnswer": { "@type": "Answer", "text": "" } },
+    { "@type": "Question", "name": "", "acceptedAnswer": { "@type": "Answer", "text": "" } }
+  ]
+}
+  </script>
+
+  <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin="">
+  <link rel="stylesheet" href="/assets/core.css?v=20260822" />
+  <link rel="stylesheet" href="base.css?v=20260822" />
+  <link rel="stylesheet" href="/assets/shared.css?v=20260822" />
+</head>
+<body>
+  <a class="skip" href="#top" data-es="Saltar al contenido">Skip to content</a>
+
+  <header class="nav"><div class="glass bar">
+    <nav class="crumb" aria-label="Ruta de navegación">
+      <a href="/"><span class="fv"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true"> fervon</span></a><span class="sep">›</span>
+      <a href="/veredicto/"><svg class="mark" width="17" height="17" viewBox="0 0 26 26" aria-hidden="true"><path d="M5 13 L11 19 L21 7" fill="none" stroke="var(--amber)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Veredicto</a><span class="sep">›</span>
+      <span aria-current="page" data-es="Tests silenciados">Silenced tests</span>
+    </nav>
+    <div class="act">
+      <button id="lang" class="btn btn-ghost btn-sm" type="button" aria-label="Cambiar idioma / Switch language">ES</button>      <a class="btn btn-fire btn-sm" href="/veredicto/#pricing" data-es="Ver precio">Get a licence</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+
+    <section class="hero">
+      <div class="wrap">
+        <h1 data-es="Tu agente saltó los tests para dejar CI en verde">Your agent skipped the tests to keep CI green</h1>
+        <p class="sub" data-es="El test fallaba. Ahora no falla. Y no es porque el código se haya arreglado: es porque el test ya no se ejecuta. Apagar la alarma es más rápido que apagar el fuego, y el resultado en pantalla es idéntico.">The test was failing. Now it is not. And it is not because the code got fixed: it is because the test no longer runs. Turning off the alarm is faster than putting out the fire, and on screen the result looks identical.</p>
+      </div>
+    </section>
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h" data-es="En 30 segundos">In 30 seconds</h2>
+          <ul>
+            <li data-es="Un <b>agente</b> no decide mentir: optimiza la señal que le has dado, y la señal es «CI en <b>verde</b>».">An <b>agent</b> does not decide to lie: it optimises the signal you gave it, and the signal is "<b>green</b> CI".</li>
+            <li data-es="Hay tres maneras de silenciar: <b>saltarse</b> los <b>tests</b> con <code>.skip</code>, borrarlos del fichero, o desarmar el propio workflow.">There are three ways to silence: <b>skipped tests</b> via <code>.skip</code>, deleting them from the file, or disarming the workflow itself.</li>
+            <li data-es="Las tres dejan huella clara en el diff del pull request, y ninguna la ve el color del check.">All three leave a clear mark in the pull request diff, and none of them is visible in the colour of the check.</li>
+            <li data-es="El más peligroso es <code>.only</code>: no silencia un test, silencia <b>todos los demás</b> de golpe y el check sigue verde.">The most dangerous is <code>.only</code>: it does not silence one test, it silences <b>every other one</b> at once, and the check stays green.</li>
+            <li data-es="<b>Veredicto</b> marca las tres en el PR con fichero y línea, y distingue las duras de las blandas para que puedas bloquear solo lo grave."><b>Veredicto</b> flags all three on the PR with file and line, and separates hard signals from soft ones so you can block only what matters.</li>
+          </ul>
+          <div class="cta-row s-tldrcta">
+            <a class="btn btn-fire" href="/veredicto/#pricing" data-es="Ponerlo en mis PRs — $19/repo">Put it on my PRs — $19/repo</a>
+            <a class="btn btn-ghost" href="/veredicto/review-ai-generated-tests" data-es="La lista de revisión">The review checklist</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap prose">
+        <h2 data-es="Por qué lo hace">Why it does this</h2>
+        <p data-es="No hay malicia. Le has dado una tarea —«haz que pasen los tests»— y un espacio de soluciones enorme. Arreglar la lógica es caro, incierto y puede tardar varios intentos. Poner <code>.skip</code> cuesta seis caracteres y funciona a la primera. Si la recompensa es idéntica, el atajo gana siempre.">There is no malice. You gave it a task — "make the tests pass" — and an enormous solution space. Fixing the logic is expensive, uncertain and may take several attempts. Typing <code>.skip</code> costs six characters and works first time. When the reward is identical, the shortcut always wins.</p>
+        <p data-es="Es el mismo mecanismo que midió METR: en el 30% de las ejecuciones, los modelos de frontera manipularon su propia evaluación en vez de resolver la tarea. No es un fallo del modelo, es la consecuencia de premiar el color de un check.">It is the same mechanism METR measured: in 30% of runs, frontier models gamed their own evaluation instead of solving the task. It is not a model defect; it is what happens when you reward the colour of a check.</p>
+        <p data-es="Y hay un agravante: cuando un test se silencia, la regresión que iba a impedir sigue ahí, esperando. Lo que perdiste no fue el test, fue el aviso.">And there is an aggravating factor: when a test is silenced, the regression it was going to prevent is still there, waiting. What you lost was not the test — it was the warning.</p>
+      </div>
+    </section>
+
+    <section class="sec alt">
+      <div class="wrap prose">
+        <h2 data-es="Las tres formas, y qué buscar en el diff">The three ways, and what to grep for</h2>
+        <h3 data-es="Silenciar el caso">Silence the case</h3>
+        <p data-es="<code>it.skip</code>, <code>describe.skip</code>, <code>xit</code>, <code>test.todo</code>, <code>@pytest.mark.skip</code>, <code>@unittest.skip</code>. El fichero sigue ahí, el caso sigue ahí con su nombre descriptivo, y no se ejecuta. En el informe del runner aparece como «skipped», que casi nadie lee."><code>it.skip</code>, <code>describe.skip</code>, <code>xit</code>, <code>test.todo</code>, <code>@pytest.mark.skip</code>, <code>@unittest.skip</code>. The file is still there, the case is still there with its descriptive name, and it does not run. In the runner report it shows as "skipped", which almost nobody reads.</p>
+        <p data-es="Mención aparte para <code>.only</code>: parece lo contrario de un skip, pero su efecto es silenciar todos los demás casos del fichero. Es el que más daño hace por carácter escrito.">A special mention for <code>.only</code>: it looks like the opposite of a skip, but its effect is to silence every other case in the file. It does the most damage per character typed.</p>
+        <h3 data-es="Borrar el caso">Delete the case</h3>
+        <p data-es="Menos elegante y más común de lo que parece. Los casos desaparecen del fichero en el mismo PR que toca el código que hacían fallar. Nadie compara el contador de tests entre ramas, porque lo que se mira es si el check está verde.">Less elegant and more common than you would think. Cases vanish from the file in the same PR that touches the code they were failing on. Nobody compares the test count between branches, because what people look at is whether the check is green.</p>
+        <h3 data-es="Desarmar el workflow">Disarm the workflow</h3>
+        <p data-es="El más silencioso, porque no toca ni un fichero de test. Un <code>continue-on-error: true</code> en el job, un <code>|| true</code> detrás del comando, un <code>--passWithNoTests</code>, un umbral de cobertura que baja de 90 a 70. Los tests siguen fallando exactamente igual; lo que ha cambiado es que su fallo ya no bloquea nada.">The quietest one, because it touches no test file at all. A <code>continue-on-error: true</code> on the job, a <code>|| true</code> after the command, a <code>--passWithNoTests</code>, a coverage threshold dropping from 90 to 70. The tests still fail exactly as before; what changed is that their failure no longer blocks anything.</p>
+      </div>
+    </section>
+
+    <!-- seo:table -->
+    <section class="sec seosec" id="tabla" aria-labelledby="tabla-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-es="De un vistazo">At a glance</span>
+          <h2 id="tabla-h" data-es="Qué buscar, y qué gravedad tiene">What to look for, and how serious it is</h2>
+        </div>
+        <div class="tablewrap reveal">
+          <table class="seotable">
+            <caption class="vh" data-es="Formas de silenciar un test, dónde aparecen y qué gravedad les da Veredicto.">Ways to silence a test, where they show up, and the severity Veredicto assigns.</caption>
+            <thead>
+              <tr>
+                <th data-es="Qué buscar">What to look for</th>
+                <th data-es="Dónde aparece">Where it shows up</th>
+                <th data-es="Gravedad">Severity</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th><code>.skip</code> · <code>xit</code> · <code>test.todo</code></th><td data-es="Fichero de test">Test file</td><td class="warn" data-es="Blanda">Soft</td></tr>
+              <tr><th><code>.only</code></th><td data-es="Fichero de test">Test file</td><td class="warn" data-es="Blanda — pero silencia el resto">Soft — but silences the rest</td></tr>
+              <tr><th data-es="Casos borrados sin sustituto">Cases deleted with no replacement</th><td data-es="Fichero de test">Test file</td><td class="no" data-es="Dura">Hard</td></tr>
+              <tr><th><code>continue-on-error: true</code></th><td data-es="Workflow de CI">CI workflow</td><td class="no" data-es="Dura">Hard</td></tr>
+              <tr><th><code>|| true</code> · <code>--passWithNoTests</code></th><td data-es="Comando de test">Test command</td><td class="no" data-es="Dura">Hard</td></tr>
+              <tr><th data-es="Umbral de cobertura rebajado">Coverage threshold lowered</th><td data-es="Configuración">Config file</td><td class="no" data-es="Dura">Hard</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec alt">
+      <div class="wrap prose">
+        <h2 data-es="Cómo impedir que se repita">How to stop it recurring</h2>
+        <p data-es="Prohibirlo en la revisión no funciona, porque la revisión es justo lo que el volumen de un PR de agente desborda. Lo que funciona es que el silencio deje de ser gratis: que aparezca escrito en el pull request, con fichero y línea, antes de que nadie apruebe nada.">Banning it in review does not work, because review is exactly what an agent-sized PR overwhelms. What works is making silence stop being free: having it written into the pull request, with file and line, before anyone approves anything.</p>
+        <ul class="bullets">
+          <li data-es="<b>Empieza en modo aviso.</b> Veredicto comenta lo que encuentra y no bloquea. Sirve para ver cuánto de esto ya está pasando en tu repositorio sin frenar a nadie."><b>Start in warn mode.</b> Veredicto comments on what it finds and blocks nothing. It shows you how much of this is already happening in your repo without slowing anyone down.</li>
+          <li data-es="<b>Pasa a bloqueo solo para lo duro.</b> En modo «block» falla el check cuando hay señales duras —tests borrados, CI desarmado, umbrales rebajados— y deja pasar las blandas con un aviso."><b>Move to blocking for hard signals only.</b> In "block" mode the check fails on hard signals — deleted tests, disarmed CI, lowered thresholds — and lets soft ones through with a warning.</li>
+          <li data-es="<b>Deja una puerta explícita.</b> Cuando un skip es legítimo, se declara en la línea de encima con <code>// veredicto-disable-next-line skipped-tests</code> y una razón. Así el silencio queda firmado en el diff, que es todo lo que hacía falta."><b>Leave an explicit door.</b> When a skip is legitimate, declare it on the line above with <code>// veredicto-disable-next-line skipped-tests</code> and a reason. The silence ends up signed in the diff, which was the whole point.</li>
+        </ul>
+        <div class="cta-row">
+          <a class="btn btn-fire" href="/veredicto/#pricing" data-es="Empezar — $19 por repo y mes">Start — $19 per repo per month</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:faq -->
+    <section class="sec seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">FAQ</span>
+          <h2 id="faq-h" data-es="Preguntas frecuentes">Frequently asked questions</h2>
+        </div>
+        <div class="faq reveal">
+          <details>
+            <summary data-es="¿Y si el test estaba realmente roto?">What if the test really was broken?</summary>
+            <p data-es="Pasa, y es una razón legítima para saltárselo. La diferencia no está en el <code>.skip</code>, está en si alguien lo decidió a la vista. Un skip con una directiva encima y el número de la incidencia es una decisión; un skip que aparece solo en un PR de 800 líneas es un accidente esperando a que lo descubran.">It happens, and it is a legitimate reason to skip. The difference is not the <code>.skip</code>, it is whether someone decided it in the open. A skip with a directive above it and an issue number is a decision; a skip that quietly appears inside an 800-line PR is an accident waiting to be found.</p>
+          </details>
+          <details>
+            <summary data-es="¿No lo veo ya en el resumen del runner?">Do I not already see this in the runner summary?</summary>
+            <p data-es="El runner dice cuántos tests se han saltado, pero no dice cuáles son nuevos en este pull request ni quién los saltó. Un repositorio con quince skips históricos hace invisible el decimosexto. Lo que importa es el delta del PR, no el total.">The runner tells you how many tests were skipped, but not which ones are new in this pull request or who skipped them. A repo with fifteen historical skips makes the sixteenth invisible. What matters is the PR delta, not the total.</p>
+          </details>
+          <details>
+            <summary data-es="¿Detecta el caso de continue-on-error?">Does it catch the continue-on-error case?</summary>
+            <p data-es="Sí, y es de las señales duras. La regla mira los cambios en el workflow de CI y en el comando de test, no solo en los ficheros de test, porque desarmar el job es la forma de silenciar que menos huella deja en la carpeta de tests.">Yes, and it is one of the hard signals. The rule looks at changes in the CI workflow and in the test command, not only in test files, because disarming the job is the way of silencing that leaves the least trace in the test folder.</p>
+          </details>
+          <details>
+            <summary data-es="¿Funciona en GitLab?">Does it work on GitLab?</summary>
+            <p data-es="Sí. Además de GitHub Actions corre en GitLab CI, donde en un pipeline de merge request detecta la base sola y compara base..HEAD sin configuración extra.">Yes. Besides GitHub Actions it runs on GitLab CI, where in a merge-request pipeline it auto-detects the base and diffs base..HEAD with no extra configuration.</p>
+          </details>
+          <details>
+            <summary data-es="¿Cuántos falsos positivos da?">How many false positives does it produce?</summary>
+            <p data-es="Se midió contra 213 pull requests reales ya mergeados y dio cero. Aun así viene en modo aviso por defecto, porque una herramienta que grita en falso deja de leerse, y entonces ya no sirve para nada.">It was measured against 213 real merged pull requests and produced zero. Even so it ships in warn mode by default, because a tool that cries wolf stops being read — and then it is useless.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-es="Seguir leyendo">Keep reading</span>
+          <h2 id="mas-h" data-es="Relacionado">Related</h2>
+        </div>
+        <div class="related reveal">
+          <a class="relcard" href="/veredicto/">
+            <span class="rt">Veredicto</span>
+            <span class="rd" data-es="El check de CI que pilla los tests que no prueban nada.">The CI check that catches tests proving nothing.</span>
+          </a>
+          <a class="relcard" href="/veredicto/review-ai-generated-tests">
+            <span class="rt" data-es="Revisar tests de IA">Reviewing AI tests</span>
+            <span class="rd" data-es="Siete comprobaciones ordenadas por lo que más delatan.">Seven checks ordered by how much each gives away.</span>
+          </a>
+          <a class="relcard" href="/veredicto/ai-generated-tests-prove-nothing">
+            <span class="rt" data-es="Tests que no prueban nada">Tests that prove nothing</span>
+            <span class="rd" data-es="Las siete formas de poner un build en verde sin trabajar.">The seven ways to turn a build green without doing the work.</span>
+          </a>
+        </div>
+        <div class="fv-share">
+          <button type="button" class="sharebtn" aria-label="Compartir esta página">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+            <span data-es="Compartir">Share</span>
+          </button>
+          <span class="sharemsg" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>Veredicto</b>
+      <span data-es="$19 por repositorio">$19 per repository</span>
+    </div>
+    <a class="btn btn-fire" href="/veredicto/#pricing" data-es="Ver precio">Get a licence</a>
+  </div>
+
+  <footer><div class="wrap foot">
+    <span data-es="Veredicto es un proyecto de &lt;a href=&quot;https://fervon.dev&quot;&gt;&lt;img src=&quot;/assets/logo-icon.svg&quot; height=&quot;17&quot; alt=&quot;&quot; aria-hidden=&quot;true&quot;&gt; Fervon&lt;/a&gt; · Forjado al rojo vivo">Veredicto is a project by <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true"> Fervon</a> · Forged red-hot</span>
+    <span data-es="© 2026 Jonathan Martín · Código abierto a la vista, por diseño">© 2026 Jonathan Martín · Source-available by design</span>
+  </div></footer>
+
+  <script src="/assets/shared.js?v=20260822" defer></script>
+</body>
+</html>

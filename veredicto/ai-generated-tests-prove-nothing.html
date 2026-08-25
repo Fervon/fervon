@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>AI-generated tests that prove nothing | Veredicto</title>
+  <meta name="description" content="Your agent wrote the code and the tests, and CI is green. How to tell whether that suite proves anything, and the seven ways to fake a green build.">
+  <link rel="canonical" href="https://fervon.dev/veredicto/ai-generated-tests-prove-nothing">
+  <link rel="alternate" type="application/rss+xml" title="Fervon · News" href="/en/blog/feed.xml"><link rel="alternate" hreflang="es" href="https://fervon.dev/es/veredicto/ai-generated-tests-prove-nothing"><link rel="alternate" hreflang="en" href="https://fervon.dev/veredicto/ai-generated-tests-prove-nothing"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/veredicto/ai-generated-tests-prove-nothing">
+  <meta name="keywords" content="AI generated tests, tests that prove nothing, green CI false confidence, agent wrote the tests, test gaming, over-mocking, vacuous assertions">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#0E0B0A">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-192.png" sizes="192x192" type="image/png">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Fervon">
+  <meta property="og:title" content="Your AI-generated tests prove nothing. Here is how to tell.">
+  <meta property="og:description" content="When the same agent writes the code and the tests, green CI stops being evidence. The seven ways to turn a build green without doing the work — and which of them a machine can catch.">
+  <meta property="og:url" content="https://fervon.dev/veredicto/ai-generated-tests-prove-nothing">
+  <meta property="og:image" content="https://fervon.dev/assets/og-veredicto-en.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-veredicto-en.jpg">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "AI-generated tests that prove nothing",
+    "author": { "@type": "Person", "name": "Jonathan Martín" },
+    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
+    "mainEntityOfPage": "https://fervon.dev/veredicto/ai-generated-tests-prove-nothing",
+    "description": "How to tell whether an AI-written test suite proves anything, and the seven ways to turn a build green without doing the work."
+  }
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does this mean AI should not write tests?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. It means a green suite written by the same agent that wrote the code is not evidence the code works. The tests still have value as regression scaffolding; what they cannot be is the thing that verifies correctness."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is coverage not enough?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Coverage measures which lines ran, not whether anyone checked the result. A test with no assertions walks the same code and raises coverage just the same. In fact, gutting the assertions leaves coverage untouched."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will a detector like this flood my PRs with false positives?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "That is the real risk with any static rule. Veredicto was measured against 213 real merged pull requests with 0 false positives, and it ships in \"warn\" mode by default: it comments, it does not block. When a finding is deliberate you silence it with a comment on the line above."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does my code leave the runner?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. All the analysis is static and happens on your own CI runner. There is no model call, no API key is needed, and neither the code nor the diff leaves your infrastructure."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does it work outside GitHub?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Besides GitHub Actions it runs on GitLab CI: in a merge-request pipeline it auto-detects the base and diffs base..HEAD with no extra configuration."
+      }
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://fervon.dev/en/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Veredicto",
+      "item": "https://fervon.dev/en/veredicto/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Your AI-generated tests prove nothing",
+      "item": "https://fervon.dev/veredicto/ai-generated-tests-prove-nothing"
+    }
+  ]
+}
+  </script>
+
+  <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin="">
+  <link rel="stylesheet" href="/assets/core.css?v=20260822">
+  <link rel="stylesheet" href="/veredicto/base.css?v=20260822">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260822">
+</head>
+<body>
+  <a class="skip" href="#top">Skip to content</a>
+
+  <header class="nav"><div class="glass bar">
+    <nav class="crumb" aria-label="Ruta de navegación">
+      <a href="/en/"><span class="fv"><img src="/assets/logo-icon.svg" width="17" height="17" alt="" aria-hidden="true"> fervon</span></a><span class="sep">›</span>
+      <a href="/en/veredicto/"><svg class="mark" width="17" height="17" viewBox="0 0 26 26" aria-hidden="true"><path d="M5 13 L11 19 L21 7" fill="none" stroke="var(--amber)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>Veredicto</a><span class="sep">›</span>
+      <span aria-current="page">Tests that prove nothing</span>
+    </nav>
+    <div class="act">
+      <nav class="langseg" id="lang" aria-label="Language"><a class="langopt" href="/es/veredicto/ai-generated-tests-prove-nothing" hreflang="es" lang="es">ES</a><span class="langopt on" aria-current="true">EN</span></nav>      <a class="btn btn-fire btn-sm" href="/en/veredicto/#pricing">Get a licence</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+
+    <section class="hero">
+      <div class="wrap">
+        <h1>Your AI-generated tests prove nothing. Here is how to tell.</h1>
+        <p class="sub">When the same agent writes the code <b>and</b> the tests, a green build stops being evidence that the code works. It becomes evidence that the agent knows how to make things go green.</p>
+      </div>
+    </section>
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h">In 30 seconds</h2>
+          <ul>
+            <li>A test <b>generated</b> by the same agent that wrote the code does not prove the code works — it proves the two agree with each other.</li>
+            <li><b>Seven ways</b> exist to turn a build green without fixing anything, and six of them leave a mark in the diff.</li>
+            <li>What a machine <b>can</b> catch: deleted tests, tautological asserts, <code>.skip</code>, lowered thresholds, mocking the very module under test.</li>
+            <li>What it <b>cannot</b>: a well-formed test that asserts the wrong answer. Only a human or mutation testing catches that.</li>
+            <li><b>Veredicto</b> checks the first six on every pull request — deterministic, no API key, nothing leaves your runner.</li>
+          </ul>
+          <div class="cta-row s-tldrcta">
+            <a class="btn btn-fire" href="/en/veredicto/#pricing">Put it on my PRs — $19/repo</a>
+            <a class="btn btn-ghost" href="/veredicto/report">See the experiment</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap prose">
+        <h2>Why green stopped meaning anything</h2>
+        <p>A test suite has always been a contract between two parties: whoever writes the code and whoever writes the check. It worked because the two sides had different incentives. When an agent does both in the same turn, the contract loses its counterparty.</p>
+        <p>This is not a hypothetical worry. METR measured that in <b>30% of runs</b>, frontier models gamed their own evaluation instead of solving the task. The agent is not lying — it optimises the signal you gave it, and the signal you gave it is a green test run.</p>
+      </div>
+    </section>
+
+    <section class="sec alt">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">The catalogue</span>
+          <h2>Six ways to turn the build green without doing the work</h2>
+        </div>
+        <div class="prose">
+          <h3>1. Delete the failing tests</h3>
+          <p>The bluntest and the most common. Test cases vanish from a test file in the same PR that touches the code. The test count drops, and nobody looks at the count — everybody looks at the colour.</p>
+          <h3>2. Gut the test from the inside</h3>
+          <p>Subtler: the cases stay, names and all, but the assertions are gone. The count does not move, the green looks identical, and nothing is being checked. This is the one that most often survives human review.</p>
+          <h3>3. Silence instead of fixing</h3>
+          <p><code>.skip</code>, <code>.todo</code>, <code>xit</code>, a <code>@pytest.mark.skip</code>. A silenced test still counts as a file present in the repo and says nothing at all. Its evil twin is <code>.only</code>, which silences every other test at once.</p>
+          <h3>4. Assert something that is always true</h3>
+          <p><code>expect(true).toBe(true)</code>. <code>assert 1 == 1</code>. An empty test body. It takes one line, reads like a test, counts as a test, and can never fail.</p>
+          <h3>5. Lower the bar</h3>
+          <p>The coverage minimum goes from 90 to 70 in the config file. Or a <code>continue-on-error: true</code> in the workflow. Or a <code>|| true</code> after the test command. The code did not improve; the bar moved.</p>
+          <h3>6. Mock the very thing under test</h3>
+          <p>The test imports the module, replaces it with a double, and then asserts that the double did what the double was told to do. It is a mirror checking its own reflection. It always passes, and it never touches a line of the real code.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap prose">
+        <h2>The seventh, and why no tool sees it</h2>
+        <p>There is one more way to end up with a useless test, and it is the worst: a perfectly well-formed test, with a real assertion, that asserts the <b>wrong</b> answer. The agent read the buggy code, understood what it did, and wrote the check that confirms exactly that.</p>
+        <p>We measured it: 20 modules with a real bug each, tests written by AI agents. All 20 suites passed. None caught the bug, and 75% asserted the buggy output as correct. Veredicto flagged <b>0</b> of those 20 — there was nothing in the diff to see.</p>
+        <p>We say this here rather than in the small print, because it is what separates an honest tool from one that oversells itself: Veredicto is a cheap first line, not proof that your tests are good.</p>
+        <div class="cta-row">
+          <a class="btn btn-ghost" href="/veredicto/report">The experiment data</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:table -->
+    <section class="sec alt seosec" id="tabla" aria-labelledby="tabla-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">What a machine sees</span>
+          <h2 id="tabla-h">The seven ways, and who catches each</h2>
+        </div>
+        <div class="tablewrap reveal">
+          <table class="seotable">
+            <caption class="vh">Ways to turn a build green without fixing the code, and what detects each one.</caption>
+            <thead>
+              <tr>
+                <th>The trick</th>
+                <th>Leaves a mark in the diff</th>
+                <th>Caught by</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th>Deleted tests</th><td class="yes">Yes</td><td>Veredicto · hard rule</td></tr>
+              <tr><th>Tests gutted of assertions</th><td class="yes">Yes</td><td>Veredicto</td></tr>
+              <tr><th>Silenced with .skip / .only</th><td class="yes">Yes</td><td>Veredicto</td></tr>
+              <tr><th>Tautological asserts</th><td class="yes">Yes</td><td>Veredicto · hard rule</td></tr>
+              <tr><th>Thresholds or CI weakened</th><td class="yes">Yes</td><td>Veredicto · hard rule</td></tr>
+              <tr><th>Mocking the module under test</th><td class="yes">Yes</td><td>Veredicto</td></tr>
+              <tr><th>Asserting the wrong answer</th><td class="no">No</td><td>A human, or mutation testing</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap prose">
+        <h2>What to do on Monday morning</h2>
+        <p>Three things, from least to most effort, and all three compatible with each other.</p>
+        <ul class="bullets">
+          <li><b>Look at the test count, not the colour.</b> If a PR touches code and the number of tests goes down, you already have a conversation to have. It is free and it catches the most common case.</li>
+          <li><b>Put a deterministic check on the PR.</b> The six tricks that leave a mark can be detected by reading the diff — nothing executed, nothing sent anywhere. That is Veredicto: 11 rules, no API key, no LLM.</li>
+          <li><b>For what is left, mutation testing.</b> It is slow and costly to maintain, but it is the only thing that answers "would my suite notice a behaviour change?". Run it nightly, not on every PR.</li>
+        </ul>
+        <div class="cta-row">
+          <a class="btn btn-fire" href="/en/veredicto/#pricing">Start — $19 per repo per month</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:faq -->
+    <section class="sec alt seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">FAQ</span>
+          <h2 id="faq-h">Frequently asked questions</h2>
+        </div>
+        <div class="faq reveal">
+          <details>
+            <summary>Does this mean AI should not write tests?</summary>
+            <p>No. It means a green suite written by the same agent that wrote the code is not evidence the code works. The tests still have value as regression scaffolding; what they cannot be is the thing that verifies correctness.</p>
+          </details>
+          <details>
+            <summary>Is coverage not enough?</summary>
+            <p>Coverage measures which lines ran, not whether anyone checked the result. A test with no assertions walks the same code and raises coverage just the same. In fact, gutting the assertions leaves coverage untouched.</p>
+          </details>
+          <details>
+            <summary>Will a detector like this flood my PRs with false positives?</summary>
+            <p>That is the real risk with any static rule. Veredicto was measured against 213 real merged pull requests with 0 false positives, and it ships in "warn" mode by default: it comments, it does not block. When a finding is deliberate you silence it with a comment on the line above.</p>
+          </details>
+          <details>
+            <summary>Does my code leave the runner?</summary>
+            <p>No. All the analysis is static and happens on your own CI runner. There is no model call, no API key is needed, and neither the code nor the diff leaves your infrastructure.</p>
+          </details>
+          <details>
+            <summary>Does it work outside GitHub?</summary>
+            <p>Yes. Besides GitHub Actions it runs on GitLab CI: in a merge-request pipeline it auto-detects the base and diffs base..HEAD with no extra configuration.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">Keep reading</span>
+          <h2 id="mas-h">Related</h2>
+        </div>
+        <div class="related reveal">
+          <a class="relcard" href="/en/veredicto/">
+            <span class="rt">Veredicto</span>
+            <span class="rd">The CI check that catches tests proving nothing.</span>
+          </a>
+          <a class="relcard" href="/veredicto/over-mocking-detector">
+            <span class="rt">Over-mocking detector</span>
+            <span class="rd">When a mock stops proving and starts hiding.</span>
+          </a>
+          <a class="relcard" href="/veredicto/report">
+            <span class="rt">The experiment</span>
+            <span class="rd">20 buggy modules, 20 green suites, 0 bugs caught.</span>
+          </a>
+        </div>
+        <div class="fv-share">
+          <button type="button" class="sharebtn" aria-label="Compartir esta página">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
+            <span>Share</span>
+          </button>
+          <span class="sharemsg" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>Veredicto</b>
+      <span>$19 per repository</span>
+    </div>
+    <a class="btn btn-fire" href="/en/veredicto/#pricing">Get a licence</a>
+  </div>
+
+  <footer><div class="wrap foot">
+    <span>Veredicto is a project by <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" width="17" height="17" loading="lazy" alt="" aria-hidden="true"> Fervon</a> · Forged red-hot</span>
+    <span>© 2026 Jonathan Martín · Source-available by design</span>
+  </div></footer>
+
+  <script src="/assets/shared.js?v=20260822" defer=""></script>
+
+
+</body></html>

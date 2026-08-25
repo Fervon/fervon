@@ -191,5 +191,45 @@
       "ogDesc": "The CI check that catches AI-agent tests that prove nothing: over-mocking, vacuous asserts, deleted tests. Deterministic, in the pull request."
     }
   },
-  "_comentario": "title/description/og por URL y por idioma. Los <title> y las descripciones NO viven en atributos data-*, así que sin esta tabla las páginas generadas heredaban el meta del idioma original — que es el peor error posible, porque el título es lo que Google muestra. Límites: título <=60 caracteres, descripción <=160."
+  "_comentario": "title/description/og por URL y por idioma. Los <title> y las descripciones NO viven en atributos data-*, así que sin esta tabla las páginas generadas heredaban el meta del idioma original — que es el peor error posible, porque el título es lo que Google muestra. Límites: título <=60 caracteres, descripción <=160.",
+  "/veredicto/ai-generated-tests-prove-nothing": {
+    "es": {
+      "title": "Tests generados por IA que no prueban nada | Veredicto",
+      "desc": "Tu agente escribió el código y los tests, y CI está en verde. Cómo saber si la suite prueba algo, y las siete formas de poner un build en verde sin trabajar.",
+      "ogTitle": "Tus tests generados por IA no prueban nada. Así se sabe.",
+      "ogDesc": "Cuando el mismo agente escribe el código y los tests, el verde de CI deja de ser una prueba. Las siete formas de poner un build en verde sin arreglar nada, y cuáles pilla una máquina."
+    }
+  },
+  "/veredicto/over-mocking-detector": {
+    "es": {
+      "title": "Detector de over-mocking en tests | Veredicto",
+      "desc": "Cuándo un mock deja de aislar y empieza a tapar: el caso que siempre pasa, mockear el módulo bajo prueba, y cómo detectarlo en el pull request.",
+      "ogTitle": "El test mockeó justo lo que debía probar",
+      "ogDesc": "Un mock del propio módulo bajo prueba es un espejo comprobando su reflejo: pasa siempre y no toca el código real. Cómo se detecta en el PR."
+    }
+  },
+  "/veredicto/review-ai-generated-tests": {
+    "es": {
+      "title": "Cómo revisar tests escritos por IA | Veredicto",
+      "desc": "Lista de comprobación para revisar un pull request lleno de tests que no has escrito tú: qué mirar primero y qué preguntas delatan una suite vacía.",
+      "ogTitle": "Cómo revisar un PR lleno de tests que no escribiste",
+      "ogDesc": "Siete comprobaciones ordenadas por lo que más delata, para revisar tests escritos por un agente sin leerte las 800 líneas."
+    }
+  },
+  "/veredicto/agent-skipped-tests-green-ci": {
+    "es": {
+      "title": "El agente saltó tests para dejar CI en verde | Veredicto",
+      "desc": "Tests con .skip, borrados o con continue-on-error para que el build pase. Por qué lo hace un agente, cómo encontrarlo en el diff y cómo impedir que se repita.",
+      "ogTitle": "Tu agente silenció los tests para que CI pasara",
+      "ogDesc": ".skip, tests borrados y continue-on-error: las tres formas de apagar la alarma en vez de apagar el fuego, y cómo verlas en el pull request."
+    }
+  },
+  "/veredicto/mutation-testing-alternative": {
+    "es": {
+      "title": "Mutation testing frente a un check estático | Veredicto",
+      "desc": "El mutation testing responde a la pregunta correcta pero cuesta caro en cada PR. Cuándo usarlo, cuándo un check determinista basta, y por qué no son lo mismo.",
+      "ogTitle": "Mutation testing es lento. Esto no lo sustituye, lo complementa",
+      "ogDesc": "Comparación honesta: qué pilla el mutation testing que un check estático no puede, qué cuesta, y qué conviene poner en cada pull request."
+    }
+  }
 }

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mutation testing frente a un check estático | Veredicto</title>
+  <meta name="description" content="El mutation testing responde a la pregunta correcta pero cuesta caro en cada PR. Cuándo usarlo, cuándo un check determinista basta, y por qué no son lo mismo.">
+  <link rel="canonical" href="https://fervon.dev/es/veredicto/mutation-testing-alternative">
+  <link rel="alternate" type="application/rss+xml" title="Fervon · Noticias" href="/blog/feed.xml"><link rel="alternate" hreflang="es" href="https://fervon.dev/es/veredicto/mutation-testing-alternative"><link rel="alternate" hreflang="en" href="https://fervon.dev/veredicto/mutation-testing-alternative"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/veredicto/mutation-testing-alternative">
+  <meta name="keywords" content="mutation testing, mutation score, Stryker, PIT, mutmut, test quality, static check, CI cost, AI generated tests">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#0E0B0A">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-192.png" sizes="192x192" type="image/png">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Fervon">
+  <meta property="og:title" content="Mutation testing es lento. Esto no lo sustituye, lo complementa">
+  <meta property="og:description" content="Comparación honesta: qué pilla el mutation testing que un check estático no puede, qué cuesta, y qué conviene poner en cada pull request.">
+  <meta property="og:url" content="https://fervon.dev/es/veredicto/mutation-testing-alternative">
+  <meta property="og:image" content="https://fervon.dev/assets/og-veredicto.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-veredicto.jpg">
+  <meta property="og:locale" content="es_ES">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Mutation testing: when it pays and when it does not",
+    "author": { "@type": "Person", "name": "Jonathan Martín" },
+    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
+    "mainEntityOfPage": "https://fervon.dev/veredicto/mutation-testing-alternative",
+    "description": "An honest comparison between mutation testing and a deterministic static check on the pull request."
+  }
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Es Veredicto una alternativa al mutation testing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, y venderlo así sería mentir. Responden a preguntas distintas. El mutation testing te dice si tu suite detecta cambios de comportamiento; Veredicto te dice si en este pull request alguien la ha vaciado. Lo natural es tener los dos, en sitios distintos del ciclo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Por qué no ejecutar mutation testing en cada PR?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Porque ejecuta la suite completa una vez por mutante. Con cientos o miles de mutantes, el coste en minutos de runner y en espera de la persona que abre el PR es difícil de justificar. Acotarlo a los ficheros tocados ayuda, pero sigue siendo otro orden de magnitud frente a leer un diff."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué es un mutante equivalente y por qué molesta?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Es una mutación que no cambia el comportamiento observable, así que ningún test puede matarla por mucho que tu suite sea buena. Aparece como superviviente y te pide atención sin merecerla. Detectarlos es indecidible en general, y es la principal fuente de mantenimiento de esta técnica."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Sirve el mutation score como objetivo de equipo?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Como diagnóstico es excelente; como objetivo se degrada igual que la cobertura. En cuanto el número es la meta, aparecen tests escritos para matar mutantes concretos en vez de para describir el comportamiento esperado. Úsalo para encontrar zonas ciegas, no para poner un umbral en CI."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Si ya tengo mutation testing, ¿necesito esto?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Solo si tus pull requests los abren agentes. El mutation testing nocturno te dirá que la suite ha empeorado, pero al día siguiente y sin decirte quién ni en qué cambio. El check del PR pone el nombre del fichero y la línea delante de quien lo acaba de escribir, que es cuando arreglarlo es barato."
+      }
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://fervon.dev/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Veredicto",
+      "item": "https://fervon.dev/veredicto/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mutation testing, y cuándo basta con un check estático",
+      "item": "https://fervon.dev/es/veredicto/mutation-testing-alternative"
+    }
+  ]
+}
+  </script>
+
+  <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin="">
+  <link rel="stylesheet" href="/assets/core.css?v=20260822">
+  <link rel="stylesheet" href="/veredicto/base.css?v=20260822">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260822">
+</head>
+<body>
+  <a class="skip" href="#top">Saltar al contenido</a>
+
+  <header class="nav"><div class="glass bar">
+    <nav class="crumb" aria-label="Ruta de navegación">
+      <a href="/"><span class="fv"><img src="/assets/logo-icon.svg" width="17" height="17" alt="" aria-hidden="true"> fervon</span></a><span class="sep">›</span>
+      <a href="/veredicto/"><svg class="mark" width="17" height="17" viewBox="0 0 26 26" aria-hidden="true"><path d="M5 13 L11 19 L21 7" fill="none" stroke="var(--amber)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>Veredicto</a><span class="sep">›</span>
+      <span aria-current="page">Mutation testing</span>
+    </nav>
+    <div class="act">
+      <nav class="langseg" id="lang" aria-label="Idioma"><span class="langopt on" aria-current="true">ES</span><a class="langopt" href="/veredicto/mutation-testing-alternative" hreflang="en" lang="en">EN</a></nav>      <a class="btn btn-fire btn-sm" href="/veredicto/#pricing">Ver precio</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+
+    <section class="hero">
+      <div class="wrap">
+        <h1>Mutation testing, y cuándo basta con un check estático</h1>
+        <p class="sub">El mutation testing hace la pregunta correcta: «si rompo el código a propósito, ¿se entera tu suite?». El problema no es la pregunta, es lo que cuesta responderla en cada pull request.</p>
+      </div>
+    </section>
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h">En 30 segundos</h2>
+          <ul>
+            <li>El <b>mutation testing</b> altera tu código a propósito y comprueba si algún test se queja. Es la única medida honesta de si una suite detecta cambios de comportamiento.</li>
+            <li>El precio es el tiempo: ejecuta tu suite entera una vez por cada mutante. En un repositorio mediano eso son minutos u horas, no segundos.</li>
+            <li>Por eso casi nadie lo pone en cada PR, y por eso <b>no llega a tiempo</b> para frenar un PR de agente con 800 líneas de tests.</li>
+            <li>Un check estático hace menos, pero en segundos y en el PR: pilla lo burdo —tests borrados, asserts vacuos, mocks circulares— antes de que nadie apruebe nada.</li>
+            <li>No compiten. Lo sensato es <b>check estático en cada PR</b> y <b>mutation testing por la noche</b> sobre lo que de verdad importa.</li>
+          </ul>
+          <div class="cta-row s-tldrcta">
+            <a class="btn btn-fire" href="/veredicto/#pricing">La capa del PR — $19/repo</a>
+            <a class="btn btn-ghost" href="/veredicto/report">Ver el experimento</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap prose">
+        <h2>Qué mide cada cosa</h2>
+        <p>La cobertura mide qué líneas se ejecutaron. No dice nada de si alguien miró el resultado: un test sin un solo assert recorre el mismo código y sube el mismo porcentaje. Es la métrica más fácil de satisfacer sin hacer el trabajo.</p>
+        <p>El mutation testing mide otra cosa. Cambia un <code>&gt;</code> por un <code>&gt;=</code>, invierte una condición, devuelve una constante — y vuelve a ejecutar la suite. Si los tests siguen en verde, ese mutante «sobrevive», y un mutante vivo es la prueba de que hay comportamiento que nadie comprueba.</p>
+        <p>Un check estático no mide ninguna de las dos. Mira el diff y busca patrones que solo aparecen cuando alguien ha tomado un atajo. No te dice si tu suite es buena; te dice si en este pull request alguien la ha vaciado.</p>
+      </div>
+    </section>
+
+    <!-- seo:table -->
+    <section class="sec alt seosec" id="tabla" aria-labelledby="tabla-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">Comparación</span>
+          <h2 id="tabla-h">Tres capas, tres preguntas distintas</h2>
+        </div>
+        <div class="tablewrap reveal">
+          <table class="seotable">
+            <caption class="vh">Qué responde cada capa, qué cuesta y dónde conviene ponerla.</caption>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Cobertura</th>
+                <th>Check estático del PR</th>
+                <th>Mutation testing</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th>Qué responde</th><td>¿Se ejecutó esta línea?</td><td>¿Han vaciado la suite en este PR?</td><td>¿Detecta la suite un cambio de comportamiento?</td></tr>
+              <tr><th>Tiempo</th><td>Una ejecución</td><td class="yes">Segundos, sin ejecutar tests</td><td class="warn">Una suite entera por mutante</td></tr>
+              <tr><th>¿En cada PR?</th><td class="yes">Sí</td><td class="yes">Sí</td><td class="no">Rara vez sale a cuenta</td></tr>
+              <tr><th>Pilla tests borrados o silenciados</th><td class="no">No</td><td class="yes">Sí</td><td class="warn">Indirectamente</td></tr>
+              <tr><th>Pilla asserts vacuos</th><td class="no">No — sube igual</td><td class="yes">Sí</td><td class="yes">Sí</td></tr>
+              <tr><th>Pilla un assert del resultado equivocado</th><td class="no">No</td><td class="no">No</td><td class="yes">Sí — es su razón de ser</td></tr>
+              <tr><th>Mantenimiento</th><td>Bajo</td><td>Bajo</td><td class="warn">Alto: mutantes equivalentes y ruido</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap prose">
+        <h2>Por qué esto no sustituye al mutation testing</h2>
+        <p>Conviene decirlo sin rodeos, porque es la línea que separa una comparativa honesta de un argumento de venta: hay un fallo que un check estático <b>no puede</b> ver, y el mutation testing sí.</p>
+        <p>Es el test bien formado que asevera el resultado equivocado. El agente leyó el código con el bug, entendió lo que hacía y escribió la comprobación que confirma exactamente eso. En el diff no hay nada raro: hay un test con su assert de verdad.</p>
+        <p>Lo medimos con 20 módulos con un bug real cada uno. Las 20 suites escritas por agentes pasaron, ninguna pilló el bug, y Veredicto marcó <b>0</b> de las 20. Era el resultado correcto: no había nada sintáctico que ver. Un mutante en esa función sí habría sobrevivido y lo habría delatado.</p>
+        <div class="cta-row">
+          <a class="btn btn-ghost" href="/veredicto/report">Los datos del experimento</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec alt">
+      <div class="wrap prose">
+        <h2>El reparto que funciona</h2>
+        <ul class="bullets">
+          <li><b>En cada pull request:</b> un check determinista sobre el diff. Segundos, sin ejecutar tests y sin API key. Frena lo burdo mientras alguien todavía está mirando el PR.</li>
+          <li><b>Cada noche, sobre lo que importa:</b> mutation testing acotado a los módulos con lógica de negocio de verdad. No sobre el repositorio entero, o el mantenimiento se come el beneficio.</li>
+          <li><b>Y la cobertura, como suelo:</b> útil como mínimo que no debe bajar, inútil como objetivo. Que nadie la suba borrando asserts.</li>
+        </ul>
+        <p>Puesto así, cada capa hace la pregunta que puede permitirse hacer con la frecuencia que hace falta. El error es pedirle a una que haga el trabajo de otra: la cobertura no juzga calidad, el check estático no juzga corrección y el mutation testing no llega a tiempo al pull request.</p>
+        <div class="cta-row">
+          <a class="btn btn-fire" href="/veredicto/#pricing">Poner la capa del PR — $19/repo</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:faq -->
+    <section class="sec seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">FAQ</span>
+          <h2 id="faq-h">Preguntas frecuentes</h2>
+        </div>
+        <div class="faq reveal">
+          <details>
+            <summary>¿Es Veredicto una alternativa al mutation testing?</summary>
+            <p>No, y venderlo así sería mentir. Responden a preguntas distintas. El mutation testing te dice si tu suite detecta cambios de comportamiento; Veredicto te dice si en este pull request alguien la ha vaciado. Lo natural es tener los dos, en sitios distintos del ciclo.</p>
+          </details>
+          <details>
+            <summary>¿Por qué no ejecutar mutation testing en cada PR?</summary>
+            <p>Porque ejecuta la suite completa una vez por mutante. Con cientos o miles de mutantes, el coste en minutos de runner y en espera de la persona que abre el PR es difícil de justificar. Acotarlo a los ficheros tocados ayuda, pero sigue siendo otro orden de magnitud frente a leer un diff.</p>
+          </details>
+          <details>
+            <summary>¿Qué es un mutante equivalente y por qué molesta?</summary>
+            <p>Es una mutación que no cambia el comportamiento observable, así que ningún test puede matarla por mucho que tu suite sea buena. Aparece como superviviente y te pide atención sin merecerla. Detectarlos es indecidible en general, y es la principal fuente de mantenimiento de esta técnica.</p>
+          </details>
+          <details>
+            <summary>¿Sirve el mutation score como objetivo de equipo?</summary>
+            <p>Como diagnóstico es excelente; como objetivo se degrada igual que la cobertura. En cuanto el número es la meta, aparecen tests escritos para matar mutantes concretos en vez de para describir el comportamiento esperado. Úsalo para encontrar zonas ciegas, no para poner un umbral en CI.</p>
+          </details>
+          <details>
+            <summary>Si ya tengo mutation testing, ¿necesito esto?</summary>
+            <p>Solo si tus pull requests los abren agentes. El mutation testing nocturno te dirá que la suite ha empeorado, pero al día siguiente y sin decirte quién ni en qué cambio. El check del PR pone el nombre del fichero y la línea delante de quien lo acaba de escribir, que es cuando arreglarlo es barato.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">Seguir leyendo</span>
+          <h2 id="mas-h">Relacionado</h2>
+        </div>
+        <div class="related reveal">
+          <a class="relcard" href="/veredicto/">
+            <span class="rt">Veredicto</span>
+            <span class="rd">El check de CI que pilla los tests que no prueban nada.</span>
+          </a>
+          <a class="relcard" href="/es/veredicto/over-mocking-detector">
+            <span class="rt">Detector de over-mocking</span>
+            <span class="rd">Cuándo un mock deja de probar y empieza a tapar.</span>
+          </a>
+          <a class="relcard" href="/veredicto/report">
+            <span class="rt">El experimento</span>
+            <span class="rd">20 módulos con bug, 20 suites en verde, 0 bugs detectados.</span>
+          </a>
+        </div>
+        <div class="fv-share">
+          <button type="button" class="sharebtn" aria-label="Compartir esta página">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
+            <span>Compartir</span>
+          </button>
+          <span class="sharemsg" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>Veredicto</b>
+      <span>$19 por repositorio</span>
+    </div>
+    <a class="btn btn-fire" href="/veredicto/#pricing">Ver precio</a>
+  </div>
+
+  <footer><div class="wrap foot">
+    <span>Veredicto es un proyecto de <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" width="17" height="17" loading="lazy" alt="" aria-hidden="true"> Fervon</a> · Forjado al rojo vivo</span>
+    <span>© 2026 Jonathan Martín · Código abierto a la vista, por diseño</span>
+  </div></footer>
+
+  <script src="/assets/shared.js?v=20260822" defer=""></script>
+
+
+</body></html>

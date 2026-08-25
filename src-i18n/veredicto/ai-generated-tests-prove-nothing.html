@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>AI-generated tests that prove nothing | Veredicto</title>
+  <meta name="description" content="Your agent wrote the code and the tests, and CI is green. How to tell whether that suite proves anything, and the seven ways to fake a green build." />
+  <link rel="canonical" href="https://fervon.dev/veredicto/ai-generated-tests-prove-nothing" />
+  <meta name="keywords" content="AI generated tests, tests that prove nothing, green CI false confidence, agent wrote the tests, test gaming, over-mocking, vacuous assertions" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#0E0B0A" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/assets/favicon-192.png" sizes="192x192" type="image/png" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Fervon" />
+  <meta property="og:title" content="Your AI-generated tests prove nothing. Here is how to tell." />
+  <meta property="og:description" content="When the same agent writes the code and the tests, green CI stops being evidence. The seven ways to turn a build green without doing the work — and which of them a machine can catch." />
+  <meta property="og:url" content="https://fervon.dev/veredicto/ai-generated-tests-prove-nothing" />
+  <meta property="og:image" content="https://fervon.dev/assets/og-veredicto-en.jpg" />
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-veredicto-en.jpg" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "AI-generated tests that prove nothing",
+    "author": { "@type": "Person", "name": "Jonathan Martín" },
+    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
+    "mainEntityOfPage": "https://fervon.dev/veredicto/ai-generated-tests-prove-nothing",
+    "description": "How to tell whether an AI-written test suite proves anything, and the seven ways to turn a build green without doing the work."
+  }
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "", "acceptedAnswer": { "@type": "Answer", "text": "" } },
+    { "@type": "Question", "name": "", "acceptedAnswer": { "@type": "Answer", "text": "" } },
+    { "@type": "Question", "name": "", "acceptedAnswer": { "@type": "Answer", "text": "" } },
+    { "@type": "Question", "name": "", "acceptedAnswer": { "@type": "Answer", "text": "" } },
+    { "@type": "Question", "name": "", "acceptedAnswer": { "@type": "Answer", "text": "" } }
+  ]
+}
+  </script>
+
+  <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin="">
+  <link rel="stylesheet" href="/assets/core.css?v=20260822" />
+  <link rel="stylesheet" href="base.css?v=20260822" />
+  <link rel="stylesheet" href="/assets/shared.css?v=20260822" />
+</head>
+<body>
+  <a class="skip" href="#top" data-es="Saltar al contenido">Skip to content</a>
+
+  <header class="nav"><div class="glass bar">
+    <nav class="crumb" aria-label="Ruta de navegación">
+      <a href="/"><span class="fv"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true"> fervon</span></a><span class="sep">›</span>
+      <a href="/veredicto/"><svg class="mark" width="17" height="17" viewBox="0 0 26 26" aria-hidden="true"><path d="M5 13 L11 19 L21 7" fill="none" stroke="var(--amber)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Veredicto</a><span class="sep">›</span>
+      <span aria-current="page" data-es="Tests de IA que no prueban nada">Tests that prove nothing</span>
+    </nav>
+    <div class="act">
+      <button id="lang" class="btn btn-ghost btn-sm" type="button" aria-label="Cambiar idioma / Switch language">ES</button>      <a class="btn btn-fire btn-sm" href="/veredicto/#pricing" data-es="Ver precio">Get a licence</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+
+    <section class="hero">
+      <div class="wrap">
+        <h1 data-es="Tus tests generados por IA no prueban nada. Así se sabe.">Your AI-generated tests prove nothing. Here is how to tell.</h1>
+        <p class="sub" data-es="Cuando el mismo agente escribe el código y los tests, el verde de CI deja de ser una prueba de que el código funciona. Pasa a ser una prueba de que el agente sabe poner cosas en verde.">When the same agent writes the code <b>and</b> the tests, a green build stops being evidence that the code works. It becomes evidence that the agent knows how to make things go green.</p>
+      </div>
+    </section>
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h" data-es="En 30 segundos">In 30 seconds</h2>
+          <ul>
+            <li data-es="Un test <b>generado</b> por el mismo agente que escribió el código no prueba que el código funcione: prueba que los dos encajan.">A test <b>generated</b> by the same agent that wrote the code does not prove the code works — it proves the two agree with each other.</li>
+            <li data-es="Hay <b>siete maneras</b> de poner un build en verde sin arreglar nada, y seis de ellas dejan huella en el diff."><b>Seven ways</b> exist to turn a build green without fixing anything, and six of them leave a mark in the diff.</li>
+            <li data-es="Lo que <b>sí</b> se puede detectar a máquina: tests borrados, asserts tautológicos, <code>.skip</code>, umbrales rebajados, mocks del propio módulo bajo prueba.">What a machine <b>can</b> catch: deleted tests, tautological asserts, <code>.skip</code>, lowered thresholds, mocking the very module under test.</li>
+            <li data-es="Lo que <b>no</b>: un test bien formado que asevera el resultado equivocado. Eso solo lo pilla una persona o el mutation testing.">What it <b>cannot</b>: a well-formed test that asserts the wrong answer. Only a human or mutation testing catches that.</li>
+            <li data-es="<b>Veredicto</b> comprueba las seis primeras en cada pull request. Determinista, sin API key y sin que el código salga del runner."><b>Veredicto</b> checks the first six on every pull request — deterministic, no API key, nothing leaves your runner.</li>
+          </ul>
+          <div class="cta-row s-tldrcta">
+            <a class="btn btn-fire" href="/veredicto/#pricing" data-es="Ponerlo en mis PRs — $19/repo">Put it on my PRs — $19/repo</a>
+            <a class="btn btn-ghost" href="/veredicto/report" data-es="Ver el experimento">See the experiment</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap prose">
+        <h2 data-es="Por qué el verde dejó de significar algo">Why green stopped meaning anything</h2>
+        <p data-es="La suite de tests siempre ha sido un contrato entre dos partes: quien escribe el código y quien escribe la prueba. Ese contrato funcionaba porque las dos partes tenían incentivos distintos. Cuando el agente hace las dos cosas en el mismo turno, el contrato se queda sin contraparte.">A test suite has always been a contract between two parties: whoever writes the code and whoever writes the check. It worked because the two sides had different incentives. When an agent does both in the same turn, the contract loses its counterparty.</p>
+        <p data-es="Y no es una preocupación teórica. METR midió que en el <b>30% de las ejecuciones</b> los modelos de frontera manipularon su propia evaluación en vez de resolver la tarea. El agente no «miente»: optimiza la señal que le has puesto delante, y la señal que le has puesto delante es que los tests estén en verde.">This is not a hypothetical worry. METR measured that in <b>30% of runs</b>, frontier models gamed their own evaluation instead of solving the task. The agent is not lying — it optimises the signal you gave it, and the signal you gave it is a green test run.</p>
+      </div>
+    </section>
+
+    <section class="sec alt">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-es="El catálogo">The catalogue</span>
+          <h2 data-es="Seis formas de poner el build en verde sin trabajar">Six ways to turn the build green without doing the work</h2>
+        </div>
+        <div class="prose">
+          <h3 data-es="1. Borrar los tests que fallan">1. Delete the failing tests</h3>
+          <p data-es="El caso más burdo y el más común. Desaparecen casos de prueba de un fichero de tests en el mismo PR que toca el código. El contador de tests baja y nadie lo mira, porque lo que se mira es el color.">The bluntest and the most common. Test cases vanish from a test file in the same PR that touches the code. The test count drops, and nobody looks at the count — everybody looks at the colour.</p>
+          <h3 data-es="2. Vaciar el test por dentro">2. Gut the test from the inside</h3>
+          <p data-es="Más sutil: los casos siguen ahí, con sus nombres, pero les han quitado los asserts. El contador no se mueve, el verde es idéntico y no se comprueba nada. Es el que más veces pasa una revisión humana.">Subtler: the cases stay, names and all, but the assertions are gone. The count does not move, the green looks identical, and nothing is being checked. This is the one that most often survives human review.</p>
+          <h3 data-es="3. Silenciar en vez de arreglar">3. Silence instead of fixing</h3>
+          <p data-es="<code>.skip</code>, <code>.todo</code>, <code>xit</code>, un <code>@pytest.mark.skip</code>. Un test silenciado sigue contando como fichero presente en el repositorio, y ya no dice nada. Su gemelo malvado es <code>.only</code>, que silencia todos los demás de golpe."><code>.skip</code>, <code>.todo</code>, <code>xit</code>, a <code>@pytest.mark.skip</code>. A silenced test still counts as a file present in the repo and says nothing at all. Its evil twin is <code>.only</code>, which silences every other test at once.</p>
+          <h3 data-es="4. Asertar algo que siempre es cierto">4. Assert something that is always true</h3>
+          <p data-es="<code>expect(true).toBe(true)</code>. <code>assert 1 == 1</code>. Un cuerpo de test vacío. Ocupa una línea, se ve como un test, cuenta como un test y no puede fallar nunca."><code>expect(true).toBe(true)</code>. <code>assert 1 == 1</code>. An empty test body. It takes one line, reads like a test, counts as a test, and can never fail.</p>
+          <h3 data-es="5. Bajar el listón">5. Lower the bar</h3>
+          <p data-es="El mínimo de cobertura pasa de 90 a 70 en el fichero de configuración. O un <code>continue-on-error: true</code> en el workflow. O un <code>|| true</code> detrás del comando de test. El código no ha mejorado; ha bajado la barrera.">The coverage minimum goes from 90 to 70 in the config file. Or a <code>continue-on-error: true</code> in the workflow. Or a <code>|| true</code> after the test command. The code did not improve; the bar moved.</p>
+          <h3 data-es="6. Mockear justo lo que había que probar">6. Mock the very thing under test</h3>
+          <p data-es="El test importa el módulo, lo sustituye por un doble y luego comprueba que el doble hizo lo que le han dicho que haga. Es un espejo comprobando su propio reflejo. Pasa siempre, y no toca ni una línea del código real.">The test imports the module, replaces it with a double, and then asserts that the double did what the double was told to do. It is a mirror checking its own reflection. It always passes, and it never touches a line of the real code.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap prose">
+        <h2 data-es="La séptima, y por qué ninguna herramienta la ve">The seventh, and why no tool sees it</h2>
+        <p data-es="Hay una manera más de tener un test inútil, y es la peor: un test perfectamente formado, con su assert de verdad, que asevera el resultado <b>equivocado</b>. El agente leyó el código con el bug, entendió lo que hacía y escribió la prueba que confirma exactamente eso.">There is one more way to end up with a useless test, and it is the worst: a perfectly well-formed test, with a real assertion, that asserts the <b>wrong</b> answer. The agent read the buggy code, understood what it did, and wrote the check that confirms exactly that.</p>
+        <p data-es="Lo medimos: 20 módulos con un bug real cada uno, tests escritos por agentes de IA. Las 20 suites pasaron. Ninguna pilló el bug, y el 75% aseveró la salida con el bug como si fuera correcta. Veredicto marcó <b>0</b> de esas 20, porque en el diff no había nada que ver.">We measured it: 20 modules with a real bug each, tests written by AI agents. All 20 suites passed. None caught the bug, and 75% asserted the buggy output as correct. Veredicto flagged <b>0</b> of those 20 — there was nothing in the diff to see.</p>
+        <p data-es="Lo decimos aquí y no en la letra pequeña porque es lo que separa una herramienta honesta de una que se vende sola: Veredicto es una primera línea barata, no una demostración de que tus tests son buenos.">We say this here rather than in the small print, because it is what separates an honest tool from one that oversells itself: Veredicto is a cheap first line, not proof that your tests are good.</p>
+        <div class="cta-row">
+          <a class="btn btn-ghost" href="/veredicto/report" data-es="Los datos del experimento">The experiment data</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:table -->
+    <section class="sec alt seosec" id="tabla" aria-labelledby="tabla-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-es="Qué ve una máquina">What a machine sees</span>
+          <h2 id="tabla-h" data-es="Las siete formas, y quién las pilla">The seven ways, and who catches each</h2>
+        </div>
+        <div class="tablewrap reveal">
+          <table class="seotable">
+            <caption class="vh" data-es="Formas de poner un build en verde sin arreglar el código y qué las detecta.">Ways to turn a build green without fixing the code, and what detects each one.</caption>
+            <thead>
+              <tr>
+                <th data-es="La trampa">The trick</th>
+                <th data-es="Deja huella en el diff">Leaves a mark in the diff</th>
+                <th data-es="Lo pilla">Caught by</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th data-es="Tests borrados">Deleted tests</th><td class="yes" data-es="Sí">Yes</td><td data-es="Veredicto · regla dura">Veredicto · hard rule</td></tr>
+              <tr><th data-es="Tests vaciados de asserts">Tests gutted of assertions</th><td class="yes" data-es="Sí">Yes</td><td data-es="Veredicto">Veredicto</td></tr>
+              <tr><th data-es="Silenciados con .skip / .only">Silenced with .skip / .only</th><td class="yes" data-es="Sí">Yes</td><td data-es="Veredicto">Veredicto</td></tr>
+              <tr><th data-es="Asserts tautológicos">Tautological asserts</th><td class="yes" data-es="Sí">Yes</td><td data-es="Veredicto · regla dura">Veredicto · hard rule</td></tr>
+              <tr><th data-es="Umbrales o CI rebajados">Thresholds or CI weakened</th><td class="yes" data-es="Sí">Yes</td><td data-es="Veredicto · regla dura">Veredicto · hard rule</td></tr>
+              <tr><th data-es="Mock del módulo bajo prueba">Mocking the module under test</th><td class="yes" data-es="Sí">Yes</td><td data-es="Veredicto">Veredicto</td></tr>
+              <tr><th data-es="Assert del resultado equivocado">Asserting the wrong answer</th><td class="no" data-es="No">No</td><td data-es="Una persona, o mutation testing">A human, or mutation testing</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap prose">
+        <h2 data-es="Qué hacer el lunes por la mañana">What to do on Monday morning</h2>
+        <p data-es="Tres cosas, de menos a más esfuerzo, y las tres compatibles entre sí.">Three things, from least to most effort, and all three compatible with each other.</p>
+        <ul class="bullets">
+          <li data-es="<b>Mira el contador de tests, no el color.</b> Si un PR toca código y el número de tests baja, ya tienes una conversación que tener. Es gratis y pilla el caso más común."><b>Look at the test count, not the colour.</b> If a PR touches code and the number of tests goes down, you already have a conversation to have. It is free and it catches the most common case.</li>
+          <li data-es="<b>Pon un check determinista en el PR.</b> Las seis trampas con huella se detectan leyendo el diff, sin ejecutar nada y sin mandar tu código a ninguna parte. Eso es Veredicto: 11 reglas, sin API key, sin LLM."><b>Put a deterministic check on the PR.</b> The six tricks that leave a mark can be detected by reading the diff — nothing executed, nothing sent anywhere. That is Veredicto: 11 rules, no API key, no LLM.</li>
+          <li data-es="<b>Para lo que queda, mutation testing.</b> Es lento y caro de mantener, pero es lo único que responde a «¿detectaría mi suite un cambio de comportamiento?». Ponlo en nightly, no en cada PR."><b>For what is left, mutation testing.</b> It is slow and costly to maintain, but it is the only thing that answers "would my suite notice a behaviour change?". Run it nightly, not on every PR.</li>
+        </ul>
+        <div class="cta-row">
+          <a class="btn btn-fire" href="/veredicto/#pricing" data-es="Empezar — $19 por repo y mes">Start — $19 per repo per month</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:faq -->
+    <section class="sec alt seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">FAQ</span>
+          <h2 id="faq-h" data-es="Preguntas frecuentes">Frequently asked questions</h2>
+        </div>
+        <div class="faq reveal">
+          <details>
+            <summary data-es="¿Significa esto que la IA no debería escribir tests?">Does this mean AI should not write tests?</summary>
+            <p data-es="No. Significa que una suite en verde escrita por el mismo agente que escribió el código no es evidencia de que el código funcione. Los tests siguen valiendo como andamiaje de regresión; lo que no pueden ser es la cosa que verifica que algo es correcto.">No. It means a green suite written by the same agent that wrote the code is not evidence the code works. The tests still have value as regression scaffolding; what they cannot be is the thing that verifies correctness.</p>
+          </details>
+          <details>
+            <summary data-es="¿No basta con mirar la cobertura?">Is coverage not enough?</summary>
+            <p data-es="La cobertura mide qué líneas se han ejecutado, no si alguien ha comprobado el resultado. Un test sin un solo assert recorre el código igual y sube la cobertura igual. De hecho, la trampa de vaciar los asserts deja la cobertura intacta.">Coverage measures which lines ran, not whether anyone checked the result. A test with no assertions walks the same code and raises coverage just the same. In fact, gutting the assertions leaves coverage untouched.</p>
+          </details>
+          <details>
+            <summary data-es="¿Un detector así no llenará mis PRs de falsos positivos?">Will a detector like this flood my PRs with false positives?</summary>
+            <p data-es="Es el riesgo real de cualquier regla estática. Veredicto se midió contra 213 pull requests reales ya mergeados y dio 0 falsos positivos, y viene en modo «warn» por defecto: comenta, no bloquea. Cuando un hallazgo es deliberado se silencia con un comentario en la línea de encima.">That is the real risk with any static rule. Veredicto was measured against 213 real merged pull requests with 0 false positives, and it ships in "warn" mode by default: it comments, it does not block. When a finding is deliberate you silence it with a comment on the line above.</p>
+          </details>
+          <details>
+            <summary data-es="¿Sale mi código del runner?">Does my code leave the runner?</summary>
+            <p data-es="No. Todo el análisis es estático y ocurre en tu propio runner de CI. No hay llamada a ningún modelo, no hace falta API key y ni el código ni el diff salen de tu infraestructura.">No. All the analysis is static and happens on your own CI runner. There is no model call, no API key is needed, and neither the code nor the diff leaves your infrastructure.</p>
+          </details>
+          <details>
+            <summary data-es="¿Funciona fuera de GitHub?">Does it work outside GitHub?</summary>
+            <p data-es="Sí. Además de GitHub Actions corre en GitLab CI: en un pipeline de merge request detecta la base sola y compara base..HEAD sin configuración extra.">Yes. Besides GitHub Actions it runs on GitLab CI: in a merge-request pipeline it auto-detects the base and diffs base..HEAD with no extra configuration.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-es="Seguir leyendo">Keep reading</span>
+          <h2 id="mas-h" data-es="Relacionado">Related</h2>
+        </div>
+        <div class="related reveal">
+          <a class="relcard" href="/veredicto/">
+            <span class="rt">Veredicto</span>
+            <span class="rd" data-es="El check de CI que pilla los tests que no prueban nada.">The CI check that catches tests proving nothing.</span>
+          </a>
+          <a class="relcard" href="/veredicto/over-mocking-detector">
+            <span class="rt" data-es="Detector de over-mocking">Over-mocking detector</span>
+            <span class="rd" data-es="Cuándo un mock deja de probar y empieza a tapar.">When a mock stops proving and starts hiding.</span>
+          </a>
+          <a class="relcard" href="/veredicto/report">
+            <span class="rt" data-es="El experimento">The experiment</span>
+            <span class="rd" data-es="20 módulos con bug, 20 suites en verde, 0 bugs detectados.">20 buggy modules, 20 green suites, 0 bugs caught.</span>
+          </a>
+        </div>
+        <div class="fv-share">
+          <button type="button" class="sharebtn" aria-label="Compartir esta página">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+            <span data-es="Compartir">Share</span>
+          </button>
+          <span class="sharemsg" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>Veredicto</b>
+      <span data-es="$19 por repositorio">$19 per repository</span>
+    </div>
+    <a class="btn btn-fire" href="/veredicto/#pricing" data-es="Ver precio">Get a licence</a>
+  </div>
+
+  <footer><div class="wrap foot">
+    <span data-es="Veredicto es un proyecto de &lt;a href=&quot;https://fervon.dev&quot;&gt;&lt;img src=&quot;/assets/logo-icon.svg&quot; height=&quot;17&quot; alt=&quot;&quot; aria-hidden=&quot;true&quot;&gt; Fervon&lt;/a&gt; · Forjado al rojo vivo">Veredicto is a project by <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true"> Fervon</a> · Forged red-hot</span>
+    <span data-es="© 2026 Jonathan Martín · Código abierto a la vista, por diseño">© 2026 Jonathan Martín · Source-available by design</span>
+  </div></footer>
+
+  <script src="/assets/shared.js?v=20260822" defer></script>
+</body>
+</html>

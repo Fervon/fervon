@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mutation testing vs a static PR check | Veredicto</title>
+  <meta name="description" content="Mutation testing asks the right question but costs too much on every pull request. When to use it, and when a deterministic check is enough.">
+  <link rel="canonical" href="https://fervon.dev/veredicto/mutation-testing-alternative">
+  <link rel="alternate" type="application/rss+xml" title="Fervon · News" href="/en/blog/feed.xml"><link rel="alternate" hreflang="es" href="https://fervon.dev/es/veredicto/mutation-testing-alternative"><link rel="alternate" hreflang="en" href="https://fervon.dev/veredicto/mutation-testing-alternative"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/veredicto/mutation-testing-alternative">
+  <meta name="keywords" content="mutation testing, mutation score, Stryker, PIT, mutmut, test quality, static check, CI cost, AI generated tests">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#0E0B0A">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-192.png" sizes="192x192" type="image/png">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Fervon">
+  <meta property="og:title" content="Mutation testing is slow. This does not replace it — it goes in front of it.">
+  <meta property="og:description" content="An honest comparison: what mutation testing catches that a static check cannot, what it costs, and what belongs on every pull request.">
+  <meta property="og:url" content="https://fervon.dev/veredicto/mutation-testing-alternative">
+  <meta property="og:image" content="https://fervon.dev/assets/og-veredicto-en.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-veredicto-en.jpg">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Mutation testing: when it pays and when it does not",
+    "author": { "@type": "Person", "name": "Jonathan Martín" },
+    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
+    "mainEntityOfPage": "https://fervon.dev/veredicto/mutation-testing-alternative",
+    "description": "An honest comparison between mutation testing and a deterministic static check on the pull request."
+  }
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is Veredicto an alternative to mutation testing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, and selling it that way would be a lie. They answer different questions. Mutation testing tells you whether your suite detects behaviour changes; Veredicto tells you whether someone hollowed it out in this pull request. The natural setup has both, at different points in the cycle."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why not run mutation testing on every PR?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because it runs the full suite once per mutant. With hundreds or thousands of mutants, the cost in runner minutes and in the waiting time of whoever opened the PR is hard to justify. Scoping it to changed files helps, but it is still an order of magnitude beyond reading a diff."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is an equivalent mutant and why is it annoying?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is a mutation that does not change observable behaviour, so no test can kill it no matter how good your suite is. It shows up as a survivor and demands attention it does not deserve. Detecting them is undecidable in general, and it is the main maintenance cost of the technique."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is mutation score a good team target?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "As a diagnostic it is excellent; as a target it degrades exactly like coverage. The moment the number is the goal, you get tests written to kill specific mutants rather than to describe expected behaviour. Use it to find blind spots, not to set a CI threshold."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "If I already run mutation testing, do I need this?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Only if agents open your pull requests. Nightly mutation testing will tell you the suite got worse, but a day later and without telling you who or in which change. The PR check puts the file and the line in front of whoever just wrote it, which is when fixing it is cheap."
+      }
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://fervon.dev/en/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Veredicto",
+      "item": "https://fervon.dev/en/veredicto/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Mutation testing, and when a static check is enough",
+      "item": "https://fervon.dev/veredicto/mutation-testing-alternative"
+    }
+  ]
+}
+  </script>
+
+  <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin="">
+  <link rel="stylesheet" href="/assets/core.css?v=20260822">
+  <link rel="stylesheet" href="/veredicto/base.css?v=20260822">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260822">
+</head>
+<body>
+  <a class="skip" href="#top">Skip to content</a>
+
+  <header class="nav"><div class="glass bar">
+    <nav class="crumb" aria-label="Ruta de navegación">
+      <a href="/en/"><span class="fv"><img src="/assets/logo-icon.svg" width="17" height="17" alt="" aria-hidden="true"> fervon</span></a><span class="sep">›</span>
+      <a href="/en/veredicto/"><svg class="mark" width="17" height="17" viewBox="0 0 26 26" aria-hidden="true"><path d="M5 13 L11 19 L21 7" fill="none" stroke="var(--amber)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>Veredicto</a><span class="sep">›</span>
+      <span aria-current="page">Mutation testing</span>
+    </nav>
+    <div class="act">
+      <nav class="langseg" id="lang" aria-label="Language"><a class="langopt" href="/es/veredicto/mutation-testing-alternative" hreflang="es" lang="es">ES</a><span class="langopt on" aria-current="true">EN</span></nav>      <a class="btn btn-fire btn-sm" href="/en/veredicto/#pricing">Get a licence</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+
+    <section class="hero">
+      <div class="wrap">
+        <h1>Mutation testing, and when a static check is enough</h1>
+        <p class="sub">Mutation testing asks the right question: "if I break the code on purpose, does your suite notice?". The problem is not the question — it is what answering it costs on every pull request.</p>
+      </div>
+    </section>
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h">In 30 seconds</h2>
+          <ul>
+            <li><b>Mutation testing</b> deliberately alters your code and checks whether any test complains. It is the only honest measure of whether a suite detects behaviour changes.</li>
+            <li>The price is time: it runs your whole suite once per mutant. On a mid-sized repo that is minutes or hours, not seconds.</li>
+            <li>That is why almost nobody puts it on every PR, and why it <b>does not arrive in time</b> to stop an agent PR with 800 lines of tests.</li>
+            <li>A static check does less, but in seconds and on the PR: it catches the blatant stuff — deleted tests, vacuous asserts, circular mocks — before anyone approves anything.</li>
+            <li><b>They do not compete.</b> The sensible setup is a static check on every PR and mutation testing nightly over what actually matters.</li>
+          </ul>
+          <div class="cta-row s-tldrcta">
+            <a class="btn btn-fire" href="/en/veredicto/#pricing">The PR layer — $19/repo</a>
+            <a class="btn btn-ghost" href="/veredicto/report">See the experiment</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap prose">
+        <h2>What each one measures</h2>
+        <p>Coverage measures which lines ran. It says nothing about whether anyone looked at the result: a test with no assertions walks the same code and raises the same percentage. It is the easiest metric to satisfy without doing the work.</p>
+        <p>Mutation testing measures something else. It changes a <code>&gt;</code> to a <code>&gt;=</code>, inverts a condition, returns a constant — and reruns the suite. If the tests stay green, that mutant "survives", and a surviving mutant is proof that some behaviour goes unchecked.</p>
+        <p>A static check measures neither. It reads the diff and looks for patterns that only show up when someone took a shortcut. It does not tell you whether your suite is good; it tells you whether someone hollowed it out in this pull request.</p>
+      </div>
+    </section>
+
+    <!-- seo:table -->
+    <section class="sec alt seosec" id="tabla" aria-labelledby="tabla-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">Comparison</span>
+          <h2 id="tabla-h">Three layers, three different questions</h2>
+        </div>
+        <div class="tablewrap reveal">
+          <table class="seotable">
+            <caption class="vh">What each layer answers, what it costs, and where it belongs.</caption>
+            <thead>
+              <tr>
+                <th></th>
+                <th>Coverage</th>
+                <th>Static PR check</th>
+                <th>Mutation testing</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th>What it answers</th><td>Did this line run?</td><td>Was the suite hollowed out in this PR?</td><td>Would the suite notice a behaviour change?</td></tr>
+              <tr><th>Time</th><td>One run</td><td class="yes">Seconds, without running tests</td><td class="warn">One whole suite per mutant</td></tr>
+              <tr><th>On every PR?</th><td class="yes">Yes</td><td class="yes">Yes</td><td class="no">Rarely worth it</td></tr>
+              <tr><th>Catches deleted or silenced tests</th><td class="no">No</td><td class="yes">Yes</td><td class="warn">Indirectly</td></tr>
+              <tr><th>Catches vacuous assertions</th><td class="no">No — coverage still rises</td><td class="yes">Yes</td><td class="yes">Yes</td></tr>
+              <tr><th>Catches asserting the wrong answer</th><td class="no">No</td><td class="no">No</td><td class="yes">Yes — this is its reason to exist</td></tr>
+              <tr><th>Maintenance</th><td>Low</td><td>Low</td><td class="warn">High: equivalent mutants and noise</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap prose">
+        <h2>Why this does not replace mutation testing</h2>
+        <p>Worth saying bluntly, because it is the line between an honest comparison and a sales pitch: there is one failure a static check <b>cannot</b> see, and mutation testing can.</p>
+        <p>It is the well-formed test that asserts the wrong answer. The agent read the buggy code, understood what it did, and wrote the check that confirms exactly that. Nothing looks odd in the diff: there is a test, with a real assertion.</p>
+        <p>We measured it with 20 modules, each with a real bug. All 20 agent-written suites passed, none caught the bug, and Veredicto flagged <b>0</b> of the 20. That was the correct result: there was nothing syntactic to see. A mutant in that function would have survived and given it away.</p>
+        <div class="cta-row">
+          <a class="btn btn-ghost" href="/veredicto/report">The experiment data</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec alt">
+      <div class="wrap prose">
+        <h2>The split that works</h2>
+        <ul class="bullets">
+          <li><b>On every pull request:</b> a deterministic check over the diff. Seconds, no test execution, no API key. It stops the blatant stuff while someone is still looking at the PR.</li>
+          <li><b>Nightly, over what matters:</b> mutation testing scoped to the modules with real business logic. Not the whole repo, or maintenance eats the benefit.</li>
+          <li><b>And coverage, as a floor:</b> useful as a minimum that must not drop, useless as a goal. Just do not let anyone raise it by deleting assertions.</li>
+        </ul>
+        <p>Framed that way, each layer asks the question it can afford to ask at the frequency it needs. The mistake is asking one to do another's job: coverage does not judge quality, a static check does not judge correctness, and mutation testing does not arrive in time for the pull request.</p>
+        <div class="cta-row">
+          <a class="btn btn-fire" href="/en/veredicto/#pricing">Add the PR layer — $19/repo</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:faq -->
+    <section class="sec seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">FAQ</span>
+          <h2 id="faq-h">Frequently asked questions</h2>
+        </div>
+        <div class="faq reveal">
+          <details>
+            <summary>Is Veredicto an alternative to mutation testing?</summary>
+            <p>No, and selling it that way would be a lie. They answer different questions. Mutation testing tells you whether your suite detects behaviour changes; Veredicto tells you whether someone hollowed it out in this pull request. The natural setup has both, at different points in the cycle.</p>
+          </details>
+          <details>
+            <summary>Why not run mutation testing on every PR?</summary>
+            <p>Because it runs the full suite once per mutant. With hundreds or thousands of mutants, the cost in runner minutes and in the waiting time of whoever opened the PR is hard to justify. Scoping it to changed files helps, but it is still an order of magnitude beyond reading a diff.</p>
+          </details>
+          <details>
+            <summary>What is an equivalent mutant and why is it annoying?</summary>
+            <p>It is a mutation that does not change observable behaviour, so no test can kill it no matter how good your suite is. It shows up as a survivor and demands attention it does not deserve. Detecting them is undecidable in general, and it is the main maintenance cost of the technique.</p>
+          </details>
+          <details>
+            <summary>Is mutation score a good team target?</summary>
+            <p>As a diagnostic it is excellent; as a target it degrades exactly like coverage. The moment the number is the goal, you get tests written to kill specific mutants rather than to describe expected behaviour. Use it to find blind spots, not to set a CI threshold.</p>
+          </details>
+          <details>
+            <summary>If I already run mutation testing, do I need this?</summary>
+            <p>Only if agents open your pull requests. Nightly mutation testing will tell you the suite got worse, but a day later and without telling you who or in which change. The PR check puts the file and the line in front of whoever just wrote it, which is when fixing it is cheap.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">Keep reading</span>
+          <h2 id="mas-h">Related</h2>
+        </div>
+        <div class="related reveal">
+          <a class="relcard" href="/en/veredicto/">
+            <span class="rt">Veredicto</span>
+            <span class="rd">The CI check that catches tests proving nothing.</span>
+          </a>
+          <a class="relcard" href="/veredicto/over-mocking-detector">
+            <span class="rt">Over-mocking detector</span>
+            <span class="rd">When a mock stops proving and starts hiding.</span>
+          </a>
+          <a class="relcard" href="/veredicto/report">
+            <span class="rt">The experiment</span>
+            <span class="rd">20 buggy modules, 20 green suites, 0 bugs caught.</span>
+          </a>
+        </div>
+        <div class="fv-share">
+          <button type="button" class="sharebtn" aria-label="Compartir esta página">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
+            <span>Share</span>
+          </button>
+          <span class="sharemsg" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>Veredicto</b>
+      <span>$19 per repository</span>
+    </div>
+    <a class="btn btn-fire" href="/en/veredicto/#pricing">Get a licence</a>
+  </div>
+
+  <footer><div class="wrap foot">
+    <span>Veredicto is a project by <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" width="17" height="17" loading="lazy" alt="" aria-hidden="true"> Fervon</a> · Forged red-hot</span>
+    <span>© 2026 Jonathan Martín · Source-available by design</span>
+  </div></footer>
+
+  <script src="/assets/shared.js?v=20260822" defer=""></script>
+
+
+</body></html>

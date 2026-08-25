@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Cómo revisar tests escritos por IA | Veredicto</title>
+  <meta name="description" content="Lista de comprobación para revisar un pull request lleno de tests que no has escrito tú: qué mirar primero y qué preguntas delatan una suite vacía.">
+  <link rel="canonical" href="https://fervon.dev/es/veredicto/review-ai-generated-tests">
+  <link rel="alternate" type="application/rss+xml" title="Fervon · Noticias" href="/blog/feed.xml"><link rel="alternate" hreflang="es" href="https://fervon.dev/es/veredicto/review-ai-generated-tests"><link rel="alternate" hreflang="en" href="https://fervon.dev/veredicto/review-ai-generated-tests"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/veredicto/review-ai-generated-tests">
+  <meta name="keywords" content="review AI generated tests, code review checklist, agent pull request, test quality review, copilot tests, cursor tests, claude code tests">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#0E0B0A">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-192.png" sizes="192x192" type="image/png">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Fervon">
+  <meta property="og:title" content="Cómo revisar un PR lleno de tests que no escribiste">
+  <meta property="og:description" content="Siete comprobaciones ordenadas por lo que más delata, para revisar tests escritos por un agente sin leerte las 800 líneas.">
+  <meta property="og:url" content="https://fervon.dev/es/veredicto/review-ai-generated-tests">
+  <meta property="og:image" content="https://fervon.dev/assets/og-veredicto.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-veredicto.jpg">
+  <meta property="og:locale" content="es_ES">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to review AI-generated tests",
+    "author": { "@type": "Person", "name": "Jonathan Martín" },
+    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
+    "mainEntityOfPage": "https://fervon.dev/veredicto/review-ai-generated-tests",
+    "description": "A checklist for reviewing a pull request full of tests written by an agent."
+  }
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Debería rechazar los PRs con tests escritos por IA?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Los tests escritos por un agente valen como andamiaje de regresión y ahorran trabajo real. Lo que no pueden ser es la evidencia de que el código funciona, sobre todo si el mismo agente escribió las dos cosas en el mismo turno."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Y si la cobertura sube?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "La cobertura sube igual con tests que no comprueban nada, porque mide qué líneas se ejecutan, no si alguien miró el resultado. De hecho, vaciar un test de asserts deja la cobertura intacta. Es la métrica más fácil de satisfacer sin hacer el trabajo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto tarda de verdad esta revisión?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Las seis comprobaciones mecánicas son minutos si las haces a mano y son instantáneas si las automatizas. La séptima —romper el código a propósito— cuesta lo que cuesta, pero solo hace falta hacerla en una función para saber si la suite va en serio."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Sirve esto para tests escritos por personas?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, la lista es la misma. La diferencia es la frecuencia: una persona rara vez escribe cuarenta ficheros de test de golpe, y cuando toma un atajo suele saber que lo está tomando. Un agente lo hace a escala y sin señal."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Bloqueo el PR o solo aviso?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Empieza avisando. Veredicto viene en modo «warn» por defecto: comenta lo que encuentra y no bloquea nada. Cuando el equipo se fía de lo que marca, se pasa a «block» y solo fallan las señales duras."
+      }
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://fervon.dev/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Veredicto",
+      "item": "https://fervon.dev/veredicto/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Cómo revisar tests generados por IA que no escribiste tú",
+      "item": "https://fervon.dev/es/veredicto/review-ai-generated-tests"
+    }
+  ]
+}
+  </script>
+
+  <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin="">
+  <link rel="stylesheet" href="/assets/core.css?v=20260822">
+  <link rel="stylesheet" href="/veredicto/base.css?v=20260822">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260822">
+</head>
+<body>
+  <a class="skip" href="#top">Saltar al contenido</a>
+
+  <header class="nav"><div class="glass bar">
+    <nav class="crumb" aria-label="Ruta de navegación">
+      <a href="/"><span class="fv"><img src="/assets/logo-icon.svg" width="17" height="17" alt="" aria-hidden="true"> fervon</span></a><span class="sep">›</span>
+      <a href="/veredicto/"><svg class="mark" width="17" height="17" viewBox="0 0 26 26" aria-hidden="true"><path d="M5 13 L11 19 L21 7" fill="none" stroke="var(--amber)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>Veredicto</a><span class="sep">›</span>
+      <span aria-current="page">Revisar tests escritos por IA</span>
+    </nav>
+    <div class="act">
+      <nav class="langseg" id="lang" aria-label="Idioma"><span class="langopt on" aria-current="true">ES</span><a class="langopt" href="/veredicto/review-ai-generated-tests" hreflang="en" lang="en">EN</a></nav>      <a class="btn btn-fire btn-sm" href="/veredicto/#pricing">Ver precio</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+
+    <section class="hero">
+      <div class="wrap">
+        <h1>Cómo revisar tests generados por IA que no escribiste tú</h1>
+        <p class="sub">Te llega un pull request con 40 ficheros y 800 líneas de tests. Nadie los va a leer enteros, y quien diga lo contrario miente. Esto es lo que hay que mirar, en orden, para saber en cinco minutos si esa suite comprueba algo.</p>
+      </div>
+    </section>
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h">En 30 segundos</h2>
+          <ul>
+            <li>No <b>revises</b> los <b>tests generados</b> como si fueran código: revísalos como si fueran una afirmación que alguien tiene que demostrar.</li>
+            <li>Empieza por el <b>contador</b>: si el PR toca código y hay menos tests que antes, ya tienes la conversación.</li>
+            <li>Sigue por los <b>asserts</b>: cuenta cuántos hay por caso. Cero asserts o un assert sobre una llamada no comprueban nada.</li>
+            <li>La pregunta que más delata: <b>«¿este test fallaría si rompo el código a propósito?»</b>. Si la respuesta no es obvia, rómpelo y mira.</li>
+            <li>Las comprobaciones mecánicas conviene automatizarlas: eso es <b>Veredicto</b>, 11 reglas sobre el diff del PR, para que tu atención vaya a lo que solo puede juzgar una persona.</li>
+          </ul>
+          <div class="cta-row s-tldrcta">
+            <a class="btn btn-fire" href="/veredicto/#pricing">Automatizar lo mecánico — $19/repo</a>
+            <a class="btn btn-ghost" href="/veredicto/report">Ver el experimento</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap prose">
+        <h2>Por qué la revisión de siempre no sirve aquí</h2>
+        <p>Revisar código escrito por una persona funciona porque las dos partes comparten el contexto de lo difícil: sabes dónde está el riesgo y miras ahí. Un agente produce texto uniformemente plausible en las 800 líneas, sin picos de duda. No hay dónde mirar.</p>
+        <p>Y el volumen juega en contra: cuanto más grande es el PR de tests, menos probable es que alguien lo lea, y más cómodo resulta fiarse del check en verde. Que es exactamente la señal que el agente ha optimizado.</p>
+        <p>Por eso el orden importa más que la exhaustividad. Estas siete comprobaciones están ordenadas por cuánto delatan dividido por lo que cuestan.</p>
+      </div>
+    </section>
+
+    <section class="sec alt">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">La lista</span>
+          <h2>Siete comprobaciones, en este orden</h2>
+        </div>
+        <div class="prose">
+          <h3>1. ¿Bajó el número de tests?</h3>
+          <p>Diez segundos y pilla el caso más común. Un PR que toca código y reduce el número de casos de prueba tiene que explicar por qué. A veces hay una razón buena; que la digan.</p>
+          <h3>2. ¿Cuántos asserts hay por caso?</h3>
+          <p>Busca los cuerpos vacíos y los casos con un solo assert. Un <code>it()</code> sin ningún assert no es un test: es una función que se ejecuta. Y sube la cobertura igual, que es lo que lo hace peligroso.</p>
+          <h3>3. ¿Los asserts son sobre resultados o sobre llamadas?</h3>
+          <p><code>toHaveBeenCalled</code> comprueba que tu código llamó a algo. No comprueba que el resultado sea correcto. Un fichero entero de asserts sobre llamadas describe la implementación en vez de comprobar el comportamiento, y se romperá en cuanto refactorices sin cambiar nada.</p>
+          <h3>4. ¿Hay algo silenciado?</h3>
+          <p>Busca <code>.skip</code>, <code>.only</code>, <code>xit</code>, <code>@pytest.mark.skip</code> y cualquier <code>|| true</code> detrás del comando de test. Un <code>.only</code> es especialmente traicionero: no silencia un test, silencia todos los demás.</p>
+          <h3>5. ¿Se ha tocado la configuración?</h3>
+          <p>Un umbral de cobertura que baja, un <code>continue-on-error</code> nuevo en el workflow, un <code>--passWithNoTests</code>. Son cambios de una línea, en ficheros que nadie revisa, y desactivan la comprobación entera.</p>
+          <h3>6. ¿Qué se ha mockeado?</h3>
+          <p>Mockear el reloj y la red está bien. Mockear el módulo que el test dice probar es un espejo comprobando su reflejo: pasa siempre. Si el nombre del módulo aparece a la vez en el import y en la llamada al mock, párate ahí.</p>
+          <h3>7. Rompe el código a propósito</h3>
+          <p>La única comprobación que no se puede falsear. Cambia un signo, invierte una condición, devuelve una constante. Si la suite sigue en verde, ya sabes lo que vale. Hazlo en una función, no en todas: con una basta para saber si esto va en serio.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:table -->
+    <section class="sec seosec" id="tabla" aria-labelledby="tabla-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">Reparto de trabajo</span>
+          <h2 id="tabla-h">Qué automatizar y qué mirar tú</h2>
+        </div>
+        <div class="tablewrap reveal">
+          <table class="seotable">
+            <caption class="vh">Qué comprobaciones de la revisión puede hacer una máquina y cuáles no.</caption>
+            <thead>
+              <tr>
+                <th>Comprobación</th>
+                <th>Coste para ti</th>
+                <th>¿Automatizable?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th>Bajó el número de tests</th><td>10 segundos</td><td class="yes">Sí</td></tr>
+              <tr><th>Casos sin asserts</th><td>1 minuto</td><td class="yes">Sí</td></tr>
+              <tr><th>Asserts tautológicos</th><td>1 minuto</td><td class="yes">Sí</td></tr>
+              <tr><th>Tests silenciados</th><td>30 segundos</td><td class="yes">Sí</td></tr>
+              <tr><th>Configuración o CI rebajados</th><td>1 minuto</td><td class="yes">Sí</td></tr>
+              <tr><th>Mock del módulo bajo prueba</th><td>5 minutos</td><td class="yes">Sí</td></tr>
+              <tr><th>¿Asevera el resultado correcto?</th><td>Lo que haga falta</td><td class="no">No — es tuya</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="wrap prose">
+          <p>Las seis primeras son mecánicas, y por eso conviene que las haga una máquina en cada pull request: son aburridas, se hacen mal cuando hay prisa y no mejoran con la experiencia. La séptima es la única que necesita a alguien que entienda qué debía hacer el código, y es justo donde quieres tener la cabeza fresca.</p>
+          <div class="cta-row">
+            <a class="btn btn-fire" href="/veredicto/#pricing">Que las seis primeras se hagan solas</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:faq -->
+    <section class="sec alt seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">FAQ</span>
+          <h2 id="faq-h">Preguntas frecuentes</h2>
+        </div>
+        <div class="faq reveal">
+          <details>
+            <summary>¿Debería rechazar los PRs con tests escritos por IA?</summary>
+            <p>No. Los tests escritos por un agente valen como andamiaje de regresión y ahorran trabajo real. Lo que no pueden ser es la evidencia de que el código funciona, sobre todo si el mismo agente escribió las dos cosas en el mismo turno.</p>
+          </details>
+          <details>
+            <summary>¿Y si la cobertura sube?</summary>
+            <p>La cobertura sube igual con tests que no comprueban nada, porque mide qué líneas se ejecutan, no si alguien miró el resultado. De hecho, vaciar un test de asserts deja la cobertura intacta. Es la métrica más fácil de satisfacer sin hacer el trabajo.</p>
+          </details>
+          <details>
+            <summary>¿Cuánto tarda de verdad esta revisión?</summary>
+            <p>Las seis comprobaciones mecánicas son minutos si las haces a mano y son instantáneas si las automatizas. La séptima —romper el código a propósito— cuesta lo que cuesta, pero solo hace falta hacerla en una función para saber si la suite va en serio.</p>
+          </details>
+          <details>
+            <summary>¿Sirve esto para tests escritos por personas?</summary>
+            <p>Sí, la lista es la misma. La diferencia es la frecuencia: una persona rara vez escribe cuarenta ficheros de test de golpe, y cuando toma un atajo suele saber que lo está tomando. Un agente lo hace a escala y sin señal.</p>
+          </details>
+          <details>
+            <summary>¿Bloqueo el PR o solo aviso?</summary>
+            <p>Empieza avisando. Veredicto viene en modo «warn» por defecto: comenta lo que encuentra y no bloquea nada. Cuando el equipo se fía de lo que marca, se pasa a «block» y solo fallan las señales duras.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">Seguir leyendo</span>
+          <h2 id="mas-h">Relacionado</h2>
+        </div>
+        <div class="related reveal">
+          <a class="relcard" href="/veredicto/">
+            <span class="rt">Veredicto</span>
+            <span class="rd">El check de CI que pilla los tests que no prueban nada.</span>
+          </a>
+          <a class="relcard" href="/es/veredicto/agent-skipped-tests-green-ci">
+            <span class="rt">Tests silenciados</span>
+            <span class="rd">Cuando el agente apaga la alarma en vez del fuego.</span>
+          </a>
+          <a class="relcard" href="/blog/tests-amanados-agentes/">
+            <span class="rt">El artículo</span>
+            <span class="rd">Seis formas de amañar un test y cómo se detecta cada una.</span>
+          </a>
+        </div>
+        <div class="fv-share">
+          <button type="button" class="sharebtn" aria-label="Compartir esta página">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
+            <span>Compartir</span>
+          </button>
+          <span class="sharemsg" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>Veredicto</b>
+      <span>$19 por repositorio</span>
+    </div>
+    <a class="btn btn-fire" href="/veredicto/#pricing">Ver precio</a>
+  </div>
+
+  <footer><div class="wrap foot">
+    <span>Veredicto es un proyecto de <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" width="17" height="17" loading="lazy" alt="" aria-hidden="true"> Fervon</a> · Forjado al rojo vivo</span>
+    <span>© 2026 Jonathan Martín · Código abierto a la vista, por diseño</span>
+  </div></footer>
+
+  <script src="/assets/shared.js?v=20260822" defer=""></script>
+
+
+</body></html>

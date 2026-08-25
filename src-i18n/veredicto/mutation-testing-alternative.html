@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Mutation testing vs a static PR check | Veredicto</title>
+  <meta name="description" content="Mutation testing asks the right question but costs too much on every pull request. When to use it, and when a deterministic check is enough." />
+  <link rel="canonical" href="https://fervon.dev/veredicto/mutation-testing-alternative" />
+  <meta name="keywords" content="mutation testing, mutation score, Stryker, PIT, mutmut, test quality, static check, CI cost, AI generated tests" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <meta name="theme-color" content="#0E0B0A" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/assets/favicon-192.png" sizes="192x192" type="image/png" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Fervon" />
+  <meta property="og:title" content="Mutation testing is slow. This does not replace it — it goes in front of it." />
+  <meta property="og:description" content="An honest comparison: what mutation testing catches that a static check cannot, what it costs, and what belongs on every pull request." />
+  <meta property="og:url" content="https://fervon.dev/veredicto/mutation-testing-alternative" />
+  <meta property="og:image" content="https://fervon.dev/assets/og-veredicto-en.jpg" />
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-veredicto-en.jpg" />
+  <meta property="og:locale" content="en_US" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Mutation testing: when it pays and when it does not",
+    "author": { "@type": "Person", "name": "Jonathan Martín" },
+    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
+    "mainEntityOfPage": "https://fervon.dev/veredicto/mutation-testing-alternative",
+    "description": "An honest comparison between mutation testing and a deterministic static check on the pull request."
+  }
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "", "acceptedAnswer": { "@type": "Answer", "text": "" } },
+    { "@type": "Question", "name": "", "acceptedAnswer": { "@type": "Answer", "text": "" } },
+    { "@type": "Question", "name": "", "acceptedAnswer": { "@type": "Answer", "text": "" } },
+    { "@type": "Question", "name": "", "acceptedAnswer": { "@type": "Answer", "text": "" } },
+    { "@type": "Question", "name": "", "acceptedAnswer": { "@type": "Answer", "text": "" } }
+  ]
+}
+  </script>
+
+  <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin="">
+  <link rel="stylesheet" href="/assets/core.css?v=20260822" />
+  <link rel="stylesheet" href="base.css?v=20260822" />
+  <link rel="stylesheet" href="/assets/shared.css?v=20260822" />
+</head>
+<body>
+  <a class="skip" href="#top" data-es="Saltar al contenido">Skip to content</a>
+
+  <header class="nav"><div class="glass bar">
+    <nav class="crumb" aria-label="Ruta de navegación">
+      <a href="/"><span class="fv"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true"> fervon</span></a><span class="sep">›</span>
+      <a href="/veredicto/"><svg class="mark" width="17" height="17" viewBox="0 0 26 26" aria-hidden="true"><path d="M5 13 L11 19 L21 7" fill="none" stroke="var(--amber)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Veredicto</a><span class="sep">›</span>
+      <span aria-current="page" data-es="Mutation testing">Mutation testing</span>
+    </nav>
+    <div class="act">
+      <button id="lang" class="btn btn-ghost btn-sm" type="button" aria-label="Cambiar idioma / Switch language">ES</button>      <a class="btn btn-fire btn-sm" href="/veredicto/#pricing" data-es="Ver precio">Get a licence</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+
+    <section class="hero">
+      <div class="wrap">
+        <h1 data-es="Mutation testing, y cuándo basta con un check estático">Mutation testing, and when a static check is enough</h1>
+        <p class="sub" data-es="El mutation testing hace la pregunta correcta: «si rompo el código a propósito, ¿se entera tu suite?». El problema no es la pregunta, es lo que cuesta responderla en cada pull request.">Mutation testing asks the right question: "if I break the code on purpose, does your suite notice?". The problem is not the question — it is what answering it costs on every pull request.</p>
+      </div>
+    </section>
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h" data-es="En 30 segundos">In 30 seconds</h2>
+          <ul>
+            <li data-es="El <b>mutation testing</b> altera tu código a propósito y comprueba si algún test se queja. Es la única medida honesta de si una suite detecta cambios de comportamiento."><b>Mutation testing</b> deliberately alters your code and checks whether any test complains. It is the only honest measure of whether a suite detects behaviour changes.</li>
+            <li data-es="El precio es el tiempo: ejecuta tu suite entera una vez por cada mutante. En un repositorio mediano eso son minutos u horas, no segundos.">The price is time: it runs your whole suite once per mutant. On a mid-sized repo that is minutes or hours, not seconds.</li>
+            <li data-es="Por eso casi nadie lo pone en cada PR, y por eso <b>no llega a tiempo</b> para frenar un PR de agente con 800 líneas de tests.">That is why almost nobody puts it on every PR, and why it <b>does not arrive in time</b> to stop an agent PR with 800 lines of tests.</li>
+            <li data-es="Un check estático hace menos, pero en segundos y en el PR: pilla lo burdo —tests borrados, asserts vacuos, mocks circulares— antes de que nadie apruebe nada.">A static check does less, but in seconds and on the PR: it catches the blatant stuff — deleted tests, vacuous asserts, circular mocks — before anyone approves anything.</li>
+            <li data-es="No compiten. Lo sensato es <b>check estático en cada PR</b> y <b>mutation testing por la noche</b> sobre lo que de verdad importa."><b>They do not compete.</b> The sensible setup is a static check on every PR and mutation testing nightly over what actually matters.</li>
+          </ul>
+          <div class="cta-row s-tldrcta">
+            <a class="btn btn-fire" href="/veredicto/#pricing" data-es="La capa del PR — $19/repo">The PR layer — $19/repo</a>
+            <a class="btn btn-ghost" href="/veredicto/report" data-es="Ver el experimento">See the experiment</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap prose">
+        <h2 data-es="Qué mide cada cosa">What each one measures</h2>
+        <p data-es="La cobertura mide qué líneas se ejecutaron. No dice nada de si alguien miró el resultado: un test sin un solo assert recorre el mismo código y sube el mismo porcentaje. Es la métrica más fácil de satisfacer sin hacer el trabajo.">Coverage measures which lines ran. It says nothing about whether anyone looked at the result: a test with no assertions walks the same code and raises the same percentage. It is the easiest metric to satisfy without doing the work.</p>
+        <p data-es="El mutation testing mide otra cosa. Cambia un <code>&gt;</code> por un <code>&gt;=</code>, invierte una condición, devuelve una constante — y vuelve a ejecutar la suite. Si los tests siguen en verde, ese mutante «sobrevive», y un mutante vivo es la prueba de que hay comportamiento que nadie comprueba.">Mutation testing measures something else. It changes a <code>&gt;</code> to a <code>&gt;=</code>, inverts a condition, returns a constant — and reruns the suite. If the tests stay green, that mutant "survives", and a surviving mutant is proof that some behaviour goes unchecked.</p>
+        <p data-es="Un check estático no mide ninguna de las dos. Mira el diff y busca patrones que solo aparecen cuando alguien ha tomado un atajo. No te dice si tu suite es buena; te dice si en este pull request alguien la ha vaciado.">A static check measures neither. It reads the diff and looks for patterns that only show up when someone took a shortcut. It does not tell you whether your suite is good; it tells you whether someone hollowed it out in this pull request.</p>
+      </div>
+    </section>
+
+    <!-- seo:table -->
+    <section class="sec alt seosec" id="tabla" aria-labelledby="tabla-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-es="Comparación">Comparison</span>
+          <h2 id="tabla-h" data-es="Tres capas, tres preguntas distintas">Three layers, three different questions</h2>
+        </div>
+        <div class="tablewrap reveal">
+          <table class="seotable">
+            <caption class="vh" data-es="Qué responde cada capa, qué cuesta y dónde conviene ponerla.">What each layer answers, what it costs, and where it belongs.</caption>
+            <thead>
+              <tr>
+                <th></th>
+                <th data-es="Cobertura">Coverage</th>
+                <th data-es="Check estático del PR">Static PR check</th>
+                <th data-es="Mutation testing">Mutation testing</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th data-es="Qué responde">What it answers</th><td data-es="¿Se ejecutó esta línea?">Did this line run?</td><td data-es="¿Han vaciado la suite en este PR?">Was the suite hollowed out in this PR?</td><td data-es="¿Detecta la suite un cambio de comportamiento?">Would the suite notice a behaviour change?</td></tr>
+              <tr><th data-es="Tiempo">Time</th><td data-es="Una ejecución">One run</td><td class="yes" data-es="Segundos, sin ejecutar tests">Seconds, without running tests</td><td class="warn" data-es="Una suite entera por mutante">One whole suite per mutant</td></tr>
+              <tr><th data-es="¿En cada PR?">On every PR?</th><td class="yes" data-es="Sí">Yes</td><td class="yes" data-es="Sí">Yes</td><td class="no" data-es="Rara vez sale a cuenta">Rarely worth it</td></tr>
+              <tr><th data-es="Pilla tests borrados o silenciados">Catches deleted or silenced tests</th><td class="no" data-es="No">No</td><td class="yes" data-es="Sí">Yes</td><td class="warn" data-es="Indirectamente">Indirectly</td></tr>
+              <tr><th data-es="Pilla asserts vacuos">Catches vacuous assertions</th><td class="no" data-es="No — sube igual">No — coverage still rises</td><td class="yes" data-es="Sí">Yes</td><td class="yes" data-es="Sí">Yes</td></tr>
+              <tr><th data-es="Pilla un assert del resultado equivocado">Catches asserting the wrong answer</th><td class="no" data-es="No">No</td><td class="no" data-es="No">No</td><td class="yes" data-es="Sí — es su razón de ser">Yes — this is its reason to exist</td></tr>
+              <tr><th data-es="Mantenimiento">Maintenance</th><td data-es="Bajo">Low</td><td data-es="Bajo">Low</td><td class="warn" data-es="Alto: mutantes equivalentes y ruido">High: equivalent mutants and noise</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap prose">
+        <h2 data-es="Por qué esto no sustituye al mutation testing">Why this does not replace mutation testing</h2>
+        <p data-es="Conviene decirlo sin rodeos, porque es la línea que separa una comparativa honesta de un argumento de venta: hay un fallo que un check estático <b>no puede</b> ver, y el mutation testing sí.">Worth saying bluntly, because it is the line between an honest comparison and a sales pitch: there is one failure a static check <b>cannot</b> see, and mutation testing can.</p>
+        <p data-es="Es el test bien formado que asevera el resultado equivocado. El agente leyó el código con el bug, entendió lo que hacía y escribió la comprobación que confirma exactamente eso. En el diff no hay nada raro: hay un test con su assert de verdad.">It is the well-formed test that asserts the wrong answer. The agent read the buggy code, understood what it did, and wrote the check that confirms exactly that. Nothing looks odd in the diff: there is a test, with a real assertion.</p>
+        <p data-es="Lo medimos con 20 módulos con un bug real cada uno. Las 20 suites escritas por agentes pasaron, ninguna pilló el bug, y Veredicto marcó <b>0</b> de las 20. Era el resultado correcto: no había nada sintáctico que ver. Un mutante en esa función sí habría sobrevivido y lo habría delatado.">We measured it with 20 modules, each with a real bug. All 20 agent-written suites passed, none caught the bug, and Veredicto flagged <b>0</b> of the 20. That was the correct result: there was nothing syntactic to see. A mutant in that function would have survived and given it away.</p>
+        <div class="cta-row">
+          <a class="btn btn-ghost" href="/veredicto/report" data-es="Los datos del experimento">The experiment data</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec alt">
+      <div class="wrap prose">
+        <h2 data-es="El reparto que funciona">The split that works</h2>
+        <ul class="bullets">
+          <li data-es="<b>En cada pull request:</b> un check determinista sobre el diff. Segundos, sin ejecutar tests y sin API key. Frena lo burdo mientras alguien todavía está mirando el PR."><b>On every pull request:</b> a deterministic check over the diff. Seconds, no test execution, no API key. It stops the blatant stuff while someone is still looking at the PR.</li>
+          <li data-es="<b>Cada noche, sobre lo que importa:</b> mutation testing acotado a los módulos con lógica de negocio de verdad. No sobre el repositorio entero, o el mantenimiento se come el beneficio."><b>Nightly, over what matters:</b> mutation testing scoped to the modules with real business logic. Not the whole repo, or maintenance eats the benefit.</li>
+          <li data-es="<b>Y la cobertura, como suelo:</b> útil como mínimo que no debe bajar, inútil como objetivo. Que nadie la suba borrando asserts."><b>And coverage, as a floor:</b> useful as a minimum that must not drop, useless as a goal. Just do not let anyone raise it by deleting assertions.</li>
+        </ul>
+        <p data-es="Puesto así, cada capa hace la pregunta que puede permitirse hacer con la frecuencia que hace falta. El error es pedirle a una que haga el trabajo de otra: la cobertura no juzga calidad, el check estático no juzga corrección y el mutation testing no llega a tiempo al pull request.">Framed that way, each layer asks the question it can afford to ask at the frequency it needs. The mistake is asking one to do another's job: coverage does not judge quality, a static check does not judge correctness, and mutation testing does not arrive in time for the pull request.</p>
+        <div class="cta-row">
+          <a class="btn btn-fire" href="/veredicto/#pricing" data-es="Poner la capa del PR — $19/repo">Add the PR layer — $19/repo</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:faq -->
+    <section class="sec seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">FAQ</span>
+          <h2 id="faq-h" data-es="Preguntas frecuentes">Frequently asked questions</h2>
+        </div>
+        <div class="faq reveal">
+          <details>
+            <summary data-es="¿Es Veredicto una alternativa al mutation testing?">Is Veredicto an alternative to mutation testing?</summary>
+            <p data-es="No, y venderlo así sería mentir. Responden a preguntas distintas. El mutation testing te dice si tu suite detecta cambios de comportamiento; Veredicto te dice si en este pull request alguien la ha vaciado. Lo natural es tener los dos, en sitios distintos del ciclo.">No, and selling it that way would be a lie. They answer different questions. Mutation testing tells you whether your suite detects behaviour changes; Veredicto tells you whether someone hollowed it out in this pull request. The natural setup has both, at different points in the cycle.</p>
+          </details>
+          <details>
+            <summary data-es="¿Por qué no ejecutar mutation testing en cada PR?">Why not run mutation testing on every PR?</summary>
+            <p data-es="Porque ejecuta la suite completa una vez por mutante. Con cientos o miles de mutantes, el coste en minutos de runner y en espera de la persona que abre el PR es difícil de justificar. Acotarlo a los ficheros tocados ayuda, pero sigue siendo otro orden de magnitud frente a leer un diff.">Because it runs the full suite once per mutant. With hundreds or thousands of mutants, the cost in runner minutes and in the waiting time of whoever opened the PR is hard to justify. Scoping it to changed files helps, but it is still an order of magnitude beyond reading a diff.</p>
+          </details>
+          <details>
+            <summary data-es="¿Qué es un mutante equivalente y por qué molesta?">What is an equivalent mutant and why is it annoying?</summary>
+            <p data-es="Es una mutación que no cambia el comportamiento observable, así que ningún test puede matarla por mucho que tu suite sea buena. Aparece como superviviente y te pide atención sin merecerla. Detectarlos es indecidible en general, y es la principal fuente de mantenimiento de esta técnica.">It is a mutation that does not change observable behaviour, so no test can kill it no matter how good your suite is. It shows up as a survivor and demands attention it does not deserve. Detecting them is undecidable in general, and it is the main maintenance cost of the technique.</p>
+          </details>
+          <details>
+            <summary data-es="¿Sirve el mutation score como objetivo de equipo?">Is mutation score a good team target?</summary>
+            <p data-es="Como diagnóstico es excelente; como objetivo se degrada igual que la cobertura. En cuanto el número es la meta, aparecen tests escritos para matar mutantes concretos en vez de para describir el comportamiento esperado. Úsalo para encontrar zonas ciegas, no para poner un umbral en CI.">As a diagnostic it is excellent; as a target it degrades exactly like coverage. The moment the number is the goal, you get tests written to kill specific mutants rather than to describe expected behaviour. Use it to find blind spots, not to set a CI threshold.</p>
+          </details>
+          <details>
+            <summary data-es="Si ya tengo mutation testing, ¿necesito esto?">If I already run mutation testing, do I need this?</summary>
+            <p data-es="Solo si tus pull requests los abren agentes. El mutation testing nocturno te dirá que la suite ha empeorado, pero al día siguiente y sin decirte quién ni en qué cambio. El check del PR pone el nombre del fichero y la línea delante de quien lo acaba de escribir, que es cuando arreglarlo es barato.">Only if agents open your pull requests. Nightly mutation testing will tell you the suite got worse, but a day later and without telling you who or in which change. The PR check puts the file and the line in front of whoever just wrote it, which is when fixing it is cheap.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye" data-es="Seguir leyendo">Keep reading</span>
+          <h2 id="mas-h" data-es="Relacionado">Related</h2>
+        </div>
+        <div class="related reveal">
+          <a class="relcard" href="/veredicto/">
+            <span class="rt">Veredicto</span>
+            <span class="rd" data-es="El check de CI que pilla los tests que no prueban nada.">The CI check that catches tests proving nothing.</span>
+          </a>
+          <a class="relcard" href="/veredicto/over-mocking-detector">
+            <span class="rt" data-es="Detector de over-mocking">Over-mocking detector</span>
+            <span class="rd" data-es="Cuándo un mock deja de probar y empieza a tapar.">When a mock stops proving and starts hiding.</span>
+          </a>
+          <a class="relcard" href="/veredicto/report">
+            <span class="rt" data-es="El experimento">The experiment</span>
+            <span class="rd" data-es="20 módulos con bug, 20 suites en verde, 0 bugs detectados.">20 buggy modules, 20 green suites, 0 bugs caught.</span>
+          </a>
+        </div>
+        <div class="fv-share">
+          <button type="button" class="sharebtn" aria-label="Compartir esta página">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"/></svg>
+            <span data-es="Compartir">Share</span>
+          </button>
+          <span class="sharemsg" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>Veredicto</b>
+      <span data-es="$19 por repositorio">$19 per repository</span>
+    </div>
+    <a class="btn btn-fire" href="/veredicto/#pricing" data-es="Ver precio">Get a licence</a>
+  </div>
+
+  <footer><div class="wrap foot">
+    <span data-es="Veredicto es un proyecto de &lt;a href=&quot;https://fervon.dev&quot;&gt;&lt;img src=&quot;/assets/logo-icon.svg&quot; height=&quot;17&quot; alt=&quot;&quot; aria-hidden=&quot;true&quot;&gt; Fervon&lt;/a&gt; · Forjado al rojo vivo">Veredicto is a project by <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" height="17" alt="" aria-hidden="true"> Fervon</a> · Forged red-hot</span>
+    <span data-es="© 2026 Jonathan Martín · Código abierto a la vista, por diseño">© 2026 Jonathan Martín · Source-available by design</span>
+  </div></footer>
+
+  <script src="/assets/shared.js?v=20260822" defer></script>
+</body>
+</html>

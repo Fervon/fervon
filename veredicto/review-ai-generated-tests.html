@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>How to review AI-generated tests | Veredicto</title>
+  <meta name="description" content="A checklist for reviewing a pull request full of tests you did not write: what to look at first, and the questions that expose a hollow suite.">
+  <link rel="canonical" href="https://fervon.dev/veredicto/review-ai-generated-tests">
+  <link rel="alternate" type="application/rss+xml" title="Fervon · News" href="/en/blog/feed.xml"><link rel="alternate" hreflang="es" href="https://fervon.dev/es/veredicto/review-ai-generated-tests"><link rel="alternate" hreflang="en" href="https://fervon.dev/veredicto/review-ai-generated-tests"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/veredicto/review-ai-generated-tests">
+  <meta name="keywords" content="review AI generated tests, code review checklist, agent pull request, test quality review, copilot tests, cursor tests, claude code tests">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#0E0B0A">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-192.png" sizes="192x192" type="image/png">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Fervon">
+  <meta property="og:title" content="How to review a PR full of tests you did not write">
+  <meta property="og:description" content="Seven checks ordered by how much each one gives away, so you can review agent-written tests without reading all 800 lines.">
+  <meta property="og:url" content="https://fervon.dev/veredicto/review-ai-generated-tests">
+  <meta property="og:image" content="https://fervon.dev/assets/og-veredicto-en.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-veredicto-en.jpg">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "How to review AI-generated tests",
+    "author": { "@type": "Person", "name": "Jonathan Martín" },
+    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
+    "mainEntityOfPage": "https://fervon.dev/veredicto/review-ai-generated-tests",
+    "description": "A checklist for reviewing a pull request full of tests written by an agent."
+  }
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Should I reject PRs with AI-written tests?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Agent-written tests have real value as regression scaffolding and save genuine work. What they cannot be is the evidence that the code works, especially when the same agent wrote both in the same turn."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if coverage goes up?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Coverage goes up just the same with tests that check nothing, because it measures which lines ran, not whether anyone looked at the result. In fact, gutting a test of its assertions leaves coverage untouched. It is the easiest metric to satisfy without doing the work."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does this review actually take?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The six mechanical checks take minutes by hand and are instant if you automate them. The seventh — breaking the code on purpose — costs what it costs, but you only need to do it on one function to know whether the suite is serious."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this work for human-written tests?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, the checklist is the same. The difference is frequency: a person rarely writes forty test files in one go, and when they take a shortcut they usually know they are taking it. An agent does it at scale and without a tell."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should it block the PR or just warn?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Start by warning. Veredicto ships in \"warn\" mode by default: it comments on what it finds and blocks nothing. Once the team trusts what it flags, you move to \"block\" and only the hard signals fail the check."
+      }
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://fervon.dev/en/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Veredicto",
+      "item": "https://fervon.dev/en/veredicto/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "How to review AI-generated tests you did not write",
+      "item": "https://fervon.dev/veredicto/review-ai-generated-tests"
+    }
+  ]
+}
+  </script>
+
+  <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin="">
+  <link rel="stylesheet" href="/assets/core.css?v=20260822">
+  <link rel="stylesheet" href="/veredicto/base.css?v=20260822">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260822">
+</head>
+<body>
+  <a class="skip" href="#top">Skip to content</a>
+
+  <header class="nav"><div class="glass bar">
+    <nav class="crumb" aria-label="Ruta de navegación">
+      <a href="/en/"><span class="fv"><img src="/assets/logo-icon.svg" width="17" height="17" alt="" aria-hidden="true"> fervon</span></a><span class="sep">›</span>
+      <a href="/en/veredicto/"><svg class="mark" width="17" height="17" viewBox="0 0 26 26" aria-hidden="true"><path d="M5 13 L11 19 L21 7" fill="none" stroke="var(--amber)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>Veredicto</a><span class="sep">›</span>
+      <span aria-current="page">Reviewing AI-generated tests</span>
+    </nav>
+    <div class="act">
+      <nav class="langseg" id="lang" aria-label="Language"><a class="langopt" href="/es/veredicto/review-ai-generated-tests" hreflang="es" lang="es">ES</a><span class="langopt on" aria-current="true">EN</span></nav>      <a class="btn btn-fire btn-sm" href="/en/veredicto/#pricing">Get a licence</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+
+    <section class="hero">
+      <div class="wrap">
+        <h1>How to review AI-generated tests you did not write</h1>
+        <p class="sub">A pull request lands with 40 files and 800 lines of tests. Nobody is going to read them all, and anyone who says otherwise is lying. Here is what to look at, in order, to know within five minutes whether that suite checks anything.</p>
+      </div>
+    </section>
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h">In 30 seconds</h2>
+          <ul>
+            <li>Do not <b>review</b> the <b>generated tests</b> like code: review them like a claim someone has to back up.</li>
+            <li>Start with the <b>count</b>: if the PR touches code and there are fewer tests than before, you already have the conversation.</li>
+            <li>Move on to the <b>assertions</b>: count how many per case. Zero assertions, or one assertion about a call, check nothing.</li>
+            <li>The question that gives away the most: <b>"would this test fail if I broke the code on purpose?"</b>. If the answer is not obvious, break it and look.</li>
+            <li>The mechanical checks are worth automating: that is <b>Veredicto</b>, 11 rules over the PR diff, so your attention goes to what only a person can judge.</li>
+          </ul>
+          <div class="cta-row s-tldrcta">
+            <a class="btn btn-fire" href="/en/veredicto/#pricing">Automate the mechanical part — $19/repo</a>
+            <a class="btn btn-ghost" href="/veredicto/report">See the experiment</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap prose">
+        <h2>Why ordinary review does not work here</h2>
+        <p>Reviewing code written by a person works because both sides share the context of what is hard: you know where the risk is, so you look there. An agent produces uniformly plausible text across all 800 lines, with no spikes of doubt. There is nowhere obvious to look.</p>
+        <p>And volume works against you: the bigger the test PR, the less likely anyone reads it, and the more comfortable it feels to trust the green check — which is exactly the signal the agent optimised for.</p>
+        <p>That is why order matters more than completeness. These seven checks are ordered by how much each gives away, divided by what it costs.</p>
+      </div>
+    </section>
+
+    <section class="sec alt">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">The checklist</span>
+          <h2>Seven checks, in this order</h2>
+        </div>
+        <div class="prose">
+          <h3>1. Did the test count go down?</h3>
+          <p>Ten seconds, and it catches the most common case. A PR that touches code and reduces the number of test cases owes an explanation. Sometimes there is a good reason; let them state it.</p>
+          <h3>2. How many assertions per case?</h3>
+          <p>Look for empty bodies and cases with a single assertion. An <code>it()</code> with no assertion is not a test: it is a function that runs. And it raises coverage all the same, which is what makes it dangerous.</p>
+          <h3>3. Are the assertions about results or about calls?</h3>
+          <p>"<code>toHaveBeenCalled</code>" checks that your code called something. It does not check the result is right. A whole file of call assertions describes the implementation instead of checking behaviour, and it will break the moment you refactor without changing anything.</p>
+          <h3>4. Is anything silenced?</h3>
+          <p>Search for <code>.skip</code>, <code>.only</code>, <code>xit</code>, <code>@pytest.mark.skip</code> and any <code>|| true</code> after the test command. An <code>.only</code> is especially treacherous: it does not silence one test, it silences every other one.</p>
+          <h3>5. Was the config touched?</h3>
+          <p>A coverage threshold going down, a new <code>continue-on-error</code> in the workflow, a <code>--passWithNoTests</code>. One-line changes, in files nobody reviews, that disable the whole check.</p>
+          <h3>6. What got mocked?</h3>
+          <p>Mocking the clock and the network is fine. Mocking the module the test claims to test is a mirror checking its reflection: it always passes. If the module name appears both in the import and in the mock call, stop there.</p>
+          <h3>7. Break the code on purpose</h3>
+          <p>The one check that cannot be faked. Flip a sign, invert a condition, return a constant. If the suite stays green, you know what it is worth. Do it on one function, not all of them: one is enough to know whether this is serious.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:table -->
+    <section class="sec seosec" id="tabla" aria-labelledby="tabla-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">Division of labour</span>
+          <h2 id="tabla-h">What to automate and what to look at yourself</h2>
+        </div>
+        <div class="tablewrap reveal">
+          <table class="seotable">
+            <caption class="vh">Which review checks a machine can do and which it cannot.</caption>
+            <thead>
+              <tr>
+                <th>Check</th>
+                <th>Cost to you</th>
+                <th>Automatable?</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th>Test count went down</th><td>10 seconds</td><td class="yes">Yes</td></tr>
+              <tr><th>Cases with no assertions</th><td>1 minute</td><td class="yes">Yes</td></tr>
+              <tr><th>Tautological assertions</th><td>1 minute</td><td class="yes">Yes</td></tr>
+              <tr><th>Silenced tests</th><td>30 seconds</td><td class="yes">Yes</td></tr>
+              <tr><th>Config or CI weakened</th><td>1 minute</td><td class="yes">Yes</td></tr>
+              <tr><th>Mocking the module under test</th><td>5 minutes</td><td class="yes">Yes</td></tr>
+              <tr><th>Asserts the right answer?</th><td>However long it takes</td><td class="no">No — this one is yours</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="wrap prose">
+          <p>The first six are mechanical, which is exactly why a machine should do them on every pull request: they are boring, they get done badly under time pressure, and they do not improve with experience. The seventh is the only one that needs someone who understands what the code was supposed to do — and it is precisely where you want a fresh head.</p>
+          <div class="cta-row">
+            <a class="btn btn-fire" href="/en/veredicto/#pricing">Have the first six run themselves</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:faq -->
+    <section class="sec alt seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">FAQ</span>
+          <h2 id="faq-h">Frequently asked questions</h2>
+        </div>
+        <div class="faq reveal">
+          <details>
+            <summary>Should I reject PRs with AI-written tests?</summary>
+            <p>No. Agent-written tests have real value as regression scaffolding and save genuine work. What they cannot be is the evidence that the code works, especially when the same agent wrote both in the same turn.</p>
+          </details>
+          <details>
+            <summary>What if coverage goes up?</summary>
+            <p>Coverage goes up just the same with tests that check nothing, because it measures which lines ran, not whether anyone looked at the result. In fact, gutting a test of its assertions leaves coverage untouched. It is the easiest metric to satisfy without doing the work.</p>
+          </details>
+          <details>
+            <summary>How long does this review actually take?</summary>
+            <p>The six mechanical checks take minutes by hand and are instant if you automate them. The seventh — breaking the code on purpose — costs what it costs, but you only need to do it on one function to know whether the suite is serious.</p>
+          </details>
+          <details>
+            <summary>Does this work for human-written tests?</summary>
+            <p>Yes, the checklist is the same. The difference is frequency: a person rarely writes forty test files in one go, and when they take a shortcut they usually know they are taking it. An agent does it at scale and without a tell.</p>
+          </details>
+          <details>
+            <summary>Should it block the PR or just warn?</summary>
+            <p>Start by warning. Veredicto ships in "warn" mode by default: it comments on what it finds and blocks nothing. Once the team trusts what it flags, you move to "block" and only the hard signals fail the check.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">Keep reading</span>
+          <h2 id="mas-h">Related</h2>
+        </div>
+        <div class="related reveal">
+          <a class="relcard" href="/en/veredicto/">
+            <span class="rt">Veredicto</span>
+            <span class="rd">The CI check that catches tests proving nothing.</span>
+          </a>
+          <a class="relcard" href="/veredicto/agent-skipped-tests-green-ci">
+            <span class="rt">Silenced tests</span>
+            <span class="rd">When the agent turns off the alarm instead of the fire.</span>
+          </a>
+          <a class="relcard" href="/en/blog/tests-amanados-agentes/">
+            <span class="rt">The article</span>
+            <span class="rd">Six ways to game a test and how each is detected.</span>
+          </a>
+        </div>
+        <div class="fv-share">
+          <button type="button" class="sharebtn" aria-label="Compartir esta página">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
+            <span>Share</span>
+          </button>
+          <span class="sharemsg" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>Veredicto</b>
+      <span>$19 per repository</span>
+    </div>
+    <a class="btn btn-fire" href="/en/veredicto/#pricing">Get a licence</a>
+  </div>
+
+  <footer><div class="wrap foot">
+    <span>Veredicto is a project by <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" width="17" height="17" loading="lazy" alt="" aria-hidden="true"> Fervon</a> · Forged red-hot</span>
+    <span>© 2026 Jonathan Martín · Source-available by design</span>
+  </div></footer>
+
+  <script src="/assets/shared.js?v=20260822" defer=""></script>
+
+
+</body></html>

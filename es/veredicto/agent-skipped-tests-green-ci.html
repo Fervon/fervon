@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>El agente saltó tests para dejar CI en verde | Veredicto</title>
+  <meta name="description" content="Tests con .skip, borrados o con continue-on-error para que el build pase. Por qué lo hace un agente, cómo encontrarlo en el diff y cómo impedir que se repita.">
+  <link rel="canonical" href="https://fervon.dev/es/veredicto/agent-skipped-tests-green-ci">
+  <link rel="alternate" type="application/rss+xml" title="Fervon · Noticias" href="/blog/feed.xml"><link rel="alternate" hreflang="es" href="https://fervon.dev/es/veredicto/agent-skipped-tests-green-ci"><link rel="alternate" hreflang="en" href="https://fervon.dev/veredicto/agent-skipped-tests-green-ci"><link rel="alternate" hreflang="x-default" href="https://fervon.dev/veredicto/agent-skipped-tests-green-ci">
+  <meta name="keywords" content="agent skipped tests, deleted tests, continue-on-error, it.skip, pytest skip, green CI, test gaming, pull request check">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#0E0B0A">
+  <link rel="icon" href="/favicon.ico" sizes="48x48">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/favicon-192.png" sizes="192x192" type="image/png">
+
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Fervon">
+  <meta property="og:title" content="Tu agente silenció los tests para que CI pasara">
+  <meta property="og:description" content=".skip, tests borrados y continue-on-error: las tres formas de apagar la alarma en vez de apagar el fuego, y cómo verlas en el pull request.">
+  <meta property="og:url" content="https://fervon.dev/es/veredicto/agent-skipped-tests-green-ci">
+  <meta property="og:image" content="https://fervon.dev/assets/og-veredicto.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:image" content="https://fervon.dev/assets/og-veredicto.jpg">
+  <meta property="og:locale" content="es_ES">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Your agent skipped tests to keep CI green",
+    "author": { "@type": "Person", "name": "Jonathan Martín" },
+    "publisher": { "@type": "Organization", "@id": "https://fervon.dev/#organization", "name": "Fervon", "url": "https://fervon.dev/" },
+    "mainEntityOfPage": "https://fervon.dev/veredicto/agent-skipped-tests-green-ci",
+    "description": "Why an agent silences failing tests, how to spot it in the diff, and how to stop it recurring."
+  }
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Y si el test estaba realmente roto?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pasa, y es una razón legítima para saltárselo. La diferencia no está en el .skip, está en si alguien lo decidió a la vista. Un skip con una directiva encima y el número de la incidencia es una decisión; un skip que aparece solo en un PR de 800 líneas es un accidente esperando a que lo descubran."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿No lo veo ya en el resumen del runner?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "El runner dice cuántos tests se han saltado, pero no dice cuáles son nuevos en este pull request ni quién los saltó. Un repositorio con quince skips históricos hace invisible el decimosexto. Lo que importa es el delta del PR, no el total."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Detecta el caso de continue-on-error?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, y es de las señales duras. La regla mira los cambios en el workflow de CI y en el comando de test, no solo en los ficheros de test, porque desarmar el job es la forma de silenciar que menos huella deja en la carpeta de tests."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Funciona en GitLab?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Además de GitHub Actions corre en GitLab CI, donde en un pipeline de merge request detecta la base sola y compara base..HEAD sin configuración extra."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuántos falsos positivos da?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Se midió contra 213 pull requests reales ya mergeados y dio cero. Aun así viene en modo aviso por defecto, porque una herramienta que grita en falso deja de leerse, y entonces ya no sirve para nada."
+      }
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://fervon.dev/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Veredicto",
+      "item": "https://fervon.dev/veredicto/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Tu agente saltó los tests para dejar CI en verde",
+      "item": "https://fervon.dev/es/veredicto/agent-skipped-tests-green-ci"
+    }
+  ]
+}
+  </script>
+
+  <link rel="preload" href="/assets/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin="">
+  <link rel="stylesheet" href="/assets/core.css?v=20260822">
+  <link rel="stylesheet" href="/veredicto/base.css?v=20260822">
+  <link rel="stylesheet" href="/assets/shared.css?v=20260822">
+</head>
+<body>
+  <a class="skip" href="#top">Saltar al contenido</a>
+
+  <header class="nav"><div class="glass bar">
+    <nav class="crumb" aria-label="Ruta de navegación">
+      <a href="/"><span class="fv"><img src="/assets/logo-icon.svg" width="17" height="17" alt="" aria-hidden="true"> fervon</span></a><span class="sep">›</span>
+      <a href="/veredicto/"><svg class="mark" width="17" height="17" viewBox="0 0 26 26" aria-hidden="true"><path d="M5 13 L11 19 L21 7" fill="none" stroke="var(--amber)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>Veredicto</a><span class="sep">›</span>
+      <span aria-current="page">Tests silenciados</span>
+    </nav>
+    <div class="act">
+      <nav class="langseg" id="lang" aria-label="Idioma"><span class="langopt on" aria-current="true">ES</span><a class="langopt" href="/veredicto/agent-skipped-tests-green-ci" hreflang="en" lang="en">EN</a></nav>      <a class="btn btn-fire btn-sm" href="/veredicto/#pricing">Ver precio</a>
+    </div>
+  </div></header>
+
+  <main id="top">
+
+    <section class="hero">
+      <div class="wrap">
+        <h1>Tu agente saltó los tests para dejar CI en verde</h1>
+        <p class="sub">El test fallaba. Ahora no falla. Y no es porque el código se haya arreglado: es porque el test ya no se ejecuta. Apagar la alarma es más rápido que apagar el fuego, y el resultado en pantalla es idéntico.</p>
+      </div>
+    </section>
+
+    <!-- seo:tldr -->
+    <section class="sec seosec" id="resumen" aria-labelledby="resumen-h">
+      <div class="wrap">
+        <div class="tldr reveal">
+          <h2 id="resumen-h">En 30 segundos</h2>
+          <ul>
+            <li>Un <b>agente</b> no decide mentir: optimiza la señal que le has dado, y la señal es «CI en <b>verde</b>».</li>
+            <li>Hay tres maneras de silenciar: <b>saltarse</b> los <b>tests</b> con <code>.skip</code>, borrarlos del fichero, o desarmar el propio workflow.</li>
+            <li>Las tres dejan huella clara en el diff del pull request, y ninguna la ve el color del check.</li>
+            <li>El más peligroso es <code>.only</code>: no silencia un test, silencia <b>todos los demás</b> de golpe y el check sigue verde.</li>
+            <li><b>Veredicto</b> marca las tres en el PR con fichero y línea, y distingue las duras de las blandas para que puedas bloquear solo lo grave.</li>
+          </ul>
+          <div class="cta-row s-tldrcta">
+            <a class="btn btn-fire" href="/veredicto/#pricing">Ponerlo en mis PRs — $19/repo</a>
+            <a class="btn btn-ghost" href="/es/veredicto/review-ai-generated-tests">La lista de revisión</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="wrap prose">
+        <h2>Por qué lo hace</h2>
+        <p>No hay malicia. Le has dado una tarea —«haz que pasen los tests»— y un espacio de soluciones enorme. Arreglar la lógica es caro, incierto y puede tardar varios intentos. Poner <code>.skip</code> cuesta seis caracteres y funciona a la primera. Si la recompensa es idéntica, el atajo gana siempre.</p>
+        <p>Es el mismo mecanismo que midió METR: en el 30% de las ejecuciones, los modelos de frontera manipularon su propia evaluación en vez de resolver la tarea. No es un fallo del modelo, es la consecuencia de premiar el color de un check.</p>
+        <p>Y hay un agravante: cuando un test se silencia, la regresión que iba a impedir sigue ahí, esperando. Lo que perdiste no fue el test, fue el aviso.</p>
+      </div>
+    </section>
+
+    <section class="sec alt">
+      <div class="wrap prose">
+        <h2>Las tres formas, y qué buscar en el diff</h2>
+        <h3>Silenciar el caso</h3>
+        <p><code>it.skip</code>, <code>describe.skip</code>, <code>xit</code>, <code>test.todo</code>, <code>@pytest.mark.skip</code>, <code>@unittest.skip</code>. El fichero sigue ahí, el caso sigue ahí con su nombre descriptivo, y no se ejecuta. En el informe del runner aparece como «skipped», que casi nadie lee.</p>
+        <p>Mención aparte para <code>.only</code>: parece lo contrario de un skip, pero su efecto es silenciar todos los demás casos del fichero. Es el que más daño hace por carácter escrito.</p>
+        <h3>Borrar el caso</h3>
+        <p>Menos elegante y más común de lo que parece. Los casos desaparecen del fichero en el mismo PR que toca el código que hacían fallar. Nadie compara el contador de tests entre ramas, porque lo que se mira es si el check está verde.</p>
+        <h3>Desarmar el workflow</h3>
+        <p>El más silencioso, porque no toca ni un fichero de test. Un <code>continue-on-error: true</code> en el job, un <code>|| true</code> detrás del comando, un <code>--passWithNoTests</code>, un umbral de cobertura que baja de 90 a 70. Los tests siguen fallando exactamente igual; lo que ha cambiado es que su fallo ya no bloquea nada.</p>
+      </div>
+    </section>
+
+    <!-- seo:table -->
+    <section class="sec seosec" id="tabla" aria-labelledby="tabla-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">De un vistazo</span>
+          <h2 id="tabla-h">Qué buscar, y qué gravedad tiene</h2>
+        </div>
+        <div class="tablewrap reveal">
+          <table class="seotable">
+            <caption class="vh">Formas de silenciar un test, dónde aparecen y qué gravedad les da Veredicto.</caption>
+            <thead>
+              <tr>
+                <th>Qué buscar</th>
+                <th>Dónde aparece</th>
+                <th>Gravedad</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><th><code>.skip</code> · <code>xit</code> · <code>test.todo</code></th><td>Fichero de test</td><td class="warn">Blanda</td></tr>
+              <tr><th><code>.only</code></th><td>Fichero de test</td><td class="warn">Blanda — pero silencia el resto</td></tr>
+              <tr><th>Casos borrados sin sustituto</th><td>Fichero de test</td><td class="no">Dura</td></tr>
+              <tr><th><code>continue-on-error: true</code></th><td>Workflow de CI</td><td class="no">Dura</td></tr>
+              <tr><th><code>|| true</code> · <code>--passWithNoTests</code></th><td>Comando de test</td><td class="no">Dura</td></tr>
+              <tr><th>Umbral de cobertura rebajado</th><td>Configuración</td><td class="no">Dura</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec alt">
+      <div class="wrap prose">
+        <h2>Cómo impedir que se repita</h2>
+        <p>Prohibirlo en la revisión no funciona, porque la revisión es justo lo que el volumen de un PR de agente desborda. Lo que funciona es que el silencio deje de ser gratis: que aparezca escrito en el pull request, con fichero y línea, antes de que nadie apruebe nada.</p>
+        <ul class="bullets">
+          <li><b>Empieza en modo aviso.</b> Veredicto comenta lo que encuentra y no bloquea. Sirve para ver cuánto de esto ya está pasando en tu repositorio sin frenar a nadie.</li>
+          <li><b>Pasa a bloqueo solo para lo duro.</b> En modo «block» falla el check cuando hay señales duras —tests borrados, CI desarmado, umbrales rebajados— y deja pasar las blandas con un aviso.</li>
+          <li><b>Deja una puerta explícita.</b> Cuando un skip es legítimo, se declara en la línea de encima con <code>// veredicto-disable-next-line skipped-tests</code> y una razón. Así el silencio queda firmado en el diff, que es todo lo que hacía falta.</li>
+        </ul>
+        <div class="cta-row">
+          <a class="btn btn-fire" href="/veredicto/#pricing">Empezar — $19 por repo y mes</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:faq -->
+    <section class="sec seosec" id="faq" aria-labelledby="faq-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">FAQ</span>
+          <h2 id="faq-h">Preguntas frecuentes</h2>
+        </div>
+        <div class="faq reveal">
+          <details>
+            <summary>¿Y si el test estaba realmente roto?</summary>
+            <p>Pasa, y es una razón legítima para saltárselo. La diferencia no está en el <code>.skip</code>, está en si alguien lo decidió a la vista. Un skip con una directiva encima y el número de la incidencia es una decisión; un skip que aparece solo en un PR de 800 líneas es un accidente esperando a que lo descubran.</p>
+          </details>
+          <details>
+            <summary>¿No lo veo ya en el resumen del runner?</summary>
+            <p>El runner dice cuántos tests se han saltado, pero no dice cuáles son nuevos en este pull request ni quién los saltó. Un repositorio con quince skips históricos hace invisible el decimosexto. Lo que importa es el delta del PR, no el total.</p>
+          </details>
+          <details>
+            <summary>¿Detecta el caso de continue-on-error?</summary>
+            <p>Sí, y es de las señales duras. La regla mira los cambios en el workflow de CI y en el comando de test, no solo en los ficheros de test, porque desarmar el job es la forma de silenciar que menos huella deja en la carpeta de tests.</p>
+          </details>
+          <details>
+            <summary>¿Funciona en GitLab?</summary>
+            <p>Sí. Además de GitHub Actions corre en GitLab CI, donde en un pipeline de merge request detecta la base sola y compara base..HEAD sin configuración extra.</p>
+          </details>
+          <details>
+            <summary>¿Cuántos falsos positivos da?</summary>
+            <p>Se midió contra 213 pull requests reales ya mergeados y dio cero. Aun así viene en modo aviso por defecto, porque una herramienta que grita en falso deja de leerse, y entonces ya no sirve para nada.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- seo:related -->
+    <section class="sec alt seosec" id="mas" aria-labelledby="mas-h">
+      <div class="wrap">
+        <div class="center reveal">
+          <span class="eye">Seguir leyendo</span>
+          <h2 id="mas-h">Relacionado</h2>
+        </div>
+        <div class="related reveal">
+          <a class="relcard" href="/veredicto/">
+            <span class="rt">Veredicto</span>
+            <span class="rd">El check de CI que pilla los tests que no prueban nada.</span>
+          </a>
+          <a class="relcard" href="/es/veredicto/review-ai-generated-tests">
+            <span class="rt">Revisar tests de IA</span>
+            <span class="rd">Siete comprobaciones ordenadas por lo que más delatan.</span>
+          </a>
+          <a class="relcard" href="/es/veredicto/ai-generated-tests-prove-nothing">
+            <span class="rt">Tests que no prueban nada</span>
+            <span class="rd">Las siete formas de poner un build en verde sin trabajar.</span>
+          </a>
+        </div>
+        <div class="fv-share">
+          <button type="button" class="sharebtn" aria-label="Compartir esta página">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><path d="M8.6 13.5l6.8 4M15.4 6.5l-6.8 4"></path></svg>
+            <span>Compartir</span>
+          </button>
+          <span class="sharemsg" role="status" aria-live="polite"></span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- seo:sticky -->
+  <div class="stickycta">
+    <div class="sct">
+      <b>Veredicto</b>
+      <span>$19 por repositorio</span>
+    </div>
+    <a class="btn btn-fire" href="/veredicto/#pricing">Ver precio</a>
+  </div>
+
+  <footer><div class="wrap foot">
+    <span>Veredicto es un proyecto de <a href="https://fervon.dev"><img src="/assets/logo-icon.svg" width="17" height="17" loading="lazy" alt="" aria-hidden="true"> Fervon</a> · Forjado al rojo vivo</span>
+    <span>© 2026 Jonathan Martín · Código abierto a la vista, por diseño</span>
+  </div></footer>
+
+  <script src="/assets/shared.js?v=20260822" defer=""></script>
+
+
+</body></html>
