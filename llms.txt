@@ -46,6 +46,11 @@ no subscription, no data leaving the user's machine. Sitio: https://fervon.dev
 - [Alternativa a Microsoft Recall](https://fervon.dev/trace/microsoft-recall-alternative): la memoria buscable de Recall sin el bloqueo a PCs Copilot+ y sin los problemas de privacidad.
 - [Alternativa a Screenpipe](https://fervon.dev/trace/screenpipe-alternative): la misma idea con menos consumo y sin suscripción en la nube.
 - [Memoria personal sin grabar la pantalla](https://fervon.dev/trace/personal-memory-tool-without-screen-recording): historial de navegador, ventana activa y portapapeles, sin vídeo 24/7 ni capturas almacenadas.
+- [Tests generados por IA que no prueban nada](https://fervon.dev/veredicto/ai-generated-tests-prove-nothing): las siete formas de poner un build en verde sin arreglar nada, cuáles dejan huella en el diff y cuál solo la ve una persona.
+- [Cómo revisar tests escritos por IA](https://fervon.dev/veredicto/review-ai-generated-tests): siete comprobaciones ordenadas por lo que más delatan, para revisar un pull request de 800 líneas de tests que no escribiste tú.
+- [Detector de over-mocking](https://fervon.dev/veredicto/over-mocking-detector): dónde está la frontera entre aislar y tapar, y por qué mockear el módulo bajo prueba da un test que no puede fallar.
+- [El agente silenció los tests para dejar CI en verde](https://fervon.dev/veredicto/agent-skipped-tests-green-ci): .skip, tests borrados y continue-on-error; por qué un agente toma ese atajo y cómo verlo en el diff.
+- [Mutation testing frente a un check estático](https://fervon.dev/veredicto/mutation-testing-alternative): qué responde cada capa, qué cuesta y por qué un check en el PR no sustituye al mutation testing.
 - [Informe: la IA escribió los tests y el bug se publicó igual](https://fervon.dev/veredicto/report): experimento reproducible con 20 módulos con bugs reales. Los agentes escribieron tests "exhaustivos", el 100% pasó en verde y ninguno detectó el bug.
 
 ## Feeds
