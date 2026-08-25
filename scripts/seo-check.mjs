@@ -239,8 +239,19 @@ const CHECKS = [
   { n: 26, name: 'Sitemap descubrible y sano', site: async () => {
       if (!/Sitemap:\s*https:\/\/fervon\.dev\/sitemap\.xml/i.test(site.robots || '')) return false;
       if (!/^\s*<\?xml/.test(site.sitemap || '') || !/<urlset/.test(site.sitemap || '')) return false;
+      /* Con `?cb=`, y no es un detalle: MEDIDO el 2026-08-25. Este bucle pedía
+         la URL LIMPIA, así que cuando se corría con un despliegue a medias se
+         llevaba un 404 — y la regla de caché de Cloudflare de esta zona lo
+         guardaba en el borde con un TTL largo. Resultado: la herramienta que
+         existe para comprobar que el sitio está bien DEJABA ROTAS 5 de las 10
+         URLs nuevas, con `cf-cache-status: HIT` y `Age` creciendo, mientras el
+         origen servía 200. Y es intermitente por POP, que es lo peor: una
+         comprobación suelta sale en verde y te hace creer que no ha pasado.
+         El resto de peticiones de --live ya iban con `?cb=`; a esta se le
+         había olvidado. Lo que se quiere comprobar es que el ORIGEN sirve la
+         página, no qué guardó el borde. */
       for (const u of sitemapUrls) {
-        const r = await fetch('https://fervon.dev' + u, { method: 'HEAD' });
+        const r = await fetch('https://fervon.dev' + u + '?cb=' + Math.random(), { method: 'HEAD' });
         if (!r.ok) { console.error(`   sitemap: ${u} → HTTP ${r.status}`); return false; }
       }
       return true;
