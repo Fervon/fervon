@@ -15,6 +15,10 @@
    Se ignoran, ahí sí, las etiquetas del <body>: OG y Twitter en el cuerpo son
    síntoma del mismo fallo, así que también se exige que estén arriba.
 
+   NO CUENTA COMO VISITA: con `--live` se aborta `static.cloudflareinsights.com`
+   y se fija el viewport, para no ensuciar la analítica del sitio ni disfrazar
+   el ruido de visitante. Ver el bloque de arranque del navegador.
+
    Uso:  node scripts/head-check.mjs                  todo el sitio, en local
          node scripts/head-check.mjs --live           lo que sirve fervon.dev
          node scripts/head-check.mjs a.html b.html    solo esas
@@ -52,6 +56,34 @@ const urlDe = (f) => ORIGIN + '/' + f.replace(/index\.html$/, '').replace(/\.htm
 
 const browser = await puppeteer.launch({ executablePath: CHROME, headless: 'new', args: ['--no-sandbox'] });
 const page = await browser.newPage();
+
+/* ── Dos cosas para que COMPROBAR el sitio no sea VISITAR el sitio ──────────
+   MEDIDO el 2026-08-25: este script cargaba producción con Chrome y sin tocar
+   nada más, así que el beacon de Cloudflare Web Analytics —que el borde inyecta
+   en el HTML— se disparaba en cada página. Cada pasada de `--live` metía 59
+   visitas falsas en la analítica del sitio, y encima con el viewport por
+   defecto de Puppeteer, 800x600, que no es el de nadie. Las dos cosas juntas
+   contaminaron una investigación de CLS: el 800x600 del Debug View resultó ser
+   nuestro, no de un visitante.
+
+   Un medidor que altera lo que mide no sirve para medir. */
+
+/* 1. Viewport explícito. El valor da igual para lo que este script comprueba
+      —dónde acaban las etiquetas del <head> no depende del ancho— pero
+      heredarlo en silencio sí importa: hace que el ruido se disfrace de
+      visitante real en los informes. */
+await page.setViewport({ width: 1280, height: 900 });
+
+/* 2. El beacon no se carga. Nada de analítica: aquí venimos a leer el <head>,
+      no a sumar una visita. Se aborta la petición entera en vez de bloquear
+      cookies, porque lo que cuenta como visita es que el script llegue a
+      ejecutarse. */
+await page.setRequestInterception(true);
+page.on('request', (req) => {
+  if (/cloudflareinsights\.com/.test(req.url())) return req.abort().catch(() => {});
+  req.continue().catch(() => {});
+});
+
 const malas = [];
 
 for (const f of LISTA) {
