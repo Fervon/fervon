@@ -116,12 +116,13 @@ export const ENLACES = [
  * SÓLO por ella: hoy lo sirve como `application/octet-stream`. MEDIDO el
  * 2026-08-25 contra producción. RFC 9727 §3 exige `application/linkset+json`.
  *
- * ⚠ ESTO NO SE ARREGLA HASTA LA MIGRACIÓN A PAGES. Renombrar el fichero no
- *   vale: la URL es fija y la fija el estándar. Y una Transform Rule de
- *   Cloudflare no es camino fiable — `Content-Type` no está entre las
- *   cabeceras de respuesta que la documentación garantiza modificables.
- *   El `Link` de la home ya anuncia `type="application/linkset+json"`, así que
- *   un cliente que se fíe del enlace acierta igual.
+ * Renombrar el fichero NO vale: la URL la fija el estándar.
+ *
+ * MEDIDO el 2026-08-25: Cloudflare SÍ deja poner `Content-Type` desde una
+ * Transform Rule, aunque su documentación no lo garantice por escrito. Ya está
+ * puesta y verificada en vivo, así que hoy el catálogo se sirve con el tipo
+ * correcto. `npm run links:cf` la crea junto a la de las cabeceras `Link`, de
+ * esta misma lista; `_headers` la lleva también para el día de la migración.
  */
 export const TIPOS = [
   { ruta: '/.well-known/api-catalog', cabeceras: { 'Content-Type': 'application/linkset+json' } },

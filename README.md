@@ -128,17 +128,35 @@ Veredicto y de Trace por checkout self-serve de Polar, verificadas **offline**,
 nunca en una cabecera `Authorization` — y pide explícitamente que nadie sondee
 `POST /agent/auth`: no existe.
 
-**Dos cosas medidas el 2026-08-25 que no se arreglan desde el repo:**
+**Verificado en vivo el 2026-08-25**, con las dos Transform Rules ya creadas:
 
-1. **Las cabeceras `Link` no están en vivo.** GitHub Pages no sabe poner
-   cabeceras y `_headers` sólo lo lee Cloudflare Pages, así que hoy dependen de
-   la Transform Rule. `npm run links:cf` la crea, pero necesita un token con
-   `Zone → Transform Rules → Edit`; el del PC es de Pages y da 403.
-2. **`/.well-known/api-catalog` se sirve como `application/octet-stream`.** No
-   tiene extensión y GitHub Pages deduce el tipo sólo por ella. RFC 9727 pide
-   `application/linkset+json`. Renombrarlo no vale: la URL la fija el estándar.
-   Ya está puesto en `_headers` para el día de la migración; mientras tanto, el
-   `Link` de la home anuncia el `type` correcto.
+```
+$ curl -sI https://fervon.dev/ | grep -i ^link
+link: </.well-known/api-catalog>; rel="api-catalog"; type="application/linkset+json", ...
+
+$ curl -sI https://fervon.dev/.well-known/api-catalog | grep -i ^content-type
+content-type: application/linkset+json
+```
+
+Dos cosas que costaron medir y conviene no volver a descubrir:
+
+1. **`/.well-known/api-catalog` no tiene extensión**, y GitHub Pages deduce el
+   `Content-Type` sólo por ella: lo servía como `application/octet-stream`.
+   Renombrarlo no vale, la URL la fija RFC 9727. **Cloudflare SÍ deja poner
+   `Content-Type` desde una Transform Rule**, aunque su documentación no lo
+   garantice por escrito — está medido y en vivo. `npm run links:cf` crea esa
+   regla junto a la de las cabeceras.
+2. **La regla se escribe reemplazando la fase entera**, y en esa misma fase vive
+   la CSP. `cf-link-headers.mjs` conserva las demás reglas filtrando sus campos
+   de solo lectura (`version`, `last_updated`), que el PUT rechaza. Si algún día
+   falla, el PUT es atómico: o entra todo o no se toca nada.
+
+**`authMd` sigue en rojo a propósito.** El escáner exige, además del fichero,
+metadatos OAuth en `/.well-known/oauth-protected-resource`. Auth.md es un
+protocolo OAuth de punta a punta —servidor de autorización, `token_endpoint`,
+ceremonia de reclamación— y fervon.dev no tiene recurso protegido ni cuentas.
+Publicar esos documentos sería describir endpoints que devuelven 404 y a los que
+un agente iría de cabeza. El propio `/auth.md` explica qué falta y por qué.
 
 Se valida desde fuera con el escáner de
 [isitagentready.com](https://isitagentready.com):
