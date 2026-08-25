@@ -31,6 +31,15 @@ jobs:
         with:
           persist-credentials: false
 
+      # Falla el despliegue si algun ?v= no coincide con el hash de su asset.
+      # Sin esto, olvidarse de `npm run cache:bump` publica HTML nuevo que pide
+      # el CSS por una URL vieja, y el navegador se la sirve de su cache
+      # durante un ano de max-age. No lo ve ninguna otra comprobacion porque no
+      # falla ninguna peticion: todo da 200. Paso barato (solo built-ins de
+      # Node) y va antes del staging para fallar cuanto antes.
+      - name: Check asset cache-busting tokens
+        run: node scripts/bump-cache-buster.mjs --check
+
       - name: Stage public files (exclude dev/doc/build files)
         run: |
           mkdir -p _site
