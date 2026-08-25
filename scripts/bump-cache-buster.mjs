@@ -69,7 +69,23 @@ function tokenDe(rutaAsset, paginaRel) {
     faltan.add(path.relative(ROOT, abs).split(path.sep).join('/'));
     t = null;
   } else {
-    t = crypto.createHash('sha1').update(fs.readFileSync(abs)).digest('hex').slice(0, 10);
+    /* CRLF -> LF ANTES de hashear. Sin esto el token depende de como git haya
+       materializado el fichero, no de su contenido: con core.autocrlf=true el
+       mismo commit sale con CRLF en Windows y con LF en el runner de Linux.
+       Medido el 2026-08-25 en un worktree recien creado: tocando UN byte de
+       assets/shared.css se movieron OCHO tokens (index.css, blog.css,
+       core.css, index.client.js...), porque el checkout les habia cambiado los
+       finales a todos. Consecuencias si no se normaliza: `--check` en rojo en
+       CI con el repo intacto, y un `?v=` nuevo en cada checkout que tira la
+       cache de todo el mundo sin que haya cambiado una linea. */
+    const bytes = fs.readFileSync(abs);
+    const lf = Buffer.alloc(bytes.length);
+    let n = 0;
+    for (let i = 0; i < bytes.length; i++) {
+      if (bytes[i] === 0x0d && bytes[i + 1] === 0x0a) continue;
+      lf[n++] = bytes[i];
+    }
+    t = crypto.createHash('sha1').update(lf.subarray(0, n)).digest('hex').slice(0, 10);
   }
   cacheHash.set(abs, t);
   return t;
