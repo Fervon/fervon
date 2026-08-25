@@ -15,7 +15,7 @@
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { CSP, SEGURIDAD, CACHE, ENLACES } from './site-headers.mjs';
+import { CSP, SEGURIDAD, CACHE, ENLACES, TIPOS } from './site-headers.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const DESTINO = join(ROOT, '_headers');
@@ -44,7 +44,7 @@ for (const enlace of ENLACES) lineas.push(`  Link: ${enlace}`);
 for (const [k, v] of Object.entries(primera.cabeceras)) lineas.push(`  ${k}: ${v}`);
 lineas.push('');
 
-for (const regla of CACHE.slice(1)) {
+for (const regla of [...CACHE.slice(1), ...TIPOS]) {
   lineas.push(regla.ruta);
   for (const [k, v] of Object.entries(regla.cabeceras)) lineas.push(`  ${k}: ${v}`);
   lineas.push('');

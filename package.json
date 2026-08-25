@@ -42,6 +42,8 @@
     "headers:check": "node scripts/gen-headers.mjs --check",
     "i18n:build": "node scripts/i18n-build.mjs && node scripts/fix-breadcrumbs-trace.mjs && node scripts/seo-cabecera.mjs && node scripts/check-data-attr-escape.mjs",
     "landing:mac": "node scripts/gen-landing-mac.mjs",
+    "links:cf": "node scripts/cf-link-headers.mjs",
+    "links:check": "node scripts/cf-link-headers.mjs --check",
     "og:veredicto": "node scripts/render-og-veredicto.mjs",
     "pages:build": "node scripts/build-pages.mjs",
     "pages:check": "node scripts/pages-check.mjs",

@@ -110,3 +110,19 @@ export const ENLACES = [
   '</about/>; rel="service-doc"; type="text/html"',
   '</llms.txt>; rel="describedby"; type="text/plain"',
 ];
+
+/* ── Tipos de contenido que el origen no sabe adivinar ──────────────────────
+ * `/.well-known/api-catalog` no tiene extensión, y GitHub Pages deduce el tipo
+ * SÓLO por ella: hoy lo sirve como `application/octet-stream`. MEDIDO el
+ * 2026-08-25 contra producción. RFC 9727 §3 exige `application/linkset+json`.
+ *
+ * ⚠ ESTO NO SE ARREGLA HASTA LA MIGRACIÓN A PAGES. Renombrar el fichero no
+ *   vale: la URL es fija y la fija el estándar. Y una Transform Rule de
+ *   Cloudflare no es camino fiable — `Content-Type` no está entre las
+ *   cabeceras de respuesta que la documentación garantiza modificables.
+ *   El `Link` de la home ya anuncia `type="application/linkset+json"`, así que
+ *   un cliente que se fíe del enlace acierta igual.
+ */
+export const TIPOS = [
+  { ruta: '/.well-known/api-catalog', cabeceras: { 'Content-Type': 'application/linkset+json' } },
+];
