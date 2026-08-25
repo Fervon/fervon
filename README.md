@@ -100,6 +100,58 @@ se queda con el 404 durante más de una hora. Comprobado el 2026-08-22 con
 `/blog/feed.xml` (`Age: 3723`, `cf-cache-status: HIT`) mientras el origen ya
 servía 200. Se arregla purgando esa URL en Cloudflare.
 
+### Descubrimiento para agentes
+
+Un agente que llega a `fervon.dev` no debería tener que parsear el HTML para
+saber qué hay. Tres piezas, las tres verificables desde fuera:
+
+| Qué | Dónde | Estándar |
+|---|---|---|
+| Catálogo de recursos legibles por máquina | `/.well-known/api-catalog` | [RFC 9727](https://www.rfc-editor.org/rfc/rfc9727) (linkset de [RFC 9264](https://www.rfc-editor.org/rfc/rfc9264)) |
+| Autenticación y alta de credenciales | `/auth.md` | Auth.md |
+| Cabeceras `Link` en la respuesta | todas las rutas | [RFC 8288](https://www.rfc-editor.org/rfc/rfc8288) · rels `api-catalog`, `service-desc`, `service-doc`, `describedby` |
+
+La fuente única de las cabeceras es `ENLACES` en `scripts/site-headers.mjs`. De
+ahí salen las dos formas en que se sirven, que dicen lo mismo:
+
+```bash
+npm run headers:build   # -> _headers (cuatro líneas Link; sólo lo lee Cloudflare Pages)
+npm run links:cf        # -> Transform Rule de Cloudflare (UNA cabecera, valores separados por comas)
+npm run links:check     # compara la regla viva contra el repo
+```
+
+**`/auth.md` dice que NO hay OAuth, y por qué.** No hay recurso protegido en
+este origen, ni servidor de autorización, ni token endpoint, así que tampoco hay
+`/.well-known/oauth-protected-resource`: la ausencia es deliberada, no un olvido.
+Lo que sí documenta es el aprovisionamiento real de credenciales — licencias de
+Veredicto y de Trace por checkout self-serve de Polar, verificadas **offline**,
+nunca en una cabecera `Authorization` — y pide explícitamente que nadie sondee
+`POST /agent/auth`: no existe.
+
+**Dos cosas medidas el 2026-08-25 que no se arreglan desde el repo:**
+
+1. **Las cabeceras `Link` no están en vivo.** GitHub Pages no sabe poner
+   cabeceras y `_headers` sólo lo lee Cloudflare Pages, así que hoy dependen de
+   la Transform Rule. `npm run links:cf` la crea, pero necesita un token con
+   `Zone → Transform Rules → Edit`; el del PC es de Pages y da 403.
+2. **`/.well-known/api-catalog` se sirve como `application/octet-stream`.** No
+   tiene extensión y GitHub Pages deduce el tipo sólo por ella. RFC 9727 pide
+   `application/linkset+json`. Renombrarlo no vale: la URL la fija el estándar.
+   Ya está puesto en `_headers` para el día de la migración; mientras tanto, el
+   `Link` de la home anuncia el `type` correcto.
+
+Se valida desde fuera con el escáner de
+[isitagentready.com](https://isitagentready.com):
+
+```powershell
+Invoke-RestMethod -Uri "https://isitagentready.com/api/scan" -Method Post -ContentType "application/json" -Body '{"url": "https://fervon.dev"}'
+```
+
+⚠ **Justo después de publicar una URL nueva, el escáner puede seguir viendo el
+404** que él mismo cacheó antes: es la trampa del 404 de arriba. Se distingue en
+un segundo — un `404` con `cf-cache-status: HIT` mientras el origen ya da 200 —
+y se arregla purgando esa URL, no volviendo a desplegar.
+
 ### SEO
 
 ```bash
