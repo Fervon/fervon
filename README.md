@@ -237,6 +237,7 @@ Lo que fallaba, y el patrón que comparten los cuatro:
 | `/lookspan/` | el contador iba de `0` a `1,284` sin ancho reservado | el texto ensancha y empuja al vecino durante 1,1 s |
 | `/trace/`, `/regenta/` | el buscador que se teclea solo nacía con altura 0 | crece dos veces —primera letra y salto a la segunda línea— y empuja la página entera 22 px |
 | `/pregon/` | el estado de cada fila pasaba de `···` a `✓ publicado` | estruja al vecino hasta partirlo en dos líneas |
+| `/pregon/` | **la demo se repite cada ~10 s y vaciaba la caja del mensaje al empezar cada vuelta** | deshace la reserva una y otra vez: **0,0159 en 26 s y subiendo** mientras la pestaña esté abierta con la demo a la vista — «Poor» en una visita de cinco minutos |
 
 **El patrón: todo lo que un script escribe después del primer pintado necesita su
 sitio reservado antes.** Con `min-width`/`min-height` cuando el tamaño final se
@@ -254,9 +255,16 @@ llega a todo: el contador de Lookspan medía 0,0001 aquí. Un verde local no dic
 «no hay CLS», dice «no hay CLS de los gordos» — **el panel de RUM sigue
 mandando**.
 
-Mide **dos pasadas por página**: una quieta arriba y otra bajando hasta el final.
-Un desplazamiento solo puntúa si ocurre dentro de la pantalla, así que con una
-sola pasada el fallo de `/pregon/` salía rojo o verde según el reloj.
+Mide **dos pasadas por página**: una quieta arriba (12 s) y otra bajando hasta el
+final. Las dos hacen falta y las dos están calibradas por un fallo real:
+
+- **Dos pasadas**, porque un desplazamiento solo puntúa si ocurre dentro de la
+  pantalla, y con una sola el fallo de `/pregon/` salía rojo o verde según dónde
+  estuviera el scroll cuando le tocaba crecer.
+- **12 s quieto y no 5**, porque las demos de `/pregon/`, `/inferbench/` y
+  `/launchpad/` se repiten en bucle cada ~10 s, y **el desplazamiento que se
+  repite es el que de verdad hace daño**: se acumula mientras la pestaña sigue
+  abierta. Con 5 s, el del bucle de `/pregon/` no aparecía ni una sola vez.
 
 **Queda un aviso sin cerrar**, anotado aquí para que no se pierda: la versión
 **inglesa** de `/trace/rewind-alternative-windows` marca `ojo 0,0061` a 1280px,
