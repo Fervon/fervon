@@ -256,6 +256,24 @@
           <h3>Seguridad endurecida y Postgres externo</h3>
           <p>Lookspan puede apoyarse ahora en un <b>Postgres externo</b> además del almacenamiento local, y trae un endurecimiento de seguridad en el servidor de ingesta. Sigue siendo local-first: el dashboard vive en <code>127.0.0.1:3100</code> con <code>npx lookspan</code> y ningún span sale de tu máquina si no se lo pides.</p>
         </li>
+        <li id="nov-inferbench-v0-3-0">
+          <div class="nv-h">
+            <time datetime="2026-08-19">19 de agosto de 2026</time>
+            <a class="nv-p" href="/inferbench/">InferBench</a>
+            <span class="nv-v">v0.3.0</span>
+          </div>
+          <h3>La recomendación deja de heredar heurísticas y se apoya en lo que ya ha medido</h3>
+          <p>Versión de precisión. Cada fila de <code>/api/optimize/recommendations</code> trae ahora <code>measured_damage</code> <b>cuando existe medida de ESE modelo a ESA cuantización</b>, y la interfaz la enseña junto a los bits/peso («86,3 % mismo token que Q8_0»). Las tres reglas van atadas con tests: la referencia no se puntúa contra sí misma, una medida a medias no es una medida y <b>sin medir no se afirma nada</b> — el hueco se queda vacío antes que rellenarse con una estimación. Llega también una <b>batería de calidad de 13 prompts</b> en tres tramos con un scorer auditable de cinco tipos de check, validada con inferencia real sobre 3 modelos × 11 prompts: la nota media crece de forma monótona con la capacidad (qwen2.5-0.5b 33,7 · llama-3.2-1b 49,0 · llama-3.1-8b 69,9) y 8 de los 11 prompts discriminan. Y el planificador de llama.cpp deja de reventar por OOM: dimensionaba contra la VRAM <b>total</b> y no la libre, así que en una RTX 3070 de 8 GB con 2,4 GB ocupados por el escritorio planificaba <b>7,3 GB sobre 5,7 GB disponibles</b> y el motor moría con <code>CUDA error: out of memory</code>. Cada release queda además archivada en Zenodo con <a href="https://doi.org/10.5281/zenodo.22018650" rel="noopener">DOI citable</a>.</p>
+        </li>
+        <li id="nov-inferbench-v0-2-0">
+          <div class="nv-h">
+            <time datetime="2026-08-16">16 de agosto de 2026</time>
+            <a class="nv-p" href="/inferbench/">InferBench</a>
+            <span class="nv-v">v0.2.0</span>
+          </div>
+          <h3>Cuánta calidad cuesta de verdad cada cuantización, medida en vez de supuesta</h3>
+          <p>La regla de andar por casa dice que Q6_K «no se nota». InferBench la midió: <code>llama-perplexity --kl-divergence</code> compara cada cuantización del disco contra la mejor disponible y publica <b>perplejidad, divergencia KL y el porcentaje de veces que el modelo elige el mismo token</b> que la referencia. Sobre Llama-3.2-1B a Q6_K la perplejidad sube un <b>0,54 %</b> —el número que todo el mundo cita— y aun así el modelo <b>cambia de palabra 1 de cada 13 veces</b>: la perplejidad tapa el daño, la KL no. El corpus es fijo y bilingüe EN+ES de dominio público, para que dos medidas de días distintos se puedan comparar, y se mide en CPU por defecto para no pelearse por la VRAM con lo que estés sirviendo. De ahí sale un <b>piso de calidad</b> en las recomendaciones (<code>≥Q4_K_M</code>) y los bits/peso en cada tarjeta, en ámbar por debajo de 4: el panel llegó a recomendar modelos enormes a 1,5 bits sin un solo aviso. La versión trae además <b>generación de imagen en local</b> vía stable-diffusion.cpp, con el mismo patrón que llama.cpp y compartiendo el slot único — una GPU, un modelo, texto <b>o</b> imagen.</p>
+        </li>
         <li id="nov-veredicto-v0-3-3">
           <div class="nv-h">
             <time datetime="2026-08-12">12 de agosto de 2026</time>

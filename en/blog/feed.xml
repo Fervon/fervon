@@ -28,6 +28,14 @@
       <enclosure url="https://fervon.dev/assets/blog/tests-amanados-agentes.jpg" type="image/jpeg" length="0" />
     </item>
     <item>
+      <title>InferBench v0.3.0 — The recommendation stops inheriting rules of thumb and leans on what it has already measured</title>
+      <link>https://fervon.dev/en/blog/#nov-inferbench-v0-3-0</link>
+      <guid isPermaLink="false">https://fervon.dev/blog/en/nov-inferbench-v0-3-0</guid>
+      <pubDate>Wed, 19 Aug 2026 09:00:00 +0000</pubDate>
+      <category>Releases</category>
+      <description>A precision release. Every row of /api/optimize/recommendations now carries measured_damage when a measurement exists for THAT model at THAT quantization, and the UI shows it next to bits-per-weight (&quot;86.3 % same token as Q8_0&quot;). Three rules are pinned by tests: the reference is never scored against itself, a half-finished measurement is not a measurement, and without a measurement nothing is claimed — the field stays empty rather than being filled with an estimate. There is also a 13-prompt quality battery in three tiers with an auditable scorer of five check types, validated with real inference over 3 models × 11 prompts: the mean score grows monotonically with capability (qwen2.5-0.5b 33.7 · llama-3.2-1b 49.0 · llama-3.1-8b 69.9) and 8 of the 11 prompts discriminate. And the llama.cpp planner stops dying of OOM: it sized against total VRAM rather than free, so on an 8 GB RTX 3070 with 2.4 GB taken by the desktop it planned 7.3 GB into 5.7 GB available and the engine died with CUDA error: out of memory. Each release is also archived on Zenodo with a citable DOI.</description>
+    </item>
+    <item>
       <title>Lookspan v0.5.3 — Hardened security and external Postgres</title>
       <link>https://fervon.dev/en/blog/#nov-lookspan-v0-5-3</link>
       <guid isPermaLink="false">https://fervon.dev/blog/en/nov-lookspan-v0-5-3</guid>
@@ -52,6 +60,14 @@
       <category>Long read</category>
       <description>An autonomous software studio is a workshop where AI agents do the execution and one person supplies the judgement. What actually changes, and what does not.</description>
       <enclosure url="https://fervon.dev/assets/blog/estudio-software-autonomo.jpg" type="image/jpeg" length="0" />
+    </item>
+    <item>
+      <title>InferBench v0.2.0 — How much quality each quantization actually costs, measured instead of assumed</title>
+      <link>https://fervon.dev/en/blog/#nov-inferbench-v0-2-0</link>
+      <guid isPermaLink="false">https://fervon.dev/blog/en/nov-inferbench-v0-2-0</guid>
+      <pubDate>Sun, 16 Aug 2026 09:00:00 +0000</pubDate>
+      <category>Releases</category>
+      <description>The rule of thumb says Q6_K &quot;is not noticeable&quot;. InferBench measured it: llama-perplexity --kl-divergence compares every quantization on disk against the best one available and publishes perplexity, KL divergence and the share of times the model picks the same token as the reference. On Llama-3.2-1B at Q6_K perplexity rises 0.54 % —the figure everyone quotes— and the model still changes word 1 time in 13: perplexity hides the damage, KL does not. The corpus is fixed and bilingual EN+ES, public domain, so two measurements taken days apart remain comparable, and it runs on CPU by default so it does not fight your served model for VRAM. Out of that come a quality floor in the recommendations (≥Q4_K_M) and bits-per-weight on every card, amber below 4: the dashboard used to recommend huge models at 1.5 bits without a single warning. The release also adds local image generation through stable-diffusion.cpp, using the same pattern as llama.cpp and sharing the single slot — one GPU, one model, text or image.</description>
     </item>
     <item>
       <title>ClaudeScope v0.5 — Jump to the message, a weekly digest and an HTML report that opens offline</title>

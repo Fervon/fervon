@@ -256,6 +256,24 @@
           <h3>Hardened security and external Postgres</h3>
           <p>Lookspan can now sit on an <b>external Postgres</b> alongside local storage, and ships a security hardening pass on the ingest server. It stays local-first: the dashboard lives at <code>127.0.0.1:3100</code> via <code>npx lookspan</code> and no span leaves your machine unless you ask it to.</p>
         </li>
+        <li id="nov-inferbench-v0-3-0">
+          <div class="nv-h">
+            <time datetime="2026-08-19">August 19, 2026</time>
+            <a class="nv-p" href="/en/inferbench/">InferBench</a>
+            <span class="nv-v">v0.3.0</span>
+          </div>
+          <h3>The recommendation stops inheriting rules of thumb and leans on what it has already measured</h3>
+          <p>A precision release. Every row of <code>/api/optimize/recommendations</code> now carries <code>measured_damage</code> <b>when a measurement exists for THAT model at THAT quantization</b>, and the UI shows it next to bits-per-weight ("86.3 % same token as Q8_0"). Three rules are pinned by tests: the reference is never scored against itself, a half-finished measurement is not a measurement, and <b>without a measurement nothing is claimed</b> — the field stays empty rather than being filled with an estimate. There is also a <b>13-prompt quality battery</b> in three tiers with an auditable scorer of five check types, validated with real inference over 3 models × 11 prompts: the mean score grows monotonically with capability (qwen2.5-0.5b 33.7 · llama-3.2-1b 49.0 · llama-3.1-8b 69.9) and 8 of the 11 prompts discriminate. And the llama.cpp planner stops dying of OOM: it sized against <b>total</b> VRAM rather than free, so on an 8 GB RTX 3070 with 2.4 GB taken by the desktop it planned <b>7.3 GB into 5.7 GB available</b> and the engine died with <code>CUDA error: out of memory</code>. Each release is also archived on Zenodo with a <a href="https://doi.org/10.5281/zenodo.22018650" rel="noopener">citable DOI</a>.</p>
+        </li>
+        <li id="nov-inferbench-v0-2-0">
+          <div class="nv-h">
+            <time datetime="2026-08-16">August 16, 2026</time>
+            <a class="nv-p" href="/en/inferbench/">InferBench</a>
+            <span class="nv-v">v0.2.0</span>
+          </div>
+          <h3>How much quality each quantization actually costs, measured instead of assumed</h3>
+          <p>The rule of thumb says Q6_K "is not noticeable". InferBench measured it: <code>llama-perplexity --kl-divergence</code> compares every quantization on disk against the best one available and publishes <b>perplexity, KL divergence and the share of times the model picks the same token</b> as the reference. On Llama-3.2-1B at Q6_K perplexity rises <b>0.54 %</b> —the figure everyone quotes— and the model still <b>changes word 1 time in 13</b>: perplexity hides the damage, KL does not. The corpus is fixed and bilingual EN+ES, public domain, so two measurements taken days apart remain comparable, and it runs on CPU by default so it does not fight your served model for VRAM. Out of that come a <b>quality floor</b> in the recommendations (<code>≥Q4_K_M</code>) and bits-per-weight on every card, amber below 4: the dashboard used to recommend huge models at 1.5 bits without a single warning. The release also adds <b>local image generation</b> through stable-diffusion.cpp, using the same pattern as llama.cpp and sharing the single slot — one GPU, one model, text <b>or</b> image.</p>
+        </li>
         <li id="nov-veredicto-v0-3-3">
           <div class="nv-h">
             <time datetime="2026-08-12">August 12, 2026</time>
