@@ -10,7 +10,16 @@
     /* demo / search mock card */
     .srch{display:flex;align-items:center;gap:10px;border:1px solid var(--line2);background:rgba(14,11,10,.6);border-radius:11px;padding:11px 14px}
     .srch svg{flex:0 0 auto;color:var(--ash)}
-    .srch .q{font-size:14px;color:var(--bone)}
+    /* El texto se teclea letra a letra por JS, así que la caja crece dos veces
+       y empuja TODA la página hacia abajo: al caer la primera letra (el span
+       vacío mide 0 de alto como item flex) y otra vez al saltar a la segunda
+       línea. Medido en el móvil de /trace/ y /regenta/: 6,4 px + 22,4 px de
+       desplazamiento. Se reserva la caja final desde el primer pintado. El
+       corte está en 520px porque MEDIDO a 320/360/390/414 la frase ocupa 2
+       líneas y a 520 y por encima 1 — nunca 3, ni siquiera a 320. El
+       line-height fijo además la hace inmune al swap de la webfont. */
+    .srch .q{font-size:14px;color:var(--bone);line-height:1.6;min-height:22.4px;display:flex;align-items:center}
+    @media(max-width:520px){.srch .q{min-height:44.8px}}
     .srch .car{width:1.5px;height:16px;background:var(--amber);display:inline-block;animation:blink 1.1s step-end infinite}
     .res{display:flex;flex-direction:column;gap:8px;margin-top:14px}
     .rrow{display:flex;align-items:center;gap:12px;border:1px solid var(--line);background:rgba(14,11,10,.45);border-radius:10px;padding:10px 12px;opacity:0;transform:translateY(6px);transition:opacity .45s ease,transform .45s ease}

@@ -216,6 +216,56 @@ encadenado en `npm run i18n:build` **después** del generador, no antes: el
 breadcrumb y el feed dependen del idioma de cada página, y una fuente bilingüe
 de `src-i18n/` genera las dos.
 
+### Estabilidad visual (CLS)
+
+```bash
+npm run cls:check     # mide el CLS real con Chrome, una página por plantilla e idioma
+npm run cls:live      # lo mismo contra fervon.dev (aborta el beacon: no cuenta como visita)
+```
+
+El 2026-08-29 el panel de Cloudflare daba **CLS 100% «Poor»** en fervon.dev y su
+Debug View señalaba dos elementos con nombre y apellidos:
+`div.proofcard.reveal>::after` y `div.meta-row>span`. Los dos eran fallos de
+verdad, y **ninguna comprobación estática podía verlos**, porque no rompen nada:
+todo da 200, el HTML es correcto y la página se ve bien en una captura.
+
+Lo que fallaba, y el patrón que comparten los cuatro:
+
+| Dónde | Qué hacía | Por qué desplaza |
+|---|---|---|
+| Portada | el barrido ámbar de las tarjetas se movía animando `left` | `left` es **layout**: el rect del pseudo cambia en cada fotograma. Los `transform` están exentos por especificación, `left` no |
+| `/lookspan/` | el contador iba de `0` a `1,284` sin ancho reservado | el texto ensancha y empuja al vecino durante 1,1 s |
+| `/trace/`, `/regenta/` | el buscador que se teclea solo nacía con altura 0 | crece dos veces —primera letra y salto a la segunda línea— y empuja la página entera 22 px |
+| `/pregon/` | el estado de cada fila pasaba de `···` a `✓ publicado` | estruja al vecino hasta partirlo en dos líneas |
+
+**El patrón: todo lo que un script escribe después del primer pintado necesita su
+sitio reservado antes.** Con `min-width`/`min-height` cuando el tamaño final se
+conoce, y pintando el resto del texto en invisible (`.fantasma`) cuando depende
+del ancho, del idioma y de la fuente — que es el caso del mensaje de `/pregon/`,
+donde el `min-height: 42px` que ya había se quedaba corto: en 390 px ocupa cuatro
+líneas, no dos.
+
+⚠️ **El umbral de `cls:check` es 0,02, no el 0,1 de Core Web Vitals.** Medidos en
+este PC con red local, los fallos de arriba daban 0,0089 / 0,027 / 0,033: con el
+umbral de la especificación, el script habría dado **verde el día que se
+escribió**, mientras Cloudflare los veía en rojo en dispositivos de verdad. El
+listón es lo que mide el sitio sano, no lo que permite la norma. Y aun así no
+llega a todo: el contador de Lookspan medía 0,0001 aquí. Un verde local no dice
+«no hay CLS», dice «no hay CLS de los gordos» — **el panel de RUM sigue
+mandando**.
+
+Mide **dos pasadas por página**: una quieta arriba y otra bajando hasta el final.
+Un desplazamiento solo puntúa si ocurre dentro de la pantalla, así que con una
+sola pasada el fallo de `/pregon/` salía rojo o verde según el reloj.
+
+**Queda un aviso sin cerrar**, anotado aquí para que no se pierda: la versión
+**inglesa** de `/trace/rewind-alternative-windows` marca `ojo 0,0061` a 1280px,
+reproducible, a los ~365 ms, con `section#resumen` / `a.btn-fire` / `p.pfoot`
+como fuentes. La española da 0,0000 y a 390px da 0,0000. No es de la familia de
+los cuatro de arriba —nada cambia de tamaño, algo se mueve— y no es el swap de
+la webfont (`document.fonts.status` ya es `loaded` a los 30 ms). Está 16 veces
+por debajo del umbral, así que no se persiguió.
+
 ## Licencia
 
 MIT © Jonathan Martín

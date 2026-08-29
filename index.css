@@ -56,8 +56,15 @@
     /* Strike-sheen: a one-shot amber sweep when a proof/why card reveals.
        Pseudo sits off-screen by default so it never covers content (incl. reduced-motion). */
     .proofcard,.whycard{position:relative;overflow:hidden}
-    .proofcard::after,.whycard::after{content:"";position:absolute;top:0;left:-150%;width:60%;height:100%;background:linear-gradient(105deg,transparent,rgba(255,176,46,.22),transparent);transform:skewX(-18deg);pointer-events:none;z-index:1}
-    @keyframes strikesheen{0%{left:-150%}100%{left:160%}}
+    .proofcard::after,.whycard::after{content:"";position:absolute;top:0;left:0;width:60%;height:100%;background:linear-gradient(105deg,transparent,rgba(255,176,46,.22),transparent);transform:translateX(-250%) skewX(-18deg);pointer-events:none;z-index:1}
+    /* El barrido se mueve con transform, NUNCA con `left`. Animar `left` es
+       animar el LAYOUT: el rect del pseudo cambia en cada fotograma y la Layout
+       Instability API lo cuenta como desplazamiento — el Debug View de
+       Cloudflare señalaba literalmente `div.proofcard.reveal>::after` como
+       fuente del CLS. Los transforms están exentos por especificación.
+       -250%/266,667% son del ANCHO DEL PSEUDO (60% de la tarjeta), o sea los
+       mismos -150%/160% de la tarjeta que había antes: el barrido no cambia. */
+    @keyframes strikesheen{0%{transform:translateX(-250%) skewX(-18deg)}100%{transform:translateX(266.667%) skewX(-18deg)}}
     @media(prefers-reduced-motion:no-preference){
       .proofcard.reveal.in::after,.whycard.reveal.in::after{animation:strikesheen .9s ease-out .15s 1}
     }
