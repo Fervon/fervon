@@ -52,6 +52,27 @@ if (rutas.length) {
   urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
 }
 
+/* NINGUNA URL PUEDE SALIR DEL ORIGEN, y el guardarraíl no es teórico: el
+   2026-08-29, `node scripts/indexnow.mjs /blog/` lanzado desde Git Bash en
+   Windows mandó `https://fervon.devC:/Program Files/Git/blog/`. Git Bash
+   traduce a ruta de Windows cualquier argumento que empiece por `/`, así que
+   el script recibía ya la ruta destrozada y nunca veía un `/blog/`.
+
+   La respuesta era un 422 «One or more URLs are not related to your verified
+   domain», que apunta al fichero de la clave — y el fichero estaba perfecto,
+   respondiendo 200 con el contenido exacto. Se pierde una tarde comprobando
+   la propiedad del dominio mientras el fallo está en el shell que llama.
+   Comprobarlo aquí convierte ese 422 en un error que se lee de una vez.
+   Desde PowerShell no pasa. */
+const fuera = urls.filter((u) => !u.startsWith(ORIGIN + '/'));
+if (fuera.length) {
+  console.error('✗ URLs que no son de ' + ORIGIN + ':');
+  for (const u of fuera) console.error('    ' + u);
+  console.error('  Si ves una ruta de Windows ahí dentro, es Git Bash traduciendo el argumento que empieza por «/».');
+  console.error('  Llama desde PowerShell, o pasa la URL entera: node scripts/indexnow.mjs ' + ORIGIN + '/blog/');
+  process.exit(1);
+}
+
 /* El protocolo admite 10.000 por envío; aquí nunca se llega, pero se deja el
    corte para que un sitemap que crezca no falle en silencio. */
 if (urls.length > 10000) { console.error('✗ más de 10.000 URLs en un envío.'); process.exit(1); }
