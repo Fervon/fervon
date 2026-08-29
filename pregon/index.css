@@ -8,6 +8,8 @@
     .compose{border:1px solid var(--line);background:rgba(14,11,10,.5);border-radius:12px;padding:12px 14px}
     .compose .ph{font-size:10px;letter-spacing:.5px;text-transform:uppercase;color:var(--dim)}
     .compose .txt{font-size:13.5px;color:var(--bone);margin-top:6px;min-height:42px}
+    /* La cola del mensaje que aún no se ha tecleado: ocupa sitio, no se ve. */
+    .compose .fantasma{visibility:hidden}
     .compose .cur{display:inline-block;width:2px;height:15px;background:var(--amber);vertical-align:-2px;margin-left:1px;animation:blink 1s step-end infinite}
     .fanout{display:flex;flex-direction:column;gap:7px;margin-top:14px}
     .frow{display:flex;align-items:center;gap:9px;border:1px solid var(--line);background:rgba(14,11,10,.4);border-radius:10px;padding:8px 11px;opacity:0;transform:translateX(8px);transition:opacity .4s ease,transform .4s ease}
@@ -15,7 +17,11 @@
     .frow .ico{font-size:15px;width:20px;text-align:center}
     .frow .nm{font-size:13px;font-weight:600}
     .frow .ad{font-size:10.5px;color:var(--dim);margin-left:2px}
-    .frow .st{margin-left:auto;font-size:11px;display:inline-flex;align-items:center;gap:5px}
+    /* El estado nace como "···" y el JS lo cambia a "✓ publicado". Sin ancho
+       reservado, al ensancharse estruja a `.ad` hasta partirlo en dos líneas
+       y la fila entera crece: MEDIDO, 21,6 px de desplazamiento de toda la
+       página en el móvil de /pregon/. 66px = lo que mide el texto final. */
+    .frow .st{margin-left:auto;font-size:11px;display:inline-flex;align-items:center;justify-content:flex-end;gap:5px;min-width:66px;white-space:nowrap}
     .tag-auto{color:#9FC979}
     .tag-assist{color:var(--amber)}
     /* sections */

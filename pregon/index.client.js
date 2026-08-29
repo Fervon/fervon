@@ -12,12 +12,23 @@
     ];
 
     function typeMsg(){
+      /* Lo que aún no se ha tecleado se pinta igualmente, invisible: así la caja
+         nace con su altura final y el mensaje no empuja la página hacia abajo a
+         cada salto de línea. MEDIDO: sin esto, 21,6 px de desplazamiento en el
+         móvil de /pregon/. El `min-height:42px` del CSS no llegaba — en 390 px
+         el mensaje ocupa cuatro líneas, no dos, y el número depende del ancho,
+         del idioma y de la fuente, así que la reserva la hace el propio texto. */
+      var esc = function(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;"); };
+      var pinta = function(n){
+        canon.innerHTML = esc(MSG.slice(0,n)) + '<span class="cur"></span>' +
+          '<span class="fantasma" aria-hidden="true">' + esc(MSG.slice(n)) + '</span>';
+      };
       return new Promise(function(res){
         var i = 0;
-        canon.innerHTML = '<span class="cur"></span>';
+        pinta(0);
         (function tick(){
           if(i <= MSG.length){
-            canon.innerHTML = MSG.slice(0,i).replace(/</g,"&lt;") + '<span class="cur"></span>';
+            pinta(i);
             i++;
             setTimeout(tick, 22);
           } else { res(); }

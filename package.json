@@ -32,6 +32,8 @@
     "cabecera:fix": "node scripts/seo-cabecera.mjs",
     "cache:bump": "node scripts/bump-cache-buster.mjs",
     "cache:check": "node scripts/bump-cache-buster.mjs --check",
+    "cls:check": "node scripts/cls-check.mjs",
+    "cls:live": "node scripts/cls-check.mjs --live",
     "csp:build": "node scripts/build-csp.mjs",
     "csp:check": "node scripts/csp-check.mjs",
     "demos:video": "node scripts/gen-demos-video.mjs",
