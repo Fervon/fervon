@@ -144,7 +144,12 @@ const malas = [];
    salia rojo o verde segun el reloj — un guardian intermitente da falsos
    verdes, que es peor que no tenerlo. Se puntua la peor de las dos. */
 const PASADAS = [
-  { nombre: 'quieto', hacer: async (page) => { await page.evaluate(() => new Promise((r) => setTimeout(r, 5000))); } },
+  /* 12 s quieto, no 5: las demos de /pregon/, /inferbench/ y /launchpad/ se
+     repiten en bucle cada ~10 s, y el desplazamiento que se repite es el que de
+     verdad hace daño — se acumula mientras la pestaña está abierta. El de
+     /pregon/ sumaba 0,0159 en 26 s, o sea «Poor» en una visita de cinco
+     minutos, y con 5 s de espera no lo veía ni una vez. */
+  { nombre: 'quieto', hacer: async (page) => { await page.evaluate(() => new Promise((r) => setTimeout(r, 12000))); } },
   { nombre: 'scroll', hacer: async (page) => {
       await page.evaluate(async () => {
         for (let y = 0; y < document.body.scrollHeight; y += 400) {

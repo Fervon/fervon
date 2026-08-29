@@ -11,18 +11,25 @@
       { id:"st-hn",   t:"abrir →" }
     ];
 
+    /* Lo que aún no se ha tecleado se pinta igualmente, invisible: así la caja
+       nace con su altura final y el mensaje no empuja la página hacia abajo a
+       cada salto de línea. MEDIDO: sin esto, 21,6 px de desplazamiento en el
+       móvil de /pregon/. El `min-height:42px` del CSS no llegaba — en 390 px el
+       mensaje ocupa cuatro líneas, no dos, y el número depende del ancho, del
+       idioma y de la fuente, así que la reserva la hace el propio texto.
+
+       `pinta` vive aquí fuera y no dentro de typeMsg porque `loop()` también la
+       necesita: la demo se repite cada ~10 s y vaciaba el canon al empezar cada
+       vuelta, que es exactamente deshacer la reserva. MEDIDO en producción:
+       0,0044 de desplazamiento POR VUELTA, indefinidamente, mientras la demo
+       esté a la vista. */
+    var esc = function(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;"); };
+    var pinta = function(n){
+      canon.innerHTML = esc(MSG.slice(0,n)) + '<span class="cur"></span>' +
+        '<span class="fantasma" aria-hidden="true">' + esc(MSG.slice(n)) + '</span>';
+    };
+
     function typeMsg(){
-      /* Lo que aún no se ha tecleado se pinta igualmente, invisible: así la caja
-         nace con su altura final y el mensaje no empuja la página hacia abajo a
-         cada salto de línea. MEDIDO: sin esto, 21,6 px de desplazamiento en el
-         móvil de /pregon/. El `min-height:42px` del CSS no llegaba — en 390 px
-         el mensaje ocupa cuatro líneas, no dos, y el número depende del ancho,
-         del idioma y de la fuente, así que la reserva la hace el propio texto. */
-      var esc = function(s){ return s.replace(/&/g,"&amp;").replace(/</g,"&lt;"); };
-      var pinta = function(n){
-        canon.innerHTML = esc(MSG.slice(0,n)) + '<span class="cur"></span>' +
-          '<span class="fantasma" aria-hidden="true">' + esc(MSG.slice(n)) + '</span>';
-      };
       return new Promise(function(res){
         var i = 0;
         pinta(0);
@@ -45,7 +52,7 @@
 
     async function loop(){
       resetRows();
-      canon.innerHTML = '<span class="cur"></span>';
+      pinta(0);   /* no vaciar: la caja conserva su altura entre vueltas */
       await sleep(500);
       await typeMsg();
       await sleep(350);
