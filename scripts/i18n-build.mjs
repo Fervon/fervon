@@ -77,6 +77,7 @@ const PAGES = [
   { src: 'index.html', url: '/', lang: 'es' },
   { src: 'contacto/index.html', url: '/contacto/', lang: 'es' },
   { src: 'about/index.html', url: '/about/', lang: 'es' },
+  { src: 'servicios/index.html', url: '/servicios/', lang: 'es' },
   { src: 'blog/index.html', url: '/blog/', lang: 'es' },
   { src: 'blog/estudio-software-autonomo/index.html', url: '/blog/estudio-software-autonomo/', lang: 'es' },
   { src: 'blog/flotas-agentes-ia/index.html', url: '/blog/flotas-agentes-ia/', lang: 'es' },

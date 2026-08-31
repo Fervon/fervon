@@ -31,7 +31,14 @@ const BIZ_ID = 'https://fervon.dev/#localbusiness';
 const PAGES = [];
 (function walk(dir) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (['node_modules', '.git', '.claude'].includes(e.name)) continue;
+    /* `src-i18n` NO se toca, y esto no es higiene: es la ENTRADA de la cadena.
+       Lo que se escribe ahi lo propaga el siguiente `npm run i18n:build` a las
+       61 paginas generadas, asi que un fallo en este script deja de ser un
+       fallo de una pasada y pasa a ser permanente. El 2026-09-01 una regex mal
+       acotada reescribio el ProfessionalService de la fuente de /contacto/ y
+       se llevo por delante la entidad del negocio en los dos idiomas.
+       `dist` queda fuera por lo mismo al reves: es artefacto de compilacion. */
+    if (['node_modules', '.git', '.claude', 'src-i18n', 'dist'].includes(e.name)) continue;
     const p = path.join(dir, e.name);
     if (e.isDirectory()) walk(p);
     else if (e.name.endsWith('.html')) PAGES.push(path.relative(ROOT, p).split(path.sep).join('/'));
@@ -128,21 +135,41 @@ for (const rel of PAGES) {
   }
 
   /* 4. Y si el nodo YA estaba, se REESCRIBE con la versión de arriba.
-     Hasta el 2026-08-31 este script solo sabía añadir: los pasos 2 y 3 miran
+
+     Hasta el 2026-08-31 este script solo sabía AÑADIR: los pasos 2 y 3 miran
      `!h.includes(...)`, así que en cuanto un nodo existía quedaba congelado en
      la forma que tuviera el día que se inyectó. Al ampliar la cobertura
      geográfica salió a la luz — decía «0 páginas modificadas» con 27 páginas
      sirviendo el schema viejo. Un inyector que no actualiza es una verdad
-     congelada que nadie vuelve a mirar. */
-  for (const nodo of [orgStub, bizNode]) {
-    const re = new RegExp('  <script type="application/ld\\+json">\\n\\{[\\s\\S]*?"@id": "' +
-      nodo['@id'].replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '"[\\s\\S]*?\\n  </script>\\n');
-    const m = h.match(re);
-    if (!m) continue;
-    const nuevoBloque = block(nodo);
-    if (m[0] !== nuevoBloque) {
-      h = h.replace(re, nuevoBloque);
-      did.push(`${nodo['@type']} actualizado`);
+     congelada que nadie vuelve a mirar.
+
+     SE PARSEA, NO SE BUSCA CON UNA REGEX, y esto costó dos rondas el
+     2026-09-01. Buscar `"@id": "…#organization"` con texto casa con el bloque
+     equivocado por dos motivos distintos:
+
+       · Un `[\s\S]*?` perezoso no está acotado a un bloque: en las páginas
+         donde el FAQPage va antes, arrancaba en su `<script>`, cruzaba el
+         cierre buscando el @id y se llevaba los dos por delante.
+       · Y aunque se acote al bloque, ese mismo @id vive TAMBIÉN dentro del
+         SoftwareApplication de cada producto — el paso 1 lo mete ahí como
+         `publisher`. Así que casaba con el bloque del producto y lo sustituía
+         por la Organization pelada: 10 páginas de /en/ perdían su
+         SoftwareApplication y su Offer.
+
+     Comparar `data['@id']` del nodo raíz es lo único que distingue «este
+     bloque ES la entidad» de «este bloque la MENCIONA». */
+  {
+    const bloques = [...h.matchAll(/  <script type="application\/ld\+json">\n([\s\S]*?)\n  <\/script>\n/g)];
+    for (const nodo of [orgStub, bizNode]) {
+      for (const m of bloques) {
+        let data;
+        try { data = JSON.parse(m[1]); } catch { continue; }
+        if (data['@id'] !== nodo['@id']) continue;   // lo menciona, no lo es
+        const nuevoBloque = block(nodo);
+        if (m[0] === nuevoBloque) continue;
+        h = h.replace(m[0], nuevoBloque);
+        did.push(`${nodo['@type']} actualizado`);
+      }
     }
   }
 

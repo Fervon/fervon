@@ -277,6 +277,20 @@ code{overflow-wrap:anywhere}
 .seotable tbody th{font-weight:650;color:var(--bone,#EFE7DC);white-space:nowrap}
 .seotable tbody td{color:var(--ash,#A89A8E)}
 .seotable tbody tr:last-child th,.seotable tbody tr:last-child td{border-bottom:0}
+/* La columna de veredicto de una .seotable. Vivia solo en veredicto/base.css,
+   asi que cualquier pagina de fuera que usara .seotable con .yes/.no se
+   quedaba con los tres valores del mismo gris: la tabla decia Si, No y
+   Depende y los tres pesaban igual. Es una tabla de una sola ojeada o no
+   sirve de nada. Aqui, junto al componente, la heredan todas. */
+.seotable td.yes{color:#8FD06B;font-weight:600}
+/* Aclarado respecto a --brasa (#E0480F) A PROPOSITO, y con el numero medido:
+   la brasa de marca sobre el fondo de la celda da 4,67 en reposo y 4,51 con el
+   raton encima, porque el hover ACLARA la fila. Pasa AA por una centesima, que
+   no es un margen: es una redondeo de distancia del rojo. #F2683A es la misma
+   familia y da 6,03 en el estado peor. Medido componiendo las capas
+   semitransparentes sobre el fondo de pagina, no leyendo el color a ojo. */
+.seotable td.no{color:#F2683A;font-weight:600}
+.seotable td.warn{color:var(--amber,#FFB02E);font-weight:600}
 .seotable tbody tr:hover{background:rgba(255,106,0,.035)}
 .seotable a{color:var(--amber,#FFB02E);text-decoration:none;font-weight:650}
 .seotable a:hover{text-decoration:underline}

@@ -15,6 +15,14 @@
       "ogDesc": "One person, a fleet of AI agents and a catalogue of local-first products. What Fervon is and how things get built here."
     }
   },
+  "/servicios/": {
+    "en": {
+      "title": "Bespoke software, SaaS and AI agents | Fervon",
+      "desc": "A software studio in Malaga, Spain: bespoke apps, SaaS, chatbots grounded in your data and agent automation. Closed price per project, the code is yours.",
+      "ogTitle": "Bespoke software, SaaS and AI agents",
+      "ogDesc": "What gets built, how the work runs and how it is priced. No sales layer: you talk to the person who builds it."
+    }
+  },
   "/blog/": {
     "en": {
       "title": "News on AI agents and autonomous software | Fervon",

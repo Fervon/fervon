@@ -3,7 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://fervon.dev/about/</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/about/"/>
@@ -12,7 +12,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/blog/coste-real-agentes-ia/</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/blog/coste-real-agentes-ia/"/>
@@ -21,7 +21,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/blog/estudio-software-autonomo/</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/blog/estudio-software-autonomo/"/>
@@ -30,7 +30,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/blog/flotas-agentes-ia/</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/blog/flotas-agentes-ia/"/>
@@ -39,7 +39,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/blog/</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/blog/"/>
@@ -48,7 +48,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/blog/tests-amanados-agentes/</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/blog/tests-amanados-agentes/"/>
@@ -66,7 +66,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/contacto/</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/contacto/"/>
@@ -75,7 +75,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/en/about/</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/about/"/>
@@ -84,7 +84,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/en/blog/coste-real-agentes-ia/</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/blog/coste-real-agentes-ia/"/>
@@ -93,7 +93,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/en/blog/estudio-software-autonomo/</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/blog/estudio-software-autonomo/"/>
@@ -102,7 +102,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/en/blog/flotas-agentes-ia/</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/blog/flotas-agentes-ia/"/>
@@ -111,7 +111,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/en/blog/</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/blog/"/>
@@ -120,7 +120,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/en/blog/tests-amanados-agentes/</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/blog/tests-amanados-agentes/"/>
@@ -138,7 +138,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/en/contacto/</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/contacto/"/>
@@ -200,6 +200,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/regenta/"/>
   </url>
   <url>
+    <loc>https://fervon.dev/en/servicios/</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/servicios/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/servicios/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/servicios/"/>
+  </url>
+  <url>
     <loc>https://fervon.dev/en/trace/</loc>
     <lastmod>2026-08-29</lastmod>
     <changefreq>weekly</changefreq>
@@ -219,7 +228,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/es/trace/limitless-alternative</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/limitless-alternative"/>
@@ -228,7 +237,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/es/trace/microsoft-recall-alternative</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/microsoft-recall-alternative"/>
@@ -237,7 +246,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/es/trace/personal-memory-tool-without-screen-recording</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/personal-memory-tool-without-screen-recording"/>
@@ -246,7 +255,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/es/trace/rewind-ai-alternative</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/rewind-ai-alternative"/>
@@ -255,7 +264,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/es/trace/rewind-alternative-mac</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/rewind-alternative-mac"/>
@@ -264,7 +273,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/es/trace/rewind-alternative-windows</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/rewind-alternative-windows"/>
@@ -273,7 +282,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/es/trace/rewind-shut-down-what-to-use</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/rewind-shut-down-what-to-use"/>
@@ -282,7 +291,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/es/trace/screenpipe-alternative</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/screenpipe-alternative"/>
@@ -389,6 +398,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/regenta/"/>
   </url>
   <url>
+    <loc>https://fervon.dev/servicios/</loc>
+    <lastmod>2026-08-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/servicios/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://fervon.dev/en/servicios/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://fervon.dev/servicios/"/>
+  </url>
+  <url>
     <loc>https://fervon.dev/trace/</loc>
     <lastmod>2026-08-29</lastmod>
     <changefreq>weekly</changefreq>
@@ -399,7 +417,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/trace/limitless-alternative</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/limitless-alternative"/>
@@ -408,7 +426,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/trace/microsoft-recall-alternative</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/microsoft-recall-alternative"/>
@@ -417,7 +435,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/trace/personal-memory-tool-without-screen-recording</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/personal-memory-tool-without-screen-recording"/>
@@ -426,7 +444,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/trace/rewind-ai-alternative</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/rewind-ai-alternative"/>
@@ -435,7 +453,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/trace/rewind-alternative-mac</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/rewind-alternative-mac"/>
@@ -444,7 +462,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/trace/rewind-alternative-windows</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/rewind-alternative-windows"/>
@@ -453,7 +471,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/trace/rewind-shut-down-what-to-use</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/rewind-shut-down-what-to-use"/>
@@ -462,7 +480,7 @@
   </url>
   <url>
     <loc>https://fervon.dev/trace/screenpipe-alternative</loc>
-    <lastmod>2026-08-29</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="es" href="https://fervon.dev/es/trace/screenpipe-alternative"/>
