@@ -23,6 +23,7 @@
          node scripts/indexnow.mjs --check   comprueba el montaje, sin enviar
    ========================================================================== */
 
+import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -60,7 +61,27 @@ if (rutas.length) {
      al dar de alta el dominio. */
   const sitemap = fs.readFileSync(path.join(ROOT, 'sitemap.xml'), 'utf8');
   const bloques = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((m) => m[1]);
-  const hoy = new Date().toISOString().slice(0, 10);
+  /* «HOY» SE LE PREGUNTA A GIT, no al reloj en UTC, y esto no es un detalle
+     de estilo: `sitemap-lastmod.mjs` escribe los lastmod con
+     `git log -1 --format=%cs`, que da la fecha del commit en hora LOCAL.
+     Calcular aqui `new Date().toISOString()` da la fecha en UTC.
+
+     Medido el 2026-09-01 a las 00:45 en Madrid (UTC+2): el sitemap decia
+     2026-09-01 en las 61 URLs y este script buscaba 2026-08-31. Coincidencias:
+     cero. Y lo dijo asi — «Ninguna URL con lastmod de hoy: no hay nada que
+     avisar» — que es una frase tranquilizadora para un fallo. Dos horas cada
+     dia, de 22:00 a 00:00 locales, en las que la herramienta cuyo unico
+     trabajo es meter las paginas nuevas en el indice de Bing (el que consulta
+     ChatGPT) no manda nada y da por hecho que no habia nada que mandar.
+
+     Preguntandoselo a git se usan el mismo reloj y el mismo formato que
+     escribieron el dato. Comparar dos fechas calculadas por separado es
+     inventarse una coincidencia. */
+  let hoy;
+  try {
+    hoy = execFileSync('git', ['log', '-1', '--format=%cs'], { cwd: ROOT, encoding: 'utf8' }).trim();
+  } catch { /* sin git: se cae a la fecha local, que tambien es local */ }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(hoy || '')) hoy = new Date().toLocaleDateString('sv-SE');
   const todas = bloques.map((b) => ({
     loc: (b.match(/<loc>([^<]+)<\/loc>/) || [, ''])[1],
     lastmod: (b.match(/<lastmod>([^<]+)<\/lastmod>/) || [, ''])[1],
