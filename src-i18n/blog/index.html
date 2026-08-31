@@ -29,148 +29,39 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@graph": [
+  "@type": "Organization",
+  "@id": "https://fervon.dev/#organization",
+  "name": "Fervon",
+  "url": "https://fervon.dev/",
+  "logo": "https://fervon.dev/assets/favicon-512.png",
+  "description": "Estudio de software autónomo: productos local-first y herramientas open source construidas con flotas de agentes de IA.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Málaga",
+    "addressRegion": "Andalucía",
+    "addressCountry": "ES"
+  },
+  "areaServed": [
     {
-      "@type": "Blog",
-      "@id": "https://fervon.dev/blog/#blog",
-      "name": "Noticias de Fervon",
-      "description": "Novedades de los proyectos de Fervon y artículos sobre cómo se construye software dirigiendo flotas de agentes de IA.",
-      "url": "https://fervon.dev/blog/",
-      "inLanguage": "es",
-      "publisher": {
-        "@id": "https://fervon.dev/#organization"
-      },
-      "author": {
-        "@id": "https://fervon.dev/#jonathan"
-      },
-      "blogPost": [
-        {
-          "@type": "BlogPosting",
-          "@id": "https://fervon.dev/blog/estudio-software-autonomo/#post",
-          "headline": "Qué es un estudio de software autónomo",
-          "description": "Un estudio de software autónomo es un taller donde la ejecución la hacen agentes de IA y el criterio lo pone una persona. Qué cambia de verdad y qué no.",
-          "url": "https://fervon.dev/blog/estudio-software-autonomo/",
-          "datePublished": "2026-08-19",
-          "image": "https://fervon.dev/assets/blog/estudio-software-autonomo.jpg?v=xm28fq",
-          "author": {
-            "@id": "https://fervon.dev/#jonathan"
-          },
-          "publisher": {
-            "@id": "https://fervon.dev/#organization"
-          }
-        },
-        {
-          "@type": "BlogPosting",
-          "@id": "https://fervon.dev/blog/flotas-agentes-ia/#post",
-          "headline": "Cómo se dirige una flota de agentes de IA",
-          "description": "Aislamiento con git worktree, cuántos agentes en paralelo, medir antes de arreglar y un panel de jueces adversarial. El método real, con sus límites.",
-          "url": "https://fervon.dev/blog/flotas-agentes-ia/",
-          "datePublished": "2026-08-19",
-          "image": "https://fervon.dev/assets/blog/flotas-agentes-ia.jpg?v=hfuoc",
-          "author": {
-            "@id": "https://fervon.dev/#jonathan"
-          },
-          "publisher": {
-            "@id": "https://fervon.dev/#organization"
-          }
-        },
-        {
-          "@type": "BlogPosting",
-          "@id": "https://fervon.dev/blog/tests-amanados-agentes/#post",
-          "headline": "Cómo saber si un agente te está amañando los tests",
-          "description": "Seis formas en que un agente pone un test en verde sin arreglar nada, cómo se detecta cada una y la única prueba que no se puede falsear.",
-          "url": "https://fervon.dev/blog/tests-amanados-agentes/",
-          "datePublished": "2026-08-19",
-          "image": "https://fervon.dev/assets/blog/tests-amanados-agentes.jpg?v=lc0hdy",
-          "author": {
-            "@id": "https://fervon.dev/#jonathan"
-          },
-          "publisher": {
-            "@id": "https://fervon.dev/#organization"
-          }
-        },
-        {
-          "@type": "BlogPosting",
-          "@id": "https://fervon.dev/blog/coste-real-agentes-ia/#post",
-          "headline": "Cuánto cuesta de verdad un agente de IA",
-          "description": "La factura del proveedor no es el coste. Dónde se esconde el gasto de un agente, cómo medirlo en local y cuándo compensa mover el modelo a tu GPU.",
-          "url": "https://fervon.dev/blog/coste-real-agentes-ia/",
-          "datePublished": "2026-08-19",
-          "image": "https://fervon.dev/assets/blog/coste-real-agentes-ia.jpg?v=jml8kq",
-          "author": {
-            "@id": "https://fervon.dev/#jonathan"
-          },
-          "publisher": {
-            "@id": "https://fervon.dev/#organization"
-          }
-        }
-      ]
+      "@type": "Country",
+      "name": "España"
     },
     {
-      "@type": "Person",
-      "@id": "https://fervon.dev/#jonathan",
-      "name": "Jonathan Martín",
-      "url": "https://fervon.dev/about/",
-      "worksFor": {
-        "@id": "https://fervon.dev/#organization"
-      }
+      "@type": "AdministrativeArea",
+      "name": "Andalucía"
     },
     {
-      "@type": "BreadcrumbList",
-      "@id": "https://fervon.dev/blog/#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Fervon",
-          "item": "https://fervon.dev/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Noticias",
-          "item": "https://fervon.dev/blog/"
-        }
-      ]
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://fervon.dev/blog/#faq",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "¿De qué va este blog?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "De dos cosas: las novedades de cada proyecto de Fervon según van saliendo, y artículos de fondo sobre cómo se construye software dirigiendo flotas de agentes de IA. Nada de relleno: solo se publica lo que se ha medido trabajando."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Cada cuánto se publica?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Cuando hay algo medido que contar. Es un estudio de una persona, así que se prefiere un artículo útil al mes que cuatro de relleno a la semana."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Hay que suscribirse para leerlo?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No. No hay muro, ni registro, ni ventana pidiendo el correo. Todo el contenido está abierto, igual que la mayoría del código."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Quién escribe los artículos?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Jonathan Martín, fundador y única persona de Fervon. Los artículos cuentan su método real de trabajo, con los límites y las cosas que salieron mal incluidas."
-          }
-        }
-      ]
+      "@type": "City",
+      "name": "Málaga"
     }
+  ],
+  "sameAs": [
+    "https://github.com/Fervon",
+    "https://www.linkedin.com/company/fervondev",
+    "https://www.npmjs.com/package/fervon",
+    "https://dev.to/jonimatiin",
+    "https://bsky.app/profile/jonimartin.bsky.social",
+    "https://mastodon.social/@jonimartin"
   ]
 }
   </script>

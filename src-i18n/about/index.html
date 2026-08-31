@@ -28,334 +28,39 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@graph": [
+  "@type": "Organization",
+  "@id": "https://fervon.dev/#organization",
+  "name": "Fervon",
+  "url": "https://fervon.dev/",
+  "logo": "https://fervon.dev/assets/favicon-512.png",
+  "description": "Estudio de software autónomo: productos local-first y herramientas open source construidas con flotas de agentes de IA.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Málaga",
+    "addressRegion": "Andalucía",
+    "addressCountry": "ES"
+  },
+  "areaServed": [
     {
-      "@type": "AboutPage",
-      "@id": "https://fervon.dev/about/#webpage",
-      "url": "https://fervon.dev/about/",
-      "name": "Sobre Fervon — estudio de software autónomo",
-      "description": "Qué es Fervon, quién está detrás y cómo se construye software dirigiendo flotas de agentes de IA.",
-      "inLanguage": "es",
-      "isPartOf": {
-        "@id": "https://fervon.dev/#website"
-      },
-      "about": {
-        "@id": "https://fervon.dev/#organization"
-      },
-      "mainEntity": {
-        "@id": "https://fervon.dev/#organization"
-      },
-      "breadcrumb": {
-        "@id": "https://fervon.dev/about/#breadcrumb"
-      }
+      "@type": "Country",
+      "name": "España"
     },
     {
-      "@type": "BreadcrumbList",
-      "@id": "https://fervon.dev/about/#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Fervon",
-          "item": "https://fervon.dev/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Sobre Fervon",
-          "item": "https://fervon.dev/about/"
-        }
-      ]
+      "@type": "AdministrativeArea",
+      "name": "Andalucía"
     },
     {
-      "@type": "Organization",
-      "@id": "https://fervon.dev/#organization",
-      "name": "Fervon",
-      "alternateName": [
-        "Fervon Studio",
-        "Fervon.dev"
-      ],
-      "url": "https://fervon.dev/",
-      "logo": {
-        "@type": "ImageObject",
-        "@id": "https://fervon.dev/#logo",
-        "url": "https://fervon.dev/assets/favicon-512.png",
-        "width": 512,
-        "height": 512,
-        "caption": "Fervon"
-      },
-      "image": {
-        "@id": "https://fervon.dev/#logo"
-      },
-      "description": "Fervon es un estudio de software autónomo: productos local-first, herramientas open source y desarrollo a medida construidos dirigiendo flotas de agentes de IA.",
-      "slogan": "Forjado al rojo vivo",
-      "foundingDate": "2026",
-      "numberOfEmployees": {
-        "@type": "QuantitativeValue",
-        "value": 1
-      },
-      "address": {
-        "@type": "PostalAddress",
-        "addressCountry": "ES"
-      },
-      "areaServed": {
-        "@type": "Place",
-        "name": "Worldwide"
-      },
-      "knowsLanguage": [
-        "es",
-        "en"
-      ],
-      "knowsAbout": [
-        "Autonomous software development",
-        "AI agents",
-        "Local-first software",
-        "Open-source developer tools",
-        "LLM observability",
-        "Large language model benchmarking"
-      ],
-      "founder": {
-        "@id": "https://fervon.dev/#jonathan"
-      },
-      "employee": {
-        "@id": "https://fervon.dev/#jonathan"
-      },
-      "subjectOf": {
-        "@id": "https://fervon.dev/about/#webpage"
-      },
-      "contactPoint": {
-        "@type": "ContactPoint",
-        "contactType": "customer support",
-        "url": "https://fervon.dev/contacto/",
-        "availableLanguage": [
-          "es",
-          "en"
-        ]
-      },
-      "sameAs": [
-        "https://github.com/Fervon",
-        "https://www.linkedin.com/company/fervondev",
-        "https://www.npmjs.com/package/fervon",
-        "https://dev.to/jonimatiin",
-        "https://bsky.app/profile/jonimartin.bsky.social",
-        "https://mastodon.social/@jonimartin"
-      ]
-    },
-    {
-      "@type": "Person",
-      "@id": "https://fervon.dev/#jonathan",
-      "name": "Jonathan Martín",
-      "jobTitle": "Fundador de Fervon",
-      "description": "Fundador y única persona de Fervon. Dirige flotas de agentes de IA que construyen productos local-first y herramientas open source.",
-      "url": "https://fervon.dev/about/",
-      "worksFor": {
-        "@id": "https://fervon.dev/#organization"
-      },
-      "knowsAbout": [
-        "AI agents",
-        "TypeScript",
-        "Node.js",
-        "Python",
-        "Local-first software",
-        "Large language models"
-      ],
-      "sameAs": [
-        "https://github.com/JoniMartin27",
-        "https://dev.to/jonimatiin",
-        "https://bsky.app/profile/jonimartin.bsky.social",
-        "https://mastodon.social/@jonimartin"
-      ]
-    },
-    {
-      "@type": "ItemList",
-      "@id": "https://fervon.dev/about/#productos",
-      "name": "Productos de Fervon",
-      "numberOfItems": 8,
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "item": {
-            "@type": "SoftwareApplication",
-            "name": "Trace",
-            "url": "https://fervon.dev/trace/",
-            "applicationCategory": "UtilitiesApplication",
-            "author": {
-              "@id": "https://fervon.dev/#organization"
-            },
-            "publisher": {
-              "@id": "https://fervon.dev/#organization"
-            }
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "item": {
-            "@type": "SoftwareApplication",
-            "name": "Veredicto",
-            "url": "https://fervon.dev/veredicto/",
-            "applicationCategory": "DeveloperApplication",
-            "author": {
-              "@id": "https://fervon.dev/#organization"
-            },
-            "publisher": {
-              "@id": "https://fervon.dev/#organization"
-            }
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "item": {
-            "@type": "SoftwareApplication",
-            "name": "inferbench",
-            "url": "https://fervon.dev/inferbench/",
-            "applicationCategory": "DeveloperApplication",
-            "author": {
-              "@id": "https://fervon.dev/#organization"
-            },
-            "publisher": {
-              "@id": "https://fervon.dev/#organization"
-            }
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 4,
-          "item": {
-            "@type": "SoftwareApplication",
-            "name": "Lookspan",
-            "url": "https://fervon.dev/lookspan/",
-            "applicationCategory": "DeveloperApplication",
-            "author": {
-              "@id": "https://fervon.dev/#organization"
-            },
-            "publisher": {
-              "@id": "https://fervon.dev/#organization"
-            }
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 5,
-          "item": {
-            "@type": "SoftwareApplication",
-            "name": "ClaudeScope",
-            "url": "https://fervon.dev/claudescope/",
-            "applicationCategory": "DeveloperApplication",
-            "author": {
-              "@id": "https://fervon.dev/#organization"
-            },
-            "publisher": {
-              "@id": "https://fervon.dev/#organization"
-            }
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 6,
-          "item": {
-            "@type": "SoftwareApplication",
-            "name": "launchpad",
-            "url": "https://fervon.dev/launchpad/",
-            "applicationCategory": "DeveloperApplication",
-            "author": {
-              "@id": "https://fervon.dev/#organization"
-            },
-            "publisher": {
-              "@id": "https://fervon.dev/#organization"
-            }
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 7,
-          "item": {
-            "@type": "SoftwareApplication",
-            "name": "Pregón",
-            "url": "https://fervon.dev/pregon/",
-            "applicationCategory": "DeveloperApplication",
-            "author": {
-              "@id": "https://fervon.dev/#organization"
-            },
-            "publisher": {
-              "@id": "https://fervon.dev/#organization"
-            }
-          }
-        },
-        {
-          "@type": "ListItem",
-          "position": 8,
-          "item": {
-            "@type": "SoftwareApplication",
-            "name": "Regenta",
-            "url": "https://fervon.dev/regenta/",
-            "applicationCategory": "DeveloperApplication",
-            "author": {
-              "@id": "https://fervon.dev/#organization"
-            },
-            "publisher": {
-              "@id": "https://fervon.dev/#organization"
-            }
-          }
-        }
-      ]
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://fervon.dev/about/#faq",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "¿Qué significa «software autónomo»?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Que el trabajo de construir lo ejecutan agentes de IA en paralelo y sin pausa, y que una persona pone el criterio: qué se construye, qué se acepta y qué se tira. Autónomo no quiere decir sin supervisión — quiere decir que la ejecución no depende de que haya alguien tecleando."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Qué son los agentes de IA de Fervon?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Procesos que leen el repositorio, escriben código, ejecutan las pruebas y se revisan entre ellos. Se lanzan por flotas, cada uno con su encargo, y un panel de jueces con criterios distintos tiene que dar el visto bueno antes de que nada se fusione."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Fervon es una agencia de desarrollo?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No. Fervon es un estudio de software autónomo: publica productos propios y herramientas open source. Sí acepta encargos a medida, pero por proyecto y con alcance y precio cerrados antes de empezar, nunca por horas ni por perfiles."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Qué tecnologías utiliza Fervon?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "TypeScript/Node y React en el front, Python donde encaja, SQLite y Postgres para datos, y LLMs tanto de API (Claude) como locales vía llama.cpp. Casi todo se diseña para correr en la máquina del usuario."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Dónde puedo ver el código de Fervon?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "En GitHub, en la organización Fervon. La mayoría de las herramientas son open source con licencia permisiva, así que la promesa de «esto no sale de tu máquina» se puede comprobar leyendo el código en vez de creyéndosela."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿De dónde viene el nombre Fervon?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Del latín fervere — arder, hervir, bullir con fervor. De ahí el alma de forja del estudio y el lema: forjado al rojo vivo."
-          }
-        }
-      ]
+      "@type": "City",
+      "name": "Málaga"
     }
+  ],
+  "sameAs": [
+    "https://github.com/Fervon",
+    "https://www.linkedin.com/company/fervondev",
+    "https://www.npmjs.com/package/fervon",
+    "https://dev.to/jonimatiin",
+    "https://bsky.app/profile/jonimartin.bsky.social",
+    "https://mastodon.social/@jonimartin"
   ]
 }
   </script>

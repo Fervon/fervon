@@ -29,110 +29,39 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@graph": [
+  "@type": "Organization",
+  "@id": "https://fervon.dev/#organization",
+  "name": "Fervon",
+  "url": "https://fervon.dev/",
+  "logo": "https://fervon.dev/assets/favicon-512.png",
+  "description": "Estudio de software autónomo: productos local-first y herramientas open source construidas con flotas de agentes de IA.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Málaga",
+    "addressRegion": "Andalucía",
+    "addressCountry": "ES"
+  },
+  "areaServed": [
     {
-      "@type": "BlogPosting",
-      "@id": "https://fervon.dev/blog/coste-real-agentes-ia/#post",
-      "headline": "Cuánto cuesta de verdad un agente de IA",
-      "description": "La factura del proveedor no es el coste. Dónde se esconde el gasto de un agente, cómo medirlo en local y cuándo compensa mover el modelo a tu GPU.",
-      "url": "https://fervon.dev/blog/coste-real-agentes-ia/",
-      "datePublished": "2026-08-19",
-      "dateModified": "2026-08-19",
-      "inLanguage": "es",
-      "image": "https://fervon.dev/assets/blog/coste-real-agentes-ia.jpg?v=jml8kq",
-      "wordCount": 488,
-      "author": {
-        "@id": "https://fervon.dev/#jonathan"
-      },
-      "publisher": {
-        "@id": "https://fervon.dev/#organization"
-      },
-      "isPartOf": {
-        "@id": "https://fervon.dev/blog/#blog"
-      },
-      "mainEntityOfPage": {
-        "@id": "https://fervon.dev/blog/coste-real-agentes-ia/#post"
-      }
+      "@type": "Country",
+      "name": "España"
     },
     {
-      "@type": "Person",
-      "@id": "https://fervon.dev/#jonathan",
-      "name": "Jonathan Martín",
-      "url": "https://fervon.dev/about/",
-      "worksFor": {
-        "@id": "https://fervon.dev/#organization"
-      }
+      "@type": "AdministrativeArea",
+      "name": "Andalucía"
     },
     {
-      "@type": "BreadcrumbList",
-      "@id": "https://fervon.dev/blog/coste-real-agentes-ia/#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Fervon",
-          "item": "https://fervon.dev/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Noticias",
-          "item": "https://fervon.dev/blog/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Cuánto cuesta de verdad un agente de IA",
-          "item": "https://fervon.dev/blog/coste-real-agentes-ia/"
-        }
-      ]
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://fervon.dev/blog/coste-real-agentes-ia/#faq",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "¿Por qué el panel de mi proveedor no me vale?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Porque agrega por clave y por día, no por tarea. Te dice que gastaste una cantidad, no qué tarea la consumió ni cuánto de eso fueron reintentos. Para eso hay que instrumentar en el punto de la llamada."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Cuál es la partida más grande normalmente?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "El contexto reenviado. En una conversación con herramientas, cada turno vuelve a mandar todo lo anterior, así que el gasto crece más que linealmente con el número de pasos aunque cada mensaje nuevo sea corto."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Un modelo local sale más barato?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "En coste por token, sí: es cero. En coste total, depende de la tasa de acierto y de la espera. Un modelo pequeño que necesita tres intentos puede acabar costando más tiempo del que ahorra en dinero. La única forma de saberlo es medirlo en tu propia máquina."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Cómo se reduce el gasto sin empeorar los resultados?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Por orden de rentabilidad: recortar lo que devuelven las herramientas, quitar del contexto lo que ya no se usa, y subir la tasa de acierto a la primera. Las tres bajan la factura sin tocar la calidad. Recortar el contexto a lo bruto la baja también, pero sube los reintentos."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Qué hay que registrar como mínimo?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Por cada llamada: tokens de entrada y de salida, modelo, duración, herramienta invocada si la hay, y el identificador de la tarea que la provocó. Con eso ya se puede contestar cuánto cuesta una tarea terminada, que es la única cifra que sirve para decidir."
-          }
-        }
-      ]
+      "@type": "City",
+      "name": "Málaga"
     }
+  ],
+  "sameAs": [
+    "https://github.com/Fervon",
+    "https://www.linkedin.com/company/fervondev",
+    "https://www.npmjs.com/package/fervon",
+    "https://dev.to/jonimatiin",
+    "https://bsky.app/profile/jonimartin.bsky.social",
+    "https://mastodon.social/@jonimartin"
   ]
 }
   </script>

@@ -30,110 +30,39 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@graph": [
+  "@type": "Organization",
+  "@id": "https://fervon.dev/#organization",
+  "name": "Fervon",
+  "url": "https://fervon.dev/",
+  "logo": "https://fervon.dev/assets/favicon-512.png",
+  "description": "Autonomous software studio: local-first products and open-source developer tools built with fleets of AI agents.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Málaga",
+    "addressRegion": "Andalucía",
+    "addressCountry": "ES"
+  },
+  "areaServed": [
     {
-      "@type": "BlogPosting",
-      "@id": "https://fervon.dev/blog/coste-real-agentes-ia/#post",
-      "headline": "Cuánto cuesta de verdad un agente de IA",
-      "description": "The provider invoice is not the cost. Where an agent's spend actually hides, how to measure it locally, and when moving the model to your own GPU pays off.",
-      "url": "https://fervon.dev/blog/coste-real-agentes-ia/",
-      "datePublished": "2026-08-19",
-      "dateModified": "2026-08-19",
-      "inLanguage": "en",
-      "image": "https://fervon.dev/assets/blog/coste-real-agentes-ia.jpg?v=jml8kq",
-      "wordCount": 488,
-      "author": {
-        "@id": "https://fervon.dev/#jonathan"
-      },
-      "publisher": {
-        "@id": "https://fervon.dev/#organization"
-      },
-      "isPartOf": {
-        "@id": "https://fervon.dev/blog/#blog"
-      },
-      "mainEntityOfPage": {
-        "@id": "https://fervon.dev/blog/coste-real-agentes-ia/#post"
-      }
+      "@type": "Country",
+      "name": "España"
     },
     {
-      "@type": "Person",
-      "@id": "https://fervon.dev/#jonathan",
-      "name": "Jonathan Martín",
-      "url": "https://fervon.dev/about/",
-      "worksFor": {
-        "@id": "https://fervon.dev/#organization"
-      }
+      "@type": "AdministrativeArea",
+      "name": "Andalucía"
     },
     {
-      "@type": "BreadcrumbList",
-      "@id": "https://fervon.dev/blog/coste-real-agentes-ia/#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Fervon",
-          "item": "https://fervon.dev/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Noticias",
-          "item": "https://fervon.dev/blog/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Cuánto cuesta de verdad un agente de IA",
-          "item": "https://fervon.dev/blog/coste-real-agentes-ia/"
-        }
-      ]
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://fervon.dev/blog/coste-real-agentes-ia/#faq",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Why is my provider dashboard not enough?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Because it aggregates by key and by day, not by task. It tells you that you spent an amount, not which task consumed it or how much of it was retries. For that you have to instrument at the call site."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Which line item is usually biggest?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Resent context. In a tool-using conversation every turn resends everything before it, so spend grows faster than linearly with the number of steps even when each new message is short."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is a local model cheaper?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "In cost per token, yes: it is zero. In total cost, it depends on the success rate and the waiting. A small model that needs three attempts can end up costing more time than it saves in money. The only way to know is to measure it on your own machine."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How do you cut spend without hurting results?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "In order of return: trim what the tools give back, drop from context whatever is no longer used, and raise the first-attempt success rate. All three cut the invoice without touching quality. Blunt context trimming cuts it too, but pushes retries up."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What is the minimum to record?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Per call: input and output tokens, model, duration, the tool invoked if any, and the identifier of the task that triggered it. With that you can already answer what a completed task costs, which is the only figure useful for deciding."
-          }
-        }
-      ]
+      "@type": "City",
+      "name": "Málaga"
     }
+  ],
+  "sameAs": [
+    "https://github.com/Fervon",
+    "https://www.linkedin.com/company/fervondev",
+    "https://www.npmjs.com/package/fervon",
+    "https://dev.to/jonimatiin",
+    "https://bsky.app/profile/jonimartin.bsky.social",
+    "https://mastodon.social/@jonimartin"
   ]
 }
   </script>
@@ -163,6 +92,32 @@
     "https://dev.to/jonimatiin",
     "https://bsky.app/profile/jonimartin.bsky.social",
     "https://mastodon.social/@jonimartin"
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://fervon.dev/en/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "News",
+      "item": "https://fervon.dev/en/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "What an AI agent really costs",
+      "item": "https://fervon.dev/en/blog/coste-real-agentes-ia/"
+    }
   ]
 }
   </script>

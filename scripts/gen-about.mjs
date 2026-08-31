@@ -115,8 +115,18 @@ const jsonld = {
          sirve; este Organization no decía nada, así que la misma entidad
          contaba dos cosas distintas segun la pagina. Se repite aqui lo mismo
          que alli, palabra por palabra. */
-      address: { '@type': 'PostalAddress', addressCountry: 'ES' },
-      areaServed: { '@type': 'Place', name: 'Worldwide' },
+      /* DÓNDE ESTÁ y A DÓNDE SIRVE son dos cosas distintas, y las dos son
+         ciertas: el estudio está en Málaga y trabaja en remoto para toda
+         España. Declararlo así cubre a quien pregunte por Madrid, Sevilla o
+         cualquier provincia SIN inventarse una oficina en cada una ni una
+         página por provincia — que es contenido fino, se detecta como
+         duplicado y pierde elegibilidad (puntos 6, 11 y 21 de Bing). */
+      address: { '@type': 'PostalAddress', addressLocality: 'Málaga', addressRegion: 'Andalucía', addressCountry: 'ES' },
+      areaServed: [
+        { '@type': 'Country', name: 'España' },
+        { '@type': 'AdministrativeArea', name: 'Andalucía' },
+        { '@type': 'City', name: 'Málaga' },
+      ],
       knowsLanguage: ['es', 'en'],
       knowsAbout: [
         'Autonomous software development',

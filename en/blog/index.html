@@ -30,148 +30,39 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@graph": [
+  "@type": "Organization",
+  "@id": "https://fervon.dev/#organization",
+  "name": "Fervon",
+  "url": "https://fervon.dev/",
+  "logo": "https://fervon.dev/assets/favicon-512.png",
+  "description": "Autonomous software studio: local-first products and open-source developer tools built with fleets of AI agents.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Málaga",
+    "addressRegion": "Andalucía",
+    "addressCountry": "ES"
+  },
+  "areaServed": [
     {
-      "@type": "Blog",
-      "@id": "https://fervon.dev/blog/#blog",
-      "name": "Noticias de Fervon",
-      "description": "Novedades de los proyectos de Fervon y artículos sobre cómo se construye software dirigiendo flotas de agentes de IA.",
-      "url": "https://fervon.dev/blog/",
-      "inLanguage": "en",
-      "publisher": {
-        "@id": "https://fervon.dev/#organization"
-      },
-      "author": {
-        "@id": "https://fervon.dev/#jonathan"
-      },
-      "blogPost": [
-        {
-          "@type": "BlogPosting",
-          "@id": "https://fervon.dev/blog/estudio-software-autonomo/#post",
-          "headline": "Qué es un estudio de software autónomo",
-          "description": "Releases from Trace, Veredicto, Lookspan, ClaudeScope, inferbench and launchpad, plus articles on building software with fleets of AI agents.",
-          "url": "https://fervon.dev/blog/estudio-software-autonomo/",
-          "datePublished": "2026-08-19",
-          "image": "https://fervon.dev/assets/blog/estudio-software-autonomo.jpg?v=xm28fq",
-          "author": {
-            "@id": "https://fervon.dev/#jonathan"
-          },
-          "publisher": {
-            "@id": "https://fervon.dev/#organization"
-          }
-        },
-        {
-          "@type": "BlogPosting",
-          "@id": "https://fervon.dev/blog/flotas-agentes-ia/#post",
-          "headline": "Cómo se dirige una flota de agentes de IA",
-          "description": "Releases from Trace, Veredicto, Lookspan, ClaudeScope, inferbench and launchpad, plus articles on building software with fleets of AI agents.",
-          "url": "https://fervon.dev/blog/flotas-agentes-ia/",
-          "datePublished": "2026-08-19",
-          "image": "https://fervon.dev/assets/blog/flotas-agentes-ia.jpg?v=hfuoc",
-          "author": {
-            "@id": "https://fervon.dev/#jonathan"
-          },
-          "publisher": {
-            "@id": "https://fervon.dev/#organization"
-          }
-        },
-        {
-          "@type": "BlogPosting",
-          "@id": "https://fervon.dev/blog/tests-amanados-agentes/#post",
-          "headline": "Cómo saber si un agente te está amañando los tests",
-          "description": "Releases from Trace, Veredicto, Lookspan, ClaudeScope, inferbench and launchpad, plus articles on building software with fleets of AI agents.",
-          "url": "https://fervon.dev/blog/tests-amanados-agentes/",
-          "datePublished": "2026-08-19",
-          "image": "https://fervon.dev/assets/blog/tests-amanados-agentes.jpg?v=lc0hdy",
-          "author": {
-            "@id": "https://fervon.dev/#jonathan"
-          },
-          "publisher": {
-            "@id": "https://fervon.dev/#organization"
-          }
-        },
-        {
-          "@type": "BlogPosting",
-          "@id": "https://fervon.dev/blog/coste-real-agentes-ia/#post",
-          "headline": "Cuánto cuesta de verdad un agente de IA",
-          "description": "Releases from Trace, Veredicto, Lookspan, ClaudeScope, inferbench and launchpad, plus articles on building software with fleets of AI agents.",
-          "url": "https://fervon.dev/blog/coste-real-agentes-ia/",
-          "datePublished": "2026-08-19",
-          "image": "https://fervon.dev/assets/blog/coste-real-agentes-ia.jpg?v=jml8kq",
-          "author": {
-            "@id": "https://fervon.dev/#jonathan"
-          },
-          "publisher": {
-            "@id": "https://fervon.dev/#organization"
-          }
-        }
-      ]
+      "@type": "Country",
+      "name": "España"
     },
     {
-      "@type": "Person",
-      "@id": "https://fervon.dev/#jonathan",
-      "name": "Jonathan Martín",
-      "url": "https://fervon.dev/about/",
-      "worksFor": {
-        "@id": "https://fervon.dev/#organization"
-      }
+      "@type": "AdministrativeArea",
+      "name": "Andalucía"
     },
     {
-      "@type": "BreadcrumbList",
-      "@id": "https://fervon.dev/blog/#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Fervon",
-          "item": "https://fervon.dev/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Noticias",
-          "item": "https://fervon.dev/blog/"
-        }
-      ]
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://fervon.dev/blog/#faq",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is this blog about?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Two things: each Fervon project's releases as they ship, and long-form articles on how software gets built by directing fleets of AI agents. No filler: only what was measured while working gets published."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How often does it publish?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "When there is something measured worth saying. It is a one-person studio, so one useful article a month beats four filler posts a week."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Do you have to subscribe to read it?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No. No paywall, no signup and no popup asking for your email. All the content is open, like most of the code."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Who writes the articles?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Jonathan Martín, founder and sole person behind Fervon. The articles describe his actual working method, limits and things that went wrong included."
-          }
-        }
-      ]
+      "@type": "City",
+      "name": "Málaga"
     }
+  ],
+  "sameAs": [
+    "https://github.com/Fervon",
+    "https://www.linkedin.com/company/fervondev",
+    "https://www.npmjs.com/package/fervon",
+    "https://dev.to/jonimatiin",
+    "https://bsky.app/profile/jonimartin.bsky.social",
+    "https://mastodon.social/@jonimartin"
   ]
 }
   </script>
@@ -201,6 +92,26 @@
     "https://dev.to/jonimatiin",
     "https://bsky.app/profile/jonimartin.bsky.social",
     "https://mastodon.social/@jonimartin"
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://fervon.dev/en/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "News",
+      "item": "https://fervon.dev/en/blog/"
+    }
   ]
 }
   </script>

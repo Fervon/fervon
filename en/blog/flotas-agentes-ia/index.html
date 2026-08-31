@@ -30,110 +30,39 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@graph": [
+  "@type": "Organization",
+  "@id": "https://fervon.dev/#organization",
+  "name": "Fervon",
+  "url": "https://fervon.dev/",
+  "logo": "https://fervon.dev/assets/favicon-512.png",
+  "description": "Autonomous software studio: local-first products and open-source developer tools built with fleets of AI agents.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Málaga",
+    "addressRegion": "Andalucía",
+    "addressCountry": "ES"
+  },
+  "areaServed": [
     {
-      "@type": "BlogPosting",
-      "@id": "https://fervon.dev/blog/flotas-agentes-ia/#post",
-      "headline": "Cómo se dirige una flota de agentes de IA",
-      "description": "Isolation with git worktrees, how many agents in parallel, measuring before fixing, and an adversarial judge panel. The real method, limits included.",
-      "url": "https://fervon.dev/blog/flotas-agentes-ia/",
-      "datePublished": "2026-08-19",
-      "dateModified": "2026-08-19",
-      "inLanguage": "en",
-      "image": "https://fervon.dev/assets/blog/flotas-agentes-ia.jpg?v=hfuoc",
-      "wordCount": 586,
-      "author": {
-        "@id": "https://fervon.dev/#jonathan"
-      },
-      "publisher": {
-        "@id": "https://fervon.dev/#organization"
-      },
-      "isPartOf": {
-        "@id": "https://fervon.dev/blog/#blog"
-      },
-      "mainEntityOfPage": {
-        "@id": "https://fervon.dev/blog/flotas-agentes-ia/#post"
-      }
+      "@type": "Country",
+      "name": "España"
     },
     {
-      "@type": "Person",
-      "@id": "https://fervon.dev/#jonathan",
-      "name": "Jonathan Martín",
-      "url": "https://fervon.dev/about/",
-      "worksFor": {
-        "@id": "https://fervon.dev/#organization"
-      }
+      "@type": "AdministrativeArea",
+      "name": "Andalucía"
     },
     {
-      "@type": "BreadcrumbList",
-      "@id": "https://fervon.dev/blog/flotas-agentes-ia/#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Fervon",
-          "item": "https://fervon.dev/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Noticias",
-          "item": "https://fervon.dev/blog/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Cómo se dirige una flota de agentes de IA",
-          "item": "https://fervon.dev/blog/flotas-agentes-ia/"
-        }
-      ]
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://fervon.dev/blog/flotas-agentes-ia/#faq",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Do you need git worktrees or are branches enough?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Branches alone are not enough if the agents work simultaneously: they share one working directory, so switching branch affects everyone. A worktree gives each agent its own directory. If the agents run one at a time, branches are more than enough."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How many parallel agents are too many?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "When the queue of changes awaiting review grows faster than you empty it. In practice that point arrives sooner than you would think: around four per task. If you need more, the task is usually badly scoped."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Why reviewers with different criteria instead of just more reviewers?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Because identical reviewers make the same mistake at the same time. Three agents with the same brief find the same flaw and miss the rest. Splitting the lenses —correctness, tests, security, simplicity— covers classes of failure that redundancy does not."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Can review be fully automated?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "You can automate the filter, not the decision. An automated panel is very good at discarding what is clearly wrong, and that alone multiplies what a person can process. But whatever survives the filter still needs someone to decide whether it is what they wanted."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What happens when an agent says it is fixed?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "You check it against the condition defined when the bug was reproduced, not against the agent's claim. If that condition was not defined before starting, there is no way to know whether it is fixed — and that is the real problem."
-          }
-        }
-      ]
+      "@type": "City",
+      "name": "Málaga"
     }
+  ],
+  "sameAs": [
+    "https://github.com/Fervon",
+    "https://www.linkedin.com/company/fervondev",
+    "https://www.npmjs.com/package/fervon",
+    "https://dev.to/jonimatiin",
+    "https://bsky.app/profile/jonimartin.bsky.social",
+    "https://mastodon.social/@jonimartin"
   ]
 }
   </script>
@@ -163,6 +92,32 @@
     "https://dev.to/jonimatiin",
     "https://bsky.app/profile/jonimartin.bsky.social",
     "https://mastodon.social/@jonimartin"
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://fervon.dev/en/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "News",
+      "item": "https://fervon.dev/en/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "How to direct a fleet of AI agents",
+      "item": "https://fervon.dev/en/blog/flotas-agentes-ia/"
+    }
   ]
 }
   </script>

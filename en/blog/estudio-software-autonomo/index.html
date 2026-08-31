@@ -30,110 +30,39 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@graph": [
+  "@type": "Organization",
+  "@id": "https://fervon.dev/#organization",
+  "name": "Fervon",
+  "url": "https://fervon.dev/",
+  "logo": "https://fervon.dev/assets/favicon-512.png",
+  "description": "Autonomous software studio: local-first products and open-source developer tools built with fleets of AI agents.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Málaga",
+    "addressRegion": "Andalucía",
+    "addressCountry": "ES"
+  },
+  "areaServed": [
     {
-      "@type": "BlogPosting",
-      "@id": "https://fervon.dev/blog/estudio-software-autonomo/#post",
-      "headline": "Qué es un estudio de software autónomo",
-      "description": "An autonomous software studio is a workshop where AI agents do the execution and one person supplies the judgement. What actually changes, and what does not.",
-      "url": "https://fervon.dev/blog/estudio-software-autonomo/",
-      "datePublished": "2026-08-19",
-      "dateModified": "2026-08-19",
-      "inLanguage": "en",
-      "image": "https://fervon.dev/assets/blog/estudio-software-autonomo.jpg?v=xm28fq",
-      "wordCount": 542,
-      "author": {
-        "@id": "https://fervon.dev/#jonathan"
-      },
-      "publisher": {
-        "@id": "https://fervon.dev/#organization"
-      },
-      "isPartOf": {
-        "@id": "https://fervon.dev/blog/#blog"
-      },
-      "mainEntityOfPage": {
-        "@id": "https://fervon.dev/blog/estudio-software-autonomo/#post"
-      }
+      "@type": "Country",
+      "name": "España"
     },
     {
-      "@type": "Person",
-      "@id": "https://fervon.dev/#jonathan",
-      "name": "Jonathan Martín",
-      "url": "https://fervon.dev/about/",
-      "worksFor": {
-        "@id": "https://fervon.dev/#organization"
-      }
+      "@type": "AdministrativeArea",
+      "name": "Andalucía"
     },
     {
-      "@type": "BreadcrumbList",
-      "@id": "https://fervon.dev/blog/estudio-software-autonomo/#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Fervon",
-          "item": "https://fervon.dev/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Noticias",
-          "item": "https://fervon.dev/blog/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Qué es un estudio de software autónomo",
-          "item": "https://fervon.dev/blog/estudio-software-autonomo/"
-        }
-      ]
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://fervon.dev/blog/estudio-software-autonomo/#faq",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Does an autonomous studio write code with no human involvement?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Execution does run without intervention: the agents read the repository, write, run the tests and try again. What does not run without intervention is the decision of what gets accepted. A change no human has looked at is not considered finished."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How many agents do you need?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Fewer than you would think. The limit is not the machine but review capacity: as soon as the queue of pending changes grows faster than it empties, adding agents makes things worse. In practice four in parallel per task is a sensible ceiling."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Does this work for serious software or only prototypes?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "It works for whatever you can verify. If a change can be tested automatically and reproducibly, the method holds up fine. Where it breaks down is anything that can only be validated by looking at it: there the human bottleneck is total and the fleet barely helps."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What about quality?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "That is the right question, because the real risk of this model is not writing too little code but accepting bad code quickly. The answer is not trusting the agent more: it is making verification cheaper. Tests that actually fail when something breaks, adversarial review, and measurement before calling anything fixed."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is Fervon an autonomous software studio?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes. Fervon is Jonathan Martín's autonomous software studio: one person directing fleets of AI agents that build local-first products and open-source tools. The entire catalogue came out of that method."
-          }
-        }
-      ]
+      "@type": "City",
+      "name": "Málaga"
     }
+  ],
+  "sameAs": [
+    "https://github.com/Fervon",
+    "https://www.linkedin.com/company/fervondev",
+    "https://www.npmjs.com/package/fervon",
+    "https://dev.to/jonimatiin",
+    "https://bsky.app/profile/jonimartin.bsky.social",
+    "https://mastodon.social/@jonimartin"
   ]
 }
   </script>
@@ -163,6 +92,32 @@
     "https://dev.to/jonimatiin",
     "https://bsky.app/profile/jonimartin.bsky.social",
     "https://mastodon.social/@jonimartin"
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://fervon.dev/en/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "News",
+      "item": "https://fervon.dev/en/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "What an autonomous software studio is",
+      "item": "https://fervon.dev/en/blog/estudio-software-autonomo/"
+    }
   ]
 }
   </script>

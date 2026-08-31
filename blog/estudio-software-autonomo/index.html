@@ -30,110 +30,39 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@graph": [
+  "@type": "Organization",
+  "@id": "https://fervon.dev/#organization",
+  "name": "Fervon",
+  "url": "https://fervon.dev/",
+  "logo": "https://fervon.dev/assets/favicon-512.png",
+  "description": "Estudio de software autónomo: productos local-first y herramientas open source construidas con flotas de agentes de IA.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Málaga",
+    "addressRegion": "Andalucía",
+    "addressCountry": "ES"
+  },
+  "areaServed": [
     {
-      "@type": "BlogPosting",
-      "@id": "https://fervon.dev/blog/estudio-software-autonomo/#post",
-      "headline": "Qué es un estudio de software autónomo",
-      "description": "Un estudio de software autónomo es un taller donde la ejecución la hacen agentes de IA y el criterio lo pone una persona. Qué cambia de verdad y qué no.",
-      "url": "https://fervon.dev/blog/estudio-software-autonomo/",
-      "datePublished": "2026-08-19",
-      "dateModified": "2026-08-19",
-      "inLanguage": "es",
-      "image": "https://fervon.dev/assets/blog/estudio-software-autonomo.jpg?v=xm28fq",
-      "wordCount": 542,
-      "author": {
-        "@id": "https://fervon.dev/#jonathan"
-      },
-      "publisher": {
-        "@id": "https://fervon.dev/#organization"
-      },
-      "isPartOf": {
-        "@id": "https://fervon.dev/blog/#blog"
-      },
-      "mainEntityOfPage": {
-        "@id": "https://fervon.dev/blog/estudio-software-autonomo/#post"
-      }
+      "@type": "Country",
+      "name": "España"
     },
     {
-      "@type": "Person",
-      "@id": "https://fervon.dev/#jonathan",
-      "name": "Jonathan Martín",
-      "url": "https://fervon.dev/about/",
-      "worksFor": {
-        "@id": "https://fervon.dev/#organization"
-      }
+      "@type": "AdministrativeArea",
+      "name": "Andalucía"
     },
     {
-      "@type": "BreadcrumbList",
-      "@id": "https://fervon.dev/blog/estudio-software-autonomo/#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Fervon",
-          "item": "https://fervon.dev/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Noticias",
-          "item": "https://fervon.dev/blog/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Qué es un estudio de software autónomo",
-          "item": "https://fervon.dev/blog/estudio-software-autonomo/"
-        }
-      ]
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://fervon.dev/blog/estudio-software-autonomo/#faq",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "¿Un estudio autónomo escribe el código sin intervención humana?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "La ejecución sí corre sin intervención: los agentes leen el repositorio, escriben, ejecutan las pruebas y vuelven a intentarlo. Lo que no corre sin intervención es la decisión de qué se acepta. Un cambio que ningún humano ha mirado no se considera terminado."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Cuántos agentes hacen falta?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Menos de los que parece. El límite no lo pone la máquina sino la capacidad de revisar: en cuanto la cola de cambios pendientes crece más rápido de lo que se vacía, añadir agentes empeora las cosas. En la práctica cuatro en paralelo por tarea es un techo razonable."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Esto sirve para software serio o solo para prototipos?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Sirve para lo que puedas verificar. Si un cambio se puede probar de forma automática y reproducible, el método aguanta perfectamente. Donde se rompe es en lo que solo se puede validar mirándolo: ahí el cuello de botella humano es total y la flota apenas ayuda."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Qué pasa con la calidad?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Es la pregunta correcta, porque el riesgo real de este modelo no es escribir poco código sino aceptar código malo deprisa. La respuesta no es confiar más en el agente: es abaratar la verificación. Pruebas que de verdad fallan cuando algo se rompe, revisión adversarial y medición antes de dar nada por arreglado."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Fervon es un estudio de software autónomo?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Sí. Fervon es el estudio de software autónomo de Jonathan Martín: una persona dirigiendo flotas de agentes de IA que construyen productos local-first y herramientas open source. El catálogo entero salió de ese método."
-          }
-        }
-      ]
+      "@type": "City",
+      "name": "Málaga"
     }
+  ],
+  "sameAs": [
+    "https://github.com/Fervon",
+    "https://www.linkedin.com/company/fervondev",
+    "https://www.npmjs.com/package/fervon",
+    "https://dev.to/jonimatiin",
+    "https://bsky.app/profile/jonimartin.bsky.social",
+    "https://mastodon.social/@jonimartin"
   ]
 }
   </script>
@@ -163,6 +92,32 @@
     "https://dev.to/jonimatiin",
     "https://bsky.app/profile/jonimartin.bsky.social",
     "https://mastodon.social/@jonimartin"
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Inicio",
+      "item": "https://fervon.dev/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Noticias",
+      "item": "https://fervon.dev/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Qué es un estudio de software autónomo",
+      "item": "https://fervon.dev/blog/estudio-software-autonomo/"
+    }
   ]
 }
   </script>

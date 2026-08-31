@@ -58,8 +58,12 @@ const orgStub = {
   description: 'Estudio de software autónomo: productos local-first y herramientas open source construidas con flotas de agentes de IA.',
   /* La misma ubicación que declara bizNode: Bing penaliza que una entidad se
      describa distinto según la página en la que aparezca. */
-  address: { '@type': 'PostalAddress', addressCountry: 'ES' },
-  areaServed: { '@type': 'Place', name: 'Worldwide' },
+  address: { '@type': 'PostalAddress', addressLocality: 'Málaga', addressRegion: 'Andalucía', addressCountry: 'ES' },
+  areaServed: [
+    { '@type': 'Country', name: 'España' },
+    { '@type': 'AdministrativeArea', name: 'Andalucía' },
+    { '@type': 'City', name: 'Málaga' },
+  ],
   sameAs: SAME_AS,
 };
 
@@ -72,8 +76,15 @@ const bizNode = {
   logo: 'https://fervon.dev/assets/favicon-512.png',
   description: 'Desarrollo de software a medida dirigiendo flotas de agentes de IA. Precio por proyecto con alcance cerrado, el código entregado es del cliente. Remoto desde España.',
   parentOrganization: { '@id': ORG_ID },
-  address: { '@type': 'PostalAddress', addressCountry: 'ES' },
-  areaServed: { '@type': 'Place', name: 'Worldwide' },
+  address: { '@type': 'PostalAddress', addressLocality: 'Málaga', addressRegion: 'Andalucía', addressCountry: 'ES' },
+  /* Este es el nodo que un asistente lee cuando le preguntan «quién hace esto
+     en <sitio>». España cubre las 50 provincias; Andalucía y Málaga concretan
+     de dónde se trabaja. Todo remoto, que es como se presta de verdad. */
+  areaServed: [
+    { '@type': 'Country', name: 'España' },
+    { '@type': 'AdministrativeArea', name: 'Andalucía' },
+    { '@type': 'City', name: 'Málaga' },
+  ],
   availableLanguage: ['es', 'en'],
   priceRange: '$19–$39',
   currenciesAccepted: 'USD, EUR',
@@ -114,6 +125,25 @@ for (const rel of PAGES) {
     const anchor = '  <link rel="stylesheet"';
     h = h.replace(anchor, block(bizNode) + '\n' + anchor);
     did.push('ProfessionalService añadido');
+  }
+
+  /* 4. Y si el nodo YA estaba, se REESCRIBE con la versión de arriba.
+     Hasta el 2026-08-31 este script solo sabía añadir: los pasos 2 y 3 miran
+     `!h.includes(...)`, así que en cuanto un nodo existía quedaba congelado en
+     la forma que tuviera el día que se inyectó. Al ampliar la cobertura
+     geográfica salió a la luz — decía «0 páginas modificadas» con 27 páginas
+     sirviendo el schema viejo. Un inyector que no actualiza es una verdad
+     congelada que nadie vuelve a mirar. */
+  for (const nodo of [orgStub, bizNode]) {
+    const re = new RegExp('  <script type="application/ld\\+json">\\n\\{[\\s\\S]*?"@id": "' +
+      nodo['@id'].replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '"[\\s\\S]*?\\n  </script>\\n');
+    const m = h.match(re);
+    if (!m) continue;
+    const nuevoBloque = block(nodo);
+    if (m[0] !== nuevoBloque) {
+      h = h.replace(re, nuevoBloque);
+      did.push(`${nodo['@type']} actualizado`);
+    }
   }
 
   if (h !== before) {

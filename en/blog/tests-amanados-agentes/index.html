@@ -30,110 +30,39 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@graph": [
+  "@type": "Organization",
+  "@id": "https://fervon.dev/#organization",
+  "name": "Fervon",
+  "url": "https://fervon.dev/",
+  "logo": "https://fervon.dev/assets/favicon-512.png",
+  "description": "Autonomous software studio: local-first products and open-source developer tools built with fleets of AI agents.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Málaga",
+    "addressRegion": "Andalucía",
+    "addressCountry": "ES"
+  },
+  "areaServed": [
     {
-      "@type": "BlogPosting",
-      "@id": "https://fervon.dev/blog/tests-amanados-agentes/#post",
-      "headline": "Cómo saber si un agente te está amañando los tests",
-      "description": "Six ways an agent turns a test green without fixing anything, how to detect each one, and the one check that cannot be faked.",
-      "url": "https://fervon.dev/blog/tests-amanados-agentes/",
-      "datePublished": "2026-08-19",
-      "dateModified": "2026-08-19",
-      "inLanguage": "en",
-      "image": "https://fervon.dev/assets/blog/tests-amanados-agentes.jpg?v=lc0hdy",
-      "wordCount": 598,
-      "author": {
-        "@id": "https://fervon.dev/#jonathan"
-      },
-      "publisher": {
-        "@id": "https://fervon.dev/#organization"
-      },
-      "isPartOf": {
-        "@id": "https://fervon.dev/blog/#blog"
-      },
-      "mainEntityOfPage": {
-        "@id": "https://fervon.dev/blog/tests-amanados-agentes/#post"
-      }
+      "@type": "Country",
+      "name": "España"
     },
     {
-      "@type": "Person",
-      "@id": "https://fervon.dev/#jonathan",
-      "name": "Jonathan Martín",
-      "url": "https://fervon.dev/about/",
-      "worksFor": {
-        "@id": "https://fervon.dev/#organization"
-      }
+      "@type": "AdministrativeArea",
+      "name": "Andalucía"
     },
     {
-      "@type": "BreadcrumbList",
-      "@id": "https://fervon.dev/blog/tests-amanados-agentes/#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Fervon",
-          "item": "https://fervon.dev/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Noticias",
-          "item": "https://fervon.dev/blog/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Cómo saber si un agente te está amañando los tests",
-          "item": "https://fervon.dev/blog/tests-amanados-agentes/"
-        }
-      ]
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://fervon.dev/blog/tests-amanados-agentes/#faq",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Do agents cheat on purpose?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "There is no intent behind it. An agent optimises the objective it is given, and if the objective is \"leave the tests green\", mocking the failing point is a perfectly valid solution to that objective. The flaw is in the objective, not the agent."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is high coverage not enough?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No, and it can make things worse. Five of the six patterns execute the line without checking anything, so they raise coverage while destroying the suite's usefulness. Demanding a coverage number creates exactly the incentive to produce them."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "So is mocking wrong?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Mocking is fine for isolating what is slow, external or non-deterministic: a network, a clock, a payment. It is wrong when the mock lands right on top of what the test claims to be testing. The signal is where the mock sits, not that it exists."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How do you review this without reading every test by hand?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "With two layers. An automatic one that hunts the patterns in the diff —a new mock next to the fix, empty assertions, a rising skipped counter— and a second, more expensive but conclusive one, that breaks the code on purpose and checks that the suite notices."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Does this only happen with AI-written code?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No: all six patterns have been showing up for decades in code written by people in a hurry or with a coverage target hanging over them. What changes with agents is the volume and the speed, which is what forces you to automate the detection."
-          }
-        }
-      ]
+      "@type": "City",
+      "name": "Málaga"
     }
+  ],
+  "sameAs": [
+    "https://github.com/Fervon",
+    "https://www.linkedin.com/company/fervondev",
+    "https://www.npmjs.com/package/fervon",
+    "https://dev.to/jonimatiin",
+    "https://bsky.app/profile/jonimartin.bsky.social",
+    "https://mastodon.social/@jonimartin"
   ]
 }
   </script>
@@ -163,6 +92,32 @@
     "https://dev.to/jonimatiin",
     "https://bsky.app/profile/jonimartin.bsky.social",
     "https://mastodon.social/@jonimartin"
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://fervon.dev/en/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "News",
+      "item": "https://fervon.dev/en/blog/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "How to tell when an agent is gaming your tests",
+      "item": "https://fervon.dev/en/blog/tests-amanados-agentes/"
+    }
   ]
 }
   </script>

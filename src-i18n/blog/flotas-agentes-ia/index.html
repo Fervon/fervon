@@ -29,110 +29,39 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@graph": [
+  "@type": "Organization",
+  "@id": "https://fervon.dev/#organization",
+  "name": "Fervon",
+  "url": "https://fervon.dev/",
+  "logo": "https://fervon.dev/assets/favicon-512.png",
+  "description": "Estudio de software autónomo: productos local-first y herramientas open source construidas con flotas de agentes de IA.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Málaga",
+    "addressRegion": "Andalucía",
+    "addressCountry": "ES"
+  },
+  "areaServed": [
     {
-      "@type": "BlogPosting",
-      "@id": "https://fervon.dev/blog/flotas-agentes-ia/#post",
-      "headline": "Cómo se dirige una flota de agentes de IA",
-      "description": "Aislamiento con git worktree, cuántos agentes en paralelo, medir antes de arreglar y un panel de jueces adversarial. El método real, con sus límites.",
-      "url": "https://fervon.dev/blog/flotas-agentes-ia/",
-      "datePublished": "2026-08-19",
-      "dateModified": "2026-08-19",
-      "inLanguage": "es",
-      "image": "https://fervon.dev/assets/blog/flotas-agentes-ia.jpg?v=hfuoc",
-      "wordCount": 586,
-      "author": {
-        "@id": "https://fervon.dev/#jonathan"
-      },
-      "publisher": {
-        "@id": "https://fervon.dev/#organization"
-      },
-      "isPartOf": {
-        "@id": "https://fervon.dev/blog/#blog"
-      },
-      "mainEntityOfPage": {
-        "@id": "https://fervon.dev/blog/flotas-agentes-ia/#post"
-      }
+      "@type": "Country",
+      "name": "España"
     },
     {
-      "@type": "Person",
-      "@id": "https://fervon.dev/#jonathan",
-      "name": "Jonathan Martín",
-      "url": "https://fervon.dev/about/",
-      "worksFor": {
-        "@id": "https://fervon.dev/#organization"
-      }
+      "@type": "AdministrativeArea",
+      "name": "Andalucía"
     },
     {
-      "@type": "BreadcrumbList",
-      "@id": "https://fervon.dev/blog/flotas-agentes-ia/#breadcrumb",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Fervon",
-          "item": "https://fervon.dev/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Noticias",
-          "item": "https://fervon.dev/blog/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 3,
-          "name": "Cómo se dirige una flota de agentes de IA",
-          "item": "https://fervon.dev/blog/flotas-agentes-ia/"
-        }
-      ]
-    },
-    {
-      "@type": "FAQPage",
-      "@id": "https://fervon.dev/blog/flotas-agentes-ia/#faq",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "¿Hace falta git worktree o vale con ramas?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Las ramas solas no bastan si los agentes trabajan a la vez: comparten el mismo directorio de trabajo, así que cambiar de rama afecta a todos. El worktree da a cada agente su propio directorio. Si los agentes van de uno en uno, las ramas sobran de sobra."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Cuántos agentes en paralelo son demasiados?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Cuando la cola de cambios pendientes de revisar crece más rápido de lo que la vacías. En la práctica ese punto llega antes de lo que parece: alrededor de cuatro por tarea. Si necesitas más, casi siempre la tarea está mal recortada."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Por qué revisores con criterios distintos y no simplemente más revisores?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Porque revisores idénticos cometen el mismo error a la vez. Tres agentes con la misma instrucción encuentran el mismo fallo y se pierden los demás. Repartir lentes —corrección, pruebas, seguridad, simplicidad— cubre clases de fallo que la redundancia no cubre."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Se puede automatizar del todo la revisión?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Se puede automatizar el filtro, no la decisión. Un panel automático descarta muy bien lo que está claramente mal, y eso ya multiplica lo que una persona puede procesar. Pero lo que sobrevive al filtro sigue necesitando que alguien decida si es lo que quería."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "¿Qué pasa cuando un agente dice que ya está arreglado?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Que hay que comprobarlo contra la condición que se definió al reproducir el fallo, no contra la afirmación del agente. Si no se definió esa condición antes de empezar, no hay forma de saber si está arreglado, y ese es el verdadero problema."
-          }
-        }
-      ]
+      "@type": "City",
+      "name": "Málaga"
     }
+  ],
+  "sameAs": [
+    "https://github.com/Fervon",
+    "https://www.linkedin.com/company/fervondev",
+    "https://www.npmjs.com/package/fervon",
+    "https://dev.to/jonimatiin",
+    "https://bsky.app/profile/jonimartin.bsky.social",
+    "https://mastodon.social/@jonimartin"
   ]
 }
   </script>
