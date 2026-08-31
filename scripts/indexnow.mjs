@@ -17,8 +17,9 @@
    secreto y vive en el repositorio: es pública por diseño, igual que el TXT de
    verificación de Search Console.
 
-   Uso:  node scripts/indexnow.mjs           avisa de TODO el sitemap
+   Uso:  node scripts/indexnow.mjs           avisa de lo que cambió HOY
          node scripts/indexnow.mjs /a /b     avisa solo de esas rutas
+         node scripts/indexnow.mjs --todo    el sitemap entero (alta inicial)
          node scripts/indexnow.mjs --check   comprueba el montaje, sin enviar
    ========================================================================== */
 
@@ -44,12 +45,32 @@ if (!fs.existsSync(FICHERO) || fs.readFileSync(FICHERO, 'utf8').trim() !== CLAVE
 }
 
 const rutas = process.argv.slice(2).filter((a) => !a.startsWith('--'));
+const TODO = process.argv.includes('--todo');
 let urls;
 if (rutas.length) {
   urls = rutas.map((r) => (r.startsWith('http') ? r : ORIGIN + r));
 } else {
+  /* Por defecto se avisa SOLO de lo que ha cambiado hoy, no del sitemap entero.
+     Bing lo pide explícitamente en el punto 4 de sus directrices: «Avoid batch
+     submissions when possible. Streaming submissions provide faster updates,
+     reduce server load, and improve indexing accuracy». Mandar las 59 en cada
+     despliegue es justo el lote que desaconseja, y encima gasta cuota.
+     El sitemap ya lleva un lastmod por URL, así que la lista sale de ahí.
+     Con --todo se manda el sitemap completo, que es lo que hace falta UNA vez:
+     al dar de alta el dominio. */
   const sitemap = fs.readFileSync(path.join(ROOT, 'sitemap.xml'), 'utf8');
-  urls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+  const bloques = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map((m) => m[1]);
+  const hoy = new Date().toISOString().slice(0, 10);
+  const todas = bloques.map((b) => ({
+    loc: (b.match(/<loc>([^<]+)<\/loc>/) || [, ''])[1],
+    lastmod: (b.match(/<lastmod>([^<]+)<\/lastmod>/) || [, ''])[1],
+  })).filter((u) => u.loc);
+  urls = TODO ? todas.map((u) => u.loc) : todas.filter((u) => u.lastmod === hoy).map((u) => u.loc);
+  if (!urls.length) {
+    console.log(`Ninguna URL con lastmod de hoy (${hoy}): no hay nada que avisar.`);
+    console.log('Si querías mandar el sitemap entero — el alta inicial — usa --todo.');
+    process.exit(0);
+  }
 }
 
 /* NINGUNA URL PUEDE SALIR DEL ORIGEN, y el guardarraíl no es teórico: el

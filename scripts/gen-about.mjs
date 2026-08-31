@@ -109,6 +109,14 @@ const jsonld = {
       slogan: 'Forjado al rojo vivo',
       foundingDate: '2026',
       numberOfEmployees: { '@type': 'QuantitativeValue', value: 1 },
+      /* Bing pide (punto 16 de sus directrices) que las entidades se nombren de
+         forma clara y CONSISTENTE, y nombra las ubicaciones entre ellas. El
+         ProfessionalService de /contacto/ ya declaraba dónde está y desde dónde
+         sirve; este Organization no decía nada, así que la misma entidad
+         contaba dos cosas distintas segun la pagina. Se repite aqui lo mismo
+         que alli, palabra por palabra. */
+      address: { '@type': 'PostalAddress', addressCountry: 'ES' },
+      areaServed: { '@type': 'Place', name: 'Worldwide' },
       knowsLanguage: ['es', 'en'],
       knowsAbout: [
         'Autonomous software development',

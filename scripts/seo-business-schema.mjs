@@ -56,6 +56,10 @@ const orgStub = {
   url: 'https://fervon.dev/',
   logo: 'https://fervon.dev/assets/favicon-512.png',
   description: 'Estudio de software autónomo: productos local-first y herramientas open source construidas con flotas de agentes de IA.',
+  /* La misma ubicación que declara bizNode: Bing penaliza que una entidad se
+     describa distinto según la página en la que aparezca. */
+  address: { '@type': 'PostalAddress', addressCountry: 'ES' },
+  areaServed: { '@type': 'Place', name: 'Worldwide' },
   sameAs: SAME_AS,
 };
 

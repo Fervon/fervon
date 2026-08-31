@@ -44,7 +44,7 @@
     "head:live": "node scripts/head-check.mjs --live",
     "headers:build": "node scripts/gen-headers.mjs",
     "headers:check": "node scripts/gen-headers.mjs --check",
-    "i18n:build": "node scripts/i18n-build.mjs && node scripts/fix-breadcrumbs-trace.mjs && node scripts/seo-cabecera.mjs && node scripts/check-data-attr-escape.mjs",
+    "i18n:build": "node scripts/i18n-build.mjs && node scripts/fix-breadcrumbs-trace.mjs && node scripts/seo-cabecera.mjs && node scripts/bump-cache-buster.mjs && node scripts/check-data-attr-escape.mjs",
     "landing:mac": "node scripts/gen-landing-mac.mjs",
     "links:cf": "node scripts/cf-link-headers.mjs",
     "links:check": "node scripts/cf-link-headers.mjs --check",
