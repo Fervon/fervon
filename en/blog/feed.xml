@@ -8,7 +8,15 @@
     <copyright>Fervon</copyright>
     <generator>scripts/gen-feed.mjs</generator>
     <atom:link href="https://fervon.dev/en/blog/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Wed, 19 Aug 2026 09:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 31 Aug 2026 09:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Lookspan v0.6.0 — A real Postgres underneath, and the token stops travelling in the URL</title>
+      <link>https://fervon.dev/en/blog/#nov-lookspan-v0-6-0</link>
+      <guid isPermaLink="false">https://fervon.dev/blog/en/nov-lookspan-v0-6-0</guid>
+      <pubDate>Mon, 31 Aug 2026 09:00:00 +0000</pubDate>
+      <category>Releases</category>
+      <description>Lookspan can now sit on a Postgres you already run instead of the file in ~/.lookspan: --db postgres://… and that is it. Both stores implement the same repository interfaces and the same schema and migrations (v1…v7), so the views, the costs and the exports cannot tell which is underneath. The obstacle was shape, not SQL: the repositories deliberately expose better-sqlite3&apos;s synchronous API and a PostgreSQL client is asynchronous, so the driver keeps a single pg client in a worker thread and talks to it over a SharedArrayBuffer — callers still see a synchronous API and the socket stays off the API thread. The breaking change: the token is no longer accepted in ?token=. In a query string it ends up in browser history, in every proxy log and in the Referer header of anything the page loads, and it is the same secret that protects the whole database once the server is exposed with --host. The dashboard now uses an HttpOnly; SameSite=Strict; Secure cookie; agents are unchanged, on Authorization: Bearer.</description>
+    </item>
     <item>
       <title>How to direct a fleet of AI agents</title>
       <link>https://fervon.dev/en/blog/flotas-agentes-ia/</link>

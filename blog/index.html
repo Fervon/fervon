@@ -247,6 +247,15 @@
       <h2>Novedades de los proyectos</h2>
       <p class="sub">Lo que ha ido saliendo del catálogo, con la versión y lo que cambia de verdad.</p>
       <ol class="novedades reveal">
+        <li id="nov-lookspan-v0-6-0">
+          <div class="nv-h">
+            <time datetime="2026-08-31">31 de agosto de 2026</time>
+            <a class="nv-p" href="/lookspan/">Lookspan</a>
+            <span class="nv-v">v0.6.0</span>
+          </div>
+          <h3>Postgres de verdad debajo, y el token deja de viajar en la URL</h3>
+          <p>Lookspan puede apoyarse ahora en un <b>Postgres que ya tengas</b> en vez del fichero de <code>~/.lookspan</code>: <code>--db postgres://…</code> y listo. Los dos almacenes implementan las mismas interfaces de repositorio y <b>el mismo esquema y las mismas migraciones</b> (<code>v1</code>…<code>v7</code>), así que las vistas, los costes y los exports no saben cuál hay debajo. El obstáculo no era el SQL sino la forma: los repositorios exponen a propósito la API <b>síncrona</b> de better-sqlite3 y un cliente de PostgreSQL es asíncrono, así que el driver mantiene un único cliente <code>pg</code> <b>en un worker thread</b> y se entiende con él por <code>SharedArrayBuffer</code> — quien llama sigue viendo una API síncrona y el socket se queda fuera del hilo de la API. El cambio que rompe: <b>el token ya no se acepta en <code>?token=</code></b>. Puesto en la query string queda escrito en el historial del navegador, en los logs de cualquier proxy y en la cabecera <code>Referer</code> de lo que salga de la página, y es el mismo secreto que protege toda la base de datos cuando el servidor se expone con <code>--host</code>. El panel usa ahora una cookie <code>HttpOnly; SameSite=Strict; Secure</code>; los agentes siguen igual, con <code>Authorization: Bearer</code>.</p>
+        </li>
         <li id="nov-lookspan-v0-5-3">
           <div class="nv-h">
             <time datetime="2026-08-19">19 de agosto de 2026</time>

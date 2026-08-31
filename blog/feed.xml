@@ -8,7 +8,15 @@
     <copyright>Fervon</copyright>
     <generator>scripts/gen-feed.mjs</generator>
     <atom:link href="https://fervon.dev/blog/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Wed, 19 Aug 2026 09:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 31 Aug 2026 09:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Lookspan v0.6.0 — Postgres de verdad debajo, y el token deja de viajar en la URL</title>
+      <link>https://fervon.dev/blog/#nov-lookspan-v0-6-0</link>
+      <guid isPermaLink="false">https://fervon.dev/blog/es/nov-lookspan-v0-6-0</guid>
+      <pubDate>Mon, 31 Aug 2026 09:00:00 +0000</pubDate>
+      <category>Novedades</category>
+      <description>Lookspan puede apoyarse ahora en un Postgres que ya tengas en vez del fichero de ~/.lookspan: --db postgres://… y listo. Los dos almacenes implementan las mismas interfaces de repositorio y el mismo esquema y las mismas migraciones (v1…v7), así que las vistas, los costes y los exports no saben cuál hay debajo. El obstáculo no era el SQL sino la forma: los repositorios exponen a propósito la API síncrona de better-sqlite3 y un cliente de PostgreSQL es asíncrono, así que el driver mantiene un único cliente pg en un worker thread y se entiende con él por SharedArrayBuffer — quien llama sigue viendo una API síncrona y el socket se queda fuera del hilo de la API. El cambio que rompe: el token ya no se acepta en ?token=. Puesto en la query string queda escrito en el historial del navegador, en los logs de cualquier proxy y en la cabecera Referer de lo que salga de la página, y es el mismo secreto que protege toda la base de datos cuando el servidor se expone con --host. El panel usa ahora una cookie HttpOnly; SameSite=Strict; Secure; los agentes siguen igual, con Authorization: Bearer.</description>
+    </item>
     <item>
       <title>Cómo saber si un agente te está amañando los tests</title>
       <link>https://fervon.dev/blog/tests-amanados-agentes/</link>

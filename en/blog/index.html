@@ -247,6 +247,15 @@
       <h2>Project releases</h2>
       <p class="sub">What has shipped from the catalogue, with the version and what actually changes.</p>
       <ol class="novedades reveal">
+        <li id="nov-lookspan-v0-6-0">
+          <div class="nv-h">
+            <time datetime="2026-08-31">August 31, 2026</time>
+            <a class="nv-p" href="/en/lookspan/">Lookspan</a>
+            <span class="nv-v">v0.6.0</span>
+          </div>
+          <h3>A real Postgres underneath, and the token stops travelling in the URL</h3>
+          <p>Lookspan can now sit on <b>a Postgres you already run</b> instead of the file in <code>~/.lookspan</code>: <code>--db postgres://…</code> and that is it. Both stores implement the same repository interfaces and <b>the same schema and migrations</b> (<code>v1</code>…<code>v7</code>), so the views, the costs and the exports cannot tell which is underneath. The obstacle was shape, not SQL: the repositories deliberately expose better-sqlite3's <b>synchronous</b> API and a PostgreSQL client is asynchronous, so the driver keeps a single <code>pg</code> client <b>in a worker thread</b> and talks to it over a <code>SharedArrayBuffer</code> — callers still see a synchronous API and the socket stays off the API thread. The breaking change: <b>the token is no longer accepted in <code>?token=</code></b>. In a query string it ends up in browser history, in every proxy log and in the <code>Referer</code> header of anything the page loads, and it is the same secret that protects the whole database once the server is exposed with <code>--host</code>. The dashboard now uses an <code>HttpOnly; SameSite=Strict; Secure</code> cookie; agents are unchanged, on <code>Authorization: Bearer</code>.</p>
+        </li>
         <li id="nov-lookspan-v0-5-3">
           <div class="nv-h">
             <time datetime="2026-08-19">August 19, 2026</time>
