@@ -25,6 +25,7 @@
          node scripts/sitemap-sync.mjs --check   informa (exit 1 si hay deriva)
    ========================================================================== */
 
+import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -114,6 +115,38 @@ const nuevo = '<?xml version="1.0" encoding="UTF-8"?>\n' +
   '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"\n' +
   '        xmlns:xhtml="http://www.w3.org/1999/xhtml">\n' +
   entradas.join('\n') + '\n</urlset>\n';
+
+/* UNA PÁGINA QUE GIT NO SIGUE NO SE PUBLICA, y no lo dice nadie.
+
+   Medido el 2026-09-01: /servicios/ y /en/servicios/ se generaron, entraron en
+   el sitemap, pasaron head-check, cabecera y cache:check, se commitearon... y
+   dieron 404. El `git add` de aquel commit usaba `git ls-files '*.html'` para
+   enumerar lo generado, y `ls-files` lista lo que YA se sigue: una carpeta
+   nueva no aparece nunca. El workflow desplegó en verde 36 segundos sin ellas.
+
+   Todas las comprobaciones miraban el ÁRBOL DE TRABAJO, donde los ficheros
+   estaban perfectos. Ninguna preguntaba si git se los iba a llevar. Ese es el
+   hueco: no un fallo del contenido, sino de que el contenido llegue.
+
+   Se avisa siempre y no se sale con error, porque durante una construcción
+   normal es legítimo que una página recién creada aún no esté en el índice.
+   Con --check sí corta: ahí la pregunta es «¿esto está listo para salir?». */
+{
+  let seguidos = null;
+  try {
+    seguidos = new Set(execFileSync('git', ['ls-files', '*.html'], { cwd: ROOT, encoding: 'utf8' })
+      .split('\n').filter(Boolean));
+  } catch { /* fuera de un repo: no hay nada que comprobar */ }
+  if (seguidos) {
+    const sinSeguir = paginas(ROOT).sort().filter((f) => !seguidos.has(f));
+    if (sinSeguir.length) {
+      console.log(`\n⚠ ${sinSeguir.length} página(s) que git NO sigue — el despliegue NO las subirá:`);
+      for (const f of sinSeguir) console.log(`   ? ${f}`);
+      console.log('  Añádelas explícitamente: `git add <ruta>`. Un `git ls-files` no las ve.\n');
+      if (CHECK) process.exit(1);
+    }
+  }
+}
 
 console.log(`${entradas.length} URLs · ${nuevas.length} nuevas · ${corregidas.length} con alternates que no coincidían · ${fuera.length} sobrantes`);
 for (const u of nuevas) console.log(`   + ${u}`);

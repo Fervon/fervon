@@ -96,6 +96,11 @@ function migas(url, lang, titulo) {
 }
 
 const faltan = [];
+/* Aparte de `faltan`, que es lo que este script SABE poner. `problemas` es lo
+   que solo puede arreglar una persona: recortar una frase es una decision
+   editorial y hacerlo con `slice()` deja la descripcion cortada a media
+   palabra, que es peor que la larga. */
+const problemas = [];
 for (const f of paginas(ROOT)) {
   if (/(^|\/)404\.html$/.test(f)) continue;   // la 404 no se indexa
   const p = path.join(ROOT, f);
@@ -152,12 +157,42 @@ for (const f of paginas(ROOT)) {
     if (s !== antes) pendiente.push('logo');
   }
 
+  /* 5. La meta description, entre 25 y 160 caracteres. Es la banda que pide
+     Bing literalmente en su inspector de URL: «Change the description in the
+     <meta description> tag to be between 25 and 160 characters in length».
+
+     Ningun comprobador miraba el LARGO. El punto 2 de seo-check.mjs comprueba
+     que las descripciones sean DISTINTAS entre si, que es otra cosa, y por eso
+     /about/ estuvo sirviendo 173 caracteres sin que saltara nada aqui: lo
+     encontro Bing, no nosotros. La diferencia entre «distintas» y «bien
+     dimensionadas» es exactamente el hueco por el que se colo.
+
+     Las entidades HTML cuentan como un caracter, que es como las ve quien lee
+     el resultado de busqueda. */
+  {
+    const bruto = (s.match(/name="description" content="([^"]*)"/) || [, ''])[1];
+    const texto = bruto.replace(/&amp;/g, '&').replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+    const largo = [...texto].length;
+    if (!bruto) problemas.push([f, 'sin meta description']);
+    else if (largo > 160) problemas.push([f, `description de ${largo} caracteres (maximo 160)`]);
+    else if (largo < 25) problemas.push([f, `description de ${largo} caracteres (minimo 25)`]);
+  }
+
   if (pendiente.length) faltan.push([f, pendiente.join(', ')]);
   if (!CHECK && s !== original) fs.writeFileSync(p, s, 'utf8');
 }
 
-if (!faltan.length) { console.log('✔ Cabecera completa en todas las páginas.'); process.exit(0); }
+if (problemas.length) {
+  console.log(`✗ ${problemas.length} descripción(es) fuera de la banda 25–160 de Bing:`);
+  for (const [f, d] of problemas) console.log(`   ${f.padEnd(56)} ${d}`);
+  console.log('  Esto NO se arregla solo: recortar la frase es una decisión editorial.');
+  console.log('  Si la página es generada, el texto vive en su script de scripts/.\n');
+}
+if (!faltan.length && !problemas.length) { console.log('✔ Cabecera completa en todas las páginas.'); process.exit(0); }
+if (!faltan.length) process.exit(1);
 console.log(`${CHECK ? '✗' : '↻'} ${faltan.length} página(s):`);
 for (const [f, d] of faltan) console.log(`   ${f.padEnd(56)} ${d}`);
 if (CHECK) { console.log('\n  Aplícalo con:  node scripts/seo-cabecera.mjs'); process.exit(1); }
 console.log('\n✔ Aplicado. Vuelve a pasar --check para confirmar.');
+if (problemas.length) process.exit(1);   // arreglar unas cosas no absuelve las otras

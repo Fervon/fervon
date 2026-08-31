@@ -207,7 +207,7 @@ const html = `<!DOCTYPE html>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Sobre Fervon · Estudio de software autónomo</title>
-  <meta name="description" content="Fervon es el estudio de software autónomo de Jonathan Martín: una persona dirigiendo flotas de agentes de IA que construyen productos local-first y herramientas open source." />
+  <meta name="description" content="El estudio de software autónomo de Jonathan Martín: una persona dirigiendo flotas de agentes de IA que construyen productos local-first y open source." />
   <link rel="canonical" href="https://fervon.dev/about/" />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <meta name="author" content="Fervon" />
