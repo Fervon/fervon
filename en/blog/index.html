@@ -253,8 +253,8 @@
             <a class="nv-p" href="/en/lookspan/">Lookspan</a>
             <span class="nv-v">v0.5.3</span>
           </div>
-          <h3>Hardened security and external Postgres</h3>
-          <p>Lookspan can now sit on an <b>external Postgres</b> alongside local storage, and ships a security hardening pass on the ingest server. It stays local-first: the dashboard lives at <code>127.0.0.1:3100</code> via <code>npx lookspan</code> and no span leaves your machine unless you ask it to.</p>
+          <h3>Four ways to read your local database without permission, closed</h3>
+          <p>"Local-first" does not mean "safe", and auditing it made that plain. <b>One capital letter bypassed <code>--token</code> entirely</b>: Express routes case-insensitively, so <code>/API/traces</code> reached the router, but the guard asked about <code>/api</code> and did not — <code>GET /API/traces</code> returned the whole database with no token. <b>CORS reflected any origin</b>, so a page on a site you visited could read your traces from your own browser, which reaches loopback even when the network does not; reproduced in a real browser, <code>POST /api/ingest</code> included. Closing CORS did nothing about <b>DNS rebinding</b>, where the attacker's domain is repointed at 127.0.0.1 and the request becomes same-origin: a loopback-bound server now answers only to loopback names and returns 421 to the rest. And <b>redaction failed open</b> past six levels: <code>tool_calls[0].function.arguments</code> sits at exactly six, so a credential passed as a tool argument was stored in the clear — 3 of 8 realistic secret shapes were persisted verbatim. A test had pinned the old behaviour as correct, which is how it survived. Bonus: the dashboard claimed "real time" and was not — the stream was connected and only used for toasts, so a trace took <b>7,449 ms</b> to show up; now 384 ms.</p>
         </li>
         <li id="nov-inferbench-v0-3-0">
           <div class="nv-h">
