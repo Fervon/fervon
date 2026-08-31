@@ -92,9 +92,10 @@ for (const f of files) {
   const htmlTag = (html.match(/<html\b[^>]*>/i) || [''])[0];
   p.lang = attr(htmlTag, 'lang');
   const r0 = rel(f);
-  // Convención invertida: las landings de Trace y el report viven en INGLÉS en la raíz
-  // (el español de esas mismas páginas está bajo /es/).
-  const EN_EN_RAIZ = /^(trace\/(?!index\.html)[a-z-]+\.html|veredicto\/report\.html)$/;
+  // Convención invertida: las landings de Trace y las de Veredicto (report + keyword
+  // pages) viven en INGLÉS en la raíz (el español de esas mismas páginas está bajo
+  // /es/). Regla de oro del build en i18n-build.mjs: ninguna URL indexada se mueve.
+  const EN_EN_RAIZ = /^(trace\/(?!index\.html)[a-z-]+\.html|veredicto\/(?!index\.html)[a-z-]+\.html)$/;
   const expectedLang = r0.startsWith('en/') ? 'en' : (EN_EN_RAIZ.test(r0) ? 'en' : 'es');
   p.expectedLang = expectedLang;
   if (!p.lang) add('alta', 'lang', 'sin atributo lang en <html>');
