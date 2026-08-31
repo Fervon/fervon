@@ -31,12 +31,89 @@
   <script type="application/ld+json">
 {
   "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do you work with companies outside Málaga?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, and it is the normal case. The studio is based in Málaga but every project runs remotely, so a client in Madrid, Barcelona, Seville or any other province gets exactly the same process: written proposal, closed price, delivery and handover. Being in the same city changes nothing about the work — only the option of meeting in person."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does a project cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It depends on scope, and the figure arrives with the written proposal before any commitment — never as an open hourly rate. What can be said in advance is the shape: one closed price, agreed before the work starts, and a change of scope becomes a new figure rather than a surprise. The published products do have public prices: Veredicto at $19 per repository, Trace at $39."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does it take, if you use AI agents?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Faster than a comparable team, but the honest answer is that it depends on what has to be verified, not on how fast the code appears. Agents produce code quickly and also produce plausible mistakes quickly; the time goes into checking on the real system. A small internal tool can be days. A SaaS with billing is weeks, because getting money wrong is not recoverable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does my data or my code end up in an AI provider?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is decided with you, in writing, before starting — it is not a footnote. When it matters, the whole thing runs against local models on your own hardware and nothing leaves your network; that is a real capability here, not a promise, and I maintain the benchmarking tool used to choose which local model is worth it."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Who owns the code when it is finished?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yours. The repository is handed over with its documentation and its tests, deployed on your infrastructure, with no licence tying it to me and no platform you cannot leave. If tomorrow you want another studio to carry on, they can — that is the point."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is this an agency, a consultancy or a freelancer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A one-person software studio: a self-employed engineer directing fleets of AI agents, invoicing from Spain. Not an agency, because there is no sales layer and no subcontracting chain. Not a consultancy in the report-writing sense either — what gets delivered is working software, not a deck."
+      }
+    }
+  ]
+}
+  </script>
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://fervon.dev/en/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "servicios",
+      "item": "https://fervon.dev/en/servicios/"
+    }
+  ]
+}
+  </script>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
   "@type": "Organization",
   "@id": "https://fervon.dev/#organization",
   "name": "Fervon",
   "url": "https://fervon.dev/",
   "logo": "https://fervon.dev/assets/favicon-512.png",
-  "description": "Autonomous software studio: local-first products and open-source developer tools built with fleets of AI agents.",
+  "description": "Estudio de software autónomo: productos local-first y herramientas open source construidas con flotas de agentes de IA.",
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Málaga",
@@ -64,26 +141,6 @@
     "https://dev.to/jonimatiin",
     "https://bsky.app/profile/jonimartin.bsky.social",
     "https://mastodon.social/@jonimartin"
-  ]
-}
-  </script>
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position": 1,
-      "name": "Home",
-      "item": "https://fervon.dev/en/"
-    },
-    {
-      "@type": "ListItem",
-      "position": 2,
-      "name": "servicios",
-      "item": "https://fervon.dev/en/servicios/"
-    }
   ]
 }
   </script>
@@ -257,7 +314,7 @@
     <!-- MÉTODO -->
     <section class="sec" id="metodo">
       <h2>How a project actually runs</h2>
-      <p class="sub">Five steps. Nothing starts until step two is signed off.</p>
+      <p class="sub">The whole methodology, in five steps. Nothing starts until step two is signed off.</p>
       <div class="steps">
         <div class="step">
           <span class="n">1</span>
