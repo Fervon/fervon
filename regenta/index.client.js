@@ -40,7 +40,7 @@
         setMsg("","");
         fetch(form.action,{ method:"POST", body:new FormData(form), headers:{ "Accept":"application/json" } })
           .then(function(res){
-            if(res.ok){ form.reset(); setMsg(isEn()?"🎉 You're on the list! Check your inbox to confirm.":"🎉 ¡Estás en la lista! Revisa tu bandeja para confirmar.","ok"); }
+            if(res.ok){ form.reset(); setMsg(isEn()?"🎉 Done — you're on the list. I'll email you when early access opens.":"🎉 ¡Listo, estás en la lista! Te escribiré cuando abra el acceso anticipado.","ok"); }
             else { return res.json().then(function(d){ throw new Error((d&&d.errors&&d.errors[0]&&d.errors[0].message)||"err"); }); }
           })
           .catch(function(){ setMsg(isEn()?"It didn't send. Please try again in a moment.":"Vaya, no se envió. Inténtalo de nuevo en un momento.","err"); })

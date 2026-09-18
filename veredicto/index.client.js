@@ -26,19 +26,20 @@
   var btn=form.querySelector("button[type=submit]");
   var btnText=btn?btn.textContent:"";
   var emailRe=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  function isEn(){ return document.documentElement.getAttribute("lang")==="en"; }
   function setMsg(t,cls){ if(!msg)return; msg.textContent=t; msg.className="fmsg"+(cls?" "+cls:""); }
   form.addEventListener("submit", function(ev){
     ev.preventDefault();
     var val=(input&&input.value||"").trim();
-    if(!emailRe.test(val)){ setMsg("Introduce un correo válido, por favor.","err"); if(input)input.focus(); return; }
-    if(btn){ btn.disabled=true; btn.textContent="Uniéndote…"; }
+    if(!emailRe.test(val)){ setMsg(isEn()?"Please enter a valid email.":"Introduce un correo válido, por favor.","err"); if(input)input.focus(); return; }
+    if(btn){ btn.disabled=true; btn.textContent=isEn()?"Joining…":"Uniéndote…"; }
     setMsg("","");
     fetch(form.action,{ method:"POST", body:new FormData(form), headers:{ "Accept":"application/json" } })
       .then(function(res){
-        if(res.ok){ form.reset(); setMsg("🎉 ¡Estás en la lista! Revisa tu bandeja para confirmar.","ok"); }
+        if(res.ok){ form.reset(); setMsg(isEn()?"🎉 Done — you're on the list. I'll email you the report when it's ready.":"🎉 ¡Listo, estás en la lista! Te mandaré el informe en cuanto lo tenga.","ok"); }
         else { return res.json().then(function(d){ throw new Error((d&&d.errors&&d.errors[0]&&d.errors[0].message)||"err"); }); }
       })
-      .catch(function(){ setMsg("Vaya, no se envió. Inténtalo de nuevo en un momento.","err"); })
+      .catch(function(){ setMsg(isEn()?"Hmm, that didn't send. Please try again in a moment.":"Vaya, no se envió. Inténtalo de nuevo en un momento.","err"); })
       .finally(function(){ if(btn){ btn.disabled=false; btn.textContent=btnText; } });
   });
 })();

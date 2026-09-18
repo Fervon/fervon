@@ -41,7 +41,7 @@
         setMsg("","");
         fetch(form.action,{ method:"POST", body:new FormData(form), headers:{ "Accept":"application/json" } })
           .then(function(res){
-            if(res.ok){ form.reset(); setMsg(es()?"🎉 ¡Estás en la lista! Revisa tu bandeja para confirmar.":"🎉 You're on the list! Check your inbox to confirm.","ok"); }
+            if(res.ok){ form.reset(); setMsg(es()?"🎉 ¡Listo, estás en la lista! Te escribiré cuando abra la beta.":"🎉 Done — you're on the list. I'll email you when the beta opens.","ok"); }
             else { return res.json().then(function(d){ throw new Error((d&&d.errors&&d.errors[0]&&d.errors[0].message)||"err"); }); }
           })
           .catch(function(){ setMsg(es()?"Vaya, no se envió. Inténtalo de nuevo en un momento.":"Hmm, that didn't send. Try again in a moment.","err"); })
