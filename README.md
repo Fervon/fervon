@@ -216,6 +216,15 @@ encadenado en `npm run i18n:build` **después** del generador, no antes: el
 breadcrumb y el feed dependen del idioma de cada página, y una fuente bilingüe
 de `src-i18n/` genera las dos.
 
+Detrás va `seo-business-schema.mjs`, que pone la entidad del negocio (la
+`Organization` con Málaga y el `areaServed`, y el `ProfessionalService` de
+`/contacto/`) sobre la salida. Tiene que estar en la cadena: trabaja sobre lo
+generado, no sobre `src-i18n/`, así que si se lanza aparte, el siguiente
+`i18n:build` lo borra. Eso pasaba hasta el 2026-09-18 —regenerar deshacía 22
+páginas publicadas— y la prueba de que ya no pasa es que, en un árbol limpio,
+`npm run i18n:build` deja `git status` vacío. Los textos de la entidad por
+idioma viven en `scripts/entidad-fervon.mjs`, compartidos por los dos scripts.
+
 ### Estabilidad visual (CLS)
 
 ```bash

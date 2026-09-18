@@ -17,12 +17,20 @@
          - Si no tenían ninguna Organization (los 7 artículos de Trace) → se
            añade un nodo Organization compacto con ese mismo @id.
 
-   Idempotente. Uso:  node scripts/seo-business-schema.mjs
+   Trabaja sobre la SALIDA publicada, no sobre src-i18n/, así que tiene que
+   correr DESPUÉS de `i18n-build.mjs` cada vez: por eso va dentro de
+   `npm run i18n:build`, y detrás de `seo-cabecera.mjs`, que cuelga el
+   BreadcrumbList del mismo ancla — al revés, el bloque sale en otro orden.
+   Hasta el 2026-09-18 no estaba en la cadena y regenerar el sitio borraba en
+   22 páginas lo que este script había puesto.
+
+   Idempotente. Uso:  npm run i18n:build   (o a pelo: node scripts/seo-business-schema.mjs)
    ========================================================================== */
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { ORG_DESC, BIZ_DESC, idiomaDe } from './entidad-fervon.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ORG_ID = 'https://fervon.dev/#organization';
@@ -55,14 +63,19 @@ const SAME_AS = [
   'https://mastodon.social/@jonimartin',
 ];
 
-const orgStub = {
+/* La descripción va en el idioma de la página. Hasta el 2026-09-18 aquí iba
+   fija en castellano y pisaba la inglesa que `i18n-build.mjs` acababa de poner
+   en las páginas `lang="en"` (las 8 landings de Trace, /en/blog/, /en/contacto/,
+   /en/servicios/). La ubicación y la cobertura, en cambio, son las mismas en
+   todos los idiomas: eso es lo que no puede variar entre páginas. */
+const orgStub = (lang) => ({
   '@context': 'https://schema.org',
   '@type': 'Organization',
   '@id': ORG_ID,
   name: 'Fervon',
   url: 'https://fervon.dev/',
   logo: 'https://fervon.dev/assets/favicon-512.png',
-  description: 'Estudio de software autónomo: productos local-first y herramientas open source construidas con flotas de agentes de IA.',
+  description: ORG_DESC[lang],
   /* La misma ubicación que declara bizNode: Bing penaliza que una entidad se
      describa distinto según la página en la que aparezca. */
   address: { '@type': 'PostalAddress', addressLocality: 'Málaga', addressRegion: 'Andalucía', addressCountry: 'ES' },
@@ -72,16 +85,16 @@ const orgStub = {
     { '@type': 'City', name: 'Málaga' },
   ],
   sameAs: SAME_AS,
-};
+});
 
-const bizNode = {
+const bizNode = (lang) => ({
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
   '@id': BIZ_ID,
   name: 'Fervon',
   url: 'https://fervon.dev/contacto/',
   logo: 'https://fervon.dev/assets/favicon-512.png',
-  description: 'Desarrollo de software a medida dirigiendo flotas de agentes de IA. Precio por proyecto con alcance cerrado, el código entregado es del cliente. Remoto desde España.',
+  description: BIZ_DESC[lang],
   parentOrganization: { '@id': ORG_ID },
   address: { '@type': 'PostalAddress', addressLocality: 'Málaga', addressRegion: 'Andalucía', addressCountry: 'ES' },
   /* Este es el nodo que un asistente lee cuando le preguntan «quién hace esto
@@ -98,7 +111,7 @@ const bizNode = {
   serviceType: ['Desarrollo de software a medida', 'Automatización con agentes de IA', 'Integración de LLM', 'Software local-first'],
   contactPoint: { '@type': 'ContactPoint', contactType: 'sales', url: 'https://fervon.dev/contacto/', availableLanguage: ['es', 'en'] },
   sameAs: SAME_AS,
-};
+});
 
 const block = (obj) => `  <script type="application/ld+json">\n${JSON.stringify(obj, null, 2)}\n  </script>\n`;
 
@@ -113,6 +126,10 @@ for (const rel of PAGES) {
 
   if (rel === 'index.html') { console.log(`· ${rel} — ya define el negocio, no se toca`); continue; }
 
+  const lang = idiomaDe(h);
+  const org = orgStub(lang);
+  const biz = bizNode(lang);
+
   /* 1. publisher Organization existente → enlazarlo por @id */
   if (h.includes('"publisher": { "@type": "Organization"') && !h.includes(`"@id": "${ORG_ID}"`)) {
     h = h.replace('"publisher": { "@type": "Organization",', `"publisher": { "@type": "Organization", "@id": "${ORG_ID}",`);
@@ -123,14 +140,14 @@ for (const rel of PAGES) {
   if (!/"@type":\s*"Organization"/.test(h)) {
     const anchor = '  <link rel="stylesheet"';
     if (!h.includes(anchor)) throw new Error(`${rel}: no encuentro dónde colgar el schema`);
-    h = h.replace(anchor, block(orgStub) + '\n' + anchor);
+    h = h.replace(anchor, block(org) + '\n' + anchor);
     did.push('Organization añadida');
   }
 
   /* 3. /contacto/ es la página del negocio → nodo completo */
   if (rel === 'contacto/index.html' && !h.includes(BIZ_ID)) {
     const anchor = '  <link rel="stylesheet"';
-    h = h.replace(anchor, block(bizNode) + '\n' + anchor);
+    h = h.replace(anchor, block(biz) + '\n' + anchor);
     did.push('ProfessionalService añadido');
   }
 
@@ -160,7 +177,7 @@ for (const rel of PAGES) {
      bloque ES la entidad» de «este bloque la MENCIONA». */
   {
     const bloques = [...h.matchAll(/  <script type="application\/ld\+json">\n([\s\S]*?)\n  <\/script>\n/g)];
-    for (const nodo of [orgStub, bizNode]) {
+    for (const nodo of [org, biz]) {
       for (const m of bloques) {
         let data;
         try { data = JSON.parse(m[1]); } catch { continue; }

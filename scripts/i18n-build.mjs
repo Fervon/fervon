@@ -33,6 +33,15 @@
    i18n:build` encadena después `fix-breadcrumbs-trace.mjs`: si lanzas este
    script a pelo, ejecuta también ese, o dejarás 8 breadcrumbs mal.
 
+   Y TAMPOCO SABE DE LA ENTIDAD DEL NEGOCIO. La Organization con Málaga, el
+   ProfessionalService de /contacto/ y el nodo de /servicios/ los pone
+   `seo-business-schema.mjs` sobre la SALIDA, no sobre src-i18n/. Hasta el
+   2026-09-18 ese script no estaba en la cadena y cada regeneración deshacía
+   22 páginas publicadas (se perdía la dirección, el areaServed y el nodo
+   entero de /servicios/ y /contacto/). Ahora va en la cadena, DETRÁS de
+   `seo-cabecera.mjs`: los dos cuelgan su bloque del mismo ancla, y el orden
+   publicado es BreadcrumbList primero.
+
    Uso:  npm run i18n:build                    genera + repara breadcrumbs
          node scripts/i18n-build.mjs --check   informa sin escribir
    ========================================================================== */
@@ -41,6 +50,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import puppeteer from 'puppeteer-core';
+import { ORG_DESC } from './entidad-fervon.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const CHECK = process.argv.includes('--check');
@@ -139,12 +149,8 @@ const SUELTAS = {
   },
 };
 
-/* Descripción de la ORGANIZACIÓN por idioma. No depende de la página, así que
-   no puede salir de la meta description de cada una. */
-const ORG_DESC = {
-  es: 'Estudio de software autónomo: productos local-first y herramientas open source construidas con flotas de agentes de IA.',
-  en: 'Autonomous software studio: local-first products and open-source developer tools built with fleets of AI agents.',
-};
+/* La descripción de la ORGANIZACIÓN por idioma vive en entidad-fervon.mjs,
+   compartida con seo-business-schema.mjs, que corre detrás en la cadena. */
 
 /* Textos que sólo existen dentro del JSON-LD (descripciones de Offer, etc.) y
    por tanto no los cubre ni el intercambio de atributos ni la meta de página. */
