@@ -50,7 +50,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import puppeteer from 'puppeteer-core';
-import { ORG_DESC } from './entidad-fervon.mjs';
+import { ORG_DESC, SERVICE_TYPE } from './entidad-fervon.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const CHECK = process.argv.includes('--check');
@@ -161,6 +161,9 @@ const SCHEMA_STRINGS = {
     'Fundador y única persona de Fervon. Dirige flotas de agentes de IA que construyen productos local-first y herramientas open source.':
       'Founder and sole person behind Fervon. He directs fleets of AI agents that build local-first products and open-source tools.',
     'Productos de Fervon': 'Fervon products',
+    /* Los servicios del negocio, emparejados por posición desde la lista
+       compartida con seo-business-schema.mjs. */
+    ...Object.fromEntries(SERVICE_TYPE.es.map((s, i) => [s, SERVICE_TYPE.en[i]])),
   },
   es: {},
 };
@@ -281,6 +284,12 @@ async function transformar(srcHtml, cfg) {
           }
           if (nodo.name && cfg.schemaStrings[nodo.name]) {
             nodo.name = cfg.schemaStrings[nodo.name]; tocado = true;
+          }
+          /* serviceType es una LISTA de textos: la regla de arriba, que mira
+             cadenas sueltas, no la veía, y la home inglesa declaraba sus
+             servicios en castellano. */
+          if (Array.isArray(nodo.serviceType) && nodo.serviceType.some((s) => cfg.schemaStrings[s])) {
+            nodo.serviceType = nodo.serviceType.map((s) => cfg.schemaStrings[s] ?? s); tocado = true;
           }
           if (nodo.inLanguage) { nodo.inLanguage = cfg.htmlLang; tocado = true; }
           if (nodo.name && ['WebPage', 'AboutPage'].includes(nodo['@type']) && cfg.metaTitle) { nodo.name = cfg.metaTitle; tocado = true; }

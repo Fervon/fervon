@@ -23,6 +23,15 @@ export const BIZ_DESC = {
   en: 'Custom software development directing fleets of AI agents. Per-project pricing with a closed scope, and the delivered code belongs to the client. Remote from Spain.',
 };
 
+/* Qué servicios presta el negocio, en el MISMO orden en los dos idiomas: la
+   posición es lo que empareja cada término con su traducción. Los usan el
+   ProfessionalService de /contacto/ y el de la home, que comparten @id
+   (#localbusiness) y por tanto tienen que decir lo mismo. */
+export const SERVICE_TYPE = {
+  es: ['Desarrollo de software a medida', 'Automatización con agentes de IA', 'Integración de LLM', 'Software local-first'],
+  en: ['Custom software development', 'AI agent automation', 'LLM integration', 'Local-first software'],
+};
+
 /* Idioma de una página a partir de su <html lang>; lo que no se conozca cae
    al castellano, que es el idioma en que se escribió la entidad. */
 export const idiomaDe = (html) => {

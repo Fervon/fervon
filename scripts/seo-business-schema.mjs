@@ -30,7 +30,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { ORG_DESC, BIZ_DESC, idiomaDe } from './entidad-fervon.mjs';
+import { ORG_DESC, BIZ_DESC, SERVICE_TYPE, idiomaDe } from './entidad-fervon.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const ORG_ID = 'https://fervon.dev/#organization';
@@ -108,7 +108,7 @@ const bizNode = (lang) => ({
   availableLanguage: ['es', 'en'],
   priceRange: '$19–$39',
   currenciesAccepted: 'USD, EUR',
-  serviceType: ['Desarrollo de software a medida', 'Automatización con agentes de IA', 'Integración de LLM', 'Software local-first'],
+  serviceType: SERVICE_TYPE[lang],
   contactPoint: { '@type': 'ContactPoint', contactType: 'sales', url: 'https://fervon.dev/contacto/', availableLanguage: ['es', 'en'] },
   sameAs: SAME_AS,
 });
