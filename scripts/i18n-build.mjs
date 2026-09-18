@@ -164,6 +164,12 @@ const SCHEMA_STRINGS = {
     /* Los servicios del negocio, emparejados por posición desde la lista
        compartida con seo-business-schema.mjs. */
     ...Object.fromEntries(SERVICE_TYPE.es.map((s, i) => [s, SERVICE_TYPE.en[i]])),
+    /* knowsAbout del ProfessionalService de la home («Software local-first»
+       ya lo cubre la lista de servicios de arriba). */
+    'Agentes de IA': 'AI agents',
+    'Modelos de lenguaje locales': 'Local language models',
+    'Observabilidad de agentes': 'Agent observability',
+    'Integración continua': 'Continuous integration',
   },
   es: {},
 };
@@ -285,11 +291,13 @@ async function transformar(srcHtml, cfg) {
           if (nodo.name && cfg.schemaStrings[nodo.name]) {
             nodo.name = cfg.schemaStrings[nodo.name]; tocado = true;
           }
-          /* serviceType es una LISTA de textos: la regla de arriba, que mira
-             cadenas sueltas, no la veía, y la home inglesa declaraba sus
-             servicios en castellano. */
-          if (Array.isArray(nodo.serviceType) && nodo.serviceType.some((s) => cfg.schemaStrings[s])) {
-            nodo.serviceType = nodo.serviceType.map((s) => cfg.schemaStrings[s] ?? s); tocado = true;
+          /* serviceType y knowsAbout son LISTAS de textos: la regla de arriba,
+             que mira cadenas sueltas, no las veía, y la home inglesa declaraba
+             sus servicios y sus temas en castellano. */
+          for (const clave of ['serviceType', 'knowsAbout']) {
+            if (Array.isArray(nodo[clave]) && nodo[clave].some((s) => cfg.schemaStrings[s])) {
+              nodo[clave] = nodo[clave].map((s) => cfg.schemaStrings[s] ?? s); tocado = true;
+            }
           }
           if (nodo.inLanguage) { nodo.inLanguage = cfg.htmlLang; tocado = true; }
           if (nodo.name && ['WebPage', 'AboutPage'].includes(nodo['@type']) && cfg.metaTitle) { nodo.name = cfg.metaTitle; tocado = true; }
